@@ -80,5 +80,19 @@
 | mocha    | Javascript test framework for node.js    | https://github.com/mochajs/mocha       |
 | chai     | BDD / TDD assertion library for node     | https://github.com/chaijs/chai         |
 | enzyme   | JavaScript Testing utility for React that makes it easier to assert, manipulate, and traverse your React Components' output | https://github.com/airbnb/enzyme       |
-| Istanbul | JS code coverage tool                    | https://github.com/gotwarlost/istanbul |
+| Istanbul | JS code coverage tool (Use Karma-coverage) | https://github.com/gotwarlost/istanbul |
+
+
+
+### Karma plugin
+
+## Test
+
+| Name                 | Description                              | URL                                      |
+| -------------------- | ---------------------------------------- | ---------------------------------------- |
+| karma-mocha          | A Karma plugin. Adapter for Mocha testing framework. | https://github.com/karma-runner/karma-mocha |
+| Karma-coverage       | Generate code coverage using [Istanbul](https://github.com/gotwarlost/istanbul). | https://github.com/karma-runner/karma-coverage |
+| karma-mocha-reporter |                                          |                                          |
+| karma-webpack        |                                          |                                          |
+|                      |                                          |                                          |
 
