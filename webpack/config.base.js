@@ -8,7 +8,7 @@ var pathSource = path.resolve(__dirname, '../src');
 var baseConfig = {
   context: pathSource,
   entry: {
-    app: './index.js',
+    app: './index.jsx',
   },
   output: {
     filename: '[name].bundle.js',
