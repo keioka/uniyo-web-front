@@ -13,6 +13,14 @@ module.exports = function(config){
       'webpack/test.files.js': ['webpack', 'sourcemap'], // test files should be preprocessed by webpack.
       'src/shared/**/*.js': ['webpack', 'sourcemap'] // all target of test files should be preprocessed by webpack.
     },
+    plugins: [
+      'karma-webpack',
+      'karma-coverage',
+      'karma-mocha',
+      'karma-mocha-reporter',
+      'karma-chrome-launcher',
+      'karma-sourcemap-loader'
+    ],
     reporters: ['mocha', 'coverage'], // A list of reporters to use.
   });
 };
