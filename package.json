@@ -1,0 +1,19 @@
+{
+  "name": "web-frontend",
+  "version": "1.0.0",
+  "description": "| Name    | Description                              | URL                               | | ------- | ---------------------------------------- | --------------------------------- | | React   | JS library for building UI               | https://facebook.github.io/react/ | | Redux   | Redux is a predictable state container for JavaScript apps | http://redux.js.org/              | | Express | Express is a minimal and flexible Node.js web application framework | https://expressjs.com/            | | Sass    | CSS preprocessed                         | http://sass-lang.com/guide        |",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uniyo/web-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uniyo/web-frontend/issues"
+  },
+  "homepage": "https://github.com/uniyo/web-frontend#readme"
+}
