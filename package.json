@@ -4,7 +4,7 @@
   "description": "| Name    | Description                              | URL                               | | ------- | ---------------------------------------- | --------------------------------- | | React   | JS library for building UI               | https://facebook.github.io/react/ | | Redux   | Redux is a predictable state container for JavaScript apps | http://redux.js.org/              | | Express | Express is a minimal and flexible Node.js web application framework | https://expressjs.com/            | | Sass    | CSS preprocessed                         | http://sass-lang.com/guide        |",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,8 @@
     "chai": "^3.5.0",
     "enzyme": "^2.8.0",
     "karma": "^1.6.0",
-    "mocha": "^3.2.0"
+    "karma-coverage": "^1.1.1",
+    "mocha": "^3.2.0",
+    "webpack": "^2.3.3"
   }
 }
