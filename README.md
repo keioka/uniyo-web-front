@@ -37,6 +37,7 @@
 | Babel     | JavaScript compiler                      | https://babeljs.io/                      |
 | Flow      | Flow is a static type checker for your JavaScript code | https://flow.org/                        |
 | Immutable | Immutable.js provides many Persistent Immutable data structures including: `List`, `Stack`, `Map`, `OrderedMap`, `Set`, `OrderedSet` and `Record` | https://facebook.github.io/immutable-js/ |
+| eslint    |                                          |                                          |
 
 
 
@@ -86,8 +87,6 @@
 
 ### Karma plugin
 
-## Test
-
 | Name                 | Description                              | URL                                      |
 | -------------------- | ---------------------------------------- | ---------------------------------------- |
 | karma-mocha          | A Karma plugin. Adapter for Mocha testing framework. | https://github.com/karma-runner/karma-mocha |
@@ -95,4 +94,18 @@
 | karma-mocha-reporter |                                          |                                          |
 | karma-webpack        |                                          |                                          |
 |                      |                                          |                                          |
+
+
+
+### Eslint plugins
+
+| Name                   | Description                              | URL                                      |
+| ---------------------- | ---------------------------------------- | ---------------------------------------- |
+| eslint-plugin-babel    | **babel-eslint** allows you to lint **ALL** valid Babel code with the fantastic [ESLint](https://github.com/eslint/eslint). | https://github.com/babel/eslint-plugin-babel |
+| eslint-config-airbnb   | A mostly reasonable approach to JavaScript | https://github.com/airbnb/javascript     |
+| eslint-plugin-flowtype | Flow type linting rules for ESLint.      | https://github.com/gajus/eslint-plugin-flowtype |
+| eslint-plugin-react    | React specific linting rules for ESLint  | https://github.com/yannickcr/eslint-plugin-react |
+| eslint-plugin-mocha    | ESLint rules for mocha                   | https://github.com/lo1tuma/eslint-plugin-mocha |
+
+
 
