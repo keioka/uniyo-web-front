@@ -1,5 +1,5 @@
 /*
-  static component
+  static pages
 */
 
 export FAQ from './pages/static/FAQ'
@@ -8,5 +8,15 @@ export Terms from './pages/static/Terms'
 export InviteFriends from './pages/static/InviteFriends'
 
 /*
-  error component
+  error pages
 */
+
+
+/*
+  auth pages
+*/
+
+export Signup from './pages/auth/Signup'
+export Signin from './pages/auth/Signin'
+export EmailVerified from './pages/auth/EmailVerified'
+export ResetPassword from './pages/auth/ResetPassword'
