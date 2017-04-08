@@ -1,17 +1,21 @@
 import React from 'react'
+import { Router, Route, browserHistory } from 'react-router'
 
-import { Router, Route, IndexRoute } from 'react-router'
-import { browserHistory } from 'react-router'
-
+import {
+  FAQ,
+  Privacy,
+  Terms,
+  InviteFriends,
+} from './components'
 
 export default () => (
   <Router history={browserHistory}>
     <Route path="/" >
 
-      <Route path="/faq" />
-      <Route path="/terms" />
-      <Route path="/privacy" />
-      <Route path="/error/:errorCode" />
+      <Route path="/faq" component={FAQ} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/invite_friends" component={InviteFriends} />
 
       <Route path="/:schoolSlug">
         <Route path="/:schoolSlug/signin" />
@@ -33,8 +37,7 @@ export default () => (
       <Route path="/select_course" />
       <Route path="/select_profile_picture" />
 
-      <Route path="/invite_friends" />
-
+      <Route path="/error/:errorCode" />
       <Route path="*" />
     </Route>
   </Router>
