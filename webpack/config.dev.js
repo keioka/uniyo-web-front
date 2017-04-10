@@ -10,7 +10,8 @@ var webpackConfigBase = require('./config.base.js');
 var devConfig = Object.assign({}, webpackConfigBase, {
   devtool: 'eval',
   devServer: {
-    contentBase: path.resolve(__dirname, '../')
+    contentBase: path.resolve(__dirname, '../'),
+    historyApiFallback: true,
   }
 });
 
