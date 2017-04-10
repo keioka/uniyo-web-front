@@ -3,6 +3,7 @@ import { Router, Route, browserHistory } from 'react-router'
 
 import {
   App,
+  Auth
 } from './containers'
 
 import {
@@ -23,8 +24,10 @@ export default () => (
       <Route path="/privacy" component={Privacy} />
       <Route path="/invite_friends" component={InviteFriends} />
 
-      <Route path="/signin" component={Signin} />
-      <Route path="/signup" component={Signup} />
+      <Route component={Auth} >
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" component={Signup} />
+      </Route>
 
       <Route path="/:schoolSlug">
         <Route path="/:schoolSlug/email_verified" />
