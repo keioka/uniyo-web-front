@@ -23,9 +23,6 @@ function configureStore() {
 
 const store = configureStore()
 
-store.dispatch(actions.schoolsSearch("stan"))
-// then run the saga
-
 sagaMiddleware.run(sagas.schoolsSearchSaga)
 
 render(

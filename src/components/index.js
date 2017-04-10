@@ -21,3 +21,9 @@ export Signup from './pages/auth/Signup'
 export Signin from './pages/auth/Signin'
 export EmailVerified from './pages/auth/EmailVerified'
 export ResetPassword from './pages/auth/ResetPassword'
+
+/*
+  input
+*/
+
+export InputSearchSchool from './inputs/InputSearchSchool'

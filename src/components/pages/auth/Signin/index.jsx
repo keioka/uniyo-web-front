@@ -1,13 +1,21 @@
 import React, { Component, PropTypes } from 'react'
+import {
+  InputSearchSchool,
+} from '../../../index'
 
 export default class Signin extends Component {
 
-  static propTypes = {}
+  static propTypes = {
+    // schoolsSearch: PropTypes.func.isRequired,
+  }
 
   constructor() {
     super()
     this.state = {
-      pageIndex: 0
+      pageIndex: 0,
+      form: {
+        school: null,
+      },
     }
   }
 
@@ -17,19 +25,34 @@ export default class Signin extends Component {
     })
   }
 
-  onChangeText(event) {
-    console.log(event.target.value)
+  onSelectSchool(d) {
+    this.setState({
+      pageIndex: 1,
+      form: {
+        school: d,
+      },
+    })
   }
 
   get renderFirstPage() {
     return (
-      <div>1</div>
+      <div>
+        <div>1</div>
+        <InputSearchSchool {...this.props} onSelectSchool={::this.onSelectSchool} />
+      </div>
+
     )
   }
 
   get renderSecondPage() {
     return (
-      <div>2</div>
+      <div>
+        <div>2</div>
+        <div>{this.state.form.school.name}</div>
+        email: <input type="text" />
+        password: <input type="text" />
+        password confirmation: <input type="text" />
+      </div>
     )
   }
 
@@ -37,9 +60,8 @@ export default class Signin extends Component {
     return (
       <div>
         <div>Signin</div>
-        <input type="text" onChange={::this.onChangeText} />
-        { this.state.pageIndex === 0 ? this.renderFirstPage : this.renderSecondPage}
-        <button onClick={::this.onClick}></button>
+        {this.state.pageIndex === 0 ? this.renderFirstPage : this.renderSecondPage}
+        <button onClick={::this.onClick} />
       </div>
     )
   }
