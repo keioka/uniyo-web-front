@@ -16,7 +16,7 @@ var baseConfig = {
     publicPath: '/public/'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.css']
   },
   module: {
     rules: [
@@ -27,8 +27,24 @@ var baseConfig = {
           'babel-loader'
         ]
       },
+      {
+        test: /\.(css)$/,
+        loaders: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
     ]
-  }
+  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+        options: {
+            postcss: [
+            ]
+        }
+    })
+  ]
 }
 
 module.exports = baseConfig

@@ -25,7 +25,7 @@ module.exports = function (config) {
     client: {
       mocha: {
         ui: 'bdd-lazy-var/global',
-        require: [require.resolve('bdd-lazy-var/bdd_lazy_var_global')]
+        require: [require.resolve('bdd-lazy-var/bdd_lazy_var_global')],
       }
     },
     reporters: ['mocha', 'coverage'], // A list of reporters to use.
