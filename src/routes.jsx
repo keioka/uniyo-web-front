@@ -2,10 +2,13 @@ import React from 'react'
 import { Router, Route, browserHistory } from 'react-router'
 
 import {
-  App
+  App,
+  Auth
 } from './containers'
 
 import {
+  Signin,
+  Signup,
   FAQ,
   Privacy,
   Terms,
@@ -21,8 +24,10 @@ export default () => (
       <Route path="/privacy" component={Privacy} />
       <Route path="/invite_friends" component={InviteFriends} />
 
-      <Route path="/signin" />
-      <Route path="/signup" />
+      <Route component={Auth} >
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" component={Signup} />
+      </Route>
 
       <Route path="/:schoolSlug">
         <Route path="/:schoolSlug/email_verified" />

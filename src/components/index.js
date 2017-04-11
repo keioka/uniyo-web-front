@@ -6,6 +6,7 @@ export FAQ from './pages/static/FAQ'
 export Privacy from './pages/static/Privacy'
 export Terms from './pages/static/Terms'
 export InviteFriends from './pages/static/InviteFriends'
+export Index from './pages/static/Index'
 
 /*
   error pages
@@ -20,3 +21,16 @@ export Signup from './pages/auth/Signup'
 export Signin from './pages/auth/Signin'
 export EmailVerified from './pages/auth/EmailVerified'
 export ResetPassword from './pages/auth/ResetPassword'
+
+
+/*
+  layouts
+*/
+
+export LayoutStatic from './layouts/LayoutStatic'
+
+/*
+  input
+*/
+
+export InputSearchSchool from './inputs/InputSearchSchool'
