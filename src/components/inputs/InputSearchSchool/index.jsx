@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-export default ({ schools, schoolsSearch, onSelectSchool }) => {
+const InputSearchSchool = ({ schools, schoolsSearch, onSelectSchool }) => {
 
   const { data } = schools
 
@@ -13,3 +13,5 @@ export default ({ schools, schoolsSearch, onSelectSchool }) => {
     </div>
   )
 }
+
+export default InputSearchSchool

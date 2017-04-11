@@ -22,6 +22,13 @@ export Signin from './pages/auth/Signin'
 export EmailVerified from './pages/auth/EmailVerified'
 export ResetPassword from './pages/auth/ResetPassword'
 
+
+/*
+  layouts
+*/
+
+export LayoutStatic from './layouts/LayoutStatic'
+
 /*
   input
 */
