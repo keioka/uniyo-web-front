@@ -23,7 +23,12 @@ function configureStore() {
 
 const store = configureStore()
 
+console.log(actions)
+console.log(sagas)
+
 sagaMiddleware.run(sagas.schoolsSearchSaga)
+sagaMiddleware.run(sagas.logInSaga)
+sagaMiddleware.run(sagas.userCreateSaga)
 
 render(
   <Provider store={store}>
