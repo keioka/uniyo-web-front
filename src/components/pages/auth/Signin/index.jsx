@@ -6,7 +6,8 @@ import {
 export default class Signin extends Component {
 
   static propTypes = {
-    // schoolsSearch: PropTypes.func.isRequired,
+    schoolsSearch: PropTypes.func.isRequired,
+    schools: PropTypes.isRequired
   }
 
   constructor() {
@@ -34,13 +35,18 @@ export default class Signin extends Component {
     })
   }
 
+  onSubmit() {
+    const { logIn } = this.props
+    const { email, password, school } = this.state.form
+    logIn({username: email, password: password, schoolId: 1})
+  }
+
   get renderFirstPage() {
     return (
       <div>
         <div>1</div>
         <InputSearchSchool {...this.props} onSelectSchool={::this.onSelectSchool} />
       </div>
-
     )
   }
 
@@ -49,9 +55,9 @@ export default class Signin extends Component {
       <div>
         <div>2</div>
         <div>{this.state.form.school.name}</div>
-        email: <input type="text" />
-        password: <input type="text" />
-        password confirmation: <input type="text" />
+        email: <input type="text" onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })} />
+        password: <input type="text" onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })} />
+        <button onClick={::this.onSubmit} />
       </div>
     )
   }
@@ -61,7 +67,6 @@ export default class Signin extends Component {
       <div>
         <div>Signin</div>
         {this.state.pageIndex === 0 ? this.renderFirstPage : this.renderSecondPage}
-        <button onClick={::this.onClick} />
       </div>
     )
   }
