@@ -31,20 +31,16 @@ var baseConfig = {
         test: /\.(css)$/,
         loaders: [
           'style-loader',
-          'css-loader',
+          'css-loader?sourceMap&modules&importLoaders=1',
           'postcss-loader'
         ]
       },
+      {
+　　　　　test: /(normalize\.css)$/,
+     　　loaders: ['style-loader', 'css-loader']
+      },
     ]
   },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-        options: {
-            postcss: [
-            ]
-        }
-    })
-  ]
 }
 
 module.exports = baseConfig
