@@ -10,7 +10,7 @@ import { reducers } from 'uniyo-redux'
 import { sagas } from 'uniyo-redux'
 import { actions } from 'uniyo-redux'
 
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 const sagaMiddleware = createSagaMiddleware()
 
