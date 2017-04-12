@@ -3,6 +3,10 @@ import {
   InputSearchSchool,
 } from '../../../index'
 
+import {
+
+} from './style'
+
 export default class Signin extends Component {
 
   static propTypes = {

@@ -1,6 +1,9 @@
+@import "../../../styles/main.css";
+
 .layout {
   width: 100%;
-  flex: 1;
+  background-color: green;
+  display: flex;
   align-items: center;
   justify-content: center;
 }

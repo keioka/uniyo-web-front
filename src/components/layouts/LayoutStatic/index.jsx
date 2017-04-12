@@ -4,6 +4,7 @@ import {
   layout
 } from './style'
 
+console.log(layout)
 export default ({ children }) => (
   <div className={layout} >
     {children}
