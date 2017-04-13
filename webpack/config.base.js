@@ -8,7 +8,12 @@ var pathSource = path.resolve(__dirname, '../src');
 var baseConfig = {
   context: pathSource,
   entry: {
-    app: './index.jsx',
+    app: [
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
+      './index.jsx',
+    ]
   },
   output: {
     filename: '[name].bundle.js',

@@ -12,6 +12,7 @@ var devConfig = Object.assign({}, webpackConfigBase, {
   devServer: {
     contentBase: path.resolve(__dirname, '../'),
     historyApiFallback: true,
+    hot: true,
   }
 });
 
