@@ -1,0 +1,15 @@
+@import "../../../styles/main";
+
+.input-text {
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  outline: none;
+  text-align: center;
+}
+
+.input-text::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
