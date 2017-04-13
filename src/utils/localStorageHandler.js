@@ -8,6 +8,12 @@ const USER_KEY = "USER"
 
 const localStorage = window.localStorage
 
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
+
 export default class localStorageHandler {
   static get accessToken():String {
     return localStorage[ACCESS_TOKEN_KEY]
@@ -27,13 +33,16 @@ export default class localStorageHandler {
   }
 
   static get isAccessTokenExpired():Boolean {
+    // We are going to refresh the access token N minutes before it actually expires
+    // We choose this number randomly so multiple tabs don't start this process at the same time.
     const now = moment.utc()
-    const accessTokenRefreshTime = this.accessTokenExpiration.subtract(20, 'minutes')
+    const randomMinutes = getRandomInt(5, 30)
+    const accessTokenRefreshTime = this.accessTokenExpiration.subtract(randomMinutes, 'minutes')
     return now.isSameOrAfter(accessTokenRefreshTime)
   }
 
   static get hasValidAccessTokens():Boolean {
-    return this.accessTokenExpiration && this.refreshToken && this.accessToken
+    return (this.accessTokenExpiration && this.refreshToken && this.accessToken)
   }
 
   static set accessToken(value: string) {
@@ -57,7 +66,9 @@ export default class localStorageHandler {
     this.accessToken = result.accessToken
     this.refreshToken = result.refreshToken
     this.accessTokenExpiration = result.expiresIn
-    this.user = result.user
+    if (result.user) {
+      this.user = result.user
+    }
   }
 
   static clear() {

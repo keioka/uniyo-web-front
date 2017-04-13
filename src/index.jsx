@@ -13,6 +13,8 @@ import { accessTokenValidator } from './redux/middlewares/accessTokenValidator'
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { storage } from './utils/index'
+
 const sagaMiddleware = createSagaMiddleware()
 
 function configureStore() {
@@ -23,7 +25,6 @@ function configureStore() {
 }
 
 const store = configureStore()
-console.log(actions)
 sagaMiddleware.run(rootSaga)
 
 render(
