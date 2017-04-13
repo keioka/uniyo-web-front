@@ -8,17 +8,14 @@ export const accessTokenValidator = store => next => action => {
     console.warn("Local Storage is not available")
   }
 
-  if (action.type === actionTypes.tokenRefresh.request) {
-    return;
-  }
-
   if (action.type === actionTypes.tokenRefresh.error) {
     storage.clear()
   }
 
   if (
     action.type === actionTypes.userCreate.success ||
-    action.type === actionTypes.logIn.success
+    action.type === actionTypes.logIn.success ||
+    action.type === actionTypes.tokenRefresh.success
   ) {
 
     const setTokens = new Promise((resolve, reject) => {
@@ -38,16 +35,10 @@ export const accessTokenValidator = store => next => action => {
     })
   }
 
-  //refreshAccessTokenIfNeeded
-  if (storage.hasValidAccessTokens && storage.isAccessTokenExpired) {
-    console.warn("Token is expired")
-    store.dispatch(actions.tokenRefresh(storage.refreshToken))
-  }
+  // //refreshAccessTokenIfNeeded
+  // if (storage.hasValidAccessTokens && storage.isAccessTokenExpired) {
+  //   console.warn("Token is expired")
+  //   store.dispatch(actions.tokenRefresh(storage.refreshToken))
+  // }
   return next(action)
 }
-
-/*
-console.log(action.result)
-
-
-*/
