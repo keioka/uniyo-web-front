@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import {
   App,
@@ -7,6 +7,7 @@ import {
 } from './containers'
 
 import {
+  Index,
   Signin,
   Signup,
   FAQ,
@@ -17,8 +18,8 @@ import {
 
 export default () => (
   <Router history={browserHistory}>
-    <Route path="/" >
-
+    <Route path="/" component={App}>
+      <IndexRoute component={Index} />
       <Route path="/faq" component={FAQ} />
       <Route path="/terms" component={Terms} />
       <Route path="/privacy" component={Privacy} />
