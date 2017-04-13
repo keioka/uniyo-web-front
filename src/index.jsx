@@ -11,7 +11,7 @@ import { actions } from 'uniyo-redux'
 import rootSaga from './redux/sagas/root'
 import { accessTokenValidator } from './redux/middlewares/accessTokenValidator'
 
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { storage } from './utils/index'
 
