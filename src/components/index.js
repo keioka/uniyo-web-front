@@ -28,9 +28,18 @@ export ResetPassword from './pages/auth/ResetPassword'
 */
 
 export LayoutStatic from './layouts/LayoutStatic'
+export LayoutAuth from './layouts/LayoutAuth'
+
+
+/*
+  input
+*/
+
+export Button from './buttons/Button'
 
 /*
   input
 */
 
 export InputSearchSchool from './inputs/InputSearchSchool'
+export InputTextTransparent from './inputs/InputTextTransparent'
