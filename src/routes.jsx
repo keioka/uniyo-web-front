@@ -10,10 +10,13 @@ import {
   Index,
   Signin,
   Signup,
+  Profile,
   FAQ,
   Privacy,
   Terms,
   InviteFriends,
+  FOS,
+  Picture,
 } from './components'
 
 export default () => (
@@ -28,6 +31,7 @@ export default () => (
       <Route component={Auth} >
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
+        <Route path="/profile_settings" component={Profile} />
       </Route>
 
       <Route path="/:schoolSlug">
@@ -43,10 +47,6 @@ export default () => (
         <Route path="/dashboard/notifications" />
         <Route path="/dashboard/posts/:postId" />
       </Route>
-
-      <Route path="/select_fos" />
-      <Route path="/select_course" />
-      <Route path="/select_profile_picture" />
 
       <Route path="/error/:errorCode" />
       <Route path="*" />

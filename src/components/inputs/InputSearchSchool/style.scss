@@ -1,0 +1,27 @@
+@import "../../../styles/main";
+
+.container--search-school {
+  display: flex;
+  flex: 1 100%;
+  flex-direction: column;
+}
+
+.list--school {
+  margin-top: 20px;
+  background-color: lighten($blue, 15%);
+}
+
+.item--school {
+  color: darken($blue, 5%);
+  list-style: none;
+  padding: 10px 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.item--school:hover {
+}
+
+.item--school--active {
+  color: red;
+}

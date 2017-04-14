@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router'
 import { actions } from 'uniyo-redux'
 
 import {
-  LayoutStatic
+  LayoutAuth
 } from '../../components'
 
 const mapStateToProps = state => ({
@@ -49,10 +49,9 @@ export default class Auth extends Component {
     }))
 
     return (
-      <LayoutStatic>
-        <div>Auth</div>
+      <LayoutAuth>
         <div>{childComponents}</div>
-      </LayoutStatic>
+      </LayoutAuth>
     )
   }
 }

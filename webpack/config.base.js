@@ -21,7 +21,7 @@ var baseConfig = {
     publicPath: '/public/'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.css']
+    extensions: ['.js', '.jsx', '.css', '.scss']
   },
   module: {
     rules: [
@@ -33,11 +33,12 @@ var baseConfig = {
         ]
       },
       {
-        test: /\.(css)$/,
+        test: /\.(scss)$/,
         loaders: [
           'style-loader',
-          'css-loader?sourceMap&modules&importLoaders=1',
-          'postcss-loader'
+          'css-loader?sourceMap&modules&camelCase&importLoaders=1&localIdentName=[folder]--[local]--[hash:base64:5]',
+          'postcss-loader',
+          'sass-loader'
         ]
       },
       {
