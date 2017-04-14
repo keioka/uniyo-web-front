@@ -17,6 +17,7 @@ export Index from './pages/static/Index'
   auth pages
 */
 
+export Profile from './pages/auth/Profile'
 export Signup from './pages/auth/Signup'
 export Signin from './pages/auth/Signin'
 export EmailVerified from './pages/auth/EmailVerified'

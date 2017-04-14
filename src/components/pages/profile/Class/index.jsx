@@ -68,7 +68,7 @@ export default class Profile extends Component {
     return (
       <div className={layoutClasses}>
         <div className={header}>
-          <h2 className={title}>What are your courses?</h2>
+          <h2 className={title}>Yo. What is your campus?</h2>
         </div>
         <div className={content}>
           <InputTextTransparent
@@ -88,7 +88,7 @@ export default class Profile extends Component {
     return (
       <div className={layoutProfilePicture}>
         <div className={header}>
-          <h2 className={title}>Last step. Your profile picture! 😙</h2>
+          <h2 className={title}>Yo. What is your campus?</h2>
         </div>
         <div className={content}>
           <ul>
@@ -109,7 +109,7 @@ export default class Profile extends Component {
     } else if (this.state.pageIndex === 1) {
       return this.renderSecondPage
     } else if (this.state.pageIndex === 2) {
-      return this.renderThirdPage
+      return this.rednerThirdPage
     }
   }
 
