@@ -10,8 +10,6 @@ import {
   LayoutAuth
 } from '../../components'
 
-console.log(actions)
-
 const mapStateToProps = state => ({
   schools: state.schools,
   auth: state.auth,
@@ -38,6 +36,7 @@ export default class Auth extends Component {
   render() {
 
     const {
+      auth,
       children,
       schools,
       schoolsSearch,
@@ -48,6 +47,7 @@ export default class Auth extends Component {
     } = this.props
 
     const childComponents = React.Children.map(children, child => React.cloneElement(child, {
+      auth,
       schools,
       schoolsSearch,
       logIn,

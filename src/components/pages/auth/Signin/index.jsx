@@ -41,7 +41,7 @@ export default class Signin extends Component {
   }
 
   onSelectSchool(school) {
-    if(school){
+    if (school) {
       this.setState({
         pageIndex: 1,
         form: {
