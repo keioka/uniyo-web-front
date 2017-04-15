@@ -4,15 +4,25 @@
   padding: 20px 80px;
   border-radius: 12px;
   border: none;
-  font-size: 16px;
+  height: 60px;
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
   outline: none;
   cursor: pointer;
 }
 
 .button--primary {
-  background: white;
+  background-color: white;
   border: 2px solid $purple;
-  color: $black;
+  transition: background-color 0.5s ease;
+  // transition: color 0.1s ease;
+  color: $darkgray;
+}
+
+.button--primary:hover {
+  background-color: $purple;
+  border: 2px solid $purple;
+  color: $darkgray;
 }
 
 .button--danger {
