@@ -12,6 +12,7 @@ import {
   layoutSelectSchoolHeader,
   layoutSelectSchoolContent,
   layoutSelectSchoolTitle,
+  layoutSelectSchoolFotter,
   input,
 } from './style'
 
@@ -38,11 +39,11 @@ export default class Signup extends Component {
     })
   }
 
-  onSelectSchool(d) {
+  onSelectSchool(school) {
     this.setState({
       pageIndex: 1,
       form: {
-        school: d,
+        school: school,
       },
     })
   }
@@ -62,6 +63,8 @@ export default class Signup extends Component {
         <div className={layoutSelectSchoolContent}>
           <InputSearchSchool {...this.props} onSelectSchool={::this.onSelectSchool} />
         </div>
+        <div className={layoutSelectSchoolFotter}>
+        </div>
       </div>
     )
   }
@@ -72,30 +75,31 @@ export default class Signup extends Component {
         <h1>{this.state.form.school.name}? Great, here we go!</h1>
         <InputTextTransparent
           className={input}
-          onChange={value => this.setState({ form: { ...this.state.form, firstName: value } })}
+          onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
           placeholder="First Name"
         />
 
         <InputTextTransparent
           className={input}
-          onChange={value => this.setState({ form: { ...this.state.form, lastName: value } })}
+          onChange={event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })}
           placeholder="Last Name"
         />
 
         <InputTextTransparent
           className={input}
-          onChange={value => this.setState({ form: { ...this.state.form, email: value } })}
+          onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
           placeholder="Email"
         />
 
         <InputTextTransparent
           type="password"
           className={input}
-          onChange={value => this.setState({ form: { ...this.state.form, password: value } })}
+          onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
           placeholder="Password"
         />
-
-        <Button onClick={::this.onSubmit}>Sign Up</Button>
+        <div className={layoutSelectSchoolFotter}>
+          <Button onClick={::this.onSubmit} type="primary">Sign Up</Button>
+        </div>
       </div>
     )
   }
