@@ -69,6 +69,8 @@ export default class Signin extends Component {
             onSelectSchool={::this.onSelectSchool}
           />
         </div>
+        <div className={layoutSelectSchoolFotter}>
+        </div>
       </div>
     )
   }
