@@ -1,7 +1,15 @@
 @import "../../../../styles/main";
 
 .layout {
+  min-height:100%;
+}
 
+.profileImage {
+  width: 200px;
+}
+
+.boxProfileImage {
+  width: 200px;
 }
 
 .layout--fos {
@@ -9,52 +17,123 @@
   flex-flow: column;
   align-items: center;
   height: 100vh;
-  background: orange;
+  background: $orange;
 }
 
 .layout--classes {
-  // => common
   display: flex;
   flex-flow: column;
   align-items: center;
   height: 100vh;
-  //
-
-  background: purple;
+  background: $purple;
 }
 
 .layout--profile-picture {
-  // => common
   display: flex;
   flex-flow: column;
   align-items: center;
   height: 100vh;
-  //
-  background: darkblue;
+  background: $darkblue;
 }
 
 .header {
   flex: 2;
   display: flex;
   align-items: center;
-  margin-bottom: 100px;
 }
 
 .title {
+  @include h1;
   color: white;
 }
 
 .content {
+  display: flex;
   flex: 3;
   width: 100%;
-  padding: 0px 20%;
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.content__select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content__select__options {
+  list-style: none;
+  margin: 0.5rem 0;
+}
+
+.contentTags {
+  flex: 1;
+  padding: 1rem;
+}
+
+.drop-zone {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.tag {
+  display: inline-block;
+  list-style: none;
+  line-height: 14px;
+  background-color: white;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border-bottom: 2px solid lightgray;
+  color: gray;
+  cursor: pointer;
+  margin: 5px 10px;
+}
+
+.tag:before {
+  content: "#";
+  margin-right: 3px;
+}
+
+.tag:after {
+  content: "x";
+  font-size: 12px;
+  margin-left: 10px;
+  color: gray;
+  vertical-align: middle;
 }
 
 .bottom {
   flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottomPageNav {
+  color: white;
+  margin: 10px;
+}
+
+.bullet--non-active, .bullet--active {
+  margin: 0px 15px;
+  font-size: 20px;
+}
+
+.bullet--non-active:before {
+  content:'○';
+}
+.bullet--active:before {
+  content:'●';
 }
 
 .input {
   margin: 20px 0px;
+}
+
+.linkback {
+  color: white;
+  cursor: pointer;
 }
