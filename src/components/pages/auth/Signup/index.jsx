@@ -95,7 +95,7 @@ export default class Signup extends Component {
           placeholder="Password"
         />
 
-        <Button onClick={::this.onSubmit}>Submit</Button>
+        <Button onClick={::this.onSubmit}>Sign Up</Button>
       </div>
     )
   }
