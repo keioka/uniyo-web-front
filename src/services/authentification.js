@@ -40,7 +40,7 @@ class Authentification {
 
   initializeRefreshToken(actionForTokenRefresh) {
     const refreshToken = this.storage.refreshToken
-    actionForTokenRefresh(refreshToken)
+    // actionForTokenRefresh(refreshToken)
   }
 
   /**
