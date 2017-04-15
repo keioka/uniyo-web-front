@@ -5,6 +5,8 @@ const {
   logInSaga,
   userCreateSaga,
   tokenRefreshSaga,
+  addUserTagsSaga,
+  updateUserProfilePicSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -13,5 +15,7 @@ export default function* rootSaga() {
     logInSaga(),
     userCreateSaga(),
     tokenRefreshSaga(),
+    addUserTagsSaga(),
+    updateUserProfilePicSaga(),
   ]
 }
