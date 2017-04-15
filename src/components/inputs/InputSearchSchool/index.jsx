@@ -22,17 +22,19 @@ export default class InputSearchSchool extends Component {
     super(props)
     this.state = {
       currentIndex: -1,
+      currentIndexEnd: 3,
     }
   }
 
   componentWillReceiveProps() {
     this.setState({
-      currentIndex: -1
+      currentIndex: -1,
+      currentIndexEnd: 3,
     })
   }
 
 
-  onKeyEventhandler(event) {
+  onKeyEventHandler(event) {
     const { schoolsSearch, onSelectSchool, schools } = this.props
     const { currentIndex } = this.state
     const dataLenght = schools.data.length
@@ -40,8 +42,8 @@ export default class InputSearchSchool extends Component {
     if (event.key === DOWN) {
       this.setState({
         currentIndex: (currentIndex >= -1 && currentIndex < dataLenght - 1) ?
-          currentIndex + 1:
-          currentIndex
+          currentIndex + 1 :
+          currentIndex,
       })
     }
 
@@ -66,10 +68,11 @@ export default class InputSearchSchool extends Component {
     return (
       <div className={containerSearchSchool}>
         <InputTextTransparent
-          onChange={schoolsSearch}
+          onChange={event => schoolsSearch(event.target.value)}
           placeholder="Type your school name"
-          onKeyDown={event => ::this.onKeyEventhandler(event)}
+          onKeyDown={event => ::this.onKeyEventHandler(event)}
         />
+        {data.length > 0 &&
         <ul className={listSchool} >
           {data.length > 0 && data.map((school, index) => {
             const classNames = index === this.state.currentIndex ? `${itemSchool} ${itemSchoolActive}` : itemSchool
@@ -82,10 +85,10 @@ export default class InputSearchSchool extends Component {
                 {school.name}
               </li>
             )
-
-            }
-          )}
+          },
+        )}
         </ul>
+        }
       </div>
     )
   }
