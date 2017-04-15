@@ -31,6 +31,7 @@ import {
   bulletNonActive,
   bulletActive,
   linkback,
+  dropZoneTitle,
 } from './style'
 
 export default class Profile extends Component {
@@ -53,6 +54,10 @@ export default class Profile extends Component {
         },
       },
     }
+  }
+
+  componentDidMount() {
+    console.log(this)
   }
 
   onKeyDownFOSHandler(event) {
@@ -269,7 +274,7 @@ export default class Profile extends Component {
               <img className={profileImage} alt={this.state.form.profileImage.imageFile.name} ref={(img) => { this._profileImage = img }} src={this.state.form.profileImage.imageFile.preview} />
             </div>
           }
-          {/* <Dropzone
+          <Dropzone
             className={dropZone}
             onDrop={::this.onDropHandle}
             multiple={false}
@@ -279,15 +284,14 @@ export default class Profile extends Component {
 
             <div className={dropZone}>
               <div className="">
-                <h4>Drop the file or click here to find on your computer</h4>
+
+                <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
               </div>
             </div>
-          </Dropzone> */}
+          </Dropzone>
           <ul className={contentSelect}>
             <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li>
             <li className={contentSelectOptions}><Button type="option">Active your webcam</Button></li>
-            <li className={contentSelectOptions}><Button type="option">Find on your computer</Button></li>
-            <li className={contentSelectOptions}><Button type="option">Choose your avatar</Button></li>
           </ul>
         </div>
         <div className={bottom}>
