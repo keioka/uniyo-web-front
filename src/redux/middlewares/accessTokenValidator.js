@@ -1,7 +1,7 @@
 import { actionTypes } from 'uniyo-redux'
 import { actions } from 'uniyo-redux'
 import { storage } from '../../utils'
-
+import { browserHistory } from 'react-router'
 export const accessTokenValidator = store => next => action => {
 
   if (!localStorage) {

@@ -10,7 +10,7 @@ import { reducers } from 'uniyo-redux'
 import { actions } from 'uniyo-redux'
 import rootSaga from './redux/sagas/root'
 import { accessTokenValidator } from './redux/middlewares/accessTokenValidator'
-
+import { redirectHandler } from './redux/middlewares/redirectHandler'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { storage } from './utils/index'
@@ -19,7 +19,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 function configureStore() {
   const createStoreWithMiddleware = composeWithDevTools(
-    applyMiddleware(sagaMiddleware, accessTokenValidator),
+    applyMiddleware(sagaMiddleware, accessTokenValidator, redirectHandler),
   )(createStore)
   return createStoreWithMiddleware(reducers)
 }
