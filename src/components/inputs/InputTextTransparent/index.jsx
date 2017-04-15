@@ -12,7 +12,6 @@ export default (props) => {
       type={type}
       {...props}
       className={classNames}
-      onChange={event => props.onChange(event.target.value)}
     />
   )
 }
