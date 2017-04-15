@@ -45,6 +45,13 @@ var baseConfig = {
 　　　　　test: /(normalize\.css)$/,
      　　loaders: ['style-loader', 'css-loader']
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        query: {
+          useRelativePath: process.env.NODE_ENV === "production"
+        }
+      }
     ]
   },
 }

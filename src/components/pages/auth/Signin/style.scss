@@ -15,7 +15,11 @@
 }
 
 .layout--select-school__fotter {
-  flex: 1;
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  background-image: url('../../../../../public/images/background.png');
+  width: 100%;
 }
 
 .layout--select-school__title {
@@ -24,7 +28,7 @@
 }
 
 .layout--select-school__content {
-  flex: 3;
+  flex: 2;
   width: 100%;
   padding: 0px 20%;
   box-sizing: border-box;
