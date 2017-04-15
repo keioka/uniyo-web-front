@@ -1,4 +1,17 @@
-$font-size: 1rem;
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900');
 
+$font-size: 1rem;
+$font-family: 'Roboto', sans-serif;
+$font-weight-light: 400;
+$font-weight-normal: 500;
+$font-weight-bold: 700;
+$font-weight-exbold: 900;
 
 /*@custom-selector :--headings h1, h2, h3, h4, h5, h6;*/
+
+
+@mixin h1 {
+  font-size: 35px;
+	font-weight: $font-weight-normal;
+  letter-spacing: 0.015rem;
+}
