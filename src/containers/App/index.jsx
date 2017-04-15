@@ -8,6 +8,11 @@ import { actions } from 'uniyo-redux'
 
 import authService from '../../services/authentification'
 
+import {
+  app,
+} from './style'
+
+
 const mapStateToProps = state => ({
   auth: state.auth,
 })
@@ -43,7 +48,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div id="app">
+      <div id="app" className={app}>
         {this.props.children}
       </div>
     )

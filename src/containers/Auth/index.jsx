@@ -10,6 +10,8 @@ import {
   LayoutAuth
 } from '../../components'
 
+console.log(actions)
+
 const mapStateToProps = state => ({
   schools: state.schools,
   auth: state.auth,
@@ -19,6 +21,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   schoolsSearch: actions.schoolsSearch,
   logIn: actions.logIn,
   userCreate: actions.userCreate,
+  hashtagAdd: actions.hashtagAdd,
+  userPictureUpdate: actions.userPictureUpdate,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -39,6 +43,8 @@ export default class Auth extends Component {
       schoolsSearch,
       logIn,
       userCreate,
+      hashtagAdd,
+      userPictureUpdate,
     } = this.props
 
     const childComponents = React.Children.map(children, child => React.cloneElement(child, {
@@ -46,6 +52,8 @@ export default class Auth extends Component {
       schoolsSearch,
       logIn,
       userCreate,
+      hashtagAdd,
+      userPictureUpdate,
     }))
 
     return (
