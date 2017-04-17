@@ -21,26 +21,37 @@ class Authentification {
     this.refreshIntervalWorking = false
   }
 
+  get isTokenExist() {
+    return this.storage.hasValidAccessTokens
+  }
+
   /**
    * init
    * Set dipatch action to get refresh token
    * @param {function} actionForTokenRefresh
    */
 
-  init(actionForTokenRefresh) {
+  init(actionForTokenRefresh, isLogin, fetching) {
     this.actionForTokenRefresh = actionForTokenRefresh
-    this.initializeRefreshToken(actionForTokenRefresh)
+    this.isLogin = isLogin
+    this.initializeRefreshToken(actionForTokenRefresh, isLogin, fetching)
   }
 
   /**
    * initializeRefreshToken
-   * Set Timer to dispatch refresh token action
+   * Initialize refresh token
    * @param {function} action
    */
 
-  initializeRefreshToken(actionForTokenRefresh) {
-    const refreshToken = this.storage.refreshToken
-    // actionForTokenRefresh(refreshToken)
+  initializeRefreshToken(actionForTokenRefresh, isLogin, fetching) {
+    console.log(isLogin)
+    if (this.storage.isAccessTokenExpiredAlready) {
+      this.storage.clear()
+    } else if (!this.initialized && !isLogin && !fetching) {
+      // if service is not initialized and user is not isLogin and not fetching user
+      const { refreshToken } = this.storage
+      actionForTokenRefresh(refreshToken)
+    }
   }
 
   /**
@@ -58,7 +69,7 @@ class Authentification {
   }
 
   tokenRefreshHandler() {
-    console.log("----- checking expiration", this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired )
+    console.log("----- checking expiration ---------", (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) )
     if (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) {
       this.actionForTokenRefresh(this.storage.refreshToken)
     }

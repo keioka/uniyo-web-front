@@ -9,7 +9,7 @@ export const accessTokenValidator = store => next => action => {
   }
 
   if (action.type === actionTypes.tokenRefresh.error) {
-    storage.clear()
+    //storage.clear()
   }
 
   if (

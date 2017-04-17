@@ -27,17 +27,50 @@ export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      refreshIntervalId: null
+      refreshIntervalId: null,
     }
   }
 
-  componentDidMount() {
-    if (!authService.initialized) {
+  componentWillMount() {
+    // TODO: If token is still valid and launch application
+    const { isLogin, fetching } = this.props.auth
+    if (
+      !authService.initialized &&
+      authService.isTokenExist
+    ) {
+      // tokenRefresh is redux action in order to call api /oauth/token
       const { tokenRefresh } = this.props
-      authService.init(tokenRefresh)
+
+      // if user is not login yet but has tokens, fetch user and refresh token
+      authService.init(tokenRefresh, isLogin, fetching)
+
+      //authService.tokenRefreshInterval() returns interval id
       const refreshIntervalId = authService.tokenRefreshInterval()
+
       this.setState({
-        refreshIntervalId: refreshIntervalId
+        refreshIntervalId: refreshIntervalId,
+      })
+    }
+  }
+
+  componentWillReceiveProps() {
+    // If user just logined or signup
+    const { isLogin, fetching } = this.props.auth
+
+    if (
+      !authService.initialized &&
+      authService.isTokenExist &&
+      !authService.refreshIntervalWorking
+    ) {
+      // tokenRefresh is redux action in order to call api /oauth/token
+      const { tokenRefresh } = this.props
+      authService.init(tokenRefresh, isLogin, fetching)
+
+      //authService.tokenRefreshInterval() returns interval id
+      const refreshIntervalId = authService.tokenRefreshInterval()
+
+      this.setState({
+        refreshIntervalId: refreshIntervalId,
       })
     }
   }

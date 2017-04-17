@@ -50,7 +50,7 @@ export default class localStorageHandler {
   }
 
   static get hasValidAccessTokens():Boolean {
-    return (this.accessTokenExpiration && this.refreshToken && this.accessToken)
+    return !!this.accessTokenExpiration && !!this.refreshToken && !!this.accessToken
   }
 
   static set accessToken(value: string) {
