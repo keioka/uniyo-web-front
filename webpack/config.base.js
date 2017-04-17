@@ -9,9 +9,6 @@ var baseConfig = {
   context: pathSource,
   entry: {
     app: [
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
-      'react-hot-loader/patch',
       './index.jsx',
     ]
   },
@@ -31,6 +28,10 @@ var baseConfig = {
         loaders: [
           'babel-loader'
         ]
+      },
+      {
+　　　　　test: /(cropperjs\.css)$/,
+     　　loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.(scss)$/,

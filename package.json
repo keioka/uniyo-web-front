@@ -7,6 +7,7 @@
     "test": "karma start --auto-watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "webpack-dev-server --inline --hot --config ./webpack/config.dev.js",
+    "build": "webpack -p --config ./webpack/config.prd.js",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "express": "^4.15.2",
     "normalize.css": "^6.0.0",
     "react": "^15.4.2",
+    "react-cropper": "^0.10.1",
     "react-dom": "^15.5.1",
     "react-dropzone": "^3.12.4",
     "react-redux": "^5.0.3",
@@ -57,6 +59,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "karma": "^1.6.0",
     "karma-chrome-launcher": "^2.0.0",
