@@ -1,17 +1,17 @@
 /* @flow */
 import moment from 'moment'
 
-const ACCESS_TOKEN_KEY = "ACCESS_TOKEN"
-const REFRESH_TOKEN_KEY = "REFRESH_TOKEN"
-const ACCESS_TOKEN_EXPIRATION_KEY = "ACCESS_TOKEN_EXPIRATION"
-const USER_KEY = "USER"
+const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN'
+const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN'
+const ACCESS_TOKEN_EXPIRATION_KEY = 'ACCESS_TOKEN_EXPIRATION'
+const USER_KEY = 'USER'
 
 const localStorage = window.localStorage
 
 const getRandomInt = (min, max) => {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min)) + min
+  const minNum = Math.ceil(min)
+  const maxNum = Math.floor(max)
+  return Math.floor(Math.random() * (maxNum - minNum)) + minNum
 }
 
 export default class localStorageHandler {
@@ -39,6 +39,14 @@ export default class localStorageHandler {
     const randomMinutes = getRandomInt(5, 30)
     const accessTokenRefreshTime = this.accessTokenExpiration.subtract(randomMinutes, 'minutes')
     return now.isSameOrAfter(accessTokenRefreshTime)
+  }
+
+  static get isAccessTokenExpiredAlready():Boolean {
+    // We are going to refresh the access token N minutes before it actually expires
+    // We choose this number randomly so multiple tabs don't start this process at the same time.
+    if (!this.accessTokenExpiration) return true
+    const now = moment.utc()
+    return now.isSameOrAfter(this.accessTokenExpiration)
   }
 
   static get hasValidAccessTokens():Boolean {
