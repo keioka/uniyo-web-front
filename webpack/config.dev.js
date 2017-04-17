@@ -16,6 +16,14 @@ var devConfig = Object.assign({}, webpackConfigBase, {
       './index.jsx',
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __PROD__: false,
+      __STG__: false,
+      __DEV__: true,
+      __DEBUG__: true
+    })
+  ],
   devtool: 'eval',
   devServer: {
     contentBase: path.resolve(__dirname, '../'),

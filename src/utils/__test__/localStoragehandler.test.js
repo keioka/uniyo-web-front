@@ -30,4 +30,34 @@ describe('localStorageHandler', () => {
   it('should get isAccessTokenExpired', () => {
     expect(storage.isAccessTokenExpired).to.be.false
   })
+
+  it('should get isAccessTokenExpiredAlready', () => {
+    expect(storage.isAccessTokenExpiredAlready).to.be.false
+  })
+})
+
+
+describe('localStorageHandler', () => {
+  describe('is expired', () => {
+    def('result', function() {
+      return {
+        accessToken: "casdsdasda",
+        refreshToken: "dsadsads",
+        expiresIn: 0,
+        user: {}
+      }
+    })
+
+    beforeEach(function(){
+      storage.setTokensFromResponse($result)
+    })
+
+    it('should get isAccessTokenExpired to be true', () => {
+      expect(storage.isAccessTokenExpired).to.be.true
+    })
+
+    it('should get isAccessTokenExpiredAlready to be true', () => {
+      expect(storage.isAccessTokenExpiredAlready).to.be.true
+    })
+  })
 })
