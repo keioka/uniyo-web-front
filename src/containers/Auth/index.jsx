@@ -3,11 +3,10 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import { actions } from 'uniyo-redux'
 
 import {
-  LayoutAuth
+  LayoutAuth,
 } from '../../components'
 
 import {
@@ -32,38 +31,43 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default class Auth extends Component {
 
   static propTypes = {
+    auth: PropTypes.object.isRequired,
     children: PropTypes.element.isRequired,
     schools: PropTypes.object.isRequired,
     schoolsSearch: PropTypes.func.isRequired,
     logIn: PropTypes.func.isRequired,
+    userCreate: PropTypes.func.isRequired,
+    hashtagAdd: PropTypes.func.isRequired,
+    userPictureUpdate: PropTypes.func.isRequired,
+    authClearError: PropTypes.func.isRequired,
   }
 
   renderError() {
     const { auth } = this.props
 
-    let errorMessage = "Error";
+    let errorMessage = 'Error'
 
-    if (!auth.error || typeof auth.error.response === "undefined") {
+    if (!auth.error || typeof auth.error.response === 'undefined') {
       return null
     }
 
-    if (auth.error.response.data.error === "invalid_grant") {
-      errorMessage = "Please check your email address or password"
+    if (auth.error.response.data.error === 'invalid_grant') {
+      errorMessage = 'Please check your email address or password'
     }
 
-    if (auth.error.response.data.error.code === "CreateNewUserError.InvalidUserInfo") {
+    if (auth.error.response.data.error.code === 'CreateNewUserError.InvalidUserInfo') {
       errorMessage = auth.error.response.data.error.message
     }
 
     return (
+      // TODO: Should change div to interactive elements. - Kei
       <div className={error} onClick={this.props.authClearError}>
-         {errorMessage}
+        {errorMessage}
       </div>
     )
   }
 
   render() {
-
     const {
       auth,
       children,
