@@ -34,13 +34,15 @@ render(
   document.querySelector('#content')
 )
 
-if (module.hot) {
-  module.hot.accept('./components', () => {
-    render(
-      <Provider store={store}>
-        <AppRouter />
-      </Provider>,
-      document.querySelector('#content')
-    )
-  })
+if (__DEV__) {
+  if (module.hot) {
+    module.hot.accept('./components', () => {
+      render(
+        <Provider store={store}>
+          <AppRouter />
+        </Provider>,
+        document.querySelector('#content')
+      )
+    })
+  }
 }

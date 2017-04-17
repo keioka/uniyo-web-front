@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 import Dropzone from 'react-dropzone'
 import Cropper from 'cropperjs'
+import '../../../../styles/vendor/cropperjs.css'
 
 import {
   InputSearchSchool,
@@ -281,10 +282,8 @@ export default class Profile extends Component {
             maxSize={MAX_SIZE}
             accept={MIME_TYPE}
           >
-
             <div className={dropZone}>
               <div className="">
-
                 <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
               </div>
             </div>

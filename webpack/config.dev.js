@@ -8,6 +8,14 @@ var pathSource = path.resolve(__dirname, '../src');
 var webpackConfigBase = require('./config.base.js');
 
 var devConfig = Object.assign({}, webpackConfigBase, {
+  entry: {
+    app: [
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
+      './index.jsx',
+    ]
+  },
   devtool: 'eval',
   devServer: {
     contentBase: path.resolve(__dirname, '../'),
