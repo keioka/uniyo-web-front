@@ -23,6 +23,11 @@ export Signin from './pages/auth/Signin'
 export EmailVerified from './pages/auth/EmailVerified'
 export ResetPassword from './pages/auth/ResetPassword'
 
+/*
+  dashboard
+*/
+
+export IndexDashboard from './pages/dashboard/IndexDashboard'
 
 /*
   layouts
@@ -30,13 +35,27 @@ export ResetPassword from './pages/auth/ResetPassword'
 
 export LayoutStatic from './layouts/LayoutStatic'
 export LayoutAuth from './layouts/LayoutAuth'
-
+export LayoutDashboard from './layouts/LayoutDashboard'
 
 /*
-  input
+  button
 */
 
 export Button from './buttons/Button'
+
+
+/*
+  nav
+*/
+
+export NavPostType from './navs/NavPostType'
+
+
+/*
+  card
+*/
+
+export CardPost from './cards/CardPost'
 
 /*
   input
@@ -44,3 +63,10 @@ export Button from './buttons/Button'
 
 export InputSearchSchool from './inputs/InputSearchSchool'
 export InputTextTransparent from './inputs/InputTextTransparent'
+
+
+/*
+  sidebar
+*/
+
+export SidebarLeft from './sidebars/SidebarLeft'
