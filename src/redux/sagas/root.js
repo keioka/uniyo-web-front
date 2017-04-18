@@ -7,6 +7,7 @@ const {
   tokenRefreshSaga,
   addUserTagsSaga,
   updateUserProfilePicSaga,
+  postsSearchSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -17,5 +18,6 @@ export default function* rootSaga() {
     tokenRefreshSaga(),
     addUserTagsSaga(),
     updateUserProfilePicSaga(),
+    postsSearchSaga(),
   ]
 }

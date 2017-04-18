@@ -3,7 +3,8 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import {
   App,
-  Auth
+  Auth,
+  Dashboard
 } from './containers'
 
 import {
@@ -17,6 +18,7 @@ import {
   InviteFriends,
   FOS,
   Picture,
+  IndexDashboard,
 } from './components'
 
 export default () => (
@@ -34,13 +36,8 @@ export default () => (
         <Route path="/profile_settings" component={Profile} />
       </Route>
 
-      <Route path="/:schoolSlug">
-        <Route path="/:schoolSlug/email_verified" />
-        <Route path="/:schoolSlug/reset_password" />
-        <Route path="/:schoolSlug/reset_password/:token" />
-      </Route>
-
-      <Route path="/dashbord">
+      <Route path="/dashboard" component={Dashboard}>
+        <IndexRoute component={IndexDashboard} />
         <Route path="/dashboard/channels/new" />
         <Route path="/dashboard/channels/:channelId" />
         <Route path="/dashboard/questions/:questionId" />
@@ -49,6 +46,13 @@ export default () => (
       </Route>
 
       <Route path="/error/:errorCode" />
+      
+      <Route path="/:schoolSlug">
+        <Route path="/:schoolSlug/email_verified" />
+        <Route path="/:schoolSlug/reset_password" />
+        <Route path="/:schoolSlug/reset_password/:token" />
+      </Route>
+
       <Route path="*" />
     </Route>
   </Router>

@@ -30,6 +30,11 @@ export const accessTokenValidator = store => next => action => {
 
     setTokens.then((result) => {
       console.log('%c Token is saved on local server ', 'color: blue')
+      console.log(actions)
+      store.dispatch(actions.postsSearch({
+        limit: 50,
+        accessToken: storage.accessToken
+      }))
     }).catch((e) => {
       console.warn(e)
     })

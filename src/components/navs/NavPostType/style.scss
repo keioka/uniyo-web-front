@@ -1,0 +1,28 @@
+@import "../../../styles/main";
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  list-style: none;
+  padding-bottom: 4px;
+  margin-right: 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.item--active {
+  border-bottom: 2px solid $pink;
+  padding-bottom: 4px;
+  transition: border-bottom 1s ease;
+}
+
+.item--active:after {
+  position: absolute;
+  top: 120px;
+  left: 0px;
+  border-bottom: 2px solid $pink;
+}
