@@ -70,3 +70,10 @@ export InputTextTransparent from './inputs/InputTextTransparent'
 */
 
 export SidebarLeft from './sidebars/SidebarLeft'
+
+
+/*
+  text
+*/
+
+export TextPost from './texts/TextPost'
