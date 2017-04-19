@@ -12,6 +12,14 @@ export const accessTokenValidator = store => next => action => {
     //storage.clear()
   }
 
+
+  if (
+    action.type === actionTypes.commentsSearch.request ||
+    action.type === actionTypes.postsSearch.request
+  ) {
+    action.accessToken = storage.accessToken
+  }
+
   if (
     action.type === actionTypes.userCreate.success ||
     action.type === actionTypes.logIn.success ||
