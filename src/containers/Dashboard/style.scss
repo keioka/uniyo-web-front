@@ -17,17 +17,33 @@
 }
 
 .main {
-  flex: 5 80%;
-
+  flex: 5 85%;
 }
 
 .main__content {
   padding: 2rem;
+  min-height: 100vh;
   background-color: $lightgray;
+}
+
+.bar--noification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 40px;
+  background-color: $pink;
+  font-size: 1.6rem;
 }
 
 .header {
   padding: 30px;
   box-shadow: 1px 1px 2px rgba(100, 100, 100, 0.2);
   background-color: white;
+}
+
+.footer {
+  height: 50px;
+  width: 100%;
+  background: $darkgray;
 }
