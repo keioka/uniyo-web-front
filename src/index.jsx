@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-
 import AppRouter from './routes.jsx'
 
 import { reducers } from 'uniyo-redux'
@@ -36,13 +35,6 @@ render(
 
 if (__DEV__) {
   if (module.hot) {
-    module.hot.accept('./components', () => {
-      render(
-        <Provider store={store}>
-          <AppRouter />
-        </Provider>,
-        document.querySelector('#content')
-      )
-    })
+    module.hot.accept('./components', () => { render(<AppRouter />) })
   }
 }
