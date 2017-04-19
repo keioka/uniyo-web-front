@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-
+import { Link } from 'react-router'
 import {
   wrapper,
   item,
@@ -8,10 +8,10 @@ import {
 
 export default ({ currentPostType, onSelectPostType }) => {
   const types = [
-    { id: 1, name: 'ALL' , title: 'All posts'},
-    { id: 2, name: 'REVIEW' , title: 'Reviews'},
-    { id: 3, name: 'QUESTION' , title: 'Questions'},
-    { id: 4, name: 'DOC' , title: 'Documents'},
+    { id: 1, name: 'ALL', title: 'All posts', path: '/dashboard'},
+    { id: 2, name: 'REVIEW', title: 'Reviews', path: '/dashboard?type=reviews'},
+    { id: 3, name: 'QUESTION', title: 'Questions', path: '/dashboard?type=questions'},
+    { id: 4, name: 'DOC', title: 'Documents', path: '/dashboard?type=docs'},
   ]
   return (
     <ul className={wrapper}>
@@ -21,11 +21,14 @@ export default ({ currentPostType, onSelectPostType }) => {
           classNames.push(itemActive)
         }
         return (
-          <li key={type.id} className={classNames.join(" ")} onClick={() => onSelectPostType(type.name)}>{type.title}</li>
+          <li key={type.id}
+            className={classNames.join(" ")}
+            onClick={() => onSelectPostType(type.name)}
+          >
+            <Link to={type.path}>{type.title}</Link>
+          </li>
         )
       })}
-
-
     </ul>
   )
 }
