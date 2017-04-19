@@ -8,6 +8,7 @@ const {
   addUserTagsSaga,
   updateUserProfilePicSaga,
   postsSearchSaga,
+  commentsSearchSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -19,5 +20,6 @@ export default function* rootSaga() {
     addUserTagsSaga(),
     updateUserProfilePicSaga(),
     postsSearchSaga(),
+    commentsSearchSaga(),
   ]
 }
