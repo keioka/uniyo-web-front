@@ -47,7 +47,11 @@ var baseConfig = {
      　　loaders: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.svg$/,
+        loaders: ['babel-loader', 'svg-react-loader']
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
         loader: 'file-loader',
         query: {
           useRelativePath: process.env.NODE_ENV === "production"
