@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   SidebarLeft,
   NavPostType,
+  Donnut,
 } from '../../components'
 
 import {
@@ -19,7 +20,12 @@ import {
   mainContent,
   footer,
   barNoification,
+  input,
+  icon,
 } from './style'
+
+import Setting from './settings.svg'
+import Notification from './notification.svg'
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -47,6 +53,7 @@ export default class DashBoard extends PureComponent {
   }
 
   componentWillMount() {
+    
     const { hashtag } = this.props.location.query
     this.setState({
       currentHashTag: hashtag,
@@ -94,12 +101,9 @@ export default class DashBoard extends PureComponent {
 
     if (type) {
       sortedPosts = sortedPosts.filter(post => {
-        console.log(post.type)
         return post.postType === TYPES[type]
       })
     }
-
-    console.log(sortedPosts)
 
     const childComponents = React.Children.map(this.props.children, child => React.cloneElement(child, {
       posts: sortedPosts,
@@ -115,8 +119,17 @@ export default class DashBoard extends PureComponent {
         <SidebarLeft hashtags={hashtags} />
         <div className={main}>
           <header className={header}>
+            <div>
+              <Notification className={icon} />
+              <Setting className={icon} />
+            </div>
+
             <NavPostType onSelectPostType={::this.onSelectPostType} currentPostType={this.state.currentPostType} />
+            <div><Donnut size="large" /></div>
           </header>
+          <div>
+            <input className={input} data-user-picture="dsa" />
+          </div>
           { hashtag && <div className={barNoification}>#{hashtag}</div>}
           <div className={mainContent}>
             {childComponents}
