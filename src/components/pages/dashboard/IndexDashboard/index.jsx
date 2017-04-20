@@ -4,6 +4,9 @@ import React, { Component, PropTypes } from 'react'
 import {
   Button,
   CardPost,
+  CardDocument,
+  CardReview,
+  CardQuestion,
 } from '../../../index'
 
 export default class IndexDashboard extends Component {
@@ -27,7 +30,7 @@ export default class IndexDashboard extends Component {
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
 
     if (
-      scrollHeight < currentHeight &&
+      scrollHeight === currentHeight &&
       !this.state.isLoadingMorePost &&
       lastPost // to avoid bug 'lastPost returns undefined' while scrolling
     ) {
@@ -51,18 +54,65 @@ export default class IndexDashboard extends Component {
   }
 
   render() {
+    const TYPES = {
+      docs: 'CLASS_NOTE',
+      post: 'POST',
+      reviews: 'REVIEW',
+      questions: 'QUESTION',
+    }
+
+    const { commentsSearch } = this.props
+
+    const cardFactory = ({ post, commentsSearch,
+    comments }) => {
+      switch(post.postType) {
+        case TYPES['post']:
+          return (
+            <CardPost
+              {...post}
+              commentsSearch={commentsSearch}
+              comments={comments}
+            />
+          )
+        case TYPES['docs']:
+          return (
+            <CardDocument
+              {...post}
+              commentsSearch={commentsSearch}
+              comments={comments}
+            />
+          )
+        case TYPES['reviews']:
+          return (
+            <CardReview
+              {...post}
+              commentsSearch={commentsSearch}
+              comments={comments}
+            />
+          )
+        case TYPES['questions']:
+          return (
+            <CardQuestion
+              {...post}
+              commentsSearch={commentsSearch}
+              comments={comments}
+            />
+          )
+      }
+    }
+
+
     return (
       <div ref={(div)=> this._dashboard = div}>
         {this.props.posts.map((post) => {
           const comments = this.props.allComments.filter(comment => comment.postId === post.id)
-          return (
-            <CardPost
-              {...post}
-              commentsSearch={this.props.commentsSearch}
-              comments={comments}
-            />
-          )
+          return cardFactory({
+            post,
+            commentsSearch,
+            comments
+          })
         })}
+
         { this.state.isLoadingMorePost && <div> Loading </div> }
       </div>
     )
