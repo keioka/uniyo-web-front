@@ -42,6 +42,7 @@ export LayoutDashboard from './layouts/LayoutDashboard'
 */
 
 export Button from './buttons/Button'
+export ButtonFile from './buttons/ButtonFile'
 
 
 /*
@@ -56,7 +57,9 @@ export NavPostType from './navs/NavPostType'
 */
 
 export CardPost from './cards/CardPost'
-
+export CardReview from './cards/CardReview'
+export CardQuestion from './cards/CardQuestion'
+export CardDocument from './cards/CardDocument'
 /*
   input
 */
@@ -77,3 +80,9 @@ export SidebarLeft from './sidebars/SidebarLeft'
 */
 
 export TextPost from './texts/TextPost'
+export TextMention from './texts/TextMention'
+/*
+  common
+*/
+
+export Donnut from './common/Donnut'
