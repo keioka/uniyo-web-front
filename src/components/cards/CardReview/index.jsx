@@ -20,9 +20,13 @@ import {
   btnLike,
   btnComment,
   show,
+  starReview,
+  iconStar,
 } from '../style'
 
-export default class CardPost extends Component {
+import Star from './star.svg'
+
+export default class CardReview extends Component {
 
   constructor() {
     super()
@@ -50,13 +54,11 @@ export default class CardPost extends Component {
       commentsCount,
       currentUserLiked,
       createdAt,
-      allComments,
       commentsSearch,
       comments,
+      rating,
     } = this.props
 
-    let sectionComemntClassNames = sectionContentComment
-    if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
@@ -68,6 +70,7 @@ export default class CardPost extends Component {
           <div className={sectionContentHeader}>
             <span className={textUserName}>{user.name}</span>
             <span className={textPostTime}>{time}</span>
+            <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
           </div>
           <TextPost text={text} />
           <div className={sectionContentFotter}>

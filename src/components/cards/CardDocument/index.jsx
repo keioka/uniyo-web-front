@@ -4,6 +4,7 @@ import moment from 'moment'
 import {
   TextPost,
   Donnut,
+  ButtonFile,
 } from '../../'
 
 import {
@@ -15,6 +16,8 @@ import {
   sectionContentUserName,
   sectionContentComment,
   sectionContentCommentList,
+  sectionFileDetail,
+  file,
   textUserName,
   textPostTime,
   btnLike,
@@ -22,7 +25,7 @@ import {
   show,
 } from '../style'
 
-export default class CardPost extends Component {
+export default class CardDocument extends Component {
 
   constructor() {
     super()
@@ -50,6 +53,9 @@ export default class CardPost extends Component {
       commentsCount,
       currentUserLiked,
       createdAt,
+      fileName,
+      fileSize,
+      contentType,
       allComments,
       commentsSearch,
       comments,
@@ -70,6 +76,7 @@ export default class CardPost extends Component {
             <span className={textPostTime}>{time}</span>
           </div>
           <TextPost text={text} />
+          <div className={sectionFileDetail}><ButtonFile fileName={fileName} fileSize={fileSize} contentType={contentType} /></div>
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>

@@ -22,7 +22,7 @@ import {
   show,
 } from '../style'
 
-export default class CardPost extends Component {
+export default class CardQuestion extends Component {
 
   constructor() {
     super()
@@ -55,8 +55,6 @@ export default class CardPost extends Component {
       comments,
     } = this.props
 
-    let sectionComemntClassNames = sectionContentComment
-    if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
@@ -71,7 +69,7 @@ export default class CardPost extends Component {
           </div>
           <TextPost text={text} />
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
+            <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>Answers</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
           </div>
           { this.state.toggle &&
