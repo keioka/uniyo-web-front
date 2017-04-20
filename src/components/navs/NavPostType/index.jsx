@@ -6,7 +6,7 @@ import {
   itemActive,
 } from './style'
 
-export default ({ currentPostType, onSelectPostType }) => {
+export default ({ currentPostType, onSelectPostType, currentHashTag }) => {
   const types = [
     { id: 1, name: 'ALL', title: 'All posts', path: '/dashboard'},
     { id: 2, name: 'REVIEW', title: 'Reviews', path: '/dashboard?type=reviews'},
@@ -25,7 +25,7 @@ export default ({ currentPostType, onSelectPostType }) => {
             className={classNames.join(" ")}
             onClick={() => onSelectPostType(type.name)}
           >
-            <Link to={type.path}>{type.title}</Link>
+            <Link to={`${type.path}?hashtags=${currentHashTag}`}>{type.title}</Link>
           </li>
         )
       })}

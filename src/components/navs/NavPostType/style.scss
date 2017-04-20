@@ -3,6 +3,7 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .item {
@@ -14,15 +15,12 @@
   border-bottom: 2px solid transparent;
 }
 
-.item--active {
-  border-bottom: 2px solid $pink;
-  padding-bottom: 4px;
-  transition: border-bottom 1s ease;
+.item a {
+  color: $darkgray;
+  text-decoration: none;
 }
 
-.item--active:after {
-  position: absolute;
-  top: 120px;
-  left: 0px;
+.item--active {
   border-bottom: 2px solid $pink;
+  transition: border-bottom 1s ease;
 }
