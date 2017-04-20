@@ -1,9 +1,10 @@
 @import "../../../styles/main";
 
-.hashtag a {
+.hashtag {
   color: $pink;
+  text-decoration: none;
 }
 
-.hashtag a:visited {
+.hashtag:visited {
   color: $pink;
 }
