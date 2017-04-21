@@ -66,7 +66,7 @@ export CardDocument from './cards/CardDocument'
 
 export InputSearchSchool from './inputs/InputSearchSchool'
 export InputTextTransparent from './inputs/InputTextTransparent'
-
+export InputComment from './inputs/InputComment'
 
 /*
   sidebar
@@ -81,8 +81,18 @@ export SidebarLeft from './sidebars/SidebarLeft'
 
 export TextPost from './texts/TextPost'
 export TextMention from './texts/TextMention'
+
+
 /*
   common
 */
 
 export Donnut from './common/Donnut'
+
+
+
+/*
+  list
+*/
+
+export ListComment from './lists/ListComment'
