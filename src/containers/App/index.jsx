@@ -33,7 +33,9 @@ export default class App extends Component {
 
   componentWillMount() {
     // TODO: If token is still valid and launch application
+
     const { isLogin, fetching } = this.props.auth
+
     if (
       !authService.initialized &&
       authService.isTokenExist
