@@ -1,32 +1,72 @@
 @import "../../../styles/main";
 
 .wrapper {
-  flex: 1 15%;
+  position: fixed;
+  min-height: 100vh;
+  height: 100%;
+  padding-bottom: 122rem;
   background-color: $gray;
-  padding: 30px;
+  will-change: transform;
+  overflow: scroll;
 }
 
-.newsfeed {
+.section {
   margin-top: 2rem;
   padding: 0;
 }
 
-.newsfeed__label {
+.section li {
+  list-style: none;
+  margin: 10px 0px;
+}
+
+.section a {
+  text-decoration: none;
+  color: $darkgray;
+}
+
+.section__label {
   @include label
 }
 
-.newsfeed__tag {
+.section__tag {
   list-style: none;
   margin: 10px 5px;
   font-size: 1rem;
   cursor: pointer;
 }
 
-.newsfeed__tag:hover:after {
+.section__tag:hover:after {
   position: absolute;
   top: 10px;
   left: 20px;
   width: 20px;
   height: 10px;
   background-color: $pink;
+}
+
+@media only screen and (min-width: 769px) {
+  .wrapper {
+    opacity: 1;
+    min-width: 220px;
+    flex-basis: 220px;
+    padding: 30px;
+    transition: padding 2s ease;
+    transition: opactiy 0.4s ease;
+    transition: min-width 0.4s ease;
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    opacity: 0;
+    min-width: 0px;
+    flex-basis: 0px;
+    position: fixed;
+    min-height: 100vh;
+    background-color: $gray;
+    padding: 0px;
+    transition: width 0.2s;
+  }
 }

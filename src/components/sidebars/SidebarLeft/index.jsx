@@ -3,23 +3,63 @@ import { Link } from 'react-router'
 
 import {
   wrapper,
-  newsfeed,
-  newsfeedTag,
-  newsfeedLabel,
+  section,
+  sectionTag,
+  sectionLabel,
 } from './style'
 
-export default ({ hashtags }) => (
-  <aside className={wrapper} >
-    <input type="text"/>
-    <ul className={newsfeed}>
-      <h4 className={newsfeedLabel}>News Feed</h4>
-      { hashtags && hashtags.map(hashtag => <li><Link key={hashtag.hashtag} to={`dashboard?hashtag=${hashtag.hashtag}`} className={newsfeedTag}>#{hashtag.hashtag}</Link></li>) }
-      <li><Link to={`dashboard?hashtag=kei`} className={newsfeedTag}>#ke</Link></li>
-      <li><Link to={`dashboard?hashtag=kei`} className={newsfeedTag}>#ke</Link></li>
-      <li><Link to={`dashboard?hashtag=kei`} className={newsfeedTag}>#ke</Link></li>
-      <li><Link to={`dashboard?hashtag=kei`} className={newsfeedTag}>#ke</Link></li>
-      <li><Link to={`dashboard?hashtag=kei`} className={newsfeedTag}>#ke</Link></li>
-    </ul>
-    <div>Signout</div>
-  </aside>
-)
+const dashboardPathGenarator = ({ hashtag, type }) => {
+  let path = 'dashboard'
+
+  if (hashtag || type) {
+    path += '?'
+  }
+
+  if (hashtag) {
+    path += `hashtag=${hashtag}`
+  }
+
+  if (hashtag && type) {
+    path += '&'
+  }
+
+  if (type) {
+    path += `type=${type}`
+  }
+
+  return path
+}
+
+export default ({ hashtags, type }) => {
+  return (
+    <aside className={wrapper} >
+      <input type="text"/>
+      <ul className={section}>
+        <h4 className={sectionLabel}>News Feed</h4>
+        { hashtags && hashtags.map(hashtag =>
+          <li>
+            <Link
+              key={hashtag.hashtag}
+              to={dashboardPathGenarator({ hashtag: hashtag.hashtag, type })}
+              className={sectionTag}>#{hashtag.hashtag}
+            </Link>
+          </li>)
+        }
+      </ul>
+
+      <ul className={section}>
+        <h4 className={sectionLabel}>TRENDING TOPIC</h4>
+        { hashtags && hashtags.map(hashtag =>
+          <li>
+            <Link
+              key={hashtag.hashtag}
+              to={dashboardPathGenarator({ hashtag: hashtag.hashtag, type })}
+              className={sectionTag}>#{hashtag.hashtag}
+            </Link>
+          </li>)
+        }
+      </ul>
+      <div>Signout</div>
+    </aside>
+  )
+}
