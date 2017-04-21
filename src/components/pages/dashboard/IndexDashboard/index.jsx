@@ -1,8 +1,8 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
+import FlipMove from 'react-flip-move'
 
 import {
-  Button,
   CardPost,
   CardDocument,
   CardReview,
@@ -10,6 +10,17 @@ import {
 } from '../../../index'
 
 export default class IndexDashboard extends Component {
+
+  static propTypes = {
+    posts: PropTypes.array.isRequired,
+    postsSearch: PropTypes.func.isRequired,
+    hashtag: PropTypes.string,
+    type: PropTypes.string,
+  }
+
+  static defaultProps = {
+    posts: [],
+  }
 
   constructor() {
     super()
@@ -28,18 +39,28 @@ export default class IndexDashboard extends Component {
     const lastPost = posts[posts.length - 1]
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
+    //
+    // console.log("---------------------------")
+    // console.log(scrollHeight, currentHeight)
+    // console.log(scrollHeight < currentHeight)
+    // console.log("---------------------------")
 
     if (
-      scrollHeight === currentHeight &&
+      scrollHeight < currentHeight &&
       !this.state.isLoadingMorePost &&
       lastPost // to avoid bug 'lastPost returns undefined' while scrolling
     ) {
 
+      console.log("postsSearch is fired!!")
       // TODO: fix bug 'this.props.postsSearch action dispatched twice'
+
       this.setState({
+        // if it is not loaded, this won't be turned to false.
+        // which means engine never call this block.
         isLoadingMorePost: true,
+
       }, () => {
-        const params = {lastPostId: lastPost.id}
+        const params = { lastPostId: lastPost.id }
         params.hashtags = this.props.hashtag && [this.props.hashtag]
         params.types = this.props.type && [this.props.type]
         this.props.postsSearch(params)
@@ -47,7 +68,7 @@ export default class IndexDashboard extends Component {
     }
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(prevProps, nextProps) {
     this.setState({
       isLoadingMorePost: false,
     })
@@ -61,7 +82,7 @@ export default class IndexDashboard extends Component {
       questions: 'QUESTION',
     }
 
-    const { commentsSearch } = this.props
+    const { commentsSearch, commentCreate } = this.props
 
     const cardFactory = ({ post, commentsSearch,
     comments }) => {
@@ -72,6 +93,7 @@ export default class IndexDashboard extends Component {
               {...post}
               commentsSearch={commentsSearch}
               comments={comments}
+              commentCreate={commentCreate}
             />
           )
         case TYPES['docs']:
@@ -80,6 +102,7 @@ export default class IndexDashboard extends Component {
               {...post}
               commentsSearch={commentsSearch}
               comments={comments}
+              commentCreate={commentCreate}
             />
           )
         case TYPES['reviews']:
@@ -88,6 +111,7 @@ export default class IndexDashboard extends Component {
               {...post}
               commentsSearch={commentsSearch}
               comments={comments}
+              commentCreate={commentCreate}
             />
           )
         case TYPES['questions']:
@@ -96,6 +120,7 @@ export default class IndexDashboard extends Component {
               {...post}
               commentsSearch={commentsSearch}
               comments={comments}
+              commentCreate={commentCreate}
             />
           )
       }
@@ -104,15 +129,16 @@ export default class IndexDashboard extends Component {
 
     return (
       <div ref={(div)=> this._dashboard = div}>
+
         {this.props.posts.map((post) => {
           const comments = this.props.allComments.filter(comment => comment.postId === post.id)
           return cardFactory({
             post,
             commentsSearch,
+            commentCreate,
             comments
           })
         })}
-
         { this.state.isLoadingMorePost && <div> Loading </div> }
       </div>
     )
