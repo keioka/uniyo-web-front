@@ -1,0 +1,20 @@
+@import "../../../styles/main";
+
+.inputText {
+  width: 100%;
+  background-color: $gray;
+  font-family: $font-family;
+  font-size: 1rem;
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+  padding: 12px;
+}
+
+.inputText:before {
+  content: attr(data-user-image);
+  content: "hi";
+  width: 100px;
+  height: 100px;
+}

@@ -8,11 +8,11 @@ var pathSource = path.resolve(__dirname, '../src');
 var webpackConfigBase = require('./config.base.js');
 
 var devConfig = Object.assign({}, webpackConfigBase, {
+  devtool: 'eval',
   entry: {
     app: [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      'react-hot-loader/patch',
       './index.jsx',
     ]
   },
@@ -24,11 +24,10 @@ var devConfig = Object.assign({}, webpackConfigBase, {
       __DEBUG__: true
     })
   ],
-  devtool: 'eval',
   devServer: {
     contentBase: path.resolve(__dirname, '../'),
     historyApiFallback: true,
-    hot: true,
+    hot: true
   }
 });
 

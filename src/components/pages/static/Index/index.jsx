@@ -6,7 +6,7 @@ export default class Index extends Component {
 
   render() {
     return (
-      <div>Uniyos</div>
+      <div>Uniyossdsssdsdsds sdsds whta</div>
     )
   }
 }

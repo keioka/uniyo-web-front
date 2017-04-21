@@ -9,11 +9,11 @@ export const redirectHandler = store => next => action => {
   }
 
   if (action.type === actionTypes.logIn.success) {
-    browserHistory.push('/dashbord')
+    browserHistory.push('/dashboard')
   }
 
   if (action.type === actionTypes.userPictureUpdate.success) {
-    browserHistory.push('/dashbord')
+    browserHistory.push('/dashboard')
   }
 
   return next(action)
