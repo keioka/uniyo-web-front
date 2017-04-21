@@ -17,7 +17,7 @@
 }
 
 .main {
-  flex: 5 85%;
+  width: 100%;
 }
 
 .main__content {
@@ -50,12 +50,32 @@
   background: $darkgray;
 }
 
+.input-post--wrapper {
+  display: flex;
+}
+
+.input-post--wrapper__image-box {
+  width: 10%;
+  margin-top: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 20px;
+}
+
+.input-post--wrapper__image-box img {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+}
+
 .input {
-  width: 100%;
+  width: 90%;
   border: none;
   border-top: 1px solid $lightgray;
   border-bottom: 1px solid $lightgray;
-  padding: 3rem;
+  padding: 3rem 5%;
   font-size: 1rem;
   outline: none;
   box-sizing: border-box;
@@ -66,4 +86,20 @@
   cursor: pointer;
   margin-right: 15px;
   padding: 0;
+}
+
+
+
+@media only screen and (min-width: 769px) {
+  .main {
+    padding-left: 280px; // === leftbar width and padding
+    transition: padding-left 0.4s ease;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    padding-left: 0px;
+    transition: padding-left 0.2s;
+  }
 }
