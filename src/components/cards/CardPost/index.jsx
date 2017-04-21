@@ -4,6 +4,8 @@ import moment from 'moment'
 import {
   TextPost,
   Donnut,
+  ListComment,
+  InputComment,
 } from '../../'
 
 import {
@@ -14,6 +16,7 @@ import {
   sectionContentFotter,
   sectionContentUserName,
   sectionContentComment,
+  sectionContentCommentForm,
   sectionContentCommentList,
   textUserName,
   textPostTime,
@@ -44,6 +47,7 @@ export default class CardPost extends Component {
 
   render() {
     const {
+      id,
       text,
       user,
       likesCount,
@@ -52,6 +56,7 @@ export default class CardPost extends Component {
       createdAt,
       allComments,
       commentsSearch,
+      commentCreate,
       comments,
     } = this.props
 
@@ -76,9 +81,11 @@ export default class CardPost extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <input type="text" />
+              <div className={sectionContentCommentForm}>
+                <InputComment postId={id} commentCreate={commentCreate} />
+              </div>
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <li>{comment.text}</li>)}
+                {comments && comments.map(comment => <ListComment {...comment}>{comment.text}</ListComment>)}
               </ul>
             </div>
           }

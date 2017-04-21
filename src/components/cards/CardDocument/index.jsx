@@ -5,6 +5,7 @@ import {
   TextPost,
   Donnut,
   ButtonFile,
+  ListComment,
 } from '../../'
 
 import {
@@ -47,6 +48,7 @@ export default class CardDocument extends Component {
 
   render() {
     const {
+      id,
       text,
       user,
       likesCount,
@@ -59,14 +61,16 @@ export default class CardDocument extends Component {
       allComments,
       commentsSearch,
       comments,
+      commentCreate,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
     if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
 
+
     return (
-      <div className={wrapper}>
+      <div key={id} className={wrapper}>
         <div className={sectionImage}>
           <img src={user.image.smallUrl} alt="" />
         </div>
@@ -83,9 +87,9 @@ export default class CardDocument extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <input type="text" />
+              <input type="text" onKeyDown={onKeyDownHandler} />
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <li>{comment.text}</li>)}
+                {comments && comments.map(comment => <ListComment comment={comment}>{comment.text}</ListComment>)}
               </ul>
             </div>
           }
