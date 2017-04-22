@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 import Dropzone from 'react-dropzone'
+import Webcam from 'react-webcam'
+
 import Cropper from 'cropperjs'
 import '../../../../styles/vendor/cropperjs.css'
 
+import Picture from './picture.svg'
 import {
   InputSearchSchool,
   InputTextTransparent,
@@ -33,6 +36,14 @@ import {
   bulletActive,
   linkback,
   dropZoneTitle,
+  modalWebcam,
+  modalWebcamClose,
+  modalProgress,
+  buttonWebcam,
+  progress,
+  progressBar,
+  progressShadow,
+  modalProgressIconPicture,
 } from './style'
 
 export default class Profile extends Component {
@@ -45,6 +56,8 @@ export default class Profile extends Component {
   constructor() {
     super()
     this.state = {
+      isWebcamOpen: false,
+      screenshot: null,
       pageIndex: 0,
       form: {
         tagsFos: [],
@@ -55,10 +68,6 @@ export default class Profile extends Component {
         },
       },
     }
-  }
-
-  componentDidMount() {
-    console.log(this)
   }
 
   onKeyDownFOSHandler(event) {
@@ -128,10 +137,7 @@ export default class Profile extends Component {
         },
       )
       userPictureUpdate(image)
-
-      // Only if update is success
-      // TODO: Move to middleware
-      browserHistory.push('/dashboard')
+      return
     }
 
     this.setState({
@@ -149,13 +155,39 @@ export default class Profile extends Component {
     })
   }
 
-  onDeleteClassTag(tagClass){
+  onDeleteClassTag(tagClass) {
     const tagsClass = this.state.form.tagsClass
     const updatedTagsClass = tagsClass.filter(tag => tag !== tagClass)
     this.setState({
       form: {
         tagsClass: updatedTagsClass,
       },
+    })
+  }
+
+  onClickActivateWebcamHandler(event) {
+    event.stopPropagation()
+    this.setState({
+      isWebcamOpen: !this.state.isWebcamOpen
+    })
+  }
+
+  onClickTakePhotoHandler(event) {
+    event.stopPropagation()
+    const screenshot = this.refs.webcam.getScreenshot()
+    this.setState({
+      form: {
+        ...this.state.form,
+        profileImage: {
+          ...this.state.form.profileImage,
+          imageFile: {
+            ...this.state.form.profileImage.imageFile,
+            preview: screenshot,
+          }
+        }
+      }
+    }, () => {
+      ::this.startCropping()
     })
   }
 
@@ -262,10 +294,23 @@ export default class Profile extends Component {
   }
 
   get renderThirdPage() {
+    console.log(this.props)
     const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
     const MIME_TYPE = 'image/*'
     return (
       <div className={layoutProfilePicture}>
+        { this.props.auth.isUploadingPicture &&
+          <div className={modalProgress}>
+            <Picture className={modalProgressIconPicture} />
+              <h1>Uploading Image</h1>
+                <div className={progress}>
+                <div className={progressBar}>
+                  <div className={progressShadow}>
+                  </div>
+                </div>
+              </div>
+          </div>
+        }
         <div className={header}>
           <h2 className={title}>Last step. Your profile picture! 😙</h2>
         </div>
@@ -290,8 +335,14 @@ export default class Profile extends Component {
           </Dropzone>
           <ul className={contentSelect}>
             <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li>
-            <li className={contentSelectOptions}><Button type="option">Active your webcam</Button></li>
+            <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li>
           </ul>
+          { this.state.isWebcamOpen &&
+            <div className={modalWebcam} onClick={(event) => ::this.onClickActivateWebcamHandler(event)}>
+              { this.state.screenshot ? <img src={this.state.screenshot} /> : <Webcam ref='webcam'/>  }
+              <button className={buttonWebcam} onClick={(event) => ::this.onClickTakePhotoHandler(event)}>Take a shot</button>
+            </div>
+          }
         </div>
         <div className={bottom}>
           <Button onClick={::this.onNext} type="primary">Submit</Button>
