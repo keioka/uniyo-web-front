@@ -44,7 +44,6 @@ class Authentification {
    */
 
   initializeRefreshToken(actionForTokenRefresh, isLogin, fetching) {
-    console.log(isLogin)
     if (this.storage.isAccessTokenExpiredAlready) {
       this.storage.clear()
     } else if (!this.initialized && !isLogin && !fetching) {
@@ -62,14 +61,13 @@ class Authentification {
 
   tokenRefreshInterval() {
     if (this.refreshIntervalWorking) return
-
     const self = this
     this.refreshIntervalWorking = true
     return setInterval(() => self.tokenRefreshHandler(), 100000)
   }
 
   tokenRefreshHandler() {
-    console.log("----- checking expiration ---------", (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) )
+    console.warn("----- checking expiration ---------", (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) )
     if (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) {
       this.actionForTokenRefresh(this.storage.refreshToken)
     }
