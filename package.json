@@ -7,7 +7,7 @@
     "test": "karma start --auto-watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "webpack-dev-server --inline --hot --config ./webpack/config.dev.js",
-    "build": "webpack -p --config ./webpack/config.prd.js",
+    "build": "webpack -p --progress --config ./webpack/config.prd.js",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "repository": {
