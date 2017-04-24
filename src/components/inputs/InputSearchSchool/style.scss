@@ -8,13 +8,13 @@
 
 .list--school {
   margin-top: 20px;
-  padding: 4px;
+  padding: 40px;
   border-radius: 4px;
-  background-color: darken($orange, 15%);
+  background-color: white;
 }
 
 .item--school {
-  color: lighten($orange, 15%);
+  color: $darkgray;
   list-style: none;
   padding: 10px 25px;
   text-align: center;
@@ -25,5 +25,5 @@
 }
 
 .item--school--active {
-  color: white;
+  color: $orange;
 }
