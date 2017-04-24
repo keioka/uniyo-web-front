@@ -18,7 +18,7 @@ var baseConfig = {
     publicPath: '/public/'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss']
+    extensions: ['.js', '.jsx', '.css', '.scss', '.svg']
   },
   module: {
     rules: [

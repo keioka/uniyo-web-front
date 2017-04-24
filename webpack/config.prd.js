@@ -22,8 +22,7 @@ var prdConfig = Object.assign({}, webpackConfigBase, {
       __DEV__: dev,
       __DEBUG__: debug,
       'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
-    new webpack.optimize.UglifyJsPlugin(),
+    })
   ],
 })
 
