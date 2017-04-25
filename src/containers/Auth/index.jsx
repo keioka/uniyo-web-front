@@ -14,8 +14,8 @@ import {
 } from './style'
 
 const mapStateToProps = state => ({
-  schools: state.schools,
-  auth: state.auth,
+  schools: state.api.schools,
+  auth: state.api.auth,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

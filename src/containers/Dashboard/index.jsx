@@ -7,11 +7,15 @@ import { actions } from 'uniyo-redux'
 import { Link } from 'react-router'
 
 import {
+  SidebarRight,
+} from '../'
+
+import {
   LayoutDashboard,
   SidebarLeft,
   NavPostType,
   Donnut,
-  InputPostWrapper,
+  InputPost,
 } from '../../components'
 
 import {
@@ -32,9 +36,9 @@ import Setting from './settings.svg'
 import Notification from './notification.svg'
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  posts: state.posts,
-  comments: state.comments,
+  auth: state.api.auth,
+  posts: state.api.posts,
+  comments: state.api.comments,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -75,10 +79,9 @@ export default class DashBoard extends PureComponent {
   }
 
   onSelectPostType(type) {
-    console.warn("Nav Clicked", type)
     this.setState({
       currentPostType: type,
-    }, () => console.warn(this.state))
+    })
   }
 
   onSelectHashTag(hashtag) {}
@@ -87,13 +90,6 @@ export default class DashBoard extends PureComponent {
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type = 'all' } = prevProps.location.query
     const { postsSearch } = this.props
-    console.warn("--------chnaged----------")
-    console.log("hashtag", hashtag)
-    console.log("currentPostType", currentHashTag)
-    console.log("type", type)
-    console.log("currentPostType", currentPostType)
-    console.log(currentPostType === type)
-    console.log(currentHashTag === hashtag)
 
     if (currentHashTag !== hashtag || currentPostType !== TYPES[type]) {
       this.setState({
@@ -111,7 +107,7 @@ export default class DashBoard extends PureComponent {
   onKeyDownPostForm(event) {
     if (event.key === ENTER) {
       this.props.postCreate({
-        postType: 'POST',
+        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
         text: event.target.value,
       })
     }
@@ -120,8 +116,6 @@ export default class DashBoard extends PureComponent {
   onClearCurrentTypeHandler() {
     this.setState({
       currentHashTag: undefined,
-    }, () => {
-      console.log(this.state)
     })
   }
 
@@ -153,7 +147,9 @@ export default class DashBoard extends PureComponent {
       // postsSearch(params)
     }
 
-    // fileter feature
+    /* ****
+      fileter feature
+    ******/
     if (hashtag) {
       sortedPosts = sortedPosts.filter(post => {
         const hashtag:String = `#${this.props.location.query.hashtag}`
@@ -194,20 +190,19 @@ export default class DashBoard extends PureComponent {
               currentHashTag={hashtag}
             />
 
-            <div><Donnut size="large" /></div>
+            <div>
+              <Donnut size="large" />
+            </div>
           </header>
           <div>
-            <span className={inputPostWrapper}>
-              <span className={inputPostWrapperImageBox}>
-                <img src={image ? image.mediumUrl : 'loading'} />
-              </span>
-              <input
-                className={input}
-                data-user-picture="dsa"
-                placeholder={hashtag && `#${hashtag}`}
-                onKeyDown={event => ::this.onKeyDownPostForm(event)}
-              />
-            </span>
+            <InputPost
+              imgUrl={image && image.mediumUrl}
+              onPostSubmit={this.props.postCreate}
+              onSubmit={(postData) => { ::this.onSubmitPostHandler(postData) }}
+              currentHashTag={hashtag}
+              currentPostType={this.state.currentPostType}
+              suggestionedUser={[{id: 1, name: 'kei'}]}
+            />
           </div>
           {hashtag &&
             <div
@@ -221,8 +216,9 @@ export default class DashBoard extends PureComponent {
           <div className={mainContent}>
             {childComponents}
           </div>
-          <footer className={footer}></footer>
+          <footer className={footer} />
         </div>
+        <SidebarRight />
       </div>
     )
   }
