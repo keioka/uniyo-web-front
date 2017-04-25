@@ -16,7 +16,6 @@ const {
   currentUserSaga,
 } = sagas
 
-console.log(sagas)
 export default function* rootSaga() {
   yield [
     fork(schoolsSearchSaga),
