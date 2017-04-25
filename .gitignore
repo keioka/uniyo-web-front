@@ -1,5 +1,5 @@
 node_modules
 npm-debug.log
 /coverage
-/public/app.build.js
+/public/app.bundle.js
 /public/*.png
