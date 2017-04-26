@@ -88,6 +88,7 @@
     "react-addons-test-utils": "^15.5.1",
     "react-hot-loader": "^3.0.0-beta.5",
     "redux-devtools-extension": "^2.13.0",
+    "redux-saga-devtools": "^0.1.1",
     "sass-loader": "^6.0.3",
     "sinon": "^2.1.0",
     "style-loader": "^0.16.1",
