@@ -11,7 +11,7 @@ import {
   hashtag,
 } from './style'
 
-export default ({ text }) => {
+export default ({ text, showUserInfo }) => {
 
   let parsedText = ReactEmoji.emojify(text)
 
@@ -30,7 +30,7 @@ export default ({ text }) => {
     const userId = segments[0]
     const display = segments[1]
 
-    return <TextMention key={`MENTION_${i}`} userId={userId} display={display} />
+    return <TextMention key={`MENTION_${i}`} userId={userId} showUserInfo={showUserInfo} display={display} />
   })
 
   return (

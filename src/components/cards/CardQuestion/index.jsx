@@ -53,6 +53,7 @@ export default class CardQuestion extends Component {
       allComments,
       commentsSearch,
       comments,
+      showUserInfo,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -67,7 +68,7 @@ export default class CardQuestion extends Component {
             <span className={textUserName}>{user.name}</span>
             <span className={textPostTime}>{time}</span>
           </div>
-          <TextPost text={text} />
+          <TextPost text={text} showUserInfo={showUserInfo}/>
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>Answers</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>

@@ -62,6 +62,7 @@ export default class CardDocument extends Component {
       commentsSearch,
       comments,
       commentCreate,
+      showUserInfo,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -79,7 +80,7 @@ export default class CardDocument extends Component {
             <span className={textUserName}>{user.name}</span>
             <span className={textPostTime}>{time}</span>
           </div>
-          <TextPost text={text} />
+          <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionFileDetail}><ButtonFile fileName={fileName} fileSize={fileSize} contentType={contentType} /></div>
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>

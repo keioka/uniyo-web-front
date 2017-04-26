@@ -58,6 +58,7 @@ export default class CardPost extends Component {
       commentsSearch,
       commentCreate,
       comments,
+      showUserInfo,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -74,7 +75,7 @@ export default class CardPost extends Component {
             <span className={textUserName}>{user.name}</span>
             <span className={textPostTime}>{time}</span>
           </div>
-          <TextPost text={text} />
+          <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>

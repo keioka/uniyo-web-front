@@ -6,4 +6,8 @@ import {
   mention,
 } from './style'
 
-export default ({ userId, display }) => (<span className={mention}>@{display}</span>)
+export default ({ userId, display, showUserInfo }) => {
+  return (
+    <a className={mention} onClick={() => showUserInfo(userId)}>@{display}</a>
+  )
+}
