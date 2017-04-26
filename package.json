@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start --auto-watch",
+    "test": "karma start",
+    "test-watch": "karma start --auto-watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "webpack-dev-server --inline --hot --config ./webpack/config.dev.js",
     "build": "webpack -p --progress --config ./webpack/config.prd.js",
@@ -54,6 +55,7 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
+    "babel-runtime": "^6.23.0",
     "bdd-lazy-var": "^1.2.1",
     "chai": "^3.5.0",
     "css-loader": "^0.28.0",
