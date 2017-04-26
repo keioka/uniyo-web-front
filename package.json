@@ -39,7 +39,7 @@
     "react-webcam": "0.0.14",
     "redux": "^3.6.0",
     "redux-saga": "^0.14.6",
-    "uniyo-redux": "file:../uniyo-redux"
+    "uniyo-redux": "git+https://c44ed71924d2577ef2909b0afa2a3d335d387f78:x-oauth-basic@github.com/uniyo/uniyo-redux.git"
   },
   "devDependencies": {
     "babel": "^6.23.0",
