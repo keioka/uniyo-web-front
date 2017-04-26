@@ -14,6 +14,7 @@ const {
   commentCreateSaga,
   userInfoSaga,
   currentUserSaga,
+  watchShowUserInfo,
 } = sagas
 
 export default function* rootSaga() {
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     fork(commentCreateSaga),
     fork(userInfoSaga),
     fork(currentUserSaga),
+    fork(watchShowUserInfo),
   ]
 }
