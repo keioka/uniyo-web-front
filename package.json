@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start --auto-watch",
+    "test": "karma start",
+    "test-watch": "karma start --auto-watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "webpack-dev-server --inline --hot --config ./webpack/config.dev.js",
     "build": "webpack -p --progress --config ./webpack/config.prd.js",
