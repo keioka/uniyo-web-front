@@ -13,6 +13,31 @@ import {
   historyDonut,
 } from './style'
 
+import uiAction from '../../redux/actions'
+
+const mapStateToProps = state => ({
+  rightbar: state.ui.rightbar,
+})
+
+const {
+  showUserInfo,
+  showNotification,
+  showHistoryDonut,
+  hideUserInfo,
+  hideNotification,
+  hideHistoryDonut,
+} = uiAction
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  showUserInfo,
+  showNotification,
+  showHistoryDonut,
+  hideUserInfo,
+  hideNotification,
+  hideHistoryDonut,
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class SidebarRight extends Component {
   static propTypes = {
 
@@ -43,7 +68,8 @@ export default class SidebarRight extends Component {
   }
 
   render() {
-    const { displayType } = this.props
+    const { displayType } = this.props.rightbar
+    console.log(displayType)
 
     return (
       <aside className={wrapper}>

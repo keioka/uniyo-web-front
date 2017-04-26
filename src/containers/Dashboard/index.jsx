@@ -4,6 +4,7 @@ import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
+import uiActions from '../../redux/actions'
 import { Link } from 'react-router'
 
 import {
@@ -46,6 +47,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   postCreate: actions.postCreate,
   commentsSearch: actions.commentsSearch,
   commentCreate: actions.commentCreate,
+  showUserInfo: uiActions.showUserInfo,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -121,6 +123,7 @@ export default class DashBoard extends PureComponent {
 
   get renderContent() {
     const {
+      showUserInfo,
       commentCreate,
       commentsSearch,
       postCreate,
@@ -172,6 +175,7 @@ export default class DashBoard extends PureComponent {
       postCreate,
       commentsSearch,
       commentCreate,
+      showUserInfo,
     }))
 
     return (
