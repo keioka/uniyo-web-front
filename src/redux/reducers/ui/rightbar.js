@@ -1,4 +1,4 @@
-import actionTypes from '../../actions'
+import actionTypes from '../../actionTypes'
 
 const initialiState = {
   displayType: '',
@@ -12,6 +12,7 @@ const initialiState = {
 }
 
 export default (state = initialiState, action) => {
+
   switch (action.type) {
     case actionTypes.showNotification.request: {
       return Object.assign({
@@ -21,7 +22,17 @@ export default (state = initialiState, action) => {
 
     case actionTypes.showUserInfo.request: {
       return Object.assign({
-        displayType: 'UserInfo'
+        isOpen: true,
+        isFetchingUserInfo: true,
+      })
+    }
+
+    case actionTypes.showUserInfo.success: {
+      return Object.assign({
+        isFetchingUserInfo: false,
+        userInfo: action.user,
+        isOpen: true,
+        displayType: 'UserInfo',
       })
     }
 
@@ -31,24 +42,16 @@ export default (state = initialiState, action) => {
       })
     }
 
-    case actionTypes.hideNotification.request: {
+    case actionTypes.hideSidebarRight.request: {
       return Object.assign({
+        displayType: '',
         isOpen: false,
-        displayType: ''
-      })
-    }
-
-    case actionTypes.hideUserInfo.request: {
-      return Object.assign({
-        isOpen: false,
-        displayType: ''
-      })
-    }
-
-    case actionTypes.hideHistoryDonut.request: {
-      return Object.assign({
-        isOpen: false,
-        displayType: ''
+        isFetchingUserInfo: false,
+        isFetchingNotification: false,
+        isFetchingHistoryDonut: false,
+        userInfo: {},
+        notifications: [],
+        historyDonut: [],
       })
     }
 

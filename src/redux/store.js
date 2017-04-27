@@ -10,7 +10,7 @@ import { initializeApp } from './middlewares/initializeApp'
 import { DockableSagaView, createSagaMonitor } from 'redux-saga-devtools'
 
 const monitor = createSagaMonitor()
-const sagaMiddleware = createSagaMiddleware({sagaMonitor: monitor})
+const sagaMiddleware = createSagaMiddleware({ sagaMonitor: monitor })
 
 
 function configureStore() {

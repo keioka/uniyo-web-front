@@ -15,17 +15,6 @@ export const showHistoryDonut = (history) => ({
   history,
 })
 
-export const hideUserInfo = (user) => ({
-  type: actionTypes.hideUserInfo.request,
-  user,
-})
-
-export const hideNotification = (notifications) => ({
-  type: actionTypes.hideNotification.request,
-  notifications,
-})
-
-export const hideHistoryDonut = (history) => ({
-  type: actionTypes.hideHistoryDonut.request,
-  history,
+export const hideSidebarRight = () => ({
+  type: actionTypes.hideSidebarRight.request,
 })

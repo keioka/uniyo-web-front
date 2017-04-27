@@ -11,17 +11,18 @@ function* showNotification() {
 }
 
 function* showUserInfo({ userId }) {
+
+  // TODO: Maybe Delete? Just filter user states and dispatch from UI
+  
   if (userId) {
     const users = yield select(getUsers)
     const tokens = yield select(getTokens)
     const { accessToken } = tokens
 
-
     let user = users.all.find(user => user.id === userId)
 
     if (!user) {
-      yield call(sagas.userInfoAsync, { userId, accessToken })
-      user = yield take(actionTypes.userInfo.success)
+      user = yield call(sagas.userInfoAsync, { userId, accessToken })
     }
 
     if (user) {
