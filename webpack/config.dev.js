@@ -11,8 +11,7 @@ var devConfig = Object.assign({}, webpackConfigBase, {
   devtool: 'eval',
   entry: {
     app: [
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
       './index.jsx',
     ]
   },
@@ -22,11 +21,14 @@ var devConfig = Object.assign({}, webpackConfigBase, {
       __STG__: false,
       __DEV__: true,
       __DEBUG__: true
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, '../'),
+    publicPath: '/public',
     historyApiFallback: true,
+    // { hot: true } causes webpack will expose the module.hot API to our code
     hot: true
   }
 });

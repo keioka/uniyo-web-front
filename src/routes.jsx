@@ -1,5 +1,7 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 import {
   App,
@@ -22,6 +24,7 @@ import {
 } from './components'
 
 export default () => (
+  <Provider store={store}>
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Index} />
@@ -46,7 +49,7 @@ export default () => (
       </Route>
 
       <Route path="/error/:errorCode" />
-      
+
       <Route path="/:schoolSlug">
         <Route path="/:schoolSlug/email_verified" />
         <Route path="/:schoolSlug/reset_password" />
@@ -56,4 +59,5 @@ export default () => (
       <Route path="*" />
     </Route>
   </Router>
+  </Provider>
 )
