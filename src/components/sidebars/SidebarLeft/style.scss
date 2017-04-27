@@ -8,6 +8,7 @@
   background-color: $gray;
   will-change: transform;
   overflow: scroll;
+  z-index: 3;
 }
 
 .section {
