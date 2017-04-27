@@ -14,7 +14,7 @@ import {
 
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth: state.api.auth,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

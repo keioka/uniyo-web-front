@@ -66,6 +66,7 @@ export CardDocument from './cards/CardDocument'
 
 export InputSearchSchool from './inputs/InputSearchSchool'
 export InputTextTransparent from './inputs/InputTextTransparent'
+export InputPost from './inputs/InputPost'
 export InputComment from './inputs/InputComment'
 
 /*
@@ -73,7 +74,9 @@ export InputComment from './inputs/InputComment'
 */
 
 export SidebarLeft from './sidebars/SidebarLeft'
-
+export SidebarRightUserInfo from './sidebars/SidebarRightUserInfo'
+export SidebarRightNotification from './sidebars/SidebarRightNotification'
+export SidebarRightHistoryDonuts from './sidebars/SidebarRightHistoryDonuts'
 
 /*
   text
@@ -88,9 +91,6 @@ export TextMention from './texts/TextMention'
 */
 
 export Donnut from './common/Donnut'
-
-
-
 /*
   list
 */

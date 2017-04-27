@@ -8,6 +8,7 @@
   background-color: $gray;
   will-change: transform;
   overflow: scroll;
+  z-index: 3;
 }
 
 .section {
@@ -67,6 +68,7 @@
     min-height: 100vh;
     background-color: $gray;
     padding: 0px;
+    width: 0;
     transition: width 0.2s;
   }
 }

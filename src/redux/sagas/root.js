@@ -14,9 +14,9 @@ const {
   commentCreateSaga,
   userInfoSaga,
   currentUserSaga,
+  watchShowUserInfo,
 } = sagas
 
-console.log(sagas)
 export default function* rootSaga() {
   yield [
     fork(schoolsSearchSaga),
@@ -31,5 +31,6 @@ export default function* rootSaga() {
     fork(commentCreateSaga),
     fork(userInfoSaga),
     fork(currentUserSaga),
+    fork(watchShowUserInfo),
   ]
 }

@@ -7,8 +7,11 @@ import reducers from './reducers'
 import { accessTokenValidator } from './middlewares/accessTokenValidator'
 import { redirectHandler } from './middlewares/redirectHandler'
 import { initializeApp } from './middlewares/initializeApp'
+import { DockableSagaView, createSagaMonitor } from 'redux-saga-devtools'
 
-const sagaMiddleware = createSagaMiddleware()
+const monitor = createSagaMonitor()
+const sagaMiddleware = createSagaMiddleware({ sagaMonitor: monitor })
+
 
 function configureStore() {
   const createStoreWithMiddleware = composeWithDevTools(
