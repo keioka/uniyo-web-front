@@ -11,7 +11,14 @@ import {
   userInfo,
   notification,
   historyDonut,
+  close,
 } from './style'
+
+import {
+  SidebarRightHistoryDonuts,
+  SidebarRightNotification,
+  SidebarRightUserInfo,
+} from '../../components'
 
 import uiAction from '../../redux/actions'
 
@@ -43,41 +50,22 @@ export default class SidebarRight extends Component {
 
   }
 
-  get userInfo() {
-    return (
-      <div className={userInfo}>
+  onClickCloseButtonHandler() {
 
-      </div>
-    )
-  }
-
-  get notification() {
-    return (
-      <div className={notification}>
-        notification
-      </div>
-    )
-  }
-
-  get historyDonut() {
-    return (
-      <div className={historyDonut}>
-        history
-      </div>
-    )
   }
 
   render() {
-    const { displayType } = this.props.rightbar
-    console.log(displayType)
+    const { displayType, isOpen, userInfo } = this.props.rightbar
 
     return (
-      <aside className={wrapper}>
-        {this.userInfo}
-        {this.notification}
-        {this.historyDonut}
-
-      </aside>
+      <div>
+        { isOpen ? (
+          <aside className={wrapper}>
+            <div className={close} onClick={() => this.props.hideSidebarRight()}></div>
+            <SidebarRightUserInfo user={userInfo} />
+          </aside>
+        ) : null }
+     </div>
     )
   }
 }

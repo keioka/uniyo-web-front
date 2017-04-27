@@ -1,9 +1,27 @@
+@import "../../styles/main";
+
 .wrapper {
   width: 330px;
   height: 100vh;
   position: fixed;
   right: 0px;
   top: 0px;
+  z-index: 3;
+  background: white;
+  border-left: 1px solid $lightgray;
+}
+
+.close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+  padding: 20px;
+  z-index: 2;
+}
+
+.close:after {
+  content: 'X';
 }
 
 .userInfo {
@@ -17,4 +35,19 @@
 
 .historyDonut {
 
+}
+
+@media only screen and (min-width: 769px) {
+  .wrapper {
+    width: 330px;
+    transition: width 2s ease;
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+    transition: width 0.2s;
+  }
 }
