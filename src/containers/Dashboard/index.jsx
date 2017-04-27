@@ -25,6 +25,8 @@ import {
   main,
   header,
   mainContent,
+  mainShrink,
+  mainExpand,
   footer,
   barNoification,
   inputPostWrapper,
@@ -40,6 +42,7 @@ const mapStateToProps = state => ({
   auth: state.api.auth,
   posts: state.api.posts,
   comments: state.api.comments,
+  rightbar: state.ui.rightbar,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -48,6 +51,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   commentsSearch: actions.commentsSearch,
   commentCreate: actions.commentCreate,
   showUserInfo: uiActions.showUserInfo,
+  hideSidebarRight: uiActions.hideSidebarRight,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -131,6 +135,7 @@ export default class DashBoard extends PureComponent {
       posts,
       comments,
       auth,
+      hideSidebarRight,
     } = this.props
 
     const { hashtags, image } = auth.currentUser
@@ -176,12 +181,17 @@ export default class DashBoard extends PureComponent {
       commentsSearch,
       commentCreate,
       showUserInfo,
+      hideSidebarRight
     }))
+
+
+    const { isOpen } = this.props.rightbar
+    const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
 
     return (
       <div className={container}>
         <SidebarLeft hashtags={hashtags} type={type} />
-        <div className={main}>
+        <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
             <div>
               <Notification className={icon} />
@@ -222,7 +232,7 @@ export default class DashBoard extends PureComponent {
           </div>
           <footer className={footer} />
         </div>
-        <SidebarRight />
+        <SidebarRight hideSidebarRight={hideSidebarRight} />
       </div>
     )
   }
