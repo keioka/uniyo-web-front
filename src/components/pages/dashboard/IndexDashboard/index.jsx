@@ -1,6 +1,5 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
-import FlipMove from 'react-flip-move'
 
 import {
   CardPost,
