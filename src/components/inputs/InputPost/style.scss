@@ -1,6 +1,7 @@
 @import "../../../styles/main";
 
 .input-post--wrapper {
+  position: relative;
   display: flex;
 }
 
@@ -22,17 +23,49 @@
 
 .input {
   z-index: 200;
-  color: transparent;
-  padding: 20px;
   background: transparent;
   font-size: 16px;
   width: 100%;
   outline: none;
   border: none;
   caret-color: $black;
-  position: absolute;
   top: 0;
   left: 0;
+}
+
+.drop-zone {
+  height: 50px;
+  width: 200px;
+  color: #DCDCDC;
+  border: 2px dotted #DCDCDC;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.imageUser {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.mention {
+  display: inline-block;
+}
+
+.box--optional {
+  display: flex;
+  align-items: center;
+  min-width: 100px;
+  padding: 20px;
+}
+
+span[data-user-id] {
+  color: $pink;
+}
+
+span[data-mention=true] {
+  color: $pink;
 }
 
 .inputWrapper {
@@ -54,6 +87,34 @@
   color: red;
   width: 100%;
 }
+
+.suggestion {
+  background-color: #474A56;
+  width: 200px;
+  position: absolute;
+  bottom: -280px;
+  border: 1px solid $gray;
+  box-shadow: 1px 1px 1px rgba(10, 10, 10, 0.2);
+  border-radius: 4px;
+}
+
+.suggestion__item {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  padding: 20px 30px;
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid #5c606f;
+}
+
+.suggestion__item[data-select=true]:after {
+  position: absolute;
+  right: 10px;
+  content: url('./donut.png')
+}
+
 
 .icon {
   width: 1.5rem;

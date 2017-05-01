@@ -6,10 +6,8 @@ import {
 
 export default (props) => {
   const { postId, className, commentCreate } = props
-  console.log(commentCreate)
   const classNames = `${inputText} ${className}`
   const onKeyDownHandler = (event) => {
-    console.log(event)
     if (event.key === 'Enter'){
       commentCreate({ postId , text: event.target.value })
     }

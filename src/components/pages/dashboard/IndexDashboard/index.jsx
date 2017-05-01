@@ -90,6 +90,7 @@ export default class IndexDashboard extends Component {
         case TYPES['post']:
           return (
             <CardPost
+              key={post.id}
               {...post}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
@@ -100,6 +101,7 @@ export default class IndexDashboard extends Component {
         case TYPES['docs']:
           return (
             <CardDocument
+              key={post.id}
               {...post}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
@@ -110,6 +112,7 @@ export default class IndexDashboard extends Component {
         case TYPES['reviews']:
           return (
             <CardReview
+              key={post.id}
               {...post}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
@@ -120,6 +123,7 @@ export default class IndexDashboard extends Component {
         case TYPES['questions']:
           return (
             <CardQuestion
+              key={post.id}
               {...post}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
