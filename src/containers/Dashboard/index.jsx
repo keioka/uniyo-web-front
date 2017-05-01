@@ -40,6 +40,7 @@ import Notification from './notification.svg'
 
 const mapStateToProps = state => ({
   auth: state.api.auth,
+  users: state.api.users,
   posts: state.api.posts,
   comments: state.api.comments,
   rightbar: state.ui.rightbar,
@@ -50,6 +51,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   postCreate: actions.postCreate,
   commentsSearch: actions.commentsSearch,
   commentCreate: actions.commentCreate,
+  userSearch: actions.userSearch,
   showUserInfo: uiActions.showUserInfo,
   hideSidebarRight: uiActions.hideSidebarRight,
 }, dispatch)
@@ -67,7 +69,6 @@ const TYPES = {
 const DOWN = "ArrowDown"
 const UP = "ArrowUp"
 const ENTER = "Enter"
-
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class DashBoard extends PureComponent {
@@ -132,14 +133,17 @@ export default class DashBoard extends PureComponent {
       commentsSearch,
       postCreate,
       postsSearch,
+      userSearch,
       posts,
       comments,
       auth,
       hideSidebarRight,
+      users,
     } = this.props
 
     const { hashtags, image } = auth.currentUser
     const { all: allPosts, fetching: isPostsFetching } = posts
+    const { all: suggestionedUsers } = users
     const { all: allComments } = comments
     const { hashtag, type } = this.props.location.query
 
@@ -175,13 +179,15 @@ export default class DashBoard extends PureComponent {
       hashtag,
       isPostsFetching,
       type: TYPES[type],
+      userSearch,
       allComments,
       postsSearch,
       postCreate,
       commentsSearch,
       commentCreate,
       showUserInfo,
-      hideSidebarRight
+      hideSidebarRight,
+      suggestionedUsers,
     }))
 
 
@@ -215,7 +221,8 @@ export default class DashBoard extends PureComponent {
               onSubmit={(postData) => { ::this.onSubmitPostHandler(postData) }}
               currentHashTag={hashtag}
               currentPostType={this.state.currentPostType}
-              suggestionedUser={[{id: 1, name: 'kei'}]}
+              suggestionedUsers={suggestionedUsers}
+              userSearch={userSearch}
             />
           </div>
           {hashtag &&
