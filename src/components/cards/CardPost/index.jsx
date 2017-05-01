@@ -66,7 +66,7 @@ export default class CardPost extends Component {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
-      <div className={wrapper}>
+      <div key={id} className={wrapper}>
         <div className={sectionImage}>
           <img src={user.image.smallUrl} alt="" />
         </div>
@@ -86,7 +86,7 @@ export default class CardPost extends Component {
                 <InputComment postId={id} commentCreate={commentCreate} />
               </div>
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <ListComment {...comment}>{comment.text}</ListComment>)}
+                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>
             </div>
           }

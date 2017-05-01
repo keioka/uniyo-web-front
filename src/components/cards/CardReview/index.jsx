@@ -4,6 +4,7 @@ import moment from 'moment'
 import {
   TextPost,
   Donnut,
+  ListComment,
 } from '../../'
 
 import {
@@ -48,6 +49,7 @@ export default class CardReview extends Component {
 
   render() {
     const {
+      id,
       text,
       user,
       likesCount,
@@ -56,6 +58,7 @@ export default class CardReview extends Component {
       createdAt,
       commentsSearch,
       comments,
+      commentCreate,
       rating,
     } = this.props
 
@@ -79,9 +82,9 @@ export default class CardReview extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <input type="text" />
+              <InputComment postId={id} commentCreate={commentCreate} />
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <li>{comment.text}</li>)}
+                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>
             </div>
           }

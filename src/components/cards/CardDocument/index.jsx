@@ -6,6 +6,7 @@ import {
   Donnut,
   ButtonFile,
   ListComment,
+  InputComment,
 } from '../../'
 
 import {
@@ -88,9 +89,9 @@ export default class CardDocument extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <input type="text" onKeyDown={onKeyDownHandler} />
+              <InputComment postId={id} commentCreate={commentCreate} />
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <ListComment comment={comment}>{comment.text}</ListComment>)}
+                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>
             </div>
           }
