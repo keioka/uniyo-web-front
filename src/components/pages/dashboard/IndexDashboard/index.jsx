@@ -35,10 +35,10 @@ export default class IndexDashboard extends Component {
   onScrollHandler(event) {
     const dashboard = this._dashboard
     const { posts } = this.props
-    const lastPost = posts[posts.length - 1]
+    const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
-    //
+
     // console.log("---------------------------")
     // console.log(scrollHeight, currentHeight)
     // console.log(scrollHeight < currentHeight)
@@ -50,20 +50,20 @@ export default class IndexDashboard extends Component {
       lastPost // to avoid bug 'lastPost returns undefined' while scrolling
     ) {
 
-      console.log("postsSearch is fired!!")
       // TODO: fix bug 'this.props.postsSearch action dispatched twice'
+
+      const searchPost = () => {
+        const params = { lastPostId: lastPost.id }
+        params.hashtags = this.props.hashtag && [this.props.hashtag]
+        params.types = this.props.type && this.props.type !== 'ALL' && [this.props.type]
+        this.props.postsSearch(params)
+      }
 
       this.setState({
         // if it is not loaded, this won't be turned to false.
         // which means engine never call this block.
         isLoadingMorePost: true,
-
-      }, () => {
-        const params = { lastPostId: lastPost.id }
-        params.hashtags = this.props.hashtag && [this.props.hashtag]
-        params.types = this.props.type && [this.props.type]
-        this.props.postsSearch(params)
-      })
+      }, searchPost)
     }
   }
 
