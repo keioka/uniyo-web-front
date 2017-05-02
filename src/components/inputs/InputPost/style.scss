@@ -40,6 +40,14 @@
   border: 2px dotted #DCDCDC;
   padding: 20px;
   border-radius: 10px;
+  text-overflow: ellipsis;
+}
+
+.filename {
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
 }
 
 .imageUser {
