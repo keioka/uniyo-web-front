@@ -126,6 +126,12 @@ export default class DashBoard extends PureComponent {
     })
   }
 
+  onChange(editorState) {
+    this.setState({
+      editorState,
+    })
+   }
+
   get renderContent() {
     const {
       showUserInfo,
@@ -189,7 +195,6 @@ export default class DashBoard extends PureComponent {
       hideSidebarRight,
       suggestionedUsers,
     }))
-
 
     const { isOpen } = this.props.rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
