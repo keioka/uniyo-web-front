@@ -179,7 +179,7 @@ export default class InputPost extends Component {
 
     if (currentPostType === 'ALL') {
       this.props.onPostSubmit({
-        postType: currentPostType,
+        postType: 'POST',
         text: plainText,
       })
     }
@@ -190,7 +190,7 @@ export default class InputPost extends Component {
       }
 
       this.props.onPostSubmit({
-        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
+        postType: currentPostType,
         text: plainText,
         classNote: this.state.form.file,
       })
@@ -198,7 +198,7 @@ export default class InputPost extends Component {
 
     if (currentPostType === 'REVIEW') {
       this.props.onPostSubmit({
-        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
+        postType: currentPostType,
         text: plainText,
         rating: this.state.form.rating,
       })
@@ -206,7 +206,7 @@ export default class InputPost extends Component {
 
     if (currentPostType === 'QUESTION') {
       this.props.onPostSubmit({
-        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
+        postType: currentPostType,
         text: plainText,
       })
     }
@@ -218,7 +218,7 @@ export default class InputPost extends Component {
       }
 
       this.props.onPostSubmit({
-        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
+        postType: currentPostType,
         text: plainText ,
         classNote: this.state.form.file,
       })
