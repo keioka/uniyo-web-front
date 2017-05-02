@@ -91,13 +91,12 @@ export default class DashBoard extends PureComponent {
     })
   }
 
-  onSelectHashTag(hashtag) {}
-
   componentWillReceiveProps(prevProps, nextProps) {
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type = 'all' } = prevProps.location.query
     const { postsSearch } = this.props
 
+    // If query string is changed, get new posts.
     if (currentHashTag !== hashtag || currentPostType !== TYPES[type]) {
       this.setState({
         currentHashTag: hashtag,
@@ -105,8 +104,9 @@ export default class DashBoard extends PureComponent {
       })
 
       const params = {}
+      const typeForQuery = [TYPES[type]]
       if (hashtag) { params.hashtags = [hashtag] }
-      if (type) { params.types = [TYPES[type]] }
+      if (typeForQuery && typeForQuery !== 'ALL') { params.types = [TYPES[type]] }
       postsSearch(params)
     }
   }
@@ -126,6 +126,12 @@ export default class DashBoard extends PureComponent {
     })
   }
 
+  onChange(editorState) {
+    this.setState({
+      editorState,
+    })
+   }
+
   get renderContent() {
     const {
       showUserInfo,
@@ -139,40 +145,42 @@ export default class DashBoard extends PureComponent {
       auth,
       hideSidebarRight,
       users,
+      rightbar,
+      location,
     } = this.props
 
     const { hashtags, image } = auth.currentUser
     const { all: allPosts, fetching: isPostsFetching } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
-    const { hashtag, type } = this.props.location.query
+    const { hashtag, type } = location.query
+    const { isOpen } = rightbar
+    const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
+
+
+    /* **************************************
+      [start] filter feature
+     *************************************** */
 
     let sortedPosts = allPosts
 
-    if (hashtag || type) {
-      const params = {}
-      if (hashtag) {
-        params.hashtags = [hashtag]
-      } else {
-        params.types = [TYPES[type]]
-      }
-      // postsSearch(params)
-    }
+    // TODO: sort by createdAt
 
-    /* ****
-      fileter feature
-    ******/
     if (hashtag) {
       sortedPosts = sortedPosts.filter(post => {
-        const hashtag:String = `#${this.props.location.query.hashtag}`
+        const hashtag:String = `#${this.props.location.query.hashtag.toLowerCase()}`
         const matched:Array = post.text.match(regexTag) || []
-        return matched.includes(hashtag)
+        return matched.map(hashtag => hashtag.toLowerCase()).includes(hashtag)
       })
     }
 
     if (type) {
       sortedPosts = sortedPosts.filter(post => post.postType === TYPES[type])
     }
+
+    /* **************************************
+      [end] filter feature
+     *************************************** */
 
     const childComponents = React.Children.map(this.props.children, child => React.cloneElement(child, {
       posts: sortedPosts,
@@ -190,10 +198,6 @@ export default class DashBoard extends PureComponent {
       suggestionedUsers,
     }))
 
-
-    const { isOpen } = this.props.rightbar
-    const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
-
     return (
       <div className={container}>
         <SidebarLeft hashtags={hashtags} type={type} />
@@ -203,13 +207,11 @@ export default class DashBoard extends PureComponent {
               <Notification className={icon} />
               <Setting className={icon} />
             </div>
-
             <NavPostType
               onSelectPostType={::this.onSelectPostType}
               currentPostType={this.state.currentPostType}
               currentHashTag={hashtag}
             />
-
             <div>
               <Donnut size="large" />
             </div>
