@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import Rx from 'rx'
-import reactStringReplace from 'react-string-replace'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
 import { Editor, EditorState, CompositeDecorator, convertFromRaw, convertToRaw, stateToHTML } from 'draft-js'
@@ -9,9 +7,6 @@ import createMentionPlugin from 'draft-js-mention-plugin'
 import { fromJS } from 'immutable'
 import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js'
 import 'style-loader!css-loader!draft-js-mention-plugin/lib/plugin.css'
-
-
-
 
 const mentionPlugin = createMentionPlugin()
 const { MentionSuggestions } = mentionPlugin
@@ -127,8 +122,12 @@ import {
 
 export default class InputPost extends Component {
 
+  static propTypes = {
+    onPostSubmit: PropTypes.func.isRequired,
+  }
+
   state = {
-    editorState: EditorState.createEmpty(compositeDecorator),
+    editorState: EditorState.createEmpty(),
     postionSuggestionCurrent: -1,
     suggestions: userListMentions,
     // later feature
@@ -173,7 +172,7 @@ export default class InputPost extends Component {
 
   onSubmit() {
     const { currentPostType } = this.props
-    const rawDraftContentState = JSON.stringify( convertToRaw(this.state.editorState.getCurrentContent()))
+    const rawDraftContentState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
 
     const plainText = this.state.editorState.getCurrentContent().getPlainText()
 
@@ -181,18 +180,6 @@ export default class InputPost extends Component {
       this.props.onPostSubmit({
         postType: 'POST',
         text: plainText,
-      })
-    }
-
-    if (currentPostType === 'CLASS_NOTE') {
-      if (!this.state.form.file) {
-        // if file is not uploaded.
-      }
-
-      this.props.onPostSubmit({
-        postType: currentPostType,
-        text: plainText,
-        classNote: this.state.form.file,
       })
     }
 
@@ -212,28 +199,35 @@ export default class InputPost extends Component {
     }
 
     if (currentPostType === 'CLASS_NOTE') {
-
       if (!this.state.form.file) {
         // if file is not uploaded.
       }
 
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText ,
+        text: plainText,
         classNote: this.state.form.file,
       })
     }
   }
 
+  onFocus() {
+    this.editor.focus()
+  }
+
+  onAddMention() {
+
+  }
+
   onStarClick(nextValue, prevValue, name) {
     this.setState({
       form: {
-        rating: nextValue
-      }
+        rating: nextValue,
+      },
     })
   }
 
-  render() {
+  get BoxOptional() {
     let BoxOptional
     const { currentPostType } = this.props
     if (currentPostType === 'REVIEW') {
@@ -246,11 +240,7 @@ export default class InputPost extends Component {
           emptyStarColor={'gray'} /* color of non-selected icons, default `#333` */
           onStarClick={::this.onStarClick}
           editing
-       />)
-    }
-
-    if (currentPostType === 'QUESTION') {
-
+        />)
     }
 
     if (currentPostType === 'CLASS_NOTE') {
@@ -274,39 +264,33 @@ export default class InputPost extends Component {
       )
     }
 
+    return BoxOptional
+  }
+
+  render() {
+    console.log(Editor)
+    console.log(MentionSuggestions)
     const { imgUrl, hashtag } = this.props
     return (
       <span className={inputPostWrapper}>
         <span className={inputPostWrapperImageBox}>
           <img src={imgUrl || 'loading'} />
         </span>
-        {BoxOptional ? <span className={boxOptional}>{BoxOptional}</span> : null}
-        <div className={inputWrapper}>
+        {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
+        <div className={inputWrapper} onClick={::this.onFocus}>
           <Editor
             editorState={this.state.editorState}
+            ref={editor => this.editor = editor}
             onChange={::this.onChange}
             keyBindingFn={::this.keyBindingFn}
             plugins={plugins}
           />
           <MentionSuggestions
-            onSearchChange={::this.onSearchChange}
+            onSearchChange={this.onSearchChange}
             suggestions={this.state.suggestions}
+            onAddMention={this.onAddMention}
           />
         </div>
-        {this.state.isOpenSuggestion &&
-          <ul className={suggestion}>
-          {this.props.suggestionedUsers.map((user, index) =>
-            <li
-              key={user.id}
-              data-select={ index === this.state.postionSuggestionCurrent}
-              className={suggestionItem}
-              onClick={() => ::this.onSelectSuggestionedUser(user)}
-            >
-              {user.name}
-            </li>)
-          }
-          </ul>
-        }
       </span>
     )
   }

@@ -71,7 +71,7 @@ const UP = "ArrowUp"
 const ENTER = "Enter"
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class DashBoard extends PureComponent {
+export default class DashBoard extends Component {
 
   static propTypes = {
     location: PropTypes.objectOf.isRequired,
@@ -126,11 +126,6 @@ export default class DashBoard extends PureComponent {
     })
   }
 
-  onChange(editorState) {
-    this.setState({
-      editorState,
-    })
-   }
 
   get renderContent() {
     const {
