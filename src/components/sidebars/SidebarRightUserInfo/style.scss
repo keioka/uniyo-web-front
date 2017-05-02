@@ -1,0 +1,71 @@
+@import "../../../styles/main";
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.close:after {
+  content: 'X';
+}
+
+.box--img {
+  flex: 4;
+  height: auto;
+}
+
+.image--profile {
+  width: 100%;
+}
+
+.profile {
+  flex: 1 1 60px;
+  min-height: 60px;
+  background: $lightgray;
+}
+
+.profile__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.profile__name__h3 {
+  font-size: 20px;
+}
+
+.profile__nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.tags {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+.tags__list {
+
+}
+
+.tags__item {
+  list-style: none;
+  color: $pink;
+  cursor: pointer;
+}

@@ -1,0 +1,47 @@
+@import "../../../../styles/main";
+
+.layout--select-school {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100vh;
+  background-color: $orange;
+}
+
+.layout--select-school__header {
+  display: flex;
+  align-items: center;
+  flex: 2;
+}
+
+.layout--select-school__fotter {
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  background-image: url('../../../../../public/images/background.png');
+  width: 100%;
+}
+
+.layout--select-school__title {
+  @include h1;
+  color: $darkgray;
+}
+
+.layout--select-school__content {
+  flex: 3;
+  width: 100%;
+  padding: 0px 20%;
+  box-sizing: border-box;
+}
+
+.layout--user-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100vh;
+  background-color: $whitegreen;
+}
+
+.input {
+  margin: 20px 0px;
+}

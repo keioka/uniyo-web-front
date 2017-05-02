@@ -1,0 +1,43 @@
+@import "../../../styles/main";
+
+.button {
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: $font-weight-normal;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  background: $lightgray;
+  padding: 20px;
+  border: 2px solid $gray;
+}
+
+.button--primary {
+  background-color: white;
+  border: 2px solid $purple;
+  transition: background-color 0.5s ease;
+  // transition: color 0.1s ease;
+  color: $darkgray;
+}
+
+.button--primary:hover {
+  background-color: $purple;
+  border: 2px solid $purple;
+  color: $darkgray;
+}
+
+.button--danger {
+  background-color: $green;
+  color: white;
+}
+
+.button--regular {
+  background-color: $green;
+  color: white;
+}
+
+.button--option {
+  background-color: white;
+  color: $darkblue;
+}

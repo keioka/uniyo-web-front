@@ -1,0 +1,124 @@
+@import "../../../styles/main";
+
+.input-post--wrapper {
+  position: relative;
+  display: flex;
+}
+
+.input-post--wrapper__image-box {
+  width: 10%;
+  margin-top: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 20px;
+}
+
+.input-post--wrapper__image-box img {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+}
+
+.input {
+  z-index: 200;
+  background: transparent;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  border: none;
+  caret-color: $black;
+  top: 0;
+  left: 0;
+}
+
+.drop-zone {
+  height: 50px;
+  width: 200px;
+  color: #DCDCDC;
+  border: 2px dotted #DCDCDC;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.imageUser {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.mention {
+  display: inline-block;
+}
+
+.box--optional {
+  display: flex;
+  align-items: center;
+  min-width: 100px;
+  padding: 20px;
+}
+
+span[data-user-id] {
+  color: $pink;
+}
+
+span[data-mention=true] {
+  color: $pink;
+}
+
+.inputWrapper {
+  width: 100%;
+  padding: 20px;
+  height: auto;
+  border: none;
+  border-top: 1px solid $lightgray;
+  border-bottom: 1px solid $lightgray;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  position: relative;
+  letter-spacing: 0.4px;
+}
+
+.input--mirror {
+  // padding: 3rem 5%;
+  color: red;
+  width: 100%;
+}
+
+.suggestion {
+  background-color: #474A56;
+  width: 200px;
+  position: absolute;
+  bottom: -280px;
+  border: 1px solid $gray;
+  box-shadow: 1px 1px 1px rgba(10, 10, 10, 0.2);
+  border-radius: 4px;
+}
+
+.suggestion__item {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  padding: 20px 30px;
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid #5c606f;
+}
+
+.suggestion__item[data-select=true]:after {
+  position: absolute;
+  right: 10px;
+  content: url('./donut.png')
+}
+
+
+.icon {
+  width: 1.5rem;
+  cursor: pointer;
+  margin-right: 15px;
+  padding: 0;
+}
