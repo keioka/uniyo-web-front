@@ -220,6 +220,7 @@ export default class DashBoard extends Component {
               currentPostType={this.state.currentPostType}
               suggestionedUsers={suggestionedUsers}
               userSearch={userSearch}
+              showUserInfo={showUserInfo}
             />
           </div>
           {hashtag &&

@@ -91,8 +91,10 @@ export TextMention from './texts/TextMention'
 */
 
 export Donnut from './common/Donnut'
+
 /*
   list
 */
 
 export ListComment from './lists/ListComment'
+export ListMentionSuggestion from './lists/ListMentionSuggestion'

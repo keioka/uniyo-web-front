@@ -2,105 +2,78 @@ import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
-import { Editor, EditorState, CompositeDecorator, convertFromRaw, convertToRaw, stateToHTML } from 'draft-js'
-import createMentionPlugin from 'draft-js-mention-plugin'
 import { fromJS } from 'immutable'
+
+import { EditorState, CompositeDecorator, convertFromRaw, convertToRaw, stateToHTML } from 'draft-js'
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor'
+import createMentionPlugin from 'draft-js-mention-plugin'
 import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js'
 import 'style-loader!css-loader!draft-js-mention-plugin/lib/plugin.css'
 
-const mentionPlugin = createMentionPlugin()
-const { MentionSuggestions } = mentionPlugin
-const plugins = [mentionPlugin]
+const MENTION_REGEX = /<@(.*?)>/g
+const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
+const mentionStrategy = (contentBlock, callback, contentState) => findWithRegex(contentBlock, callback, contentState, MENTION_REGEX)
+const hashtagStrategy = (contentBlock, callback, contentState) => findWithRegex(contentBlock, callback, contentState, HASHTAG_REGEX)
+
+function findWithRegex(contentBlock, callback, contentState, regex) {
+  const text = contentBlock.getText()
+  let matchArr, start
+  while ((matchArr = regex.exec(text)) !== null) {
+    start = matchArr.index
+    callback(start, start + matchArr[0].length)
+  }
+}
+
+const MentionSpan = (props) => {
+  return (
+    <span data-kei='hi'>
+      {props.children}
+    </span>
+  )
+}
+
+const HashtagSpan = (props) => {
+  return (
+    <span
+      style={styles.hashtag}
+      data-offset-key={props.entityKey}
+    >
+      {props.children}
+    </span>
+  )
+}
+
+const mentionPlugin = createMentionPlugin({
+  mentionComponent: (props) => {
+    return (
+      <span
+        data-offset-key={props.entityKey}
+        data-user-id={props.mention.get('id')}
+      >
+        @{props.decoratedText}
+      </span>
+    )
+  },
+})
+
+const { MentionSuggestions } = mentionPlugin
 const compositeDecorator = new CompositeDecorator([
   {
-    strategy: handleStrategy,
-    component: HandleSpan,
+    strategy: mentionStrategy,
+    component: MentionSpan,
   }, {
     strategy: hashtagStrategy,
     component: HashtagSpan,
   },
 ])
 
-const HANDLE_REGEX = /\@[\w]+/g;
-const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
-
-function handleStrategy(contentBlock, callback, contentState) {
-  findWithRegex(HANDLE_REGEX, contentBlock, callback);
-}
-
-function hashtagStrategy(contentBlock, callback, contentState) {
-  findWithRegex(HASHTAG_REGEX, contentBlock, callback);
-}
-
-function findWithRegex(regex, contentBlock, callback) {
-  const text = contentBlock.getText();
-  let matchArr, start;
-  while ((matchArr = regex.exec(text)) !== null) {
-    start = matchArr.index;
-    callback(start, start + matchArr[0].length);
-  }
-}
-
-const HandleSpan = (props) => {
-  return (
-    <span
-      style={{color: 'red'}}
-      data-offset-key={props.offsetKey}
-    >
-      {props.children}
-    </span>
-  );
-};
-
-const HashtagSpan = (props) => {
-  return (
-    <span
-      style={styles.hashtag}
-      data-offset-key={props.offsetKey}
-    >
-      {props.children}
-    </span>
-  );
-};
-
-
-const userListMentions = fromJS([
-  {
-    name: 'Matthew Russell',
-    link: 'https://twitter.com/mrussell247',
-    avatar: 'https://pbs.twimg.com/profile_images/517863945/mattsailing_400x400.jpg',
-  },
-  {
-    name: 'Julian Krispel-Samsel',
-    link: 'https://twitter.com/juliandoesstuff',
-    avatar: 'https://avatars2.githubusercontent.com/u/1188186?v=3&s=400',
-  },
-  {
-    name: 'Jyoti Puri',
-    link: 'https://twitter.com/jyopur',
-    avatar: 'https://avatars0.githubusercontent.com/u/2182307?v=3&s=400',
-  },
-  {
-    name: 'Max Stoiber',
-    link: 'https://twitter.com/mxstbr',
-    avatar: 'https://pbs.twimg.com/profile_images/763033229993574400/6frGyDyA_400x400.jpg',
-  },
-  {
-    name: 'Nik Graf',
-    link: 'https://twitter.com/nikgraf',
-    avatar: 'https://avatars0.githubusercontent.com/u/223045?v=3&s=400',
-  },
-  {
-    name: 'Pascal Brandt',
-    link: 'https://twitter.com/psbrandt',
-    avatar: 'https://pbs.twimg.com/profile_images/688487813025640448/E6O6I011_400x400.png',
-  },
-])
+const plugins = [ mentionPlugin ]
 
 import {
   TextPost,
   TextMention,
+  ListMentionSuggestion,
 } from '../../'
 
 import {
@@ -119,6 +92,9 @@ import {
   filename,
 } from './style'
 
+// Since the decorators are stored in the EditorState it's important to not reset the complete EditorState.
+// The proper way is to reset the ContentState which is part of the EditorState. In addition this ensures proper undo/redo behavior.
+//https://github.com/draft-js-plugins/draft-js-plugins/blob/master/FAQ.md
 
 export default class InputPost extends Component {
 
@@ -127,15 +103,34 @@ export default class InputPost extends Component {
   }
 
   state = {
-    editorState: EditorState.createEmpty(),
+    editorState: EditorState.createEmpty(compositeDecorator),
     postionSuggestionCurrent: -1,
-    suggestions: userListMentions,
+    suggestions: fromJS([]),
     // later feature
     isOpenSuggestion: false,
     form: {
       rating: 5,
       file: null,
+    },
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      suggestions: fromJS(this.props.suggestionedUsers),
+    })
+  }
+
+  keyBindingFn(event) {
+    if (event.keyCode === 13) {
+      if (event.nativeEvent.shiftKey) {
+        console.log(event)
+      } else {
+        event.preventDefault()
+        this.onSubmit()
+        return
+      }
     }
+    return getDefaultKeyBinding(event)
   }
 
   onChange(editorState) {
@@ -148,32 +143,19 @@ export default class InputPost extends Component {
     const file = event[0]
     this.setState({
       form: {
-        file: file,
-      }
+        file,
+      },
     })
   }
 
   onSearchChange({ value }) {
-    console.log(value)
-  }
-
-  keyBindingFn(event) {
-    if (event.keyCode === 13) {
-      if (event.nativeEvent.shiftKey) {
-
-      } else {
-        event.preventDefault()
-        this.onSubmit()
-        return
-      }
+    if (value) {
+      this.props.userSearch({ query: value })
     }
-    return getDefaultKeyBinding(event)
   }
 
   onSubmit() {
     const { currentPostType } = this.props
-    const rawDraftContentState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
-
     const plainText = this.state.editorState.getCurrentContent().getPlainText()
 
     if (currentPostType === 'ALL') {
@@ -215,11 +197,11 @@ export default class InputPost extends Component {
     this.editor.focus()
   }
 
-  onAddMention() {
-
+  onAddMention(event) {
+    // https://github.com/draft-js-plugins/draft-js-plugins/pull/706
   }
 
-  onStarClick(nextValue, prevValue, name) {
+  onStarClick(nextValue) {
     this.setState({
       form: {
         rating: nextValue,
@@ -244,7 +226,7 @@ export default class InputPost extends Component {
     }
 
     if (currentPostType === 'CLASS_NOTE') {
-      BoxOptional =  (
+      BoxOptional = (
         <Dropzone
           onDrop={::this.onDropFile}
           className={dropZone}
@@ -268,8 +250,6 @@ export default class InputPost extends Component {
   }
 
   render() {
-    console.log(Editor)
-    console.log(MentionSuggestions)
     const { imgUrl, hashtag } = this.props
     return (
       <span className={inputPostWrapper}>
@@ -286,9 +266,10 @@ export default class InputPost extends Component {
             plugins={plugins}
           />
           <MentionSuggestions
-            onSearchChange={this.onSearchChange}
+            onSearchChange={::this.onSearchChange}
             suggestions={this.state.suggestions}
-            onAddMention={this.onAddMention}
+            onAddMention={::this.onAddMention}
+            entryComponent={ListMentionSuggestion}
           />
         </div>
       </span>
