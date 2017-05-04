@@ -74,7 +74,7 @@ export default class CardPost extends Component {
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
             <span className={textUserName}>{user.name}</span>
-            <span className={textPostTime}>{time}</span>
+            {/* <span className={textPostTime}>{time}</span> */}
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
