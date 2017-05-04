@@ -12,14 +12,13 @@ import {
 } from './style'
 
 const ListComment = ({ id, user, text }) => {
-  console.log('ListComment', text)
   return (
     <li key={id} className={wrapper}>
       <span className={boxImage}>
         <img src={user.image.smallUrl} className={imgUser} />
       </span>
       <span className={fontName}>{user.firstName}</span>
-      <TextPost>{text}</TextPost>
+      <TextPost text={text} />
     </li>
   )
   // TODO: what if long comment
