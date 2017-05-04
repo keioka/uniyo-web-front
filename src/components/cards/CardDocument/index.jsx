@@ -64,6 +64,7 @@ export default class CardDocument extends Component {
       comments,
       commentCreate,
       showUserInfo,
+      currentUser,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -89,7 +90,7 @@ export default class CardDocument extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} />
+              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>

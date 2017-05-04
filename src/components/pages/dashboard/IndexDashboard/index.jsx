@@ -81,16 +81,17 @@ export default class IndexDashboard extends Component {
       questions: 'QUESTION',
     }
 
-    const { commentsSearch, commentCreate, showUserInfo } = this.props
+    const { commentsSearch, commentCreate, showUserInfo, currentUser } = this.props
 
     const cardFactory = ({ post, commentsSearch,
-    comments, showUserInfo }) => {
+    comments, showUserInfo, currentUser }) => {
       switch(post.postType) {
         case TYPES['post']:
           return (
             <CardPost
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -102,6 +103,7 @@ export default class IndexDashboard extends Component {
             <CardDocument
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -113,6 +115,7 @@ export default class IndexDashboard extends Component {
             <CardReview
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -124,6 +127,7 @@ export default class IndexDashboard extends Component {
             <CardQuestion
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -145,6 +149,7 @@ export default class IndexDashboard extends Component {
             commentCreate,
             comments,
             showUserInfo,
+            currentUser,
           })
         })}
         { this.state.isLoadingMorePost && <div> Loading </div> }
