@@ -2,73 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
-import { fromJS } from 'immutable'
+import localStorage from '../../../utils/localStorageHandler'
+import postTranspiler from '../../../utils/postTranspiler'
 
-import { EditorState, CompositeDecorator, convertFromRaw, convertToRaw, stateToHTML } from 'draft-js'
-import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor'
-import createMentionPlugin from 'draft-js-mention-plugin'
-import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js'
-import 'style-loader!css-loader!draft-js-mention-plugin/lib/plugin.css'
-
-const MENTION_REGEX = /<@(.*?)>/g
-const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
-
-const mentionStrategy = (contentBlock, callback, contentState) => findWithRegex(contentBlock, callback, contentState, MENTION_REGEX)
-const hashtagStrategy = (contentBlock, callback, contentState) => findWithRegex(contentBlock, callback, contentState, HASHTAG_REGEX)
-
-function findWithRegex(contentBlock, callback, contentState, regex) {
-  const text = contentBlock.getText()
-  let matchArr, start
-  while ((matchArr = regex.exec(text)) !== null) {
-    start = matchArr.index
-    callback(start, start + matchArr[0].length)
-  }
-}
-
-const MentionSpan = (props) => {
-  return (
-    <span data-kei='hi'>
-      {props.children}
-    </span>
-  )
-}
-
-const HashtagSpan = (props) => {
-  return (
-    <span
-      style={styles.hashtag}
-      data-offset-key={props.entityKey}
-    >
-      {props.children}
-    </span>
-  )
-}
-
-const mentionPlugin = createMentionPlugin({
-  mentionComponent: (props) => {
-    return (
-      <span
-        data-offset-key={props.entityKey}
-        data-user-id={props.mention.get('id')}
-      >
-        @{props.decoratedText}
-      </span>
-    )
-  },
-})
-
-const { MentionSuggestions } = mentionPlugin
-const compositeDecorator = new CompositeDecorator([
-  {
-    strategy: mentionStrategy,
-    component: MentionSpan,
-  }, {
-    strategy: hashtagStrategy,
-    component: HashtagSpan,
-  },
-])
-
-const plugins = [ mentionPlugin ]
+import $ from 'jquery'
+import 'jquery.caret'
+import 'style-loader!css-loader!at.js/dist/css/jquery.atwho.css'
+import 'at.js'
 
 import {
   TextPost,
@@ -103,9 +43,7 @@ export default class InputPost extends Component {
   }
 
   state = {
-    editorState: EditorState.createEmpty(compositeDecorator),
     postionSuggestionCurrent: -1,
-    suggestions: fromJS([]),
     // later feature
     isOpenSuggestion: false,
     form: {
@@ -114,24 +52,38 @@ export default class InputPost extends Component {
     },
   }
 
-  componentWillReceiveProps() {
-    this.setState({
-      suggestions: fromJS(this.props.suggestionedUsers),
+  componentDidMount() {
+    // $inputor.atwho('load', '@', [{name: 'one'}, {nick: 'two'}]);
+
+    const self = this
+    // TODO: Move this or connect to redux
+    $('#input').atwho({
+      at: "@",
+      callbacks: {
+        remoteFilter: function(query, callback) {
+          const accessToken = localStorage.accessToken
+          if (query) {
+            $.ajax({
+              url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
+              type: 'GET',
+              dataType: 'json',
+              success: function(data) {
+                console.log(data)
+                callback(data)
+              },
+              error: function() {
+                console.log('Search is not working')
+              }
+            })
+          }
+        }
+      },
+      displayTpl: "<li><img src='${image.small_url}'/> ${name}</li>",
+      insertTpl: "<span onClick='return;' data-user-id=${id}>@${name}</span>",
+      searchKey: 'name'
     })
   }
 
-  keyBindingFn(event) {
-    if (event.keyCode === 13) {
-      if (event.nativeEvent.shiftKey) {
-        console.log(event)
-      } else {
-        event.preventDefault()
-        this.onSubmit()
-        return
-      }
-    }
-    return getDefaultKeyBinding(event)
-  }
 
   onChange(editorState) {
     this.setState({
@@ -148,27 +100,39 @@ export default class InputPost extends Component {
     })
   }
 
-  onSearchChange({ value }) {
-    if (value) {
-      this.props.userSearch({ query: value })
+  onCopy(event) {
+  }
+
+  onPaste(event) {
+  }
+
+  onKeyUp(event) {
+    console.log($('#input').atwho('isSelecting'))
+    if (event.keyCode === 13) {
+      if (event.shiftKey) {
+        console.log('shift key')
+      } else if ($('#input').atwho('isSelecting') === false) {
+        console.log($('#input').atwho('isSelecting'))
+        this.onSubmit()
+      }
     }
   }
 
   onSubmit() {
     const { currentPostType } = this.props
-    const plainText = this.state.editorState.getCurrentContent().getPlainText()
+    const text = postTranspiler(this._input)
 
     if (currentPostType === 'ALL') {
       this.props.onPostSubmit({
         postType: 'POST',
-        text: plainText,
+        text: text,
       })
     }
 
     if (currentPostType === 'REVIEW') {
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText,
+        text: text,
         rating: this.state.form.rating,
       })
     }
@@ -176,7 +140,7 @@ export default class InputPost extends Component {
     if (currentPostType === 'QUESTION') {
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText,
+        text: text,
       })
     }
 
@@ -187,18 +151,10 @@ export default class InputPost extends Component {
 
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText,
+        text: text,
         classNote: this.state.form.file,
       })
     }
-  }
-
-  onFocus() {
-    this.editor.focus()
-  }
-
-  onAddMention(event) {
-    // https://github.com/draft-js-plugins/draft-js-plugins/pull/706
   }
 
   onStarClick(nextValue) {
@@ -257,20 +213,16 @@ export default class InputPost extends Component {
           <img src={imgUrl || 'loading'} />
         </span>
         {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
-        <div className={inputWrapper} onClick={::this.onFocus}>
-          <Editor
-            editorState={this.state.editorState}
-            ref={editor => this.editor = editor}
-            onChange={::this.onChange}
-            keyBindingFn={::this.keyBindingFn}
-            plugins={plugins}
-          />
-          <MentionSuggestions
-            onSearchChange={::this.onSearchChange}
-            suggestions={this.state.suggestions}
-            onAddMention={::this.onAddMention}
-            entryComponent={ListMentionSuggestion}
-          />
+        <div className={inputWrapper}>
+           <div
+             id='input'
+             ref={input => { this._input = input }}
+             className={input}
+             contentEditable={true}
+             onCopy={::this.onCopy}
+             onKeyUp={::this.onKeyUp}
+             onPaste={::this.onPaste}
+           ></div>
         </div>
       </span>
     )
