@@ -79,6 +79,13 @@ export default class InputComment extends Component {
     })
   }
 
+  onBlur() {
+    this.setState({
+      isOpenInstruction: false,
+      isAllowedShowInstruction: false,
+    })
+  }
+
   render() {
     const { postId, className, commentCreate, currentUser } = this.props
     const classNames = `${input} ${className}`
@@ -88,9 +95,18 @@ export default class InputComment extends Component {
         {this.state.isOpenInstruction &&
          this.state.isAllowedShowInstruction &&
          <span className={instruction} onClick={() => this.setState({ isOpenInstruction: false, isAllowedShowInstruction: false })}>
-           <span className={instructionItem}><span className={instructionCommand}>Enter</span><span>Break Line</span></span>
-           <span className={instructionItem}><span className={instructionCommand}>Shift + Enter</span><span>Submit</span></span>
-           <span className={instructionItem}><span className={instructionCommand}>@</span><span>add user</span></span>
+           <span className={instructionItem}>
+             <span className={instructionCommand}>Enter</span>
+             <span>Break Line</span>
+           </span>
+           <span className={instructionItem}>
+             <span className={instructionCommand}>Shift + Enter</span>
+             <span>Submit</span>
+           </span>
+           <span className={instructionItem}>
+             <span className={instructionCommand}>@</span>
+             <span>add user</span>
+           </span>
          </span>
         }
         <span className={inputBoxImg}><img src={`${currentUser.image.smallUrl}`} alt=""/></span>
@@ -98,6 +114,7 @@ export default class InputComment extends Component {
           ref={ref => this._inputComment = ref }
           contentEditable={true}
           onFocus={::this.onFocus}
+          onBlur={::this.onBlur}
           className={input}
           data-user-image={"https://uniyo.s3.amazonaws.com/users/profile/small/541_f53b1f4364a4415ebdbda4dd0af1ca51.jpg"}
           onKeyDown={::this.onKeyDownHandler}
