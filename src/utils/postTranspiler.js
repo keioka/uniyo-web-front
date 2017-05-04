@@ -4,16 +4,19 @@ export default (textArea) => {
   text = text.replace(/</g, '&lt;')
              .replace(/>/g, '&gt;')
 
-  const userIds = textArea.innerHTML.match(/data-user-id\=\"[0-9]+\"/g)
-                                    .map(id => id.match(/[0-9]+/)[0])
+  let userIds = textArea.innerHTML.match(/data-user-id\=\"[0-9]+\"/g)
 
-  const mentionDOM = textArea.querySelectorAll("span[data-user-id]")
-  const mentionUserStringArray = Array.from(mentionDOM).map(ele => ele.innerText)
+  if (userIds && userIds.length > 0) {
+    userIds = userIds.map(id => id.match(/[0-9]+/)[0])
 
-  mentionUserStringArray.forEach((userName, index) => {
-    const userId = userIds[index]
-    text = text.replace(userName, `<@${userId}>`)
-  })
+    const mentionDOM = textArea.querySelectorAll("span[data-user-id]")
+    const mentionUserStringArray = Array.from(mentionDOM).map(ele => ele.innerText)
+
+    mentionUserStringArray.forEach((userName, index) => {
+      const userId = userIds[index]
+      text = text.replace(userName, `<@${userId}>`)
+    })
+  }
 
   return text
 }
