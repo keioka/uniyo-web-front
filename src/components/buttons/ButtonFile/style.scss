@@ -12,12 +12,18 @@
   background: $lightgray;
   padding: 20px;
   border: 2px solid $gray;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 1px 1px 1px rgba(100, 100, 100, 0.3);
+  transition: box-shadow 0.4s ease-in-out;
 }
 
 .button--primary {
   background-color: white;
   border: 2px solid $purple;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.2s ease;
   // transition: color 0.1s ease;
   color: $darkgray;
 }
