@@ -140,7 +140,6 @@ export default class IndexDashboard extends Component {
 
     return (
       <div ref={(div)=> this._dashboard = div}>
-
         {this.props.posts.map((post) => {
           const comments = this.props.allComments.filter(comment => comment.postId === post.id)
           return cardFactory({
@@ -152,7 +151,6 @@ export default class IndexDashboard extends Component {
             currentUser,
           })
         })}
-        { this.state.isLoadingMorePost && <div> Loading </div> }
       </div>
     )
   }
