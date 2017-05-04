@@ -1,20 +1,35 @@
 @import "../../../styles/main";
 
-.inputText {
-  width: 100%;
+.wrapper {
+  position: relative;
+}
+
+.input {
+  width: 90%;
+  display: inline-block;
   background-color: $gray;
   font-family: $font-family;
   font-size: 1rem;
   border: none;
-  width: 100%;
-  border-radius: 5px;
+  border-radius: 20px;
   outline: none;
-  padding: 12px;
+  padding: 20px 20px 20px 80px;
+}
+
+.input__box--img {
+  display: inline-block;
+  position: absolute;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.input__box--img img {
+  width: 100%;
+  padding: 25%;
+  border-radius: 50%;
 }
 
 .inputText:before {
-  content: attr(data-user-image);
-  content: "hi";
   width: 100px;
   height: 100px;
 }

@@ -8,7 +8,6 @@ import {
 } from './style'
 
 const ListComment = ({ id, user, text }) => {
-  console.log(user)
   return (
     <li key={id} className={wrapper}>
       <span className={boxImage}>
