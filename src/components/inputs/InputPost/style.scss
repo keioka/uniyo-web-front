@@ -36,9 +36,17 @@
   left: 0;
 }
 
+.box--optional {
+  display: flex;
+  align-items: center;
+  width: 180px;
+  padding: 20px;
+}
+
 .drop-zone {
+  text-align: center;
   height: 50px;
-  width: 200px;
+  width: 140px;
   color: #DCDCDC;
   border: 2px dotted #DCDCDC;
   padding: 20px;
@@ -46,21 +54,50 @@
   text-overflow: ellipsis;
 }
 
-.filename {
+.drop-zone__box {
+  position: relative;
+}
+
+.btn--file--delete {
+  border: none;
+  width: 20px;
+  height: 20px;
+  padding-left: 2px;
+  padding-bottom: 1px;
+  padding-right: 1px;
+  border-radius: 50%;
+  background-color: $black;
+  color: white;
+  outline: none;
+  position: absolute;
+  top: -30px;
+  right: -30px;
+}
+
+.btn--file--delete:after {
+  content: 'X'
+}
+
+.btn--file--delete:hover {
+  cursor: pointer;
+}
+
+.drop-zone__filename {
+  @include h5;
   text-overflow: ellipsis;
   display: inline-block;
-  width: 100%;
+  width: 80%;
   overflow: hidden;
 }
 
-.imageUser {
+.image--user {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-right: 5px;
 }
 
-.listSuggestion {
+.list--suggestion {
   font-family: $font-family;
 }
 
@@ -68,12 +105,7 @@
   display: inline-block;
 }
 
-.box--optional {
-  display: flex;
-  align-items: center;
-  min-width: 100px;
-  padding: 20px;
-}
+
 
 span[data-user-id] {
   color: $pink;
@@ -83,7 +115,7 @@ span[data-mention=true] {
   color: $pink;
 }
 
-.inputWrapper {
+.input--wrapper {
   width: 100%;
   padding: 20px;
   height: auto;
@@ -129,7 +161,6 @@ span[data-mention=true] {
   right: 10px;
   content: url('./donut.png')
 }
-
 
 .icon {
   width: 1.5rem;

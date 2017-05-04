@@ -22,7 +22,9 @@ import {
   inputWrapper,
   boxOptional,
   dropZone,
-  filename,
+  dropZoneBox,
+  dropZoneFilename,
+  btnFileDelete,
 } from './style'
 
 // Since the decorators are stored in the EditorState it's important to not reset the complete EditorState.
@@ -103,9 +105,10 @@ export default class InputPost extends Component {
   onPaste(event) {
   }
 
-  onKeyUp(event) {
+  onKeyDown(event) {
     if (event.keyCode === 13) {
       if (event.shiftKey) {
+        event.preventDefault()
         this.onSubmit()
       } else if ($('#input').atwho('isSelecting') === false) {
         console.log($('#input').atwho('isSelecting'))
@@ -185,13 +188,17 @@ export default class InputPost extends Component {
           multiple={false}
         >
           {!this.state.form.file ?
-            <div>
-              <h4>Drop the file or click here to find on your computer</h4>
+            <div className={dropZoneBox}>
+              <h4>Upload File</h4>
+              <h5>Drop the file or click here</h5>
             </div> :
-            <div>
-              <h4 className={filename}>{this.state.form.file.name}</h4>
+            <div className={dropZoneBox}>
+              <h4 className={dropZoneFilename}>{this.state.form.file.name}</h4>
               <h4>{`${(this.state.form.file.size / 1024 / 1024).toFixed(3)}MB`}</h4>
-              <h4>X</h4>
+              <button className={btnFileDelete} onClick={(event) => {
+                event.stopPropagation();
+                this.setState({form: { file: null }})
+              }}></button>
             </div>
           }
         </Dropzone>
@@ -216,7 +223,7 @@ export default class InputPost extends Component {
             className={input}
             contentEditable
             onCopy={::this.onCopy}
-            onKeyUp={::this.onKeyUp}
+            onKeyDown={::this.onKeyDown}
             onPaste={::this.onPaste}
           />
         </div>
