@@ -31,6 +31,9 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
 }
 
 export default ({ hashtags, type }) => {
+  let keywordForSort = ''
+  //let hashtags = hashtags.filter(hashtag => hashtag.macth)
+
   return (
     <aside className={wrapper} >
       <input type="text"/>
