@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
 import localStorage from '../../../utils/localStorageHandler'
@@ -20,14 +19,8 @@ import {
   inputPostWrapper,
   inputPostWrapperImageBox,
   input,
-  inputMirror,
   inputWrapper,
   boxOptional,
-  imageUser,
-  suggestion,
-  suggestionItem,
-  icon,
-  mention,
   dropZone,
   filename,
 } from './style'
@@ -53,34 +46,38 @@ export default class InputPost extends Component {
   }
 
   componentDidMount() {
-    // $inputor.atwho('load', '@', [{name: 'one'}, {nick: 'two'}]);
-
     const self = this
     // TODO: Move this or connect to redux
     $('#input').atwho({
-      at: "@",
+      at: '@',
       callbacks: {
-        remoteFilter: function(query, callback) {
+        remoteFilter(query, callback) {
           const accessToken = localStorage.accessToken
           if (query) {
             $.ajax({
               url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
               type: 'GET',
               dataType: 'json',
-              success: function(data) {
-                console.log(data)
-                callback(data)
+              success(users) {
+                // pull image
+                const mappedData = users.map(user => ({
+                  id: user.id,
+                  name: user.name,
+                  image: user.image.small_url,
+                }))
+
+                callback(mappedData)
               },
-              error: function() {
-                console.log('Search is not working')
-              }
+              error() {
+                console.warn('Search is not working')
+              },
             })
           }
-        }
+        },
       },
-      displayTpl: "<li><img src='${image.small_url}'/> ${name}</li>",
-      insertTpl: "<span onClick='return;' data-user-id=${id}>@${name}</span>",
-      searchKey: 'name'
+      displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
+      insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
+      searchKey: 'name',
     })
   }
 
@@ -107,13 +104,11 @@ export default class InputPost extends Component {
   }
 
   onKeyUp(event) {
-    console.log($('#input').atwho('isSelecting'))
     if (event.keyCode === 13) {
       if (event.shiftKey) {
-        console.log('shift key')
+        this.onSubmit()
       } else if ($('#input').atwho('isSelecting') === false) {
         console.log($('#input').atwho('isSelecting'))
-        this.onSubmit()
       }
     }
   }
@@ -125,14 +120,14 @@ export default class InputPost extends Component {
     if (currentPostType === 'ALL') {
       this.props.onPostSubmit({
         postType: 'POST',
-        text: text,
+        text,
       })
     }
 
     if (currentPostType === 'REVIEW') {
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: text,
+        text,
         rating: this.state.form.rating,
       })
     }
@@ -140,7 +135,7 @@ export default class InputPost extends Component {
     if (currentPostType === 'QUESTION') {
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: text,
+        text,
       })
     }
 
@@ -151,10 +146,11 @@ export default class InputPost extends Component {
 
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: text,
+        text,
         classNote: this.state.form.file,
       })
     }
+    this._input.innerHTML = ''
   }
 
   onStarClick(nextValue) {
@@ -214,15 +210,15 @@ export default class InputPost extends Component {
         </span>
         {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
         <div className={inputWrapper}>
-           <div
-             id='input'
-             ref={input => { this._input = input }}
-             className={input}
-             contentEditable={true}
-             onCopy={::this.onCopy}
-             onKeyUp={::this.onKeyUp}
-             onPaste={::this.onPaste}
-           ></div>
+          <div
+            id="input"
+            ref={(input) => { this._input = input }}
+            className={input}
+            contentEditable
+            onCopy={::this.onCopy}
+            onKeyUp={::this.onKeyUp}
+            onPaste={::this.onPaste}
+          />
         </div>
       </span>
     )
