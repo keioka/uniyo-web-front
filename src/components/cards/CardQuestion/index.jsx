@@ -58,6 +58,7 @@ export default class CardQuestion extends Component {
       comments,
       commentCreate,
       showUserInfo,
+      currentUser,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -79,7 +80,7 @@ export default class CardQuestion extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} />
+              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>

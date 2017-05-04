@@ -5,6 +5,7 @@ import {
   TextPost,
   Donnut,
   ListComment,
+  InputComment,
 } from '../../'
 
 import {
@@ -60,6 +61,7 @@ export default class CardReview extends Component {
       comments,
       commentCreate,
       rating,
+      currentUser,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -82,7 +84,7 @@ export default class CardReview extends Component {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} />
+              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>

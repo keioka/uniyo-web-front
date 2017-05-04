@@ -144,7 +144,8 @@ export default class DashBoard extends Component {
       location,
     } = this.props
 
-    const { hashtags, image } = auth.currentUser
+    const { currentUser } = auth
+    const { hashtags, image } = currentUser
     const { all: allPosts, fetching: isPostsFetching } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
@@ -191,6 +192,7 @@ export default class DashBoard extends Component {
       showUserInfo,
       hideSidebarRight,
       suggestionedUsers,
+      currentUser,
     }))
 
     return (
