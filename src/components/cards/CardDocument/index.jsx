@@ -80,7 +80,7 @@ export default class CardDocument extends Component {
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
             <span className={textUserName}>{user.name}</span>
-            <span className={textPostTime}>{time}</span>
+            {/* <span className={textPostTime}>{time}</span> */}
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionFileDetail}><ButtonFile fileName={fileName} fileSize={fileSize} contentType={contentType} /></div>

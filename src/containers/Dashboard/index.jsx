@@ -246,7 +246,7 @@ export default class DashBoard extends Component {
 
   get renderLoading() {
     return (
-      <div>Loading</div>
+      <div />
     )
   }
 

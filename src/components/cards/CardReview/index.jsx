@@ -74,7 +74,7 @@ export default class CardReview extends Component {
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
             <span className={textUserName}>{user.name}</span>
-            <span className={textPostTime}>{time}</span>
+            {/* <span className={textPostTime}>{time}</span> */}
             <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
           </div>
           <TextPost text={text} />

@@ -5,7 +5,7 @@
 }
 
 .input {
-  width: 90%;
+  width: 80%;
   display: inline-block;
   background-color: $gray;
   font-family: $font-family;
@@ -13,7 +13,32 @@
   border: none;
   border-radius: 20px;
   outline: none;
-  padding: 20px 20px 20px 80px;
+  padding: 20px 10% 20px 10%;
+}
+
+.instruction {
+  position: absolute;
+  top: -50px;
+  right: 0px;
+  font-size: 12px;
+  width: auto;
+  height: 5px;
+  padding: 20px;
+  background-color: $black;
+  color: white;
+  border-radius: 4px;
+}
+
+.instruction__command {
+  border: 1px solid white;
+  padding: 5px;
+  background-color: lighten($black, 20%);
+  border-radius: 4px;
+  margin-right: 3px;
+}
+
+.instructionItem {
+  margin-right: 10px;
 }
 
 .input__box--img {

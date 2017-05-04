@@ -16,6 +16,12 @@ $font-weight-exbold: 900;
   letter-spacing: 0.015rem;
 }
 
+@mixin h4 {
+  font-size: 1rem;
+	font-weight: $font-weight-normal;
+  color: $darkgray;
+}
+
 @mixin h5 {
   font-size: 0.9rem;
 	font-weight: $font-weight-bold;
