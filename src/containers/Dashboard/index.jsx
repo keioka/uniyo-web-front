@@ -44,6 +44,7 @@ const mapStateToProps = state => ({
   posts: state.api.posts,
   comments: state.api.comments,
   rightbar: state.ui.rightbar,
+  channels: state.api.channels,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -54,6 +55,10 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userSearch: actions.userSearch,
   showUserInfo: uiActions.showUserInfo,
   hideSidebarRight: uiActions.hideSidebarRight,
+  channelSearch: actions.channelSearch,
+  channelCreate: actions.channelCreate,
+  messageSearch: actions.messageSearch,
+  messageCreate: actions.messageCreate,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -126,7 +131,6 @@ export default class DashBoard extends Component {
     })
   }
 
-
   get renderContent() {
     const {
       showUserInfo,
@@ -142,6 +146,11 @@ export default class DashBoard extends Component {
       users,
       rightbar,
       location,
+      messageSearch,
+      messageCreate,
+      channelSearch,
+      channelCreate,
+      channels,
     } = this.props
 
     const { currentUser } = auth
@@ -149,10 +158,11 @@ export default class DashBoard extends Component {
     const { all: allPosts, fetching: isPostsFetching } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
+    const { all: allChannels } = channels
+
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
-
 
     /* **************************************
       [start] filter feature
@@ -193,11 +203,15 @@ export default class DashBoard extends Component {
       hideSidebarRight,
       suggestionedUsers,
       currentUser,
+      messageSearch,
+      messageCreate,
+      channelSearch,
+      channelCreate,
     }))
 
     return (
       <div className={container}>
-        <SidebarLeft hashtags={hashtags} type={type} />
+        <SidebarLeft hashtags={hashtags} allChannels={allChannels} type={type} />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
             <div>

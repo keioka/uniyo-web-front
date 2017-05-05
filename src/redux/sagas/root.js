@@ -16,6 +16,10 @@ const {
   userSearchSaga,
   currentUserSaga,
   watchShowUserInfo,
+  messageSearchSaga,
+  messageCreateSaga,
+  channelSearchSaga,
+  channelCreateSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -34,5 +38,9 @@ export default function* rootSaga() {
     fork(userSearchSaga),
     fork(currentUserSaga),
     fork(watchShowUserInfo),
+    fork(messageSearchSaga),
+    fork(messageCreateSaga),
+    fork(channelSearchSaga),
+    fork(channelCreateSaga),
   ]
 }

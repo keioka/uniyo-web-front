@@ -17,6 +17,10 @@ export const initializeApp = store => next => action => {
       userId,
       accessToken
     }))
+
+    store.dispatch(actions.channelSearch({
+      accessToken
+    }))
   }
 
   return next(action)
