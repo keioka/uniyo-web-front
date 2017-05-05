@@ -43,6 +43,7 @@ const mapStateToProps = state => ({
   users: state.api.users,
   posts: state.api.posts,
   comments: state.api.comments,
+  hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
   channels: state.api.channels,
 })
@@ -151,10 +152,11 @@ export default class DashBoard extends Component {
       channelSearch,
       channelCreate,
       channels,
+      hashtagsTrending,
     } = this.props
 
     const { currentUser } = auth
-    const { hashtags, image } = currentUser
+    const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { all: allPosts, fetching: isPostsFetching } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
@@ -211,7 +213,12 @@ export default class DashBoard extends Component {
 
     return (
       <div className={container}>
-        <SidebarLeft hashtags={hashtags} allChannels={allChannels} type={type} />
+        <SidebarLeft
+          hashtagsCurrentUser={hashtagsCurrentUser}
+          allChannels={allChannels}
+          hashtagsTrending={hashtagsTrending}
+          type={type}
+        />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
             <div>

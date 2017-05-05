@@ -62,16 +62,16 @@ export default class SidebarLeft extends Component {
   get navSideBar() {
 
     const { keywordForSort } = this.state
-    const { allChannels, hashtags } = this.props
+    const { allChannels, hashtagsCurrentUser, hashtagsTrending } = this.props
 
     const ListHashtag = ({ className, hashtag, type}) => (
       <Link
         className={className}
-        key={hashCode(hashtag.hashtag)}
-        to={dashboardPathGenarator({ hashtag: hashtag.hashtag, type: type })}
+        key={hashCode(hashtag)}
+        to={dashboardPathGenarator({ hashtag: hashtag, type: type })}
       >
         <li className={sectionTag}>
-          #{hashtag.hashtag}
+          #{hashtag}
         </li>
       </Link>
     )
@@ -88,13 +88,13 @@ export default class SidebarLeft extends Component {
       </Link>
     )
 
-    const ComponentsHashtag = hashtags && hashtags.filter(hashtag => hashtag.hashtag.includes(keywordForSort)).map((hashtag, index) => {
+    const ComponentsHashtag = hashtagsCurrentUser && hashtagsCurrentUser.filter(hashtag => hashtag.hashtag.includes(keywordForSort)).map((hashtag, index) => {
       let classNames = []
       if (!this.state.isShowMoreTags && index > 9) {
         classNames.push(hide)
       }
       return (
-        <ListHashtag className={classNames.join(' ')} hashtag={hashtag} type={this.props.type} />
+        <ListHashtag className={classNames.join(' ')} hashtag={hashtag.hashtag} type={this.props.type} />
       )
     })
 
@@ -108,12 +108,22 @@ export default class SidebarLeft extends Component {
       )
     })
 
+    const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.includes(keywordForSort)).map((hashtag, index) => {
+      let classNames = []
+      if (!this.state.isShowMoreTags && index > 9) {
+        classNames.push(hide)
+      }
+      return (
+        <ListHashtag className={classNames.join(' ')} hashtag={hashtag} type={this.props.type} />
+      )
+    })
+
     return (
       <nav>
         <ul className={section}>
           <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}>News Feed</h4>
           { this.state.isShowInputAddTag && <input type="text" /> }
-          { hashtags && ComponentsHashtag }
+          { hashtagsCurrentUser && ComponentsHashtag }
           { keywordForSort === '' &&
             <button
               className={btnShowMore}
@@ -126,6 +136,7 @@ export default class SidebarLeft extends Component {
 
         <ul className={section}>
           <h4 className={sectionLabel}>TRENDING TOPIC</h4>
+          { hashtagsTrending && ComponentsTrendingHashtag }
         </ul>
 
         <ul className={section}>

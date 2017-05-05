@@ -32,7 +32,7 @@ $left-padding: 25px;
   list-style: none;
   font-size: 1rem;
   cursor: pointer;
-  padding: 7px;
+  padding: 4px;
   padding-left: $left-padding;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -76,8 +76,8 @@ $left-padding: 25px;
 .btn--show-more {
   outline: none;
   border: none;
-  padding: 10px 25px;
-  margin-top: 20px;
+  padding: 5px 5px;
+  margin-top: 10px;
   margin-left: $left-padding;
   font-size: 0.9rem;
   cursor: pointer;
@@ -85,7 +85,7 @@ $left-padding: 25px;
 }
 
 .btn--show-more:before {
-  content: '▼';
+  content: '';
 }
 
 @media only screen and (min-width: 769px) {

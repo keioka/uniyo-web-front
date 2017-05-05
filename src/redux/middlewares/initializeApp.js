@@ -15,11 +15,16 @@ export const initializeApp = store => next => action => {
     const { accessToken } = storage
     store.dispatch(actions.currentUser({
       userId,
-      accessToken
+      accessToken,
     }))
 
     store.dispatch(actions.channelSearch({
-      accessToken
+      accessToken,
+    }))
+
+    console.log(actions)
+    store.dispatch(actions.hashtagTrendingSearch({
+      accessToken,
     }))
   }
 
