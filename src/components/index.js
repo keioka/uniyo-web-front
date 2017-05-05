@@ -65,6 +65,7 @@ export CardDocument from './cards/CardDocument'
 */
 
 export InputSearchSchool from './inputs/InputSearchSchool'
+export InputSearchTag from './inputs/InputSearchTag'
 export InputTextTransparent from './inputs/InputTextTransparent'
 export InputPost from './inputs/InputPost'
 export InputComment from './inputs/InputComment'
