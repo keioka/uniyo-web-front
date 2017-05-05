@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-
+import { browserHistory } from 'react-router'
 import {
   InputSearchTag,
 } from '../../'
@@ -14,6 +14,7 @@ import {
   inputSearchTag,
   hide,
   btnShowMore,
+  inputAddTag,
 } from './style'
 
 const dashboardPathGenarator = ({ hashtag, type }) => {
@@ -47,7 +48,6 @@ export default class SidebarLeft extends Component {
 
    state = {
      keywordForSort: '',
-     //let this.props.hashtags = this.props.hashtags.filter(hashtag => hashtag.macth)
      isShowInputAddTag: false,
      isShowMoreTags: false,
      isShowMoreMessage: false,
@@ -57,6 +57,21 @@ export default class SidebarLeft extends Component {
     this.setState({
       isShowInputAddTag: !this.state.isShowInputAddTag
     })
+  }
+
+  onSubmitAddTag(event) {
+    if (event.key === 'Enter') {
+      this.props.hashtagAdd({
+        hashtags: [event.target.value],
+        tagType: 'Campus',
+      })
+      browserHistory.push(`/dashboard?hashtag=${event.target.value}`)
+      this._inputAddTag.value = ''
+
+      this.setState({
+        isShowInputAddTag: false,
+      })
+    }
   }
 
   get navSideBar() {
@@ -88,33 +103,44 @@ export default class SidebarLeft extends Component {
       </Link>
     )
 
-    const ComponentsHashtag = hashtagsCurrentUser && hashtagsCurrentUser.filter(hashtag => hashtag.hashtag.includes(keywordForSort)).map((hashtag, index) => {
+    const ComponentsHashtag = hashtagsCurrentUser && Array.from(new Set(hashtagsCurrentUser)).filter(hashtag => hashtag.hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
       let classNames = []
       if (!this.state.isShowMoreTags && index > 9) {
         classNames.push(hide)
       }
       return (
-        <ListHashtag className={classNames.join(' ')} hashtag={hashtag.hashtag} type={this.props.type} />
+        <ListHashtag
+          className={classNames.join(' ')}
+          hashtag={hashtag.hashtag}
+          type={this.props.type}
+        />
       )
     })
 
-    const ComponentsChannel = allChannels && allChannels.filter(channel => channel.users[0].name.includes(keywordForSort)).map((channel, index) => {
+    const ComponentsChannel = allChannels && allChannels.filter(channel => channel.users[0].name.toLowerCase().includes(keywordForSort)).map((channel, index) => {
       let classNames = []
       if (!this.state.isShowMoreTags && index > 9) {
         classNames.push(hide)
       }
       return (
-        <ListCannel className={classNames.join(' ')} channel={channel} />
+        <ListCannel
+          className={classNames.join(' ')}
+          channel={channel}
+        />
       )
     })
 
-    const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.includes(keywordForSort)).map((hashtag, index) => {
+    const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
       let classNames = []
       if (!this.state.isShowMoreTags && index > 9) {
         classNames.push(hide)
       }
       return (
-        <ListHashtag className={classNames.join(' ')} hashtag={hashtag} type={this.props.type} />
+        <ListHashtag
+          className={classNames.join(' ')}
+          hashtag={hashtag}
+          type={this.props.type}
+        />
       )
     })
 
@@ -122,7 +148,14 @@ export default class SidebarLeft extends Component {
       <nav>
         <ul className={section}>
           <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}>News Feed</h4>
-          { this.state.isShowInputAddTag && <input type="text" /> }
+          { this.state.isShowInputAddTag &&
+            <input
+              type="text"
+              className={inputAddTag}
+              ref={(ref) => this._inputAddTag = ref}
+              onKeyUp={::this.onSubmitAddTag}
+            />
+          }
           { hashtagsCurrentUser && ComponentsHashtag }
           { keywordForSort === '' &&
             <button
@@ -136,12 +169,12 @@ export default class SidebarLeft extends Component {
 
         <ul className={section}>
           <h4 className={sectionLabel}>TRENDING TOPIC</h4>
-          { hashtagsTrending && ComponentsTrendingHashtag }
+          {hashtagsTrending && ComponentsTrendingHashtag}
         </ul>
 
         <ul className={section}>
           <h4 className={sectionLabel}>PRIVATE MESSAGES</h4>
-          { allChannels && ComponentsChannel}
+          {allChannels && ComponentsChannel}
         </ul>
       </nav>
     )
@@ -150,7 +183,10 @@ export default class SidebarLeft extends Component {
   render() {
     return (
       <aside className={wrapper} >
-        <InputSearchTag className={inputSearchTag} onChange={event => this.setState({ keywordForSort: event.target.value })} />
+        <InputSearchTag
+          className={inputSearchTag}
+          onChange={event => this.setState({ keywordForSort: event.target.value })}
+        />
         <ul className={section}>
           <h3 className={`${sectionTag} ${sectionTagAll}`} >All in EDHECBUSINES</h3>
         </ul>

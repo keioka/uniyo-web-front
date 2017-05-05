@@ -60,6 +60,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   channelCreate: actions.channelCreate,
   messageSearch: actions.messageSearch,
   messageCreate: actions.messageCreate,
+  hashtagAdd: actions.hashtagAdd,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -153,6 +154,7 @@ export default class DashBoard extends Component {
       channelCreate,
       channels,
       hashtagsTrending,
+      hashtagAdd,
     } = this.props
 
     const { currentUser } = auth
@@ -217,6 +219,7 @@ export default class DashBoard extends Component {
           hashtagsCurrentUser={hashtagsCurrentUser}
           allChannels={allChannels}
           hashtagsTrending={hashtagsTrending}
+          hashtagAdd={hashtagAdd}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
