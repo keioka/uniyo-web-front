@@ -3,6 +3,8 @@
 .input-post--wrapper {
   position: relative;
   display: flex;
+  background: white;
+  border-bottom: 1px solid $gray;
 }
 
 .input-post--wrapper__image-box {
@@ -120,8 +122,6 @@ span[data-mention=true] {
   padding: 20px;
   height: auto;
   border: none;
-  border-top: 1px solid $lightgray;
-  border-bottom: 1px solid $lightgray;
   font-size: 1rem;
   outline: none;
   box-sizing: border-box;

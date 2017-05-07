@@ -119,7 +119,7 @@ export default class InputPost extends Component {
   onSubmit() {
     const { currentPostType } = this.props
     const text = postTranspiler(this._input)
-
+    console.log(this.props)
     if (currentPostType === 'ALL') {
       this.props.onPostSubmit({
         postType: 'POST',
@@ -153,6 +153,15 @@ export default class InputPost extends Component {
         classNote: this.state.form.file,
       })
     }
+
+    if (currentPostType === 'ANSWER') {
+      const { questionId } = this.props
+      this.props.onPostSubmit({
+        text,
+        questionId,
+      })
+    }
+
     this._input.innerHTML = ''
   }
 
