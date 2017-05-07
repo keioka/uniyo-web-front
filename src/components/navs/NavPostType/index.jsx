@@ -15,7 +15,7 @@ const types = [
 
 
 const dashboardPathGenarator = ({ hashtag, type }) => {
-  let path = 'dashboard'
+  let path = '/dashboard'
 
   if (hashtag || type) {
     path += '?'
