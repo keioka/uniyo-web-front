@@ -46,6 +46,7 @@ const mapStateToProps = state => ({
   hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
   channels: state.api.channels,
+  answers: state.api.answers,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -61,6 +62,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   messageSearch: actions.messageSearch,
   messageCreate: actions.messageCreate,
   hashtagAdd: actions.hashtagAdd,
+  postInfo: actions.postInfo,
+  answerSearch: actions.answerSearch,
+  answerCreate: actions.answerCreate,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -82,6 +86,11 @@ export default class DashBoard extends Component {
 
   static propTypes = {
     location: PropTypes.objectOf.isRequired,
+  }
+
+  state = {
+    currentHashTag: '',
+    currentPostType: '',
   }
 
   componentWillMount() {
@@ -118,15 +127,6 @@ export default class DashBoard extends Component {
     }
   }
 
-  onKeyDownPostForm(event) {
-    if (event.key === ENTER) {
-      this.props.postCreate({
-        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
-        text: event.target.value,
-      })
-    }
-  }
-
   onClearCurrentTypeHandler() {
     this.setState({
       currentHashTag: undefined,
@@ -155,6 +155,10 @@ export default class DashBoard extends Component {
       channels,
       hashtagsTrending,
       hashtagAdd,
+      answerSearch,
+      answerCreate,
+      postInfo,
+      answers,
     } = this.props
 
     const { currentUser } = auth
@@ -163,7 +167,8 @@ export default class DashBoard extends Component {
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
     const { all: allChannels } = channels
-
+    const { all: allAnswers } = answers
+    const { currentHashTag, currentPostType } = this.state
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
@@ -201,9 +206,9 @@ export default class DashBoard extends Component {
       allComments,
       postsSearch,
       postCreate,
+      showUserInfo,
       commentsSearch,
       commentCreate,
-      showUserInfo,
       hideSidebarRight,
       suggestionedUsers,
       currentUser,
@@ -211,6 +216,14 @@ export default class DashBoard extends Component {
       messageCreate,
       channelSearch,
       channelCreate,
+      suggestionedUsers,
+      currentHashTag,
+      currentPostType,
+      answerSearch,
+      answerCreate,
+      postInfo,
+      allAnswers,
+      onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 
     return (
@@ -237,27 +250,6 @@ export default class DashBoard extends Component {
               <Donnut size="large" />
             </div>
           </header>
-          <div>
-            <InputPost
-              imgUrl={image && image.mediumUrl}
-              onPostSubmit={this.props.postCreate}
-              onSubmit={(postData) => { ::this.onSubmitPostHandler(postData) }}
-              currentHashTag={hashtag}
-              currentPostType={this.state.currentPostType}
-              suggestionedUsers={suggestionedUsers}
-              userSearch={userSearch}
-              showUserInfo={showUserInfo}
-            />
-          </div>
-          {hashtag &&
-            <div
-              className={barNoification}
-              onClearCurrentTypeHandler={::this.onClearCurrentTypeHandler}
-            >
-              <Link to={type ? `dashboard?type=${type}` : `dashboard`}>Close</Link>
-              <span>#{hashtag}</span>
-            </div>
-          }
           <div className={mainContent}>
             {childComponents}
           </div>

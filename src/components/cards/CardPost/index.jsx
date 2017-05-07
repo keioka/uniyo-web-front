@@ -54,7 +54,6 @@ export default class CardPost extends Component {
       commentsCount,
       currentUserLiked,
       createdAt,
-      allComments,
       commentsSearch,
       commentCreate,
       comments,

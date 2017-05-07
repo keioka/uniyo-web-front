@@ -57,6 +57,7 @@ export default class CardReview extends Component {
       commentsCount,
       currentUserLiked,
       createdAt,
+      showUserInfo,
       commentsSearch,
       comments,
       commentCreate,
@@ -77,7 +78,7 @@ export default class CardReview extends Component {
             {/* <span className={textPostTime}>{time}</span> */}
             <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
           </div>
-          <TextPost text={text} />
+          <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>

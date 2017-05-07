@@ -1,6 +1,5 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 
 import {
   CardPost,
@@ -8,14 +7,23 @@ import {
   CardReview,
   CardQuestion,
   InputPost,
+  Donnut,
+  TextPost,
 } from '../../../index'
 
 import {
+  sectionQuestion,
+  sectionImage,
+  sectionContent,
+  sectionContentHeader,
+  sectionContentFotter,
+  textUserName,
+  btnLike,
+  btnComment,
   sectionCards,
-  barNoification,
 } from './style'
 
-export default class IndexDashboard extends Component {
+export default class QuestionDashboard extends Component {
 
   static propTypes = {
     posts: PropTypes.array.isRequired,
@@ -36,7 +44,10 @@ export default class IndexDashboard extends Component {
   }
 
   componentDidMount() {
+    const { questionId } = this.props.params
     window.addEventListener('scroll', ::this.onScrollHandler)
+    this.props.answerSearch({ questionId })
+    this.props.postInfo({ postId: questionId })
   }
 
   onScrollHandler(event) {
@@ -89,20 +100,17 @@ export default class IndexDashboard extends Component {
     }
 
     const {
+      postCreate,
       commentsSearch,
       commentCreate,
       showUserInfo,
-      currentUser,
-      location,
       suggestionedUsers,
       userSearch,
-      postCreate,
-      onClearCurrentTypeHandler,
-      currentPostType,
+      currentUser,
+      comments,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
-    const { hashtag, type } = location.query
 
     const cardFactory = ({ post, commentsSearch,
     comments, showUserInfo, currentUser }) => {
@@ -158,40 +166,53 @@ export default class IndexDashboard extends Component {
       }
     }
 
+    const { answerCreate } = this.props
+    const { questionId } = this.props.params
+    const question = this.props.posts.filter((post) => post.postType === 'QUESTION' && post.id == questionId)[0]
+    const answers = this.props.allAnswers.filter(answer => answer.questionId == questionId)
+
+    if (question) {
+      var { user, text, commentsCount, likesCount } = question
+    }
+
     return (
       <div ref={(div)=> this._dashboard = div}>
+        { question &&
+          <div className={sectionQuestion}>
+            <div className={sectionImage}>
+              <img src={user.image.smallUrl} alt="" />
+            </div>
+            <div className={sectionContent}>
+              <div className={sectionContentHeader}>
+                <span className={textUserName}>{user.name}</span>
+                {/* <span className={textPostTime}>{time}</span> */}
+              </div>
+              <TextPost text={text} showUserInfo={showUserInfo} />
+              <div className={sectionContentFotter}>
+                <button className={btnLike} data-count={commentsCount}>comments</button>
+                <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
+              </div>
+            </div>
+          </div>
+        }
         <InputPost
           imgUrl={image && image.mediumUrl}
-          onPostSubmit={postCreate}
-          currentHashTag={hashtag}
-          currentPostType={currentPostType}
+          onPostSubmit={answerCreate}
+          currentPostType={'ANSWER'}
           suggestionedUsers={suggestionedUsers}
           userSearch={userSearch}
           showUserInfo={showUserInfo}
+          questionId={questionId}
         />
-       {hashtag &&
-         <div
-           className={barNoification}
-           onClearCurrentTypeHandler={onClearCurrentTypeHandler}
-         >
-           <Link to={type ? `dashboard?type=${type}` : `dashboard`}>Close</Link>
-           <span>#{hashtag}</span>
+        <div className={sectionCards}>
+          {answers.map(answer => {
+            return (
+              <CardPost {...answer} />
+            )
+          })}
         </div>
-       }
-       <div className={sectionCards}>
-         {this.props.posts.map((post) => {
-           const comments = this.props.allComments.filter(comment => comment.postId === post.id)
-           return cardFactory({
-             post,
-             commentsSearch,
-             commentCreate,
-             comments,
-             showUserInfo,
-             currentUser,
-           })
-         })}
-       </div>
-     </div>
+
+      </div>
     )
   }
 }

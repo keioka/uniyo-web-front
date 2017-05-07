@@ -28,7 +28,7 @@ export ResetPassword from './pages/auth/ResetPassword'
 */
 
 export IndexDashboard from './pages/dashboard/IndexDashboard'
-
+export QuestionDashboard from './pages/dashboard/QuestionDashboard'
 /*
   layouts
 */

@@ -19,7 +19,10 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.postCreate.request ||
     action.type === actionTypes.commentCreate.request ||
     action.type === actionTypes.userSearch.request ||
-    action.type === actionTypes.hashtagAdd.request
+    action.type === actionTypes.hashtagAdd.request ||
+    action.type === actionTypes.postInfo.request ||
+    action.type === actionTypes.answerSearch.request ||
+    action.type === actionTypes.answerCreate.request
   ) {
     action.accessToken = storage.accessToken
   }

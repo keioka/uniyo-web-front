@@ -7,6 +7,7 @@ import {
 } from './style'
 
 export default ({ userId, display, showUserInfo }) => {
+  console.log(showUserInfo)
   return (
     <a className={mention} onClick={() => showUserInfo(userId)}>@{display}</a>
   )

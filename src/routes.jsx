@@ -21,6 +21,7 @@ import {
   FOS,
   Picture,
   IndexDashboard,
+  QuestionDashboard,
 } from './components'
 
 export default () => (
@@ -43,7 +44,7 @@ export default () => (
         <IndexRoute component={IndexDashboard} />
         <Route path="/dashboard/channels/new" />
         <Route path="/dashboard/channels/:channelId" />
-        <Route path="/dashboard/questions/:questionId" />
+        <Route path="/dashboard/questions/:questionId" component={QuestionDashboard} />
         <Route path="/dashboard/notifications" />
         <Route path="/dashboard/posts/:postId" />
       </Route>

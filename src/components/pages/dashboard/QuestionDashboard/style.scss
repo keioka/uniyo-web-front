@@ -1,0 +1,94 @@
+@import "../../../../styles/main";
+
+.section-question {
+  width: 100%;
+  padding: 20px 5%;
+  background-color: white;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.section--image {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.section--image img {
+  width: 100%;
+}
+
+.section--cards {
+  padding: 2rem;
+}
+
+.section--content {
+  margin-left: 1rem;
+}
+
+.section--content__header {
+  margin-bottom: 1rem;
+}
+
+.section--content__fotter {
+  margin-top: 1rem;
+}
+
+.section--content__comment {
+  // opacity: 0;
+  // height: 0;
+  // position: absolute;
+  // top: -100px;
+  // transition: height 1s ease;
+  transition: opacity 0.5s ease;
+  margin-top: 40px;
+}
+
+.section--content__comment__form {
+  margin: 30px 0px;
+}
+
+.section--content__comment__list {
+  margin-top: 30px;
+}
+
+.section--content__fotter {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.section--content {
+  width: 100%;
+}
+
+.text--user-name {
+  @include h4;
+  margin-bottom: 20px;
+}
+
+.btnLike, .btnComment {
+  border: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin: 0px 5px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 100%); ;
+  cursor: pointer;
+  text-transform: capitalize;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.btnLike:after, .btnComment:after {
+  content: "(" attr(data-count) ")";
+  margin-left: 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
