@@ -21,6 +21,9 @@ const {
   channelSearchSaga,
   channelCreateSaga,
   hashtagTrendingSearchSaga,
+  postInfoSaga,
+  answerSearchSaga,
+  answerCreateSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -44,5 +47,8 @@ export default function* rootSaga() {
     fork(channelSearchSaga),
     fork(channelCreateSaga),
     fork(hashtagTrendingSearchSaga),
+    fork(postInfoSaga),
+    fork(answerSearchSaga),
+    fork(answerCreateSaga),
   ]
 }
