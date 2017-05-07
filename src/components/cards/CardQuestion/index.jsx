@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router'
 
 import {
   TextPost,
@@ -75,7 +76,8 @@ export default class CardQuestion extends Component {
           </div>
           <TextPost text={text} showUserInfo={showUserInfo}/>
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>Answers</button>
+            <Link to={`/dashboard/questions/${id}`}><button className={btnLike} data-count={commentsCount}>Answers</button></Link>
+            <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>Comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
           </div>
           { this.state.toggle &&
