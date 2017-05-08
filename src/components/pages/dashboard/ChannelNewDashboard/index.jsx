@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
-
+import { Link } from 'react-router'
 import {
   ListNewChatUser,
   InputSearchUser,
@@ -79,7 +79,7 @@ export default class ChannelNewDashboard extends Component {
     return (
       <div ref={(div)=> this._dashboard = div} className={wrapper}>
         <div className={btnClose}>
-          <Cross />
+          <Link to='/dashboard'><Cross /></Link>
           <span className={btnCloseText}>close</span>
         </div>
         <div className={content}>

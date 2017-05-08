@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import {
   InputSearchTag,
 } from '../../'
@@ -173,7 +172,7 @@ export default class SidebarLeft extends Component {
         </ul>
 
         <ul className={section}>
-          <h4 className={sectionLabel}>PRIVATE MESSAGES</h4>
+          <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>PRIVATE MESSAGES</h4></Link>
           {allChannels && ComponentsChannel}
         </ul>
       </nav>
