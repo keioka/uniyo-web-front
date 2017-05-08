@@ -1,0 +1,31 @@
+@import "../../../styles/main";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 10px 0px;
+  padding: 2rem;
+  background: white;
+  cursor: pointer;
+}
+
+.font-name {
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 0.9rem;
+  font-weight: $font-weight-exbold;
+  color: $black;
+}
+
+.box-image {
+  width: 3rem;
+  overflow: hidden;
+  display: inline-block;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+.img-user {
+  width: 100%;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Cross</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="YO_NewChat_recent-conversation" transform="translate(-1217.000000, -37.000000)" stroke-width="2" stroke="#C3C3C3">
+            <g id="ESC" transform="translate(1218.000000, 38.000000)">
+                <g id="Cross">
+                    <path d="M24.6829901,24.6829901 L0,0" id="Line"></path>
+                    <path d="M24.6829901,24.6829901 L0,0" id="Line" transform="translate(12.500000, 12.500000) scale(-1, 1) translate(-12.500000, -12.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

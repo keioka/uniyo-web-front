@@ -41,10 +41,15 @@ export default class ChannelDashboard extends Component {
     })
   }
 
-  componentWillReceiveProps(prevProps, nextProps) {
-    this.setState({
-      isLoadingMorePost: false,
-    })
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.channelId != nextProps.params.channelId) {
+      const { messageSearch } = this.props
+      const { channelId } = nextProps.params
+      messageSearch({
+        limit: 50,
+        channelId,
+      })
+    }
   }
 
   render() {

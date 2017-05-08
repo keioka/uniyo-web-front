@@ -30,6 +30,7 @@ export ResetPassword from './pages/auth/ResetPassword'
 export IndexDashboard from './pages/dashboard/IndexDashboard'
 export QuestionDashboard from './pages/dashboard/QuestionDashboard'
 export ChannelDashboard from './pages/dashboard/ChannelDashboard'
+export ChannelNewDashboard from './pages/dashboard/ChannelNewDashboard'
 
 /*
   layouts
@@ -71,6 +72,7 @@ export InputSearchTag from './inputs/InputSearchTag'
 export InputTextTransparent from './inputs/InputTextTransparent'
 export InputPost from './inputs/InputPost'
 export InputComment from './inputs/InputComment'
+export InputSearchUser from './inputs/InputSearchUser'
 
 /*
   sidebar
@@ -102,3 +104,4 @@ export Donnut from './common/Donnut'
 export ListComment from './lists/ListComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
 export ListMessage from './lists/ListMessage'
+export ListNewChatUser from './lists/ListNewChatUser'
