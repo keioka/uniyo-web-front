@@ -29,6 +29,8 @@ export ResetPassword from './pages/auth/ResetPassword'
 
 export IndexDashboard from './pages/dashboard/IndexDashboard'
 export QuestionDashboard from './pages/dashboard/QuestionDashboard'
+export ChannelDashboard from './pages/dashboard/ChannelDashboard'
+
 /*
   layouts
 */
@@ -99,3 +101,4 @@ export Donnut from './common/Donnut'
 
 export ListComment from './lists/ListComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
+export ListMessage from './lists/ListMessage'
