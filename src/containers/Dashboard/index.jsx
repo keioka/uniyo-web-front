@@ -47,6 +47,7 @@ const mapStateToProps = state => ({
   rightbar: state.ui.rightbar,
   channels: state.api.channels,
   answers: state.api.answers,
+  messages: state.api.messages,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -159,6 +160,7 @@ export default class DashBoard extends Component {
       answerCreate,
       postInfo,
       answers,
+      messages,
     } = this.props
 
     const { currentUser } = auth
@@ -168,6 +170,8 @@ export default class DashBoard extends Component {
     const { all: allComments } = comments
     const { all: allChannels } = channels
     const { all: allAnswers } = answers
+    const { all: allMessages } = messages
+
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
@@ -204,6 +208,7 @@ export default class DashBoard extends Component {
       type: TYPES[type],
       userSearch,
       allComments,
+      allMessages,
       postsSearch,
       postCreate,
       showUserInfo,

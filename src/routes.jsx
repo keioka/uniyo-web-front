@@ -22,6 +22,7 @@ import {
   Picture,
   IndexDashboard,
   QuestionDashboard,
+  ChannelDashboard,
 } from './components'
 
 export default () => (
@@ -43,7 +44,7 @@ export default () => (
       <Route path="/dashboard" component={Dashboard}>
         <IndexRoute component={IndexDashboard} />
         <Route path="/dashboard/channels/new" />
-        <Route path="/dashboard/channels/:channelId" />
+        <Route path="/dashboard/channels/:channelId" component={ChannelDashboard} />
         <Route path="/dashboard/questions/:questionId" component={QuestionDashboard} />
         <Route path="/dashboard/notifications" />
         <Route path="/dashboard/posts/:postId" />
