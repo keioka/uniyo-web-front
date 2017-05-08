@@ -24,7 +24,8 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.answerSearch.request ||
     action.type === actionTypes.answerCreate.request ||
     action.type === actionTypes.messageSearch.request ||
-    action.type === actionTypes.messageCreate.request
+    action.type === actionTypes.messageCreate.request ||
+    action.type === actionTypes.channelCreate.request
   ) {
     action.accessToken = storage.accessToken
   }
