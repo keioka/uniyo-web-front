@@ -18,7 +18,7 @@ import {
 } from './style'
 
 const dashboardPathGenarator = ({ hashtag, type }) => {
-  let path = 'dashboard'
+  let path = '/dashboard'
 
   if (hashtag || type) {
     path += '?'
@@ -91,11 +91,11 @@ export default class SidebarLeft extends Component {
       </Link>
     )
 
-    const ListCannel = ({ className, channel }) => (
+    const ListChannel = ({ className, channel }) => (
       <Link
         className={className}
         key={channel.id}
-        to={`dasboard/channels/${channel.id}`}
+        to={`/dashboard/channels/${channel.id}`}
       >
         <li className={sectionTag}>
           @{channel.users[0].name}
@@ -123,7 +123,7 @@ export default class SidebarLeft extends Component {
         classNames.push(hide)
       }
       return (
-        <ListCannel
+        <ListChannel
           className={classNames.join(' ')}
           channel={channel}
         />
