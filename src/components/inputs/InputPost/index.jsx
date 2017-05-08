@@ -162,6 +162,14 @@ export default class InputPost extends Component {
       })
     }
 
+    if (currentPostType === 'MESSAGE') {
+      const { channelId } = this.props
+      this.props.onPostSubmit({
+        text,
+        channelId,
+      })
+    }
+
     this._input.innerHTML = ''
   }
 
