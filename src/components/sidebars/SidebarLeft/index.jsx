@@ -15,6 +15,9 @@ import {
   btnShowMore,
   inputAddTag,
   iconChannel,
+  iconChannelOnlineStatus,
+  iconOnline,
+  userNames,
 } from './style'
 
 const dashboardPathGenarator = ({ hashtag, type }) => {
@@ -99,10 +102,12 @@ export default class SidebarLeft extends Component {
         to={`/dashboard/channels/${channel.id}`}
       >
         <li className={sectionTag}>
-          <span data-amount-users={channel.users.length} className={iconChannel}>
-            {channel.users.length}
-          </span>
-          <span>{channel.users.map(user => user.name.split(" ")[0]).join(', ')}</span>
+          {channel.users.length > 1 ?
+            (<span data-amount-users={channel.users.length} className={iconChannel}>
+              {channel.users.length}
+            </span>): (<span data-user-online={true} className={iconChannelOnlineStatus}><span className={iconOnline}></span></span>)
+          }
+          <span className={userNames}>{channel.users.map(user => user.name.split(" ")[0]).join(', ')}</span>
         </li>
       </Link>
     )

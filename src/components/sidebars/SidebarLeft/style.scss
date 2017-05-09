@@ -43,6 +43,13 @@ $left-padding: 25px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  align-items: center;
+}
+
+.user-names {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 160px;
 }
 
 .section__tag:hover {
@@ -53,7 +60,7 @@ $left-padding: 25px;
   color: white;
 }
 
-.icon__channel {
+.icon--channel {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +70,27 @@ $left-padding: 25px;
   height: 20px;
   color: white;
   margin-right: 12px;
+  padding: 1px 2px 3px 2px;
+  font-size: 0.6rem;
+}
+
+.icon--channel--online-status {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  padding: 1px 2px 3px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon--online {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #5fe36f;
 }
 
 .section__label:after {
