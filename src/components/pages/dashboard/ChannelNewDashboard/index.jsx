@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import {
   ListNewChatUser,
+  ListRecentConversation,
   InputSearchUser,
 } from '../../../index'
 
@@ -15,9 +16,9 @@ import {
   btnClose,
   btnCloseText,
   headerForm,
-  sectionRecent,
-  sectionRecentTitle,
-  sectionCampus,
+  section,
+  sectionTitle,
+  sectionUl,
   headerTitle,
   headerSectionSelectedUser,
 } from './style'
@@ -69,6 +70,7 @@ export default class ChannelNewDashboard extends Component {
       userSearch,
       currentUser,
       allMessages,
+      allChannels,
       messageSearch,
       messageCreate,
     } = this.props
@@ -92,15 +94,28 @@ export default class ChannelNewDashboard extends Component {
               <button className={btn} onClick={::this.onSubmit}>Start</button>
             </div>
             <div className={headerSectionSelectedUser}>
-              {this.state.selectedUsers && this.state.selectedUsers.map((user, index) => <span className={tagUser} onClick={() => ::this.onDeleteSelectedUser(index) }>{ user.name }</span>)}
+              {this.state.selectedUsers &&
+               this.state.selectedUsers.map((user, index) =>
+                 <span
+                   className={tagUser}
+                   onClick={() => ::this.onDeleteSelectedUser(index)}
+                 >
+                   { user.name }
+                 </span>)
+               }
             </div>
           </div>
-          <div className={sectionRecent}>
-            <h4 className={sectionRecentTitle}>Recent Conversation</h4>
+          <div className={section}>
+            <h4 className={sectionTitle}>Recent Conversation</h4>
+            <ul className={sectionUl}>
+              {allChannels && allChannels.map(channel => <ListRecentConversation channel={channel} />)}
+            </ul>
           </div>
-          <div className={sectionCampus}>
-            <h4>Campus Directory</h4>
-            {suggestionedUsers && suggestionedUsers.map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)}
+          <div className={section}>
+            <h4 className={sectionTitle}>Campus Directory</h4>
+            <ul className={sectionUl}>
+              {suggestionedUsers && suggestionedUsers.map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)}
+            </ul>
           </div>
         </div>
       </div>

@@ -85,11 +85,18 @@
   width: 100%;
 }
 
-.section--recent__title {
-  border-bottom: 1px solid $gray;
-  margin-bottom: 3px; 
+.section {
+  margin-bottom: 2rem;
 }
 
-.sectionCampus {
+.sectionUl {
+  height: 400px;
+  overflow: scroll;
+}
 
+.section__title {
+  @include h5;
+  font-size: 1rem;
+  border-bottom: 2px solid $gray;
+  margin-bottom: 3px;
 }
