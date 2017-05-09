@@ -1,0 +1,33 @@
+.section--input {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.section--users {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 60px;
+  background: white;
+  width: 100%;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.section--users__item-user {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.section--users__item-user__img {
+  height: 40px;
+  border-radius: 40px;
+}
+
+.section--users__item-user__name {
+  line-height: 40px;
+}

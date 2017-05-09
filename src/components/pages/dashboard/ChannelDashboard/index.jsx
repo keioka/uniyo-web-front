@@ -13,6 +13,10 @@ import {
 } from '../../../index'
 
 import {
+  sectionUsers,
+  sectionUsersItemUser,
+  sectionUsersItemUserImg,
+  sectionUsersItemUserName,
   sectionQuestion,
   sectionImage,
   sectionContent,
@@ -22,6 +26,7 @@ import {
   btnLike,
   btnComment,
   sectionCards,
+  sectionInput,
 } from './style'
 
 export default class ChannelDashboard extends Component {
@@ -59,26 +64,38 @@ export default class ChannelDashboard extends Component {
       userSearch,
       currentUser,
       allMessages,
+      allChannels,
       messageSearch,
       messageCreate,
     } = this.props
 
     const { channelId } = this.props.params
+    const channel = allChannels.filter(channel => channel.id == channelId)[0]
     const messages = allMessages.filter(message => message.channelId == channelId)
     const { hashtags: hashtagsCurrentUser, image } = currentUser
 
     return (
       <div ref={(div)=> this._dashboard = div}>
+        <div className={sectionUsers}>
+          {channel && channel.users.map(user =>
+            <span className={sectionUsersItemUser}>
+              <img src={user.image.smallUrl} alt="" className={sectionUsersItemUserImg}/>
+              {/* <span className={sectionUsersItemUserName}>{user.name}</span> */}
+            </span>
+          )}
+        </div>
         {messages && messages.map(message => <ListMessage {...message} />)}
-        <InputPost
-          imgUrl={image && image.mediumUrl}
-          suggestionedUsers={suggestionedUsers}
-          onPostSubmit={messageCreate}
-          currentPostType={'MESSAGE'}
-          channelId={channelId}
-          userSearch={userSearch}
-          showUserInfo={showUserInfo}
-        />
+        <div className={sectionInput}>
+          <InputPost
+            imgUrl={image && image.mediumUrl}
+            suggestionedUsers={suggestionedUsers}
+            onPostSubmit={messageCreate}
+            currentPostType={'MESSAGE'}
+            channelId={channelId}
+            userSearch={userSearch}
+            showUserInfo={showUserInfo}
+          />
+        </div>
       </div>
     )
   }
