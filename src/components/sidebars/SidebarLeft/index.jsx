@@ -14,6 +14,7 @@ import {
   hide,
   btnShowMore,
   inputAddTag,
+  iconChannel,
 } from './style'
 
 const dashboardPathGenarator = ({ hashtag, type }) => {
@@ -49,7 +50,7 @@ export default class SidebarLeft extends Component {
      keywordForSort: '',
      isShowInputAddTag: false,
      isShowMoreTags: false,
-     isShowMoreMessage: false,
+     isShowMoreChannels: false,
    }
 
   onClickBtnAddHashTag() {
@@ -75,6 +76,7 @@ export default class SidebarLeft extends Component {
 
   get navSideBar() {
 
+    const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
     const { allChannels, hashtagsCurrentUser, hashtagsTrending } = this.props
 
@@ -97,14 +99,17 @@ export default class SidebarLeft extends Component {
         to={`/dashboard/channels/${channel.id}`}
       >
         <li className={sectionTag}>
-          @{channel.users[0].name}
+          <span data-amount-users={channel.users.length} className={iconChannel}>
+            {channel.users.length}
+          </span>
+          <span>{channel.users.map(user => user.name.split(" ")[0]).join(', ')}</span>
         </li>
       </Link>
     )
 
     const ComponentsHashtag = hashtagsCurrentUser && Array.from(new Set(hashtagsCurrentUser)).filter(hashtag => hashtag.hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
       let classNames = []
-      if (!this.state.isShowMoreTags && index > 9) {
+      if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
         classNames.push(hide)
       }
       return (
@@ -118,7 +123,7 @@ export default class SidebarLeft extends Component {
 
     const ComponentsChannel = allChannels && allChannels.filter(channel => channel.users[0].name.toLowerCase().includes(keywordForSort)).map((channel, index) => {
       let classNames = []
-      if (!this.state.isShowMoreTags && index > 9) {
+      if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
         classNames.push(hide)
       }
       return (
@@ -174,6 +179,14 @@ export default class SidebarLeft extends Component {
         <ul className={section}>
           <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>PRIVATE MESSAGES</h4></Link>
           {allChannels && ComponentsChannel}
+          { keywordForSort === '' &&
+            <button
+              className={btnShowMore}
+              onClick={() => { this.setState({ isShowMoreChannels: !this.state.isShowMoreChannels }) }}
+            >
+              {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
+            </button>
+          }
         </ul>
       </nav>
     )
@@ -190,7 +203,6 @@ export default class SidebarLeft extends Component {
           <h3 className={`${sectionTag} ${sectionTagAll}`} >All in EDHECBUSINES</h3>
         </ul>
         {this.navSideBar}
-        <div>Signout</div>
       </aside>
     )
   }
