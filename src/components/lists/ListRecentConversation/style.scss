@@ -14,16 +14,20 @@
   display: inline-block;
   margin-right: 20px;
   font-size: 0.9rem;
-  font-weight: $font-weight-exbold;
+  font-weight: $font-weight-regular;
   color: $black;
 }
 
 .box-image {
-  width: 3rem;
+  width: 10%;
   overflow: hidden;
   display: inline-block;
   border-radius: 10px;
   margin-right: 15px;
+}
+
+.span--channel-info {
+  width: 90%;
 }
 
 .img-user {

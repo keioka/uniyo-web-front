@@ -10,6 +10,7 @@ import {
   fontName,
   imgUser,
   wrapper,
+  spanChannelInfo,
 } from './style'
 
 const ListRecentConversation = ({ channel }) => {
@@ -28,7 +29,9 @@ const ListRecentConversation = ({ channel }) => {
       <span className={boxImage}>
         <img src={users[0].image.smallUrl} className={imgUser} />
       </span>
-      <span className={fontName}>{users.map(user => user.name).join(', ')}</span>
+      <span className={spanChannelInfo}>
+        <span className={fontName}>{users.map(user => user.name).join(', ')}</span>
+      </span>
     </li>
   </Link>
   )
