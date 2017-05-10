@@ -10,6 +10,11 @@ export const showNotification = (notifications) => ({
   notifications,
 })
 
+export const showChannelUsers = (users) => ({
+  type: actionTypes.showChannelUsers.request,
+  users,
+})
+
 export const showHistoryDonut = (history) => ({
   type: actionTypes.showHistoryDonut.request,
   history,

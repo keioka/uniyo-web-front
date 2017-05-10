@@ -13,7 +13,7 @@ function* showNotification() {
 function* showUserInfo({ userId }) {
 
   // TODO: Maybe Delete? Just filter user states and dispatch from UI
-  
+
   if (userId) {
     const users = yield select(getUsers)
     const tokens = yield select(getTokens)
@@ -33,9 +33,18 @@ function* showUserInfo({ userId }) {
   }
 }
 
-export function* watchShowUserInfo() {
-  yield takeLatest(uiActionTypes.showUserInfo.request, showUserInfo)
+function* showChannelUsers({ users }) {
+  if (users) {
+    yield put({ type: uiActionTypes.showChannelUsers.success, users })
+  } else {
+    yield put({ type: uiActionTypes.showChannelUsers.error, error: 'user is not found' })
+  }
 }
 
-export function* watchShowNotification() {
+export function* watchShowChannelUsers() {
+  yield takeLatest(uiActionTypes.showChannelUsers.request, showChannelUsers)
+}
+
+export function* watchShowUserInfo() {
+  yield takeLatest(uiActionTypes.showUserInfo.request, showUserInfo)
 }
