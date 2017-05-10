@@ -10,12 +10,37 @@
   cursor: pointer;
 }
 
+.fontLink {
+  text-decoration: none;
+  color: $black;
+}
+
 .font-name {
   display: inline-block;
   margin-right: 20px;
   font-size: 0.9rem;
-  font-weight: $font-weight-regular;
+  font-weight: $font-weight-normal;
   color: $black;
+  text-decoration: none;
+}
+
+.fontName:before {
+  content: attr(data-users-count);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #969696;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  color: white;
+  margin-right: 2px;
+  padding: 1px 2px 3px 2px;
+  font-size: 0.6rem;
+}
+
+.fontUserNames {
+  vertical-align: sub;
 }
 
 .box-image {

@@ -6,11 +6,14 @@ import {
 } from '../../'
 
 import {
+  fontLink,
   boxImage,
   fontName,
+  fontUserNames,
   imgUser,
   wrapper,
   spanChannelInfo,
+  iconUsersCount,
 } from './style'
 
 const ListRecentConversation = ({ channel }) => {
@@ -24,13 +27,15 @@ const ListRecentConversation = ({ channel }) => {
   } = channel
 
   return (
-  <Link to={`/dashboard/channels/${id}`}>
+  <Link to={`/dashboard/channels/${id}`} className={fontLink}>
     <li key={id} className={wrapper}>
       <span className={boxImage}>
         <img src={users[0].image.smallUrl} className={imgUser} />
       </span>
       <span className={spanChannelInfo}>
-        <span className={fontName}>{users.map(user => user.name).join(', ')}</span>
+        <span className={fontName} data-users-count={users.length}>
+          <span className={fontUserNames}>{users.map(user => user.name).join(', ')}</span>
+        </span>
       </span>
     </li>
   </Link>
