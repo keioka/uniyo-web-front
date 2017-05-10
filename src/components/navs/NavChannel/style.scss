@@ -1,0 +1,57 @@
+@import "../../../styles/main";
+
+.ul {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon--user {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 40px;
+  margin: 0px 10px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon--user__img {
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid white;
+  transition: border 0.2s ease;
+}
+
+.icon--user__name {
+  position: absolute;
+  line-height: 40px;
+  background: $black;
+  border-radius: 4px;
+  top: 40px;
+  opacity: 0;
+  padding: 2px 15px;
+  font-size: 0.8rem;
+  color: white;
+  width: auto;
+  white-space: pre;
+  z-index: 14;
+}
+
+.icon--user__online-status {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+.icon--user:hover .icon--user__img {
+  border: 2px solid $pink;
+  transition: border 0.3s ease-out;
+}
+
+.icon--use:hover .icon--user__name {
+  opacity: 0.4;
+}

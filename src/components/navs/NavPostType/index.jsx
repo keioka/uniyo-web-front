@@ -37,7 +37,7 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
 }
 
 
-export default ({ currentPostType, onSelectPostType, currentHashTag }) => {
+ const NavPostType = ({ currentPostType, onSelectPostType, currentHashTag }) => {
   return (
     <ul className={wrapper}>
       {types.map((type) => {
@@ -58,3 +58,5 @@ export default ({ currentPostType, onSelectPostType, currentHashTag }) => {
     </ul>
   )
 }
+
+export default NavPostType
