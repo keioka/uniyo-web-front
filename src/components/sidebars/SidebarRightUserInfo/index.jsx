@@ -14,7 +14,12 @@ import {
   tagsItem,
 } from './style'
 
-const userInfo = ({ user }) => {
+const userInfo = ({ user, channelCreate }) => {
+
+  const onClickBtnMessage = () => {
+    channelCreate({ users: [user.id] })
+  }
+
   return (
     <div className={wrapper} >
       <div className={boxImg}>
@@ -25,7 +30,7 @@ const userInfo = ({ user }) => {
           <h3 className={profileNameH3}>{user.name}</h3>
         </div>
         <div className={profileNav}>
-          <button>Message</button>
+          <button onClick={onClickBtnMessage}>Message</button>
           <button>Donut</button>
         </div>
       </div>

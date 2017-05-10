@@ -35,6 +35,10 @@ const {
   hideHistoryDonut,
 } = uiAction
 
+const {
+  channelCreate,
+} = actions
+
 const mapDispatchToProps = dispatch => bindActionCreators({
   showUserInfo,
   showNotification,
@@ -42,6 +46,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   hideUserInfo,
   hideNotification,
   hideHistoryDonut,
+  channelCreate,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -56,13 +61,13 @@ export default class SidebarRight extends Component {
 
   render() {
     const { displayType, isOpen, userInfo } = this.props.rightbar
-
+    const { channelCreate } = this.props
     return (
       <div>
         { isOpen ? (
           <aside className={wrapper}>
             <div className={close} onClick={() => this.props.hideSidebarRight()}></div>
-            <SidebarRightUserInfo user={userInfo} />
+            <SidebarRightUserInfo user={userInfo} channelCreate={channelCreate} />
           </aside>
         ) : null }
      </div>
