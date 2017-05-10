@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 import {
   wrapper,
@@ -14,10 +14,22 @@ import {
   tagsItem,
 } from './style'
 
-const userInfo = ({ user, channelCreate }) => {
+const userInfo = ({ user, channelCreate, channels }) => {
 
   const onClickBtnMessage = () => {
-    channelCreate({ users: [user.id] })
+    const filteredChannel = channels.filter(channel => {
+      // check if current user has channel with the other user
+      // check channel is not group because it is supposed to be 1 to 1 chat
+      // check if the other user id is included. [0] is the other user and [1] is current user
+      return channel.users.length === 2 && channel.users[0].id == user.id
+    })
+    const channel = filteredChannel[0]
+
+    if (channel) {
+      browserHistory.push(`/dashboard/channels/${channel.id}`)
+    } else {
+      channelCreate({ users: [user.id] })
+    }
   }
 
   return (
