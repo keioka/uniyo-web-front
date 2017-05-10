@@ -258,7 +258,6 @@ export default class DashBoard extends Component {
           <div className={mainContent}>
             {childComponents}
           </div>
-          <footer className={footer} />
         </div>
         <SidebarRight hideSidebarRight={hideSidebarRight} />
       </div>
