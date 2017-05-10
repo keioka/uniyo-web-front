@@ -50,37 +50,62 @@ export default class InputPost extends Component {
   componentDidMount() {
     const self = this
     // TODO: Move this or connect to redux
-    $('#input').atwho({
-      at: '@',
-      callbacks: {
-        remoteFilter(query, callback) {
-          const accessToken = localStorage.accessToken
-          if (query) {
-            $.ajax({
-              url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
-              type: 'GET',
-              dataType: 'json',
-              success(users) {
+    if (!this.props.suggestionedUsers) {
+      $('#input').atwho({
+        at: '@',
+        callbacks: {
+          remoteFilter(query, callback) {
+            const accessToken = localStorage.accessToken
+            if (query) {
+              $.ajax({
+                url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
+                type: 'GET',
+                dataType: 'json',
+                success(users) {
                 // pull image
-                const mappedData = users.map(user => ({
-                  id: user.id,
-                  name: user.name,
-                  image: user.image.small_url,
-                }))
+                  const mappedData = users.map(user => ({
+                    id: user.id,
+                    name: user.name,
+                    image: user.image.small_url,
+                  }))
 
-                callback(mappedData)
-              },
-              error() {
-                console.warn('Search is not working')
-              },
-            })
-          }
+                  callback(mappedData)
+                },
+                error() {
+                  console.warn('Search is not working')
+                },
+              })
+            }
+          },
         },
-      },
-      displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
-      insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
-      searchKey: 'name',
-    })
+        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
+        insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
+        searchKey: 'name',
+      })
+    }
+  }
+
+  componentWillReceiveProps() {
+    if (
+      this.props.suggestionedUsers &&
+      this.props.suggestionedUsers.length > 0
+    ) {
+      const users = this.props.suggestionedUsers
+
+      const mappedData = users.map(user => ({
+        id: user.id,
+        name: user.name,
+        image: user.image.smallUrl,
+      }))
+
+      $('#input').atwho({
+        at: '@',
+        data: mappedData,
+        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
+        insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
+        searchKey: 'name',
+      })
+    }
   }
 
 
@@ -111,7 +136,6 @@ export default class InputPost extends Component {
         event.preventDefault()
         this.onSubmit()
       } else if ($('#input').atwho('isSelecting') === false) {
-        console.log($('#input').atwho('isSelecting'))
       }
     }
   }
@@ -119,7 +143,7 @@ export default class InputPost extends Component {
   onSubmit() {
     const { currentPostType } = this.props
     const text = postTranspiler(this._input)
-    console.log(this.props)
+
     if (currentPostType === 'ALL') {
       this.props.onPostSubmit({
         postType: 'POST',
