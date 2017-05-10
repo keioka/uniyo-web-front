@@ -129,15 +129,6 @@ export default class ChannelDashboard extends Component {
                 <span>description</span>
               </div>
             </div>
-            <div className={headerBarListUser}>
-              {channel && channel.users.map(user =>
-                <span className={headerItemUser} onClick={() => showUserInfo(user.id)}>
-                  <img src={user.image.smallUrl} alt="" className={headerItemUserImg} />
-                  <span className={headerItemUserIconOnlineStatus}></span>
-                  <span className={headerItemUserName}>{user.name}</span>
-                </span>
-              )}
-            </div>
           </div>
         </div>
         <div className={content}>
