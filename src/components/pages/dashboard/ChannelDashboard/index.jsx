@@ -13,10 +13,18 @@ import {
 } from '../../../index'
 
 import {
-  sectionUsers,
-  sectionUsersItemUser,
-  sectionUsersItemUserImg,
-  sectionUsersItemUserName,
+  header,
+  headerItemUser,
+  headerItemUserImg,
+  headerItemUserName,
+  headerBar,
+  headerBarListUser,
+  headerBarChannelInfo,
+  headerBarChannelInfoUsersCount,
+  headerBarChannelInfoDescription,
+  headerItemUserIconOnlineStatus,
+  content,
+  contentUl,
   sectionQuestion,
   sectionImage,
   sectionContent,
@@ -57,6 +65,47 @@ export default class ChannelDashboard extends Component {
     }
   }
 
+  get messages() {
+    const { allMessages, showUserInfo } = this.props
+    const { channelId } = this.props.params
+
+    const messages = allMessages.filter(message => message.channelId == channelId)
+
+    const allMessagesContainer = []
+
+    // * if user is same and the message is created within 5 min, push it.
+    let messagesChunk = []
+
+    messages.forEach((message, index) => {
+
+      // * if user is same and the message is created within 5 min, push it.
+      const length = messagesChunk.length - 1
+      const lastMessageOfChunk = messagesChunk[length]
+
+      if ((messages.length - 1) === index) {
+        messagesChunk.push(message)
+        allMessagesContainer.push(messagesChunk)
+      } else if (
+         messagesChunk.length === 0 ||
+         message.user.id == lastMessageOfChunk.user.id
+      ) {
+         messagesChunk.push(message)
+      } else {
+        allMessagesContainer.push(messagesChunk)
+        messagesChunk = []
+        messagesChunk.push(message)
+      }
+
+      console.log('messagesChunk', messagesChunk)
+    })
+
+    console.log('allMessagesContainer', allMessagesContainer)
+
+    return allMessagesContainer.map(messageChunk => {
+      return (<ListMessage messages={messageChunk} showUserInfo={showUserInfo} />)
+    })
+  }
+
   render() {
     const {
       showUserInfo,
@@ -73,22 +122,37 @@ export default class ChannelDashboard extends Component {
     const channel = allChannels.filter(channel => channel.id == channelId)[0]
     const messages = allMessages.filter(message => message.channelId == channelId)
     const { hashtags: hashtagsCurrentUser, image } = currentUser
-
     return (
       <div ref={(div)=> this._dashboard = div}>
-        <div className={sectionUsers}>
-          {channel && channel.users.map(user =>
-            <span className={sectionUsersItemUser}>
-              <img src={user.image.smallUrl} alt="" className={sectionUsersItemUserImg}/>
-              {/* <span className={sectionUsersItemUserName}>{user.name}</span> */}
-            </span>
-          )}
+        <div className={header}>
+          <div className={headerBar}>
+            <div className={headerBarChannelInfo}>
+              <div className={headerBarChannelInfoUsersCount}>{channel && channel.users.length}</div>
+              <div className={headerBarChannelInfoDescription}>
+                <span>Title</span>
+                <span>description</span>
+              </div>
+            </div>
+            <div className={headerBarListUser}>
+              {channel && channel.users.map(user =>
+                <span className={headerItemUser} onClick={() => showUserInfo(user.id)}>
+                  <img src={user.image.smallUrl} alt="" className={headerItemUserImg} />
+                  <span className={headerItemUserIconOnlineStatus}></span>
+                  <span className={headerItemUserName}>{user.name}</span>
+                </span>
+              )}
+            </div>
+          </div>
         </div>
-        {messages && messages.map(message => <ListMessage {...message} />)}
+        <div className={content}>
+          <ul className={contentUl}>
+            { messages && this.messages }
+          </ul>
+        </div>
         <div className={sectionInput}>
           <InputPost
             imgUrl={image && image.mediumUrl}
-            suggestionedUsers={suggestionedUsers}
+            suggestionedUsers={channel ? channel.users : []}
             onPostSubmit={messageCreate}
             currentPostType={'MESSAGE'}
             channelId={channelId}
