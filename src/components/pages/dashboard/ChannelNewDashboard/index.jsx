@@ -40,7 +40,6 @@ export default class ChannelNewDashboard extends Component {
     const { selectedUsers } = this.state
     const newSelectedUsers = selectedUsers
     const isUserAlreadyIncluded = selectedUsers.some(selectedUser => selectedUser.id === user.id)
-    console.log(isUserAlreadyIncluded)
     if (!isUserAlreadyIncluded) {
       newSelectedUsers.push(user)
       this.setState({
