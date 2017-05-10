@@ -4,27 +4,35 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin: 10px 0px;
-  padding: 2rem;
+  padding: 10px 2rem;
   background: white;
+  align-items: flex-start;
 }
 
 .font-name {
   display: inline-block;
   margin-right: 20px;
-  font-size: 0.9rem;
-  font-weight: $font-weight-exbold;
+  font-size: 1rem;
+  font-weight: $font-weight-normal;
   color: $black;
 }
 
+.section__content {
+  width: 93%;
+}
+
 .box-image {
-  width: 2rem;
+  width: 7%;
   overflow: hidden;
   display: inline-block;
-  border-radius: 60px;
   margin-right: 15px;
 }
 
 .img-user {
-  width: 100%;
+  width: 40px;
+  border-radius: 8px;
+}
+
+.paragaph {
+  padding: 5px 0px;
 }
