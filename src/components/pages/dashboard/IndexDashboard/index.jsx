@@ -165,7 +165,7 @@ export default class IndexDashboard extends Component {
           onPostSubmit={postCreate}
           currentHashTag={hashtag}
           currentPostType={currentPostType}
-          suggestionedUsers={suggestionedUsers}
+          // suggestionedUsers={suggestionedUsers}
           userSearch={userSearch}
           showUserInfo={showUserInfo}
         />

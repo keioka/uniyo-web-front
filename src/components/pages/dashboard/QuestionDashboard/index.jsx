@@ -199,7 +199,7 @@ export default class QuestionDashboard extends Component {
           imgUrl={image && image.mediumUrl}
           onPostSubmit={answerCreate}
           currentPostType={'ANSWER'}
-          suggestionedUsers={suggestionedUsers}
+          // suggestionedUsers={suggestionedUsers}
           userSearch={userSearch}
           showUserInfo={showUserInfo}
           questionId={questionId}

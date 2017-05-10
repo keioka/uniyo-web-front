@@ -17,6 +17,7 @@ import {
   NavPostType,
   Donnut,
   InputPost,
+  NavChannel,
 } from '../../components'
 
 import {
@@ -47,6 +48,7 @@ const mapStateToProps = state => ({
   rightbar: state.ui.rightbar,
   channels: state.api.channels,
   answers: state.api.answers,
+  messages: state.api.messages,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -56,6 +58,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   commentCreate: actions.commentCreate,
   userSearch: actions.userSearch,
   showUserInfo: uiActions.showUserInfo,
+  showChannelUsers: uiActions.showChannelUsers,
   hideSidebarRight: uiActions.hideSidebarRight,
   channelSearch: actions.channelSearch,
   channelCreate: actions.channelCreate,
@@ -134,8 +137,11 @@ export default class DashBoard extends Component {
   }
 
   get renderContent() {
+
+
     const {
       showUserInfo,
+      showChannelUsers,
       commentCreate,
       commentsSearch,
       postCreate,
@@ -159,6 +165,7 @@ export default class DashBoard extends Component {
       answerCreate,
       postInfo,
       answers,
+      messages,
     } = this.props
 
     const { currentUser } = auth
@@ -168,10 +175,35 @@ export default class DashBoard extends Component {
     const { all: allComments } = comments
     const { all: allChannels } = channels
     const { all: allAnswers } = answers
+    const { all: allMessages } = messages
+
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
+
+    /* **************************************
+      [start] channel feature
+     *************************************** */
+
+    const regex = new RegExp(/\/dashboard\/channels\/\d+/)
+    const path = this.props.location.pathname
+
+    let isChannel = false
+    let channel
+
+    if (path.match(regex)) {
+      isChannel = true
+      const { channelId } = this.props.router.params
+      channel = allChannels.filter(channel => channel.id == channelId)[0]
+      if (!channel) {
+        //redirect
+      }
+    }
+
+    /* **************************************
+      [end] channel feature
+     *************************************** */
 
     /* **************************************
       [start] filter feature
@@ -204,9 +236,12 @@ export default class DashBoard extends Component {
       type: TYPES[type],
       userSearch,
       allComments,
+      allMessages,
+      allChannels,
       postsSearch,
       postCreate,
       showUserInfo,
+      showChannelUsers,
       commentsSearch,
       commentCreate,
       hideSidebarRight,
@@ -216,7 +251,6 @@ export default class DashBoard extends Component {
       messageCreate,
       channelSearch,
       channelCreate,
-      suggestionedUsers,
       currentHashTag,
       currentPostType,
       answerSearch,
@@ -241,11 +275,18 @@ export default class DashBoard extends Component {
               <Notification className={icon} />
               <Setting className={icon} />
             </div>
-            <NavPostType
-              onSelectPostType={::this.onSelectPostType}
-              currentPostType={this.state.currentPostType}
-              currentHashTag={hashtag}
-            />
+            {!isChannel ?
+              <NavPostType
+                onSelectPostType={::this.onSelectPostType}
+                currentPostType={this.state.currentPostType}
+                currentHashTag={hashtag}
+              /> :
+              <NavChannel
+                channel={channel}
+                showUserInfo={showUserInfo}
+                showChannelUsers={showChannelUsers}
+              />
+            }
             <div>
               <Donnut size="large" />
             </div>
@@ -253,7 +294,6 @@ export default class DashBoard extends Component {
           <div className={mainContent}>
             {childComponents}
           </div>
-          <footer className={footer} />
         </div>
         <SidebarRight hideSidebarRight={hideSidebarRight} />
       </div>

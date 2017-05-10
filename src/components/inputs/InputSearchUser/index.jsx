@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react'
 
 import {
   input,
-} from './style'
+} from './style.scss'
 
-
-const InputSearchTag = (props) => {
-  const classNames = `${input} ${props.className}`
+const InputSearchUser = (props, { className }) => {
+  const classNames = `${input} ${className}`
   return (
     <input
       type="text"
@@ -17,4 +16,4 @@ const InputSearchTag = (props) => {
   )
 }
 
-export default InputSearchTag
+export default InputSearchUser
