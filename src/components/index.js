@@ -53,7 +53,7 @@ export ButtonFile from './buttons/ButtonFile'
 */
 
 export NavPostType from './navs/NavPostType'
-
+export NavChannel from './navs/NavChannel'
 
 /*
   card
@@ -82,7 +82,7 @@ export SidebarLeft from './sidebars/SidebarLeft'
 export SidebarRightUserInfo from './sidebars/SidebarRightUserInfo'
 export SidebarRightNotification from './sidebars/SidebarRightNotification'
 export SidebarRightHistoryDonuts from './sidebars/SidebarRightHistoryDonuts'
-
+export SidebarRightChannelUsers from './sidebars/SidebarRightChannelUsers'
 /*
   text
 */

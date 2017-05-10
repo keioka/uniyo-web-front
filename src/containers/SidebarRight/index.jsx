@@ -18,12 +18,14 @@ import {
   SidebarRightHistoryDonuts,
   SidebarRightNotification,
   SidebarRightUserInfo,
+  SidebarRightChannelUsers,
 } from '../../components'
 
 import uiAction from '../../redux/actions'
 
 const mapStateToProps = state => ({
   rightbar: state.ui.rightbar,
+  channels: state.api.channels,
 })
 
 const {
@@ -55,19 +57,46 @@ export default class SidebarRight extends Component {
 
   }
 
-  onClickCloseButtonHandler() {
+  display() {
+    const { displayType, isOpen, userInfo, channelUsers } = this.props.rightbar
+    const { channelCreate, channels } = this.props
+    const { all: allChannels } = channels
+
+
+    console.log('dis', displayType)
+    console.log('channelUsers', channelUsers)
+    switch(displayType) {
+      case 'UserInfo': {
+        return (
+          <SidebarRightUserInfo
+            user={userInfo}
+            channels={allChannels}
+            channelCreate={channelCreate}
+          />
+        )
+      }
+
+      case 'ChannelUsers': {
+        return (
+          <SidebarRightChannelUsers
+            channelUsers={channelUsers}
+          />
+        )
+      }
+    }
 
   }
 
   render() {
     const { displayType, isOpen, userInfo } = this.props.rightbar
-    const { channelCreate } = this.props
+    const { channelCreate, channels } = this.props
+    const { all: allChannels } = channels
     return (
       <div>
         { isOpen ? (
           <aside className={wrapper}>
             <div className={close} onClick={() => this.props.hideSidebarRight()}></div>
-            <SidebarRightUserInfo user={userInfo} channelCreate={channelCreate} />
+            {this.display()}
           </aside>
         ) : null }
      </div>
