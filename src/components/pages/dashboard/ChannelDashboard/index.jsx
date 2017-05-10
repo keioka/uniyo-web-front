@@ -96,11 +96,7 @@ export default class ChannelDashboard extends Component {
         messagesChunk.push(message)
       }
 
-      console.log('messagesChunk', messagesChunk)
     })
-
-    console.log('allMessagesContainer', allMessagesContainer)
-
     return allMessagesContainer.map(messageChunk => {
       return (<ListMessage messages={messageChunk} showUserInfo={showUserInfo} />)
     })
