@@ -32,16 +32,21 @@ export default class ChannelNewDashboard extends Component {
 
   state = {
     form: [],
-    selectedUsers: []
+    selectedUsers: [],
+    isShowRecentConversation: true,
   }
 
   onSelectedUser(user) {
     const { selectedUsers } = this.state
     const newSelectedUsers = selectedUsers
-    newSelectedUsers.push(user)
-    this.setState({
-      selectedUsers: newSelectedUsers
-    })
+    const isUserAlreadyIncluded = selectedUsers.some(selectedUser => selectedUser.id === user.id)
+    console.log(isUserAlreadyIncluded)
+    if (!isUserAlreadyIncluded) {
+      newSelectedUsers.push(user)
+      this.setState({
+        selectedUsers: newSelectedUsers
+      })
+    }
   }
 
   onDeleteSelectedUser(index) {
@@ -51,6 +56,20 @@ export default class ChannelNewDashboard extends Component {
     this.setState({
       selectedUsers: newSelectedUsers
     })
+  }
+
+  onChangeInputSearchUser(event) {
+    const { userSearch } = this.props
+    if (event.target.value !== '') {
+      userSearch({ query: event.target.value })
+      this.setState({
+        isShowRecentConversation: false,
+      })
+    } else if (event.target.value == '') {
+      this.setState({
+        isShowRecentConversation: true,
+      })
+    }
   }
 
   onSubmit() {
@@ -75,9 +94,6 @@ export default class ChannelNewDashboard extends Component {
       messageCreate,
     } = this.props
 
-    const messages = allMessages.filter(message => message.channelId == channelId)
-    const { hashtags: hashtagsCurrentUser, image } = currentUser
-
     return (
       <div ref={(div)=> this._dashboard = div} className={wrapper}>
         <div className={btnClose}>
@@ -89,7 +105,7 @@ export default class ChannelNewDashboard extends Component {
             <h3 className={headerTitle}>Start a private chat</h3>
             <div className={headerForm}>
               <InputSearchUser
-                onChange={event => userSearch({ query: event.target.value })}
+                onChange={::this.onChangeInputSearchUser}
               />
               <button className={btn} onClick={::this.onSubmit}>Start</button>
             </div>
@@ -105,12 +121,14 @@ export default class ChannelNewDashboard extends Component {
                }
             </div>
           </div>
-          <div className={section}>
-            <h4 className={sectionTitle}>Recent Conversation</h4>
-            <ul className={sectionUl}>
-              {allChannels && allChannels.map(channel => <ListRecentConversation channel={channel} />)}
-            </ul>
-          </div>
+          { this.state.isShowRecentConversation &&
+            <div className={section}>
+              <h4 className={sectionTitle}>Recent Conversation</h4>
+              <ul className={sectionUl}>
+                {allChannels && allChannels.map(channel => <ListRecentConversation channel={channel} />)}
+              </ul>
+            </div>
+          }
           <div className={section}>
             <h4 className={sectionTitle}>Campus Directory</h4>
             <ul className={sectionUl}>
