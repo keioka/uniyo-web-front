@@ -42,10 +42,6 @@ class UniyoWebSocket {
   reset() {
     this.init()
   }
-
-  send(messaga) {
-
-  }
 }
 
 const uniyoWs = new UniyoWebSocket()
@@ -78,12 +74,25 @@ function subscribe(socket) {
           emit(action)
           break
         }
+
+        case 'NOTIFICATION': {
+          const action = { type: 'WEBSOCKET_NOTIFICATION', data: data.event }
+          emit(action)
+          break
+        }
       }
+    }
+
+    socket.onopen = () => {
+      console.log('websocket is open')
+      uniyoWs.connectionTryNumber = 0
     }
 
     socket.onclose = (event) => {
       const reset = () => {
-        emit({ type: 'WEBSOCKET_RESET'})
+        const reconnectIn = uniyoWs.connectionTryNumber * 1000
+        uniyoWs.connectionTryNumber = uniyoWs.connectionTryNumber + 1
+        setTimeout(() => { emit({ type: 'WEBSOCKET_RESET'}) }, reconnectIn)
       }
       reset()
     }
