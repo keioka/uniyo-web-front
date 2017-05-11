@@ -1,4 +1,4 @@
-import { put, take, fork, call, takeLatest, select, takeEvery, wait } from 'redux-saga/effects'
+import { put, take, fork, call, takeLatest, select, takeEvery, wait, race, cancel } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
 import { eventChannel, END } from 'redux-saga'
@@ -14,11 +14,15 @@ class UniyoWebSocket {
   }
 
   constructor() {
+    this.init()
+    this.sessionId = null
+  }
+
+  init() {
     this.isInitialing = false
     this.isInitialized = false
     this.isSocketReady = false
     this.isAuthenticated = false
-    this.sessionId = null
     this.socket = null
     this.connectionTryNumber = 0
     this.pinger = null
@@ -35,6 +39,10 @@ class UniyoWebSocket {
     return this.socket
   }
 
+  reset() {
+    this.init()
+  }
+
   send(messaga) {
 
   }
@@ -46,14 +54,19 @@ const uniyoWs = new UniyoWebSocket()
 
 function subscribe(socket) {
   return eventChannel((emit) => {
+
     socket.onmessage = (response) => {
       let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
-
+      console.log('message type', type)
       switch (type) {
         case 'SOCKET_READY': {
           emit({ type: 'WEBSOCKET_READY', response })
+          break
+        }
+        case 'PONG': {
+          console.log('pong')
           break
         }
         case 'HELLO': {
@@ -68,6 +81,13 @@ function subscribe(socket) {
       }
     }
 
+    socket.onclose = (event) => {
+      const reset = () => {
+        emit({ type: 'WEBSOCKET_RESET'})
+      }
+      reset()
+    }
+
     return () => {
       socket.close()
     }
@@ -80,7 +100,7 @@ function* authenticate(response) {
   const tokens = yield select(getTokens)
   const message = {
     id: 1,
-    sessionId: null,
+    sessionId: uniyoWs.sessionId,
     accessToken: tokens.accessToken,
     version: '1',
     deviceId: '???',
@@ -95,7 +115,7 @@ function* authenticate(response) {
 function* runWebSocket() {
   const socket = yield call(uniyoWs.connect.bind(uniyoWs))
   const channel = yield call(subscribe, socket)
-  yield fork(ping, socket)
+
   while (true) {
     const action = yield take(channel)
     yield put(action)
@@ -103,28 +123,53 @@ function* runWebSocket() {
 }
 
 function* ping(socket) {
+  // let times = 0 <- use for test onclose
   while (true) {
-    yield call(delay, 30 * 1000)
+    yield call(delay, 10 * 1000)
     const message = {
       id: 1,
       type: 'PING',
     }
-    socket.send(JSON.stringify(converter.snakeToCamelCase(message)))
+    // times += 1 <- use for test onclose
+
+    // if (times === 2) { <- use for test onclose
+      // uniyoWs.socket.close()
+    // }
+    uniyoWs.socket.send(JSON.stringify(converter.snakeToCamelCase(message)))
   }
 }
 
 function* flow() {
   // get initialized web socket
+  let task
   while (true) {
-    yield take('WEBSOCKET_INIT')
-    const task = yield fork(runWebSocket)
-    yield take('WEBSOCKET_STOP')
-    yield cancel(task)
+    const appFlow = yield race({
+      init: take('WEBSOCKET_INIT'),
+      reset: take('WEBSOCKET_RESET'),
+      stop: take('WEBSOCKET_STOP')
+    })
+
+    if (appFlow.init) {
+      task = yield fork(runWebSocket)
+    } else if (appFlow.reset) {
+      yield cancel(task)
+      uniyoWs.reset()
+      console.warn('websocket is reseted')
+      task = yield fork(runWebSocket)
+    } else if (appFlow.stop) {
+      yield cancel(task)
+    }
+
   }
 }
 
 function* initWebSocket() {
   yield takeLatest('WEBSOCKET_READY', authenticate)
+}
+
+
+function* helloWebSocket() {
+  yield takeLatest('WEBSOCKET_HELLO', ping)
 }
 
 function* eventWebSocket() {
@@ -146,8 +191,7 @@ function* eventWebSocket() {
         }
 
         case 'NEW_CHANNEL_MESSAGE': {
-          const message = payload.data.channelMessage
-          const { channelId } = payload.data
+          const { channelId, channelMessage: message } = payload.data
           message.channelId = channelId
           action = { type: actionTypes.messageFetch.success, result: { data: message } }
           break
@@ -167,5 +211,6 @@ function* eventWebSocket() {
 export default function* webSocket() {
   yield fork(flow)
   yield fork(initWebSocket)
+  yield fork(helloWebSocket)
   yield fork(eventWebSocket)
 }
