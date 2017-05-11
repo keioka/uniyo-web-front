@@ -1,15 +1,27 @@
-import { put, take, fork, call, takeLatest, select, takeEvery } from 'redux-saga/effects'
+import { put, take, fork, call, takeLatest, select, takeEvery, wait } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
+
 import { eventChannel, END } from 'redux-saga'
 import uiActionTypes from '../actionTypes'
 import { actionTypes } from 'uniyo-redux'
 import converter from 'json-style-converter/es5'
-require("babel-polyfill")
 const webSocketUrl = 'wss://live.uniyo.io/v1/ws'
 
 class UniyoWebSocket {
 
   set sessinId(sessionId) {
     this.sessionId = sessionId
+  }
+
+  constructor() {
+    this.isInitialing = false
+    this.isInitialized = false
+    this.isSocketReady = false
+    this.isAuthenticated = false
+    this.sessionId = null
+    this.socket = null
+    this.connectionTryNumber = 0
+    this.pinger = null
   }
 
   connect() {
@@ -21,6 +33,10 @@ class UniyoWebSocket {
       })
     }
     return this.socket
+  }
+
+  send(messaga) {
+
   }
 }
 
@@ -34,6 +50,7 @@ function subscribe(socket) {
       let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
+
       switch (type) {
         case 'SOCKET_READY': {
           emit({ type: 'WEBSOCKET_READY', response })
@@ -45,7 +62,6 @@ function subscribe(socket) {
         }
         case 'EVENT': {
           const action = { type: 'WEBSOCKET_EVENT', data: data.event }
-          console.log(action)
           emit(action)
           break
         }
@@ -79,10 +95,21 @@ function* authenticate(response) {
 function* runWebSocket() {
   const socket = yield call(uniyoWs.connect.bind(uniyoWs))
   const channel = yield call(subscribe, socket)
-
+  yield fork(ping, socket)
   while (true) {
     const action = yield take(channel)
     yield put(action)
+  }
+}
+
+function* ping(socket) {
+  while (true) {
+    yield call(delay, 30 * 1000)
+    const message = {
+      id: 1,
+      type: 'PING',
+    }
+    socket.send(JSON.stringify(converter.snakeToCamelCase(message)))
   }
 }
 
@@ -90,7 +117,9 @@ function* flow() {
   // get initialized web socket
   while (true) {
     yield take('WEBSOCKET_INIT')
-    yield fork(runWebSocket)
+    const task = yield fork(runWebSocket)
+    yield take('WEBSOCKET_STOP')
+    yield cancel(task)
   }
 }
 
@@ -101,9 +130,33 @@ function* initWebSocket() {
 function* eventWebSocket() {
   yield takeEvery('WEBSOCKET_EVENT', function* eventHandler(payload) {
     try {
-      const { type } = payload
-      const action = { type: actionTypes.postInfo.success, result: { data: payload.data.post } }
-      console.log(action)
+      const { type } = payload.data
+      let action
+      switch (type) {
+        case 'NEW_POST': {
+          const { post } = payload.data
+          action = { type: actionTypes.postInfo.success, result: { data: post } }
+          break
+        }
+
+        case 'NEW_COMMENT': {
+          const { comment } = payload.data
+          action = { type: actionTypes.commentFetch.success, result: { data: comment } }
+          break
+        }
+
+        case 'NEW_CHANNEL_MESSAGE': {
+          const message = payload.data.channelMessage
+          const { channelId } = payload.data
+          message.channelId = channelId
+          action = { type: actionTypes.messageFetch.success, result: { data: message } }
+          break
+        }
+
+        default:
+          console.warn(`Don't know how to handle ${type} event.`);
+      }
+
       yield put(action)
     } catch (e) {
       console.warn(e)
