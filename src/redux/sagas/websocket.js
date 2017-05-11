@@ -1,4 +1,4 @@
-import { put, take, fork, call } from 'redux-saga/effects'
+import { put, take, fork, call, takeLatest, select, takeEvery } from 'redux-saga/effects'
 import { eventChannel, END } from 'redux-saga'
 import uiActionTypes from '../actionTypes'
 import { actionTypes } from 'uniyo-redux'
@@ -6,45 +6,51 @@ import converter from 'json-style-converter/es5'
 
 const webSocketUrl = 'wss://live.uniyo.io/v1/ws'
 
-function connect() {
-  const socket = new WebSocket(webSocketUrl)
-  return new Promise(resolve => {
-    resolve(socket)
-  })
-}
+class UniyoWebSocket {
 
-function authenticate() {
-  const authMsg = {
-    id: 1,
-    sessionId: this.sessionId,
-    accessToken: getAccessToken(),
-    version: "1",
-    deviceId: "???",
-    clientType: "BROWSER",
-    type: "HELLO"
+  set sessinId (sessionId) {
+    this.sessionId = sessionId
   }
 
-  sendMessage(authMsg)
+  connect() {
+    console.log(this)
+    if (!this.socket) {
+      const socket = new WebSocket(webSocketUrl)
+      return new Promise(resolve => {
+        this.socket = socket
+        resolve(this.socket)
+      })
+    } else {
+      return this.socket
+    }
+  }
 }
 
-function sendMessage(msg) {
-  const snakeCaseMsg = converter.camelToSnakeCase(msg)
-  this.ws.send(JSON.stringify(snakeCaseMsg))
-}
+const uniyoWs = new UniyoWebSocket()
 
 // function onMessage
+console.log(uniyoWs)
 
 function subscribe(socket) {
   return eventChannel(emit => {
-
-    socket.onmessage = (event) => {
-      console.log(event)
-      let data = JSON.parse(event.data)
+    socket.onmessage = (response) => {
+      console.log(response)
+      let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
       switch (type) {
         case "SOCKET_READY": {
-          emit({ type: "WEBSOCKET/READY", data })
+          emit({ type: "WEBSOCKET_READY", response })
+          break
+        }
+        case "HELLO": {
+          emit({ type: "WEBSOCKET_HELLO", response })
+          break
+        }
+        case "EVENT": {
+          console.log('event', response)
+          emit({ type: "WEBSOCKET_EVENT", response })
+          break
         }
       }
     }
@@ -55,18 +61,49 @@ function subscribe(socket) {
   })
 }
 
-function* flow() {
-  // get initialized web socket
-  const socket = yield call(connect)
+
+function* authenticate(response) {
+
+  const getTokens = state => state.api.auth.token
+  const tokens = yield select(getTokens)
+  const message = {
+    id: 1,
+    sessionId: null,
+    accessToken: tokens.accessToken,
+    version: "1",
+    deviceId: "???",
+    clientType: "BROWSER",
+    type: "HELLO"
+  }
+
+  const snakeCaseMsg = converter.camelToSnakeCase(message)
+  uniyoWs.socket.send(JSON.stringify(snakeCaseMsg))
+}
+
+function* runWebSocket() {
+  const socket = yield call(uniyoWs.connect.bind(uniyoWs))
   const channel = yield call(subscribe, socket)
 
   while (true) {
     const action = yield take(channel)
     yield put(action)
-    console.log('take: ', action)
   }
 }
 
+function* flow() {
+  // get initialized web socket
+  while (true) {
+    yield take('WEBSOCKET_INIT')
+    yield fork(runWebSocket)
+  }
+}
+
+function* initWebSocket() {
+  yield takeLatest('WEBSOCKET_READY', authenticate)
+}
+
+
 export default function* webSocket() {
   yield fork(flow)
+  yield fork(initWebSocket)
 }
