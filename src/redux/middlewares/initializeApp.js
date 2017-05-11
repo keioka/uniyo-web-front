@@ -26,10 +26,11 @@ export const initializeApp = store => next => action => {
       accessToken,
     }))
 
-    console.log(actions)
     store.dispatch(actions.hashtagTrendingSearch({
       accessToken,
     }))
+
+    store.dispatch({ type: 'WEBSOCKET_INIT' })
   }
 
   return next(action)
