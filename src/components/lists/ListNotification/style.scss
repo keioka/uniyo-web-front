@@ -1,0 +1,59 @@
+@import "../../../styles/main";
+
+.wrapper {
+  list-style: none;
+  width: 100%;
+  padding: 14px 10px;
+  background: white;
+  border-radius: 20px;
+  margin: 5px 0px;
+  font-size: 0.8rem;
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid white;
+  transition: border 5s ease;
+  position: relative;
+}
+
+.box--img {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  margin-right: 16px;
+}
+
+.img--user {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.read:after, .unread:after {
+  content: ' ';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.read:after {
+  background: white;
+  transition: background 7.2s ease-out;
+  animation: blinker 2.4s ease-out infinite;
+}
+
+.unread:after {
+  background: $pink;
+  transition: background 7.2s ease-out;
+  animation: blinker 2.4s ease-out infinite;
+}

@@ -1,0 +1,41 @@
+@import "../../../styles/main";
+
+.wrapper {
+  background-color: $gray;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: scroll;
+  height: 100%;
+}
+
+.header {
+  background-color: $black;
+  padding: 1rem 1rem;
+  margin-bottom: 15px;
+  color: white;
+  position: sticky;
+  top: 0px;
+  z-index: 6;
+}
+
+.header--title {
+  display: inline-block;
+  color: white;
+  font-size: 15px;
+}
+
+.header--title:after {
+  content: attr(data-count-notification);
+  width: 8px;
+  height: 12px;
+  padding: 6px 6px;
+  margin-left: 10px;
+  background: #FB3C3C;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+}
+
+.ul {
+  padding: 0px 10px 20px 10px;
+}
