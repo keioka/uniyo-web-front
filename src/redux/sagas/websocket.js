@@ -62,7 +62,6 @@ function subscribe(socket) {
           break
         }
         case 'PONG': {
-          console.log('pong')
           break
         }
         case 'HELLO': {
@@ -84,7 +83,6 @@ function subscribe(socket) {
     }
 
     socket.onopen = () => {
-      console.log('websocket is open')
       uniyoWs.connectionTryNumber = 0
     }
 
