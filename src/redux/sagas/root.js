@@ -25,6 +25,7 @@ const {
   postInfoSaga,
   answerSearchSaga,
   answerCreateSaga,
+  webSocket,
 } = sagas
 
 export default function* rootSaga() {
@@ -52,5 +53,6 @@ export default function* rootSaga() {
     fork(postInfoSaga),
     fork(answerSearchSaga),
     fork(answerCreateSaga),
+    fork(webSocket),
   ]
 }
