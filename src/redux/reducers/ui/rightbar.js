@@ -17,6 +17,7 @@ export default (state = initialiState, action) => {
   switch (action.type) {
     case actionTypes.showNotification.request: {
       return Object.assign({
+        isOpen: true,
         displayType: 'Notification'
       })
     }
