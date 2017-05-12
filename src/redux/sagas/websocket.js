@@ -75,7 +75,8 @@ function subscribe(socket) {
         }
 
         case 'NOTIFICATION': {
-          const action = { type: 'WEBSOCKET_NOTIFICATION', data: data.event }
+          const { notification } = data
+          const action = { type: 'WEBSOCKET_NOTIFICATION', notification }
           emit(action)
           break
         }
@@ -89,8 +90,8 @@ function subscribe(socket) {
     socket.onclose = (event) => {
       const reset = () => {
         const reconnectIn = uniyoWs.connectionTryNumber * 1000
-        uniyoWs.connectionTryNumber = uniyoWs.connectionTryNumber + 1
         setTimeout(() => { emit({ type: 'WEBSOCKET_RESET'}) }, reconnectIn)
+        uniyoWs.connectionTryNumber = uniyoWs.connectionTryNumber + 1
       }
       reset()
     }
@@ -174,7 +175,6 @@ function* initWebSocket() {
   yield takeLatest('WEBSOCKET_READY', authenticate)
 }
 
-
 function* helloWebSocket() {
   yield takeLatest('WEBSOCKET_HELLO', ping)
 }
@@ -204,20 +204,42 @@ function* eventWebSocket() {
           break
         }
 
+        case 'NOTIFICATIONS_READ': {
+          console.log(payload.data)
+          const { notificationIds } = payload.data
+          const notificationId = notificationIds[0]
+          // action = { type: actionTypes.notificationReadMark.success, result: { data: { notificationId } } }
+          break
+        }
+
         default:
           console.warn(`Don't know how to handle ${type} event.`);
       }
-
-      yield put(action)
+      if (action) {
+        yield put(action)
+      }
     } catch (e) {
       console.warn(e)
     }
   })
 }
 
+
+function* notificationWebSocket() {
+  yield takeEvery('WEBSOCKET_NOTIFICATION', function* notificationHandler({ notification }) {
+    try {
+      yield put({ type: actionTypes.notificationFetch.success, result: { data: notification }})
+    } catch (e) {
+      console.warn(e)
+    }
+  })
+}
+
+
 export default function* webSocket() {
   yield fork(flow)
   yield fork(initWebSocket)
   yield fork(helloWebSocket)
   yield fork(eventWebSocket)
+  yield fork(notificationWebSocket)
 }

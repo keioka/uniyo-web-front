@@ -17,6 +17,7 @@ export const initializeApp = store => next => action => {
   ) {
     const userId = JSON.parse(storage.user).id
     const { accessToken } = storage
+
     store.dispatch(actions.currentUser({
       userId,
       accessToken,
@@ -27,6 +28,10 @@ export const initializeApp = store => next => action => {
     }))
 
     store.dispatch(actions.hashtagTrendingSearch({
+      accessToken,
+    }))
+
+    store.dispatch(actions.notificationSearch({
       accessToken,
     }))
 

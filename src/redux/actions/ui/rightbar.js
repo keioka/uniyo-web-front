@@ -5,9 +5,8 @@ export const showUserInfo = (userId) => ({
   userId,
 })
 
-export const showNotification = (notifications) => ({
+export const showNotification = () => ({
   type: actionTypes.showNotification.request,
-  notifications,
 })
 
 export const showChannelUsers = (users) => ({

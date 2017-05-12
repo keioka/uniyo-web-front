@@ -6,10 +6,6 @@ import sagas from '../'
 const getUsers = state => state.api.users
 const getTokens = state => state.api.auth.token
 
-function* showNotification() {
-
-}
-
 function* showUserInfo({ userId }) {
 
   // TODO: Maybe Delete? Just filter user states and dispatch from UI
