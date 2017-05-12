@@ -29,7 +29,7 @@
     "draft-js-plugins-editor": "2.0.0-beta10",
     "express": "^4.15.2",
     "immutable": "^3.8.1",
-    "jquery": "^3.2.1",
+    "jquery": "^1.7.0",
     "jquery.caret": "^0.3.1",
     "json-style-converter": "^1.0.3",
     "lodash": "^4.17.4",
