@@ -25,11 +25,17 @@ const {
   postInfoSaga,
   answerSearchSaga,
   answerCreateSaga,
+  notificationSearchSaga,
+  notificationReadMarkSaga,
   webSocket,
+  watchMarkNotificationAsRead,
 } = sagas
 
 export default function* rootSaga() {
   yield [
+    /*
+      saga for api
+    */
     fork(schoolsSearchSaga),
     fork(logInSaga),
     fork(userCreateSaga),
@@ -43,8 +49,6 @@ export default function* rootSaga() {
     fork(userInfoSaga),
     fork(userSearchSaga),
     fork(currentUserSaga),
-    fork(watchShowUserInfo),
-    fork(watchShowChannelUsers),
     fork(messageSearchSaga),
     fork(messageCreateSaga),
     fork(channelSearchSaga),
@@ -53,6 +57,23 @@ export default function* rootSaga() {
     fork(postInfoSaga),
     fork(answerSearchSaga),
     fork(answerCreateSaga),
+    fork(notificationSearchSaga),
+    fork(notificationReadMarkSaga),
+
+    /*
+      saga form UI
+    */
+    fork(watchShowUserInfo),
+    fork(watchShowChannelUsers),
+
+    /*
+      saga for webSocket
+    */
     fork(webSocket),
+
+    /*
+      saga for form
+    */
+    fork(watchMarkNotificationAsRead),
   ]
 }
