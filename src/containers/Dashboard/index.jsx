@@ -25,6 +25,7 @@ import {
   container,
   main,
   header,
+  headerNavBasic,
   mainContent,
   mainShrink,
   mainExpand,
@@ -59,6 +60,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userSearch: actions.userSearch,
   showUserInfo: uiActions.showUserInfo,
   showChannelUsers: uiActions.showChannelUsers,
+  showNotification: uiActions.showNotification,
   hideSidebarRight: uiActions.hideSidebarRight,
   channelSearch: actions.channelSearch,
   channelCreate: actions.channelCreate,
@@ -142,6 +144,7 @@ export default class DashBoard extends Component {
     const {
       showUserInfo,
       showChannelUsers,
+      showNotification,
       commentCreate,
       commentsSearch,
       postCreate,
@@ -242,6 +245,7 @@ export default class DashBoard extends Component {
       postCreate,
       showUserInfo,
       showChannelUsers,
+      showNotification,
       commentsSearch,
       commentCreate,
       hideSidebarRight,
@@ -271,8 +275,8 @@ export default class DashBoard extends Component {
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
-            <div>
-              <Notification className={icon} />
+            <div className={headerNavBasic}>
+              <Notification className={icon} onClick={() => showNotification()} />
               <Setting className={icon} />
             </div>
             {!isChannel ?
