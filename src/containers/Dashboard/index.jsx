@@ -17,6 +17,7 @@ import {
   NavPostType,
   Donnut,
   InputPost,
+  NavChannel,
 } from '../../components'
 
 import {
@@ -24,6 +25,7 @@ import {
   container,
   main,
   header,
+  headerNavBasic,
   mainContent,
   mainShrink,
   mainExpand,
@@ -43,7 +45,11 @@ const mapStateToProps = state => ({
   users: state.api.users,
   posts: state.api.posts,
   comments: state.api.comments,
+  hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
+  channels: state.api.channels,
+  answers: state.api.answers,
+  messages: state.api.messages,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -53,7 +59,17 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   commentCreate: actions.commentCreate,
   userSearch: actions.userSearch,
   showUserInfo: uiActions.showUserInfo,
+  showChannelUsers: uiActions.showChannelUsers,
+  showNotification: uiActions.showNotification,
   hideSidebarRight: uiActions.hideSidebarRight,
+  channelSearch: actions.channelSearch,
+  channelCreate: actions.channelCreate,
+  messageSearch: actions.messageSearch,
+  messageCreate: actions.messageCreate,
+  hashtagAdd: actions.hashtagAdd,
+  postInfo: actions.postInfo,
+  answerSearch: actions.answerSearch,
+  answerCreate: actions.answerCreate,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -75,6 +91,11 @@ export default class DashBoard extends Component {
 
   static propTypes = {
     location: PropTypes.objectOf.isRequired,
+  }
+
+  state = {
+    currentHashTag: '',
+    currentPostType: '',
   }
 
   componentWillMount() {
@@ -111,25 +132,19 @@ export default class DashBoard extends Component {
     }
   }
 
-  onKeyDownPostForm(event) {
-    if (event.key === ENTER) {
-      this.props.postCreate({
-        postType: currentPostType === 'ALL' ? 'POST' : currentPostType,
-        text: event.target.value,
-      })
-    }
-  }
-
   onClearCurrentTypeHandler() {
     this.setState({
       currentHashTag: undefined,
     })
   }
 
-
   get renderContent() {
+
+
     const {
       showUserInfo,
+      showChannelUsers,
+      showNotification,
       commentCreate,
       commentsSearch,
       postCreate,
@@ -142,16 +157,56 @@ export default class DashBoard extends Component {
       users,
       rightbar,
       location,
+      messageSearch,
+      messageCreate,
+      channelSearch,
+      channelCreate,
+      channels,
+      hashtagsTrending,
+      hashtagAdd,
+      answerSearch,
+      answerCreate,
+      postInfo,
+      answers,
+      messages,
     } = this.props
 
-    const { hashtags, image } = auth.currentUser
+    const { currentUser } = auth
+    const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { all: allPosts, fetching: isPostsFetching } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
+    const { all: allChannels } = channels
+    const { all: allAnswers } = answers
+    const { all: allMessages } = messages
+
+    const { currentHashTag, currentPostType } = this.state
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
 
+    /* **************************************
+      [start] channel feature
+     *************************************** */
+
+    const regex = new RegExp(/\/dashboard\/channels\/\d+/)
+    const path = this.props.location.pathname
+
+    let isChannel = false
+    let channel
+
+    if (path.match(regex)) {
+      isChannel = true
+      const { channelId } = this.props.router.params
+      channel = allChannels.filter(channel => channel.id == channelId)[0]
+      if (!channel) {
+        //redirect
+      }
+    }
+
+    /* **************************************
+      [end] channel feature
+     *************************************** */
 
     /* **************************************
       [start] filter feature
@@ -184,57 +239,65 @@ export default class DashBoard extends Component {
       type: TYPES[type],
       userSearch,
       allComments,
+      allMessages,
+      allChannels,
       postsSearch,
       postCreate,
+      showUserInfo,
+      showChannelUsers,
+      showNotification,
       commentsSearch,
       commentCreate,
-      showUserInfo,
       hideSidebarRight,
       suggestionedUsers,
+      currentUser,
+      messageSearch,
+      messageCreate,
+      channelSearch,
+      channelCreate,
+      currentHashTag,
+      currentPostType,
+      answerSearch,
+      answerCreate,
+      postInfo,
+      allAnswers,
+      onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 
     return (
       <div className={container}>
-        <SidebarLeft hashtags={hashtags} type={type} />
+        <SidebarLeft
+          hashtagsCurrentUser={hashtagsCurrentUser}
+          allChannels={allChannels}
+          hashtagsTrending={hashtagsTrending}
+          hashtagAdd={hashtagAdd}
+          type={type}
+        />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
-            <div>
-              <Notification className={icon} />
+            <div className={headerNavBasic}>
+              <Notification className={icon} onClick={() => showNotification()} />
               <Setting className={icon} />
             </div>
-            <NavPostType
-              onSelectPostType={::this.onSelectPostType}
-              currentPostType={this.state.currentPostType}
-              currentHashTag={hashtag}
-            />
+            {!isChannel ?
+              <NavPostType
+                onSelectPostType={::this.onSelectPostType}
+                currentPostType={this.state.currentPostType}
+                currentHashTag={hashtag}
+              /> :
+              <NavChannel
+                channel={channel}
+                showUserInfo={showUserInfo}
+                showChannelUsers={showChannelUsers}
+              />
+            }
             <div>
               <Donnut size="large" />
             </div>
           </header>
-          <div>
-            <InputPost
-              imgUrl={image && image.mediumUrl}
-              onPostSubmit={this.props.postCreate}
-              onSubmit={(postData) => { ::this.onSubmitPostHandler(postData) }}
-              currentHashTag={hashtag}
-              currentPostType={this.state.currentPostType}
-              suggestionedUsers={suggestionedUsers}
-              userSearch={userSearch}
-            />
-          </div>
-          {hashtag &&
-            <div
-              className={barNoification}
-              onClearCurrentTypeHandler={::this.onClearCurrentTypeHandler}
-            >
-              <Link to={type ? `dashboard?type=${type}` : `dashboard`}>Close</Link>
-              <span>#{hashtag}</span>
-            </div>
-          }
           <div className={mainContent}>
             {childComponents}
           </div>
-          <footer className={footer} />
         </div>
         <SidebarRight hideSidebarRight={hideSidebarRight} />
       </div>
@@ -243,7 +306,7 @@ export default class DashBoard extends Component {
 
   get renderLoading() {
     return (
-      <div>Loading</div>
+      <div />
     )
   }
 

@@ -1,12 +1,19 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import {
   CardPost,
   CardDocument,
   CardReview,
   CardQuestion,
+  InputPost,
 } from '../../../index'
+
+import {
+  sectionCards,
+  barNoification,
+} from './style'
 
 export default class IndexDashboard extends Component {
 
@@ -81,16 +88,31 @@ export default class IndexDashboard extends Component {
       questions: 'QUESTION',
     }
 
-    const { commentsSearch, commentCreate, showUserInfo } = this.props
+    const {
+      commentsSearch,
+      commentCreate,
+      showUserInfo,
+      currentUser,
+      location,
+      suggestionedUsers,
+      userSearch,
+      postCreate,
+      onClearCurrentTypeHandler,
+      currentPostType,
+    } = this.props
+
+    const { hashtags: hashtagsCurrentUser, image } = currentUser
+    const { hashtag, type } = location.query
 
     const cardFactory = ({ post, commentsSearch,
-    comments, showUserInfo }) => {
+    comments, showUserInfo, currentUser }) => {
       switch(post.postType) {
         case TYPES['post']:
           return (
             <CardPost
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -102,6 +124,7 @@ export default class IndexDashboard extends Component {
             <CardDocument
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -113,6 +136,7 @@ export default class IndexDashboard extends Component {
             <CardReview
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -124,6 +148,7 @@ export default class IndexDashboard extends Component {
             <CardQuestion
               key={post.id}
               {...post}
+              currentUser={currentUser}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -133,22 +158,40 @@ export default class IndexDashboard extends Component {
       }
     }
 
-
     return (
       <div ref={(div)=> this._dashboard = div}>
-
-        {this.props.posts.map((post) => {
-          const comments = this.props.allComments.filter(comment => comment.postId === post.id)
-          return cardFactory({
-            post,
-            commentsSearch,
-            commentCreate,
-            comments,
-            showUserInfo,
-          })
-        })}
-        { this.state.isLoadingMorePost && <div> Loading </div> }
-      </div>
+        <InputPost
+          imgUrl={image && image.mediumUrl}
+          onPostSubmit={postCreate}
+          currentHashTag={hashtag}
+          currentPostType={currentPostType}
+          // suggestionedUsers={suggestionedUsers}
+          userSearch={userSearch}
+          showUserInfo={showUserInfo}
+        />
+       {hashtag &&
+         <div
+           className={barNoification}
+           onClearCurrentTypeHandler={onClearCurrentTypeHandler}
+         >
+           <Link to={type ? `dashboard?type=${type}` : `dashboard`}>Close</Link>
+           <span>#{hashtag}</span>
+        </div>
+       }
+       <div className={sectionCards}>
+         {this.props.posts.map((post) => {
+           const comments = this.props.allComments.filter(comment => comment.postId === post.id)
+           return cardFactory({
+             post,
+             commentsSearch,
+             commentCreate,
+             comments,
+             showUserInfo,
+             currentUser,
+           })
+         })}
+       </div>
+     </div>
     )
   }
 }

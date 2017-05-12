@@ -1,20 +1,60 @@
 @import "../../../styles/main";
 
-.inputText {
-  width: 100%;
+.wrapper {
+  position: relative;
+}
+
+.input {
+  width: 80%;
+  display: inline-block;
   background-color: $gray;
   font-family: $font-family;
   font-size: 1rem;
   border: none;
-  width: 100%;
-  border-radius: 5px;
+  border-radius: 20px;
   outline: none;
-  padding: 12px;
+  padding: 20px 10% 20px 10%;
+}
+
+.instruction {
+  position: absolute;
+  top: -50px;
+  right: 0px;
+  font-size: 12px;
+  width: auto;
+  height: 5px;
+  padding: 20px;
+  background-color: $black;
+  color: white;
+  border-radius: 4px;
+}
+
+.instruction__command {
+  border: 1px solid white;
+  padding: 5px;
+  background-color: lighten($black, 20%);
+  border-radius: 4px;
+  margin-right: 3px;
+}
+
+.instructionItem {
+  margin-right: 10px;
+}
+
+.input__box--img {
+  display: inline-block;
+  position: absolute;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.input__box--img img {
+  width: 100%;
+  padding: 25%;
+  border-radius: 50%;
 }
 
 .inputText:before {
-  content: attr(data-user-image);
-  content: "hi";
   width: 100px;
   height: 100px;
 }

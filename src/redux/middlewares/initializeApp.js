@@ -10,13 +10,32 @@ export const initializeApp = store => next => action => {
   }
 
   // fetch current user info to auth reducer
-  if (action.type === actionTypes.tokenRefresh.success) {
+  if (
+    action.type === actionTypes.tokenRefresh.success ||
+    action.type === actionTypes.logIn.success ||
+    action.type === actionTypes.userCreate.success
+  ) {
     const userId = JSON.parse(storage.user).id
     const { accessToken } = storage
+
     store.dispatch(actions.currentUser({
       userId,
-      accessToken
+      accessToken,
     }))
+
+    store.dispatch(actions.channelSearch({
+      accessToken,
+    }))
+
+    store.dispatch(actions.hashtagTrendingSearch({
+      accessToken,
+    }))
+
+    store.dispatch(actions.notificationSearch({
+      accessToken,
+    }))
+
+    store.dispatch({ type: 'WEBSOCKET_INIT' })
   }
 
   return next(action)

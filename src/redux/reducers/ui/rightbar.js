@@ -7,6 +7,7 @@ const initialiState = {
   isFetchingNotification: false,
   isFetchingHistoryDonut: false,
   userInfo: {},
+  channelUsers: [],
   notifications: [],
   historyDonut: [],
 }
@@ -16,6 +17,7 @@ export default (state = initialiState, action) => {
   switch (action.type) {
     case actionTypes.showNotification.request: {
       return Object.assign({
+        isOpen: true,
         displayType: 'Notification'
       })
     }
@@ -33,6 +35,14 @@ export default (state = initialiState, action) => {
         userInfo: action.user,
         isOpen: true,
         displayType: 'UserInfo',
+      })
+    }
+
+    case actionTypes.showChannelUsers.success: {
+      return Object.assign({
+        isOpen: true,
+        channelUsers: action.users,
+        displayType: 'ChannelUsers',
       })
     }
 

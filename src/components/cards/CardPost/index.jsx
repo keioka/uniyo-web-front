@@ -54,11 +54,11 @@ export default class CardPost extends Component {
       commentsCount,
       currentUserLiked,
       createdAt,
-      allComments,
       commentsSearch,
       commentCreate,
       comments,
       showUserInfo,
+      currentUser,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -73,7 +73,7 @@ export default class CardPost extends Component {
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
             <span className={textUserName}>{user.name}</span>
-            <span className={textPostTime}>{time}</span>
+            {/* <span className={textPostTime}>{time}</span> */}
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
@@ -83,7 +83,7 @@ export default class CardPost extends Component {
           { this.state.toggle &&
             <div className={sectionContentComment}>
               <div className={sectionContentCommentForm}>
-                <InputComment postId={id} commentCreate={commentCreate} />
+                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               </div>
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}

@@ -16,5 +16,10 @@ export const redirectHandler = store => next => action => {
     browserHistory.push('/dashboard')
   }
 
+  if (action.type === actionTypes.channelCreate.success) {
+    const { id } = action.result.data
+    browserHistory.push(`/dashboard/channels/${id}`)
+  }
+
   return next(action)
 }

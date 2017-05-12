@@ -5,6 +5,7 @@ import {
   TextPost,
   Donnut,
   ListComment,
+  InputComment,
 } from '../../'
 
 import {
@@ -56,10 +57,12 @@ export default class CardReview extends Component {
       commentsCount,
       currentUserLiked,
       createdAt,
+      showUserInfo,
       commentsSearch,
       comments,
       commentCreate,
       rating,
+      currentUser,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -72,17 +75,17 @@ export default class CardReview extends Component {
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
             <span className={textUserName}>{user.name}</span>
-            <span className={textPostTime}>{time}</span>
+            {/* <span className={textPostTime}>{time}</span> */}
             <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
           </div>
-          <TextPost text={text} />
+          <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} />
+              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>

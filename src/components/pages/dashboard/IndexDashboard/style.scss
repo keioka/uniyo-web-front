@@ -1,0 +1,15 @@
+@import "../../../../styles/main";
+
+.bar--noification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 40px;
+  background-color: $pink;
+  font-size: 1.6rem;
+}
+
+.section--cards {
+  padding: 2rem;
+}

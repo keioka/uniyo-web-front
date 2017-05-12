@@ -1,124 +1,35 @@
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
-import { Editor, EditorState, CompositeDecorator, convertFromRaw, convertToRaw, stateToHTML } from 'draft-js'
-import createMentionPlugin from 'draft-js-mention-plugin'
-import { fromJS } from 'immutable'
-import { getDefaultKeyBinding, KeyBindingUtil } from 'draft-js'
-import 'style-loader!css-loader!draft-js-mention-plugin/lib/plugin.css'
+import localStorage from '../../../utils/localStorageHandler'
+import postTranspiler from '../../../utils/postTranspiler'
 
-const mentionPlugin = createMentionPlugin()
-const { MentionSuggestions } = mentionPlugin
-const plugins = [mentionPlugin]
-
-const compositeDecorator = new CompositeDecorator([
-  {
-    strategy: handleStrategy,
-    component: HandleSpan,
-  }, {
-    strategy: hashtagStrategy,
-    component: HashtagSpan,
-  },
-])
-
-const HANDLE_REGEX = /\@[\w]+/g;
-const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
-
-function handleStrategy(contentBlock, callback, contentState) {
-  findWithRegex(HANDLE_REGEX, contentBlock, callback);
-}
-
-function hashtagStrategy(contentBlock, callback, contentState) {
-  findWithRegex(HASHTAG_REGEX, contentBlock, callback);
-}
-
-function findWithRegex(regex, contentBlock, callback) {
-  const text = contentBlock.getText();
-  let matchArr, start;
-  while ((matchArr = regex.exec(text)) !== null) {
-    start = matchArr.index;
-    callback(start, start + matchArr[0].length);
-  }
-}
-
-const HandleSpan = (props) => {
-  return (
-    <span
-      style={{color: 'red'}}
-      data-offset-key={props.offsetKey}
-    >
-      {props.children}
-    </span>
-  );
-};
-
-const HashtagSpan = (props) => {
-  return (
-    <span
-      style={styles.hashtag}
-      data-offset-key={props.offsetKey}
-    >
-      {props.children}
-    </span>
-  );
-};
-
-
-const userListMentions = fromJS([
-  {
-    name: 'Matthew Russell',
-    link: 'https://twitter.com/mrussell247',
-    avatar: 'https://pbs.twimg.com/profile_images/517863945/mattsailing_400x400.jpg',
-  },
-  {
-    name: 'Julian Krispel-Samsel',
-    link: 'https://twitter.com/juliandoesstuff',
-    avatar: 'https://avatars2.githubusercontent.com/u/1188186?v=3&s=400',
-  },
-  {
-    name: 'Jyoti Puri',
-    link: 'https://twitter.com/jyopur',
-    avatar: 'https://avatars0.githubusercontent.com/u/2182307?v=3&s=400',
-  },
-  {
-    name: 'Max Stoiber',
-    link: 'https://twitter.com/mxstbr',
-    avatar: 'https://pbs.twimg.com/profile_images/763033229993574400/6frGyDyA_400x400.jpg',
-  },
-  {
-    name: 'Nik Graf',
-    link: 'https://twitter.com/nikgraf',
-    avatar: 'https://avatars0.githubusercontent.com/u/223045?v=3&s=400',
-  },
-  {
-    name: 'Pascal Brandt',
-    link: 'https://twitter.com/psbrandt',
-    avatar: 'https://pbs.twimg.com/profile_images/688487813025640448/E6O6I011_400x400.png',
-  },
-])
+import $ from 'jquery'
+import 'jquery.caret'
+import 'style-loader!css-loader!at.js/dist/css/jquery.atwho.css'
+import 'at.js'
 
 import {
   TextPost,
   TextMention,
+  ListMentionSuggestion,
 } from '../../'
 
 import {
   inputPostWrapper,
   inputPostWrapperImageBox,
   input,
-  inputMirror,
   inputWrapper,
   boxOptional,
-  imageUser,
-  suggestion,
-  suggestionItem,
-  icon,
-  mention,
   dropZone,
-  filename,
+  dropZoneBox,
+  dropZoneFilename,
+  btnFileDelete,
 } from './style'
 
+// Since the decorators are stored in the EditorState it's important to not reset the complete EditorState.
+// The proper way is to reset the ContentState which is part of the EditorState. In addition this ensures proper undo/redo behavior.
+//https://github.com/draft-js-plugins/draft-js-plugins/blob/master/FAQ.md
 
 export default class InputPost extends Component {
 
@@ -127,16 +38,76 @@ export default class InputPost extends Component {
   }
 
   state = {
-    editorState: EditorState.createEmpty(),
     postionSuggestionCurrent: -1,
-    suggestions: userListMentions,
     // later feature
     isOpenSuggestion: false,
     form: {
       rating: 5,
       file: null,
+    },
+  }
+
+  componentDidMount() {
+    const self = this
+    // TODO: Move this or connect to redux
+    if (!this.props.suggestionedUsers) {
+      $('#input').atwho({
+        at: '@',
+        callbacks: {
+          remoteFilter(query, callback) {
+            const accessToken = localStorage.accessToken
+            if (query) {
+              $.ajax({
+                url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
+                type: 'GET',
+                dataType: 'json',
+                success(users) {
+                // pull image
+                  const mappedData = users.map(user => ({
+                    id: user.id,
+                    name: user.name,
+                    image: user.image.small_url,
+                  }))
+
+                  callback(mappedData)
+                },
+                error() {
+                  console.warn('Search is not working')
+                },
+              })
+            }
+          },
+        },
+        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
+        insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
+        searchKey: 'name',
+      })
     }
   }
+
+  componentWillReceiveProps() {
+    if (
+      this.props.suggestionedUsers &&
+      this.props.suggestionedUsers.length > 0
+    ) {
+      const users = this.props.suggestionedUsers
+
+      const mappedData = users.map(user => ({
+        id: user.id,
+        name: user.name,
+        image: user.image.smallUrl,
+      }))
+
+      $('#input').atwho({
+        at: '@',
+        data: mappedData,
+        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
+        insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
+        searchKey: 'name',
+      })
+    }
+  }
+
 
   onChange(editorState) {
     this.setState({
@@ -148,45 +119,42 @@ export default class InputPost extends Component {
     const file = event[0]
     this.setState({
       form: {
-        file: file,
-      }
+        file,
+      },
     })
   }
 
-  onSearchChange({ value }) {
-    console.log(value)
+  onCopy(event) {
   }
 
-  keyBindingFn(event) {
-    if (event.keyCode === 13) {
-      if (event.nativeEvent.shiftKey) {
+  onPaste(event) {
+  }
 
-      } else {
+  onKeyDown(event) {
+    if (event.keyCode === 13) {
+      if (event.shiftKey) {
         event.preventDefault()
         this.onSubmit()
-        return
+      } else if ($('#input').atwho('isSelecting') === false) {
       }
     }
-    return getDefaultKeyBinding(event)
   }
 
   onSubmit() {
     const { currentPostType } = this.props
-    const rawDraftContentState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
-
-    const plainText = this.state.editorState.getCurrentContent().getPlainText()
+    const text = postTranspiler(this._input)
 
     if (currentPostType === 'ALL') {
       this.props.onPostSubmit({
         postType: 'POST',
-        text: plainText,
+        text,
       })
     }
 
     if (currentPostType === 'REVIEW') {
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText,
+        text,
         rating: this.state.form.rating,
       })
     }
@@ -194,7 +162,7 @@ export default class InputPost extends Component {
     if (currentPostType === 'QUESTION') {
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText,
+        text,
       })
     }
 
@@ -205,21 +173,31 @@ export default class InputPost extends Component {
 
       this.props.onPostSubmit({
         postType: currentPostType,
-        text: plainText,
+        text,
         classNote: this.state.form.file,
       })
     }
+
+    if (currentPostType === 'ANSWER') {
+      const { questionId } = this.props
+      this.props.onPostSubmit({
+        text,
+        questionId,
+      })
+    }
+
+    if (currentPostType === 'MESSAGE') {
+      const { channelId } = this.props
+      this.props.onPostSubmit({
+        text,
+        channelId,
+      })
+    }
+
+    this._input.innerHTML = ''
   }
 
-  onFocus() {
-    this.editor.focus()
-  }
-
-  onAddMention() {
-
-  }
-
-  onStarClick(nextValue, prevValue, name) {
+  onStarClick(nextValue) {
     this.setState({
       form: {
         rating: nextValue,
@@ -244,20 +222,24 @@ export default class InputPost extends Component {
     }
 
     if (currentPostType === 'CLASS_NOTE') {
-      BoxOptional =  (
+      BoxOptional = (
         <Dropzone
           onDrop={::this.onDropFile}
           className={dropZone}
           multiple={false}
         >
           {!this.state.form.file ?
-            <div>
-              <h4>Drop the file or click here to find on your computer</h4>
+            <div className={dropZoneBox}>
+              <h4>Upload File</h4>
+              <h5>Drop the file or click here</h5>
             </div> :
-            <div>
-              <h4 className={filename}>{this.state.form.file.name}</h4>
+            <div className={dropZoneBox}>
+              <h4 className={dropZoneFilename}>{this.state.form.file.name}</h4>
               <h4>{`${(this.state.form.file.size / 1024 / 1024).toFixed(3)}MB`}</h4>
-              <h4>X</h4>
+              <button className={btnFileDelete} onClick={(event) => {
+                event.stopPropagation();
+                this.setState({form: { file: null }})
+              }}></button>
             </div>
           }
         </Dropzone>
@@ -268,8 +250,6 @@ export default class InputPost extends Component {
   }
 
   render() {
-    console.log(Editor)
-    console.log(MentionSuggestions)
     const { imgUrl, hashtag } = this.props
     return (
       <span className={inputPostWrapper}>
@@ -277,18 +257,15 @@ export default class InputPost extends Component {
           <img src={imgUrl || 'loading'} />
         </span>
         {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
-        <div className={inputWrapper} onClick={::this.onFocus}>
-          <Editor
-            editorState={this.state.editorState}
-            ref={editor => this.editor = editor}
-            onChange={::this.onChange}
-            keyBindingFn={::this.keyBindingFn}
-            plugins={plugins}
-          />
-          <MentionSuggestions
-            onSearchChange={this.onSearchChange}
-            suggestions={this.state.suggestions}
-            onAddMention={this.onAddMention}
+        <div className={inputWrapper}>
+          <div
+            id="input"
+            ref={(input) => { this._input = input }}
+            className={input}
+            contentEditable
+            onCopy={::this.onCopy}
+            onKeyDown={::this.onKeyDown}
+            onPaste={::this.onPaste}
           />
         </div>
       </span>

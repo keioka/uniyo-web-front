@@ -11,7 +11,7 @@ import {
   hashtag,
 } from './style'
 
-export default ({ text, showUserInfo }) => {
+const TextPost = ({ text, showUserInfo }) => {
 
   let parsedText = ReactEmoji.emojify(text)
 
@@ -37,3 +37,5 @@ export default ({ text, showUserInfo }) => {
     <span>{parsedText}</span>
   )
 }
+
+export default TextPost

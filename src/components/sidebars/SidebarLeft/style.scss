@@ -1,5 +1,7 @@
 @import "../../../styles/main";
 
+$left-padding: 25px;
+
 .wrapper {
   position: fixed;
   min-height: 100vh;
@@ -12,13 +14,8 @@
 }
 
 .section {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 0;
-}
-
-.section li {
-  list-style: none;
-  margin: 10px 0px;
 }
 
 .section a {
@@ -28,22 +25,136 @@
 
 .section__label {
   @include label
+  padding-left: $left-padding;
+  margin-bottom: 4px;
 }
 
 .section__tag {
+  display: flex;
+  flex-direction: row;
   list-style: none;
-  margin: 10px 5px;
   font-size: 1rem;
+  cursor: pointer;
+  padding: 4px;
+  padding-left: $left-padding;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 80%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.user-names {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 160px;
+}
+
+.section__tag:hover {
+  background-color: $pink;
+}
+
+.section__tag:hover {
+  color: white;
+}
+
+.icon--channel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #969696;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  color: white;
+  margin-right: 12px;
+  padding: 1px 2px 3px 2px;
+  font-size: 0.6rem;
+}
+
+.icon--channel--online-status {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  padding: 1px 2px 3px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon--online {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #5fe36f;
+}
+
+.section__label:after {
+  content: '+';
+  color: $black;
+  border: 2px solid;
+  border-radius: 20%;
+  margin-left: 20px;
+  padding: 0px 5px;
   cursor: pointer;
 }
 
-.section__tag:hover:after {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  width: 20px;
-  height: 10px;
-  background-color: $pink;
+.section__tag--all {
+  color: $gray;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.section__tag--all:before {
+  content: '🏫';
+  margin-right: 20px;
+}
+
+.input--search-tag {
+  margin: 20px 20px;
+  padding: 15px 10px;
+  font-family: $font-family;
+  padding-left: $left-padding;
+}
+
+.hide {
+  display: none;
+}
+
+.btn--show-more {
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  background: darken($gray, 3%);
+  border: 2px solid darken($gray, 5%);
+  padding: 2px 5px;
+  margin-top: 10px;
+  margin-left: $left-padding;
+  font-size: 0.8rem;
+  cursor: pointer;
+  width: 50%;
+}
+
+.btn--show-more:before {
+  content: '';
+}
+
+.input--add-tag {
+  font-family: $font-family;
+  font-size: 14px;
+  color: $black;
+  margin: 10px 10px 20px $left-padding;
+  outline: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: none;
 }
 
 @media only screen and (min-width: 769px) {
@@ -51,7 +162,6 @@
     opacity: 1;
     min-width: 220px;
     flex-basis: 220px;
-    padding: 30px;
     transition: padding 2s ease;
     transition: opactiy 0.4s ease;
     transition: min-width 0.4s ease;

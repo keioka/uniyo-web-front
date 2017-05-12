@@ -28,6 +28,9 @@ export ResetPassword from './pages/auth/ResetPassword'
 */
 
 export IndexDashboard from './pages/dashboard/IndexDashboard'
+export QuestionDashboard from './pages/dashboard/QuestionDashboard'
+export ChannelDashboard from './pages/dashboard/ChannelDashboard'
+export ChannelNewDashboard from './pages/dashboard/ChannelNewDashboard'
 
 /*
   layouts
@@ -50,7 +53,7 @@ export ButtonFile from './buttons/ButtonFile'
 */
 
 export NavPostType from './navs/NavPostType'
-
+export NavChannel from './navs/NavChannel'
 
 /*
   card
@@ -65,9 +68,11 @@ export CardDocument from './cards/CardDocument'
 */
 
 export InputSearchSchool from './inputs/InputSearchSchool'
+export InputSearchTag from './inputs/InputSearchTag'
 export InputTextTransparent from './inputs/InputTextTransparent'
 export InputPost from './inputs/InputPost'
 export InputComment from './inputs/InputComment'
+export InputSearchUser from './inputs/InputSearchUser'
 
 /*
   sidebar
@@ -77,7 +82,7 @@ export SidebarLeft from './sidebars/SidebarLeft'
 export SidebarRightUserInfo from './sidebars/SidebarRightUserInfo'
 export SidebarRightNotification from './sidebars/SidebarRightNotification'
 export SidebarRightHistoryDonuts from './sidebars/SidebarRightHistoryDonuts'
-
+export SidebarRightChannelUsers from './sidebars/SidebarRightChannelUsers'
 /*
   text
 */
@@ -91,8 +96,14 @@ export TextMention from './texts/TextMention'
 */
 
 export Donnut from './common/Donnut'
+
 /*
   list
 */
 
 export ListComment from './lists/ListComment'
+export ListMentionSuggestion from './lists/ListMentionSuggestion'
+export ListMessage from './lists/ListMessage'
+export ListNewChatUser from './lists/ListNewChatUser'
+export ListRecentConversation from './lists/ListRecentConversation'
+export ListNotification from './lists/ListNotification'
