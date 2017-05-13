@@ -1,0 +1,108 @@
+@import "../../../../styles/main";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__section-nav {
+
+}
+
+.nav {
+
+}
+
+.navUl li {
+  color: $black;
+  display: inline-block;
+  margin: 0px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.section--top {
+  background: #FFF9FB;
+  min-height: 100%;
+  padding: 3rem 4rem;
+}
+
+.section--top__content {
+  text-align: center;
+}
+
+.section--pricing {
+
+}
+
+.section--pricing__content {
+  text-align: center;
+}
+
+.section--pricing__content__main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.btn {
+  width: 320px;
+}
+
+.blockPrice h5 {
+  margin-bottom: 15px;
+}
+
+.blockPrice ul li {
+  list-style: none;
+}
+
+.title {
+  color: $pink;
+  padding: 2.5rem;
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sub-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 1.2rem;
+  margin-bottom: 42px;
+}
+
+.img--product {
+  width: 70%;
+  height: auto;
+}
+
+.footer {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 12rem;
+  flex-direction: row;
+}
+
+.footer--column ul li {
+  list-style: none;
+  margin: 12px;
+}
+
+.footer--label {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  background: $gray;
+  box-sizing: border-box;
+}

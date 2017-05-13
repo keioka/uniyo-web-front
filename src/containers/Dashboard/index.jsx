@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
 import uiActions from '../../redux/actions'
 import { Link } from 'react-router'
+import authService from '../../services/authentification'
+import { browserHistory } from 'react-router'
 
 import {
   SidebarRight,
@@ -100,6 +102,11 @@ export default class DashBoard extends Component {
 
   componentWillMount() {
     const { hashtag, type = 'all' } = this.props.location.query
+
+    if (!authService.isTokenExist) {
+      browserHistory.push('/')
+    }
+
     this.setState({
       currentHashTag: hashtag,
       currentPostType: TYPES[type],
