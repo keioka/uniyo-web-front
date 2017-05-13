@@ -56,7 +56,7 @@ var baseConfig = {
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: 'file-loader',
+        loader: 'file-loader?name=images/[name].[ext]?[hash:5]',
         query: {
           useRelativePath: process.env.NODE_ENV === "production"
         }
