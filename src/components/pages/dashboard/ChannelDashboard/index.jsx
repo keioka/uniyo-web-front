@@ -63,12 +63,19 @@ export default class ChannelDashboard extends Component {
         channelId,
       })
     }
+    const { allMessages, showUserInfo } = this.props
+    // if new message is coming through
+    if (allMessages.length !== nextProps.allMessages.length) {
+      document.body.scrollTop = document.body.scrollHeight
+    }
   }
 
   get messages() {
     const { allMessages, showUserInfo } = this.props
     const { channelId } = this.props.params
 
+
+    // All messages on channel
     const messages = allMessages.filter(message => message.channelId == channelId)
 
     const allMessagesContainer = []
@@ -82,12 +89,35 @@ export default class ChannelDashboard extends Component {
       const length = messagesChunk.length - 1
       const lastMessageOfChunk = messagesChunk[length]
 
-      if ((messages.length - 1) === index) {
+      const isLastMessage = (messages.length - 1) === index
+      const isSameUser = lastMessageOfChunk && message.user.id == lastMessageOfChunk.user.id
+      const isInitialMessageOfChunk = messagesChunk.length === 0
+
+      if (
+        isLastMessage &&
+        isSameUser
+      ) {
         messagesChunk.push(message)
         allMessagesContainer.push(messagesChunk)
       } else if (
-         messagesChunk.length === 0 ||
-         message.user.id == lastMessageOfChunk.user.id
+        !isInitialMessageOfChunk &&
+        !isSameUser &&
+        isLastMessage
+      ) {
+        allMessagesContainer.push(messagesChunk)
+        messagesChunk = []
+        messagesChunk.push(message)
+        allMessagesContainer.push(messagesChunk)
+      } else if (
+        !isInitialMessageOfChunk &&
+        !isSameUser
+      ) {
+        allMessagesContainer.push(messagesChunk)
+        messagesChunk = []
+        messagesChunk.push(message)
+      } else if (
+         isInitialMessageOfChunk ||
+         isSameUser
       ) {
          messagesChunk.push(message)
       } else {
@@ -95,8 +125,8 @@ export default class ChannelDashboard extends Component {
         messagesChunk = []
         messagesChunk.push(message)
       }
-
     })
+
     return allMessagesContainer.map(messageChunk => {
       return (<ListMessage messages={messageChunk} showUserInfo={showUserInfo} />)
     })

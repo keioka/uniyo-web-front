@@ -138,6 +138,7 @@ export default class InputPost extends Component {
       } else if ($('#input').atwho('isSelecting') === false) {
       }
     }
+    window.scrollTo(0, window.scrollY)
   }
 
   onSubmit() {
@@ -263,6 +264,7 @@ export default class InputPost extends Component {
             ref={(input) => { this._input = input }}
             className={input}
             contentEditable
+            onChange={event => event.preventDefault()}
             onCopy={::this.onCopy}
             onKeyDown={::this.onKeyDown}
             onPaste={::this.onPaste}
