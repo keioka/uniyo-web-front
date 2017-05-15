@@ -10,9 +10,12 @@ import {
   InputPost,
 } from '../../../index'
 
+import Cross from './cross'
+
 import {
   sectionCards,
-  barNoification,
+  barFilter,
+  btnClose,
 } from './style'
 
 export default class IndexDashboard extends Component {
@@ -171,10 +174,15 @@ export default class IndexDashboard extends Component {
         />
        {hashtag &&
          <div
-           className={barNoification}
+           className={barFilter}
            onClearCurrentTypeHandler={onClearCurrentTypeHandler}
          >
-           <Link to={type ? `dashboard?type=${type}` : `dashboard`}>Close</Link>
+           <Link
+             to={type ? `dashboard?type=${type}` : `dashboard`}
+             className={btnClose}
+           >
+             <Cross />
+           </Link>
            <span>#{hashtag}</span>
         </div>
        }
