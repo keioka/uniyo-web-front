@@ -6,6 +6,7 @@ import uiActionTypes from '../actionTypes'
 import { actionTypes } from 'uniyo-redux'
 import converter from 'json-style-converter/es5'
 const webSocketUrl = 'wss://live.uniyo.io/v1/ws'
+const notificationSound = new Audio("/public/assets/audio/pop_drip.wav")
 
 class UniyoWebSocket {
 
@@ -224,11 +225,15 @@ function* eventWebSocket() {
   })
 }
 
+function playNotificationSound() {
+  notificationSound.play()
+}
 
 function* notificationWebSocket() {
   yield takeEvery('WEBSOCKET_NOTIFICATION', function* notificationHandler({ notification }) {
     try {
       yield put({ type: actionTypes.notificationFetch.success, result: { data: notification }})
+      yield fork(playNotificationSound)
     } catch (e) {
       console.warn(e)
     }
