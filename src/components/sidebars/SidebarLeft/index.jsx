@@ -20,6 +20,8 @@ import {
   userNames,
 } from './style'
 
+import Plus from './plus-active'
+
 const dashboardPathGenarator = ({ hashtag, type }) => {
   let path = '/dashboard'
 
@@ -156,7 +158,7 @@ export default class SidebarLeft extends Component {
     return (
       <nav>
         <ul className={section}>
-          <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}>News Feed</h4>
+          <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>News Feed</span><Plus /></h4>
           { this.state.isShowInputAddTag &&
             <input
               type="text"
@@ -182,7 +184,7 @@ export default class SidebarLeft extends Component {
         </ul>
 
         <ul className={section}>
-          <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>PRIVATE MESSAGES</h4></Link>
+          <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>PRIVATE MESSAGES <Plus /></h4></Link>
           {allChannels && ComponentsChannel}
           { keywordForSort === '' &&
             <button

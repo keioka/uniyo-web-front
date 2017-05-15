@@ -1,26 +1,26 @@
 import React, { Component, PropTypes } from 'react'
 
 import {
-  button,
-  buttonPrimary,
-  buttonDanger,
-  buttonOption,
+  element,
+  primary,
+  danger,
+  option,
 } from './style'
 
 export default (props) => {
   const buttonType = props.type
-  let classNames = [button]
+  let classNames = [element, props.className]
   switch (buttonType) {
     case 'primary': {
-      classNames.push(buttonPrimary)
+      classNames.push(primary)
       break
     }
     case 'danger': {
-      classNames.push(buttonDanger)
+      classNames.push(danger)
       break
     }
     case 'option': {
-      classNames.push(buttonOption)
+      classNames.push(option)
       break
     }
     default: {
@@ -28,9 +28,7 @@ export default (props) => {
     }
   }
 
-  const className = classNames.join(" ")
-
   return (
-    <button className={className} {...props}>{props.children}</button>
+    <button {...props} className={classNames.join(' ')}>{props.children}</button>
   )
 }

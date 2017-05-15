@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
 import uiActions from '../../redux/actions'
 import { Link } from 'react-router'
+import authService from '../../services/authentification'
+import { browserHistory } from 'react-router'
 
 import {
   SidebarRight,
@@ -35,6 +37,7 @@ import {
   inputPostWrapperImageBox,
   input,
   icon,
+  notification,
 } from './style'
 
 import Setting from './settings.svg'
@@ -50,6 +53,7 @@ const mapStateToProps = state => ({
   channels: state.api.channels,
   answers: state.api.answers,
   messages: state.api.messages,
+  notifications: state.api.notifications,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -100,6 +104,11 @@ export default class DashBoard extends Component {
 
   componentWillMount() {
     const { hashtag, type = 'all' } = this.props.location.query
+
+    if (!authService.isTokenExist) {
+      browserHistory.push('/')
+    }
+
     this.setState({
       currentHashTag: hashtag,
       currentPostType: TYPES[type],
@@ -169,6 +178,7 @@ export default class DashBoard extends Component {
       postInfo,
       answers,
       messages,
+      notifications,
     } = this.props
 
     const { currentUser } = auth
@@ -179,6 +189,7 @@ export default class DashBoard extends Component {
     const { all: allChannels } = channels
     const { all: allAnswers } = answers
     const { all: allMessages } = messages
+    const { all: allNotifications } = notifications
 
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type } = location.query
@@ -277,6 +288,10 @@ export default class DashBoard extends Component {
           <header className={header}>
             <div className={headerNavBasic}>
               <Notification className={icon} onClick={() => showNotification()} />
+              { allNotifications &&
+                allNotifications.filter(notification => !notification.isRead).length > 0 &&
+                <span className={notification}> {allNotifications.filter(notification => !notification.isRead).length}</span>
+              }
               <Setting className={icon} />
             </div>
             {!isChannel ?

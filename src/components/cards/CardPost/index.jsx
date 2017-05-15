@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router'
 
 import {
   TextPost,
@@ -10,6 +11,7 @@ import {
 
 import {
   wrapper,
+  wrapperLink,
   sectionImage,
   sectionContent,
   sectionContentHeader,
@@ -34,7 +36,9 @@ export default class CardPost extends Component {
     }
   }
 
-  onClickCommentHandler() {
+  onClickCommentHandler(event) {
+    event.preventDefault()
+    event.stopPropagation()
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
       commentsSearch({ postId: id })

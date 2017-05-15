@@ -22,6 +22,17 @@
   z-index: 1;
 }
 
+.notification {
+  font-size: 0.7rem;
+  position: absolute;
+  top: -10px;
+  left: 35px;
+  color: white;
+  background-color: $red;
+  padding: 5px 7px;
+  border-radius: 50%;
+}
+
 .main__content {
   min-height: 100vh;
   background-color: $lightgray;
@@ -55,6 +66,10 @@
   padding: 20px 30px;
   border-bottom: 1px solid $lightgray;
   background-color: white;
+}
+
+.header__nav--basic {
+  position: relative;
 }
 
 .header__nav--basic svg {

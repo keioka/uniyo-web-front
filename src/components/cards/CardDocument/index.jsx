@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router'
 
 import {
   TextPost,
@@ -11,6 +12,7 @@ import {
 
 import {
   wrapper,
+  wrapperLink,
   sectionImage,
   sectionContent,
   sectionContentHeader,
