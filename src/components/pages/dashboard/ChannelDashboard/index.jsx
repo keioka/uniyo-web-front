@@ -63,6 +63,7 @@ export default class ChannelDashboard extends Component {
         channelId,
       })
     }
+    document.body.scrollTop = document.body.scrollHeight
   }
 
   get messages() {
