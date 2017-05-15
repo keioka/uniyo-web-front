@@ -63,7 +63,11 @@ export default class ChannelDashboard extends Component {
         channelId,
       })
     }
-    document.body.scrollTop = document.body.scrollHeight
+    const { allMessages, showUserInfo } = this.props
+    // if new message is coming through
+    if (allMessages.length !== nextProps.allMessages.length) {
+      document.body.scrollTop = document.body.scrollHeight
+    }
   }
 
   get messages() {
