@@ -13,15 +13,21 @@
 
 .close {
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 5px;
+  top: 15px;
   cursor: pointer;
-  padding: 20px;
-  z-index: 2;
+  z-index: 8;
+  font-size: 0.8rem;
 }
 
 .close:after {
   content: 'X';
+  color: white;
+  background: $black;
+  width: 3px;
+  height: 3px;
+  padding: 4px 6px;
+  border-radius: 50%;
 }
 
 .userInfo {
