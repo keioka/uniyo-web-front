@@ -82,6 +82,12 @@ export default class InputPost extends Component {
         insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
         searchKey: 'name',
       })
+
+
+      $('#input').on("inserted.atwho", function(event, flag, query) {
+        event.stopImmediatePropagation()
+        event.preventDefault()
+      })
     }
   }
 
@@ -101,9 +107,17 @@ export default class InputPost extends Component {
       $('#input').atwho({
         at: '@',
         data: mappedData,
-        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
+        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 15px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
         insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
         searchKey: 'name',
+      })
+
+      const self = this
+
+      $('#input').on("inserted.atwho", function(event, flag, query) {
+        event.preventDefault()
+        event.stopPropagation()
+        return false
       })
     }
   }
@@ -131,11 +145,10 @@ export default class InputPost extends Component {
   }
 
   onKeyDown(event) {
-    if (event.keyCode === 13) {
-      if (event.shiftKey) {
+    if (event.keyCode === 13 && !event.isDefaultPrevented()) {
+      if (!event.shiftKey) {
         event.preventDefault()
         this.onSubmit()
-      } else if ($('#input').atwho('isSelecting') === false) {
       }
     }
     window.scrollTo(0, window.scrollY)
