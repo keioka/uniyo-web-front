@@ -37,8 +37,6 @@ export default class CardPost extends Component {
   }
 
   onClickCommentHandler(event) {
-    event.preventDefault()
-    event.stopPropagation()
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
       commentsSearch({ postId: id })

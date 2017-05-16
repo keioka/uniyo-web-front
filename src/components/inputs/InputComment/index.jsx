@@ -72,16 +72,13 @@ export default class InputComment extends Component {
 
     return (
       <span className={wrapper}>
-        <span className={inputBoxImg}><img src={`${currentUser.image.smallUrl}`} alt=""/></span>
+        <span className={inputBoxImg}><img src={`${currentUser.image.smallUrl}`} alt="" /></span>
         <div
-          ref={ref => this._inputComment = ref }
-          contentEditable={true}
-          onFocus={::this.onFocus}
-          onBlur={::this.onBlur}
           className={input}
-          data-user-image={"https://uniyo.s3.amazonaws.com/users/profile/small/541_f53b1f4364a4415ebdbda4dd0af1ca51.jpg"}
-          onKeyDown={::this.onKeyDownHandler}
           type="text"
+          ref={ref => this._inputComment = ref}
+          contentEditable
+          onKeyDown={::this.onKeyDownHandler}
         />
       </span>
     )
