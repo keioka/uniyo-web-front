@@ -64,9 +64,12 @@ export default class ChannelDashboard extends Component {
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch } = this.props
       const { channelId } = nextProps.params
+      const timeNow = moment.utc(new Date()).format()
+
       messageSearch({
         limit: 50,
         channelId,
+        around: timeNow,
       })
     }
     const { allMessages, showUserInfo } = this.props
