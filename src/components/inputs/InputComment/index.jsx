@@ -76,8 +76,6 @@ export default class InputComment extends Component {
         <div
           ref={ref => this._inputComment = ref }
           contentEditable={true}
-          onFocus={::this.onFocus}
-          onBlur={::this.onBlur}
           className={input}
           data-user-image={"https://uniyo.s3.amazonaws.com/users/profile/small/541_f53b1f4364a4415ebdbda4dd0af1ca51.jpg"}
           onKeyDown={::this.onKeyDownHandler}
