@@ -1,5 +1,6 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
+import moment from 'moment'
 
 import {
   CardPost,
@@ -47,10 +48,13 @@ export default class ChannelDashboard extends Component {
   componentDidMount() {
     const { messageSearch, params } = this.props
     const { channelId } = params
+    const timeNow = moment.utc(new Date()).format()
+    console.log(timeNow)
     // check if channelId is found from current user's channel reducer 'all'.
     messageSearch({
       limit: 50,
       channelId,
+      around: timeNow,
     })
   }
 
