@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import moment from 'moment'
 
 import {
   TextPost,
@@ -16,6 +17,7 @@ import {
 const ListMessage = ({ messages, showUserInfo }) => {
   const message = messages[0]
   const { id, user } = message
+  const time = moment.utc(message.createdAt).local().format("HH:mm A")
   return (
     <li key={id} className={wrapper}>
       <div className={boxImage}>
@@ -23,6 +25,7 @@ const ListMessage = ({ messages, showUserInfo }) => {
       </div>
       <div className={sectionContent}>
         <span className={fontName}>{user.firstName}</span>
+        <span>{time}</span>
         {messages.map(message => <p className={paragaph}><TextPost text={message.text} showUserInfo={showUserInfo} /></p>)}
       </div>
     </li>

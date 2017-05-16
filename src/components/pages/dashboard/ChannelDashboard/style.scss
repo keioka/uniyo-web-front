@@ -9,6 +9,30 @@
   border-top: 1px solid $gray;
 }
 
+.section--messages-chunk {
+  margin: 20px 0px 40px;
+  position: relative;
+}
+
+.section--messages-chunk__header {
+  display: flex;
+  justify-content: center;
+}
+
+
+.section--messages-chunk__date {
+  position: absolute;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  top: -20px;
+	background-color: #ffffff;
+	border: solid 1px #f0f0f0;
+  padding: 10px 20px;
+  width: 200px;
+  text-align: center;
+}
+
 .header {
   width: 100%;
   height: 60px;
@@ -124,6 +148,5 @@
   max-height: 100%;
   display: flex;
   flex-direction: column;
-  background: white;
   padding: 20px 0px;
 }

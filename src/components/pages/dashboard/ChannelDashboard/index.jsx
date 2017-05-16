@@ -3,39 +3,22 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
 import {
-  CardPost,
-  CardDocument,
-  CardReview,
-  CardQuestion,
   InputPost,
-  Donnut,
-  TextPost,
   ListMessage,
 } from '../../../index'
 
 import {
   header,
-  headerItemUser,
-  headerItemUserImg,
-  headerItemUserName,
   headerBar,
-  headerBarListUser,
   headerBarChannelInfo,
   headerBarChannelInfoUsersCount,
   headerBarChannelInfoDescription,
-  headerItemUserIconOnlineStatus,
   content,
   contentUl,
-  sectionQuestion,
-  sectionImage,
-  sectionContent,
-  sectionContentHeader,
-  sectionContentFotter,
-  textUserName,
-  btnLike,
-  btnComment,
-  sectionCards,
   sectionInput,
+  sectionMessagesChunk,
+  sectionMessagesChunkHeader,
+  sectionMessagesChunkDate,
 } from './style'
 
 export default class ChannelDashboard extends Component {
@@ -58,6 +41,7 @@ export default class ChannelDashboard extends Component {
       channelId,
       around: timeNow,
     })
+    document.body.scrollTop = document.body.scrollHeight
   }
 
   componentWillReceiveProps(nextProps) {
@@ -165,6 +149,7 @@ export default class ChannelDashboard extends Component {
       const isSameUser = lastMessageOfChunk && message.user.id == lastMessageOfChunk.user.id
       const isInitialMessageOfChunk = messagesChunk.length === 0
 
+      const isTimeOverFiveMinutes = messagesChunk[0] ? moment.utc(messagesChunk[0].createdAt).diff(moment.utc(message.createdAt), 'minutes') < -5 : false
       // TODO: Add time and refactoring
       if (
         isLastMessage &&
@@ -174,8 +159,8 @@ export default class ChannelDashboard extends Component {
         allMessagesContainer.push(messagesChunk)
       } else if (
         !isInitialMessageOfChunk &&
-        !isSameUser &&
-        isLastMessage
+        isLastMessage &&
+        (!isSameUser || isTimeOverFiveMinutes)
       ) {
         allMessagesContainer.push(messagesChunk)
         messagesChunk = []
@@ -183,7 +168,7 @@ export default class ChannelDashboard extends Component {
         allMessagesContainer.push(messagesChunk)
       } else if (
         !isInitialMessageOfChunk &&
-        !isSameUser
+        (!isSameUser || isTimeOverFiveMinutes)
       ) {
         allMessagesContainer.push(messagesChunk)
         messagesChunk = []
@@ -200,14 +185,46 @@ export default class ChannelDashboard extends Component {
       }
     })
 
-    return allMessagesContainer.map(messageChunk => {
-      return (
-        <ListMessage
-          messages={messageChunk}
-          showUserInfo={showUserInfo}
-        />
-      )
+    const messageObj = {}
+    const messagesContainerWithDate = allMessagesContainer.forEach(messageChunk => {
+      const date = moment(messageChunk[0].createdAt).format("MMM DD, YYYY")
+      if (messageObj[date]) {
+        messageObj[date].push(messageChunk)
+      } else {
+        messageObj[date] = [messageChunk]
+      }
     })
+
+    return (
+      <div>
+        {Object.keys(messageObj).map(function(key, index) {
+           const messages = messageObj[key]
+
+           const componentsMessages = messages.map(messageChunk => {
+             return (
+               <ListMessage
+                 messages={messageChunk}
+                 showUserInfo={showUserInfo}
+               />
+             )}
+           )
+
+           return (
+             <div className={sectionMessagesChunk}>
+               <div className={sectionMessagesChunkHeader}>
+                 <div className={sectionMessagesChunkDate}>
+                   {key}
+                 </div>
+               </div>
+               <div>{componentsMessages}</div>
+             </div>
+           )
+
+         })
+       }
+
+      </div>
+    )
   }
 
   render() {
