@@ -4,10 +4,12 @@ import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
+import { Link, browserHistory } from 'react-router'
+import Rx from 'rx'
+
 import uiActions from '../../redux/actions'
-import { Link } from 'react-router'
 import authService from '../../services/authentification'
-import { browserHistory } from 'react-router'
+
 
 import {
   SidebarRight,
@@ -38,6 +40,8 @@ import {
   input,
   icon,
   notification,
+  boxDonuts,
+  boxDonutsRow,
 } from './style'
 
 import Setting from './settings.svg'
@@ -55,6 +59,7 @@ const mapStateToProps = state => ({
   messages: state.api.messages,
   notifications: state.api.notifications,
 })
+
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   postsSearch: actions.postsSearch,
@@ -74,6 +79,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   postInfo: actions.postInfo,
   answerSearch: actions.answerSearch,
   answerCreate: actions.answerCreate,
+  userGiveDonuts: actions.userGiveDonuts,
+  commentGiveDonuts: actions.commentGiveDonuts,
+  postGiveDonuts: actions.postGiveDonuts,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -115,6 +123,44 @@ export default class DashBoard extends Component {
     })
   }
 
+  componentDidMount() {
+    const docElm = document.documentElement
+    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
+    const currentUserDonutElm = document.querySelector('#available-donuts')
+    console.log(giveDonutsElm)
+
+    const onClickDonuts$ = Rx.Observable
+      .fromEvent(giveDonutsElm, 'click')
+      .map(event => ({ x: event.clientX, y: event.clientY }))
+
+
+    onClickDonuts$.subscribe(pos => {
+      const rotX = (pos.y / clientHeight * -50) + 25;
+      const rotY = (pos.x / clientWidth * 50) - 25;
+      console.log(pos)
+    })
+  }
+
+  componentDidUpdate() {
+    const docElm = document.documentElement
+    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
+    const currentUserDonutElm = document.querySelector('#available-donuts')
+    console.log(giveDonutsElm)
+    console.log(currentUserDonutElm)
+    const onClickDonuts$ = Rx.Observable
+      .fromEvent(giveDonutsElm, 'click')
+      .map(event => ({ x: event.clientX, y: event.clientY }))
+
+
+    onClickDonuts$.subscribe(pos => {
+      console.log(pos)
+      const cloneDonuts = currentUserDonutElm.cloneNode(true)
+      cloneDonuts.style.position = 'absolute'
+      cloneDonuts.style.top = pos.y
+      cloneDonuts.style.left = pos.x
+    })
+  }
+
   onSelectPostType(type) {
     this.setState({
       currentPostType: type,
@@ -148,8 +194,6 @@ export default class DashBoard extends Component {
   }
 
   get renderContent() {
-
-
     const {
       showUserInfo,
       showChannelUsers,
@@ -179,6 +223,9 @@ export default class DashBoard extends Component {
       answers,
       messages,
       notifications,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
     } = this.props
 
     const { currentUser } = auth
@@ -272,6 +319,9 @@ export default class DashBoard extends Component {
       answerCreate,
       postInfo,
       allAnswers,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 
@@ -306,8 +356,9 @@ export default class DashBoard extends Component {
                 showChannelUsers={showChannelUsers}
               />
             }
-            <div>
-              <Donnut size="large" />
+            <div className={boxDonuts}>
+              <span id="available-donuts" className={boxDonutsRow}><Donnut size="large" />{currentUser.availableDonutsCount}</span>
+              <span className={boxDonutsRow}><Donnut size="large" />{currentUser.receivedDonutsCount}</span>
             </div>
           </header>
           <div className={mainContent}>
