@@ -48,7 +48,11 @@ export default class InputPost extends Component {
   }
 
   componentDidMount() {
+    const { hashtag } = this.props
     const self = this
+    if (hashtag) {
+      this._input.innerHTML = `#${hashtag}`
+    }
     // TODO: Move this or connect to redux
     if (!this.props.suggestionedUsers) {
       $('#input').atwho({
@@ -92,6 +96,12 @@ export default class InputPost extends Component {
   }
 
   componentWillReceiveProps() {
+    const { hashtag } = this.props
+    const self = this
+    if (hashtag) {
+      this._input.innerHTML = `#${hashtag}`
+    }
+    
     if (
       this.props.suggestionedUsers &&
       this.props.suggestionedUsers.length > 0

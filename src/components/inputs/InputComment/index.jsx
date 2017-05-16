@@ -19,11 +19,6 @@ import 'at.js'
 
 export default class InputComment extends Component {
 
-  state = {
-    isAllowedShowInstruction: true,
-    isOpenInstruction: false
-  }
-
   onKeyDownHandler = (event) => {
     const { postId, commentCreate } = this.props
     const text = postTranspiler(this._inputComment)
@@ -71,42 +66,12 @@ export default class InputComment extends Component {
     })
   }
 
-  onFocus() {
-    this.setState({
-      isOpenInstruction: true,
-    })
-  }
-
-  onBlur() {
-    this.setState({
-      isOpenInstruction: false,
-      isAllowedShowInstruction: false,
-    })
-  }
-
   render() {
     const { postId, className, commentCreate, currentUser } = this.props
     const classNames = `${input} ${className}`
 
     return (
       <span className={wrapper}>
-        {this.state.isOpenInstruction &&
-         this.state.isAllowedShowInstruction &&
-         <span className={instruction} onClick={() => this.setState({ isOpenInstruction: false, isAllowedShowInstruction: false })}>
-           <span className={instructionItem}>
-             <span className={instructionCommand}>Enter</span>
-             <span>Break Line</span>
-           </span>
-           <span className={instructionItem}>
-             <span className={instructionCommand}>Shift + Enter</span>
-             <span>Submit</span>
-           </span>
-           <span className={instructionItem}>
-             <span className={instructionCommand}>@</span>
-             <span>add user</span>
-           </span>
-         </span>
-        }
         <span className={inputBoxImg}><img src={`${currentUser.image.smallUrl}`} alt=""/></span>
         <div
           ref={ref => this._inputComment = ref }

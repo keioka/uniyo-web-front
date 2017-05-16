@@ -1,5 +1,6 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
+import moment from 'moment'
 
 import {
   CardPost,
@@ -42,15 +43,20 @@ export default class ChannelDashboard extends Component {
   static defaultProps = {
   }
 
-  state = {}
+  state = {
+    isLazyLoading: false,
+  }
 
   componentDidMount() {
     const { messageSearch, params } = this.props
     const { channelId } = params
+    const timeNow = moment.utc(new Date()).format()
+    window.addEventListener('scroll', ::this.onScrollHandler)
     // check if channelId is found from current user's channel reducer 'all'.
     messageSearch({
       limit: 50,
       channelId,
+      around: timeNow,
     })
   }
 
@@ -70,13 +76,76 @@ export default class ChannelDashboard extends Component {
     }
   }
 
+  onScrollHandler(event) {
+    const dashboard = this._dashboard
+    const { allMessages, showUserInfo } = this.props
+    const { channelId } = this.props.params
+
+    // All messages on channel
+    const messages = allMessages.filter(message => message.channelId == channelId)
+    const lastMessageIndex = messages.length - 1
+    const lastMessage = messages[lastMessageIndex] || true // <- if there is not post, assign true
+    const { scrollHeight } = event.target.body
+    const currentHeight = event.target.body.scrollTop + window.screen.availHeight
+    //
+    // console.log("---------------------------")
+    // console.log('body scroll top', event.target.body.scrollTop)
+    // console.log(scrollHeight, currentHeight)
+    // console.log(scrollHeight < currentHeight)
+    // console.log("---------------------------")
+
+    if (
+      scrollHeight < currentHeight &&
+      !this.state.isLazyLoading &&
+      lastMessage // to avoid bug 'lastPost returns undefined' while scrolling
+    ) {
+
+      // TODO: fix bug 'this.props.postsSearch action dispatched twice'
+
+      const searchMessage = () => {
+        this.props.messageSearch({
+          limit: 50,
+          channelId,
+          after: moment.utc(lastMessage.createdAt).format(),
+        })
+      }
+
+      this.setState({
+        // if it is not loaded, this won't be turned to false.
+        // which means engine never call this block.
+        isLazyLoading: true,
+      }, searchMessage)
+    }
+
+
+    if (
+      event.target.body.scrollTop <= 0
+    ) {
+      // TODO: fix bug 'this.props.postsSearch action dispatched twice'
+      const firstMessage = messages[0]
+      const searchMessage = () => {
+        this.props.messageSearch({
+          limit: 50,
+          channelId,
+          before: moment.utc(firstMessage.createdAt).format(),
+        })
+      }
+
+      this.setState({
+        // if it is not loaded, this won't be turned to false.
+        // which means engine never call this block.
+        isLazyLoading: true,
+      }, searchMessage)
+    }
+  }
+
   get messages() {
     const { allMessages, showUserInfo } = this.props
     const { channelId } = this.props.params
 
-
     // All messages on channel
     const messages = allMessages.filter(message => message.channelId == channelId)
+    const lastMessageIndex = messages.length - 1
 
     const allMessagesContainer = []
 
@@ -93,6 +162,7 @@ export default class ChannelDashboard extends Component {
       const isSameUser = lastMessageOfChunk && message.user.id == lastMessageOfChunk.user.id
       const isInitialMessageOfChunk = messagesChunk.length === 0
 
+      // TODO: Add time and refactoring
       if (
         isLastMessage &&
         isSameUser
@@ -128,7 +198,12 @@ export default class ChannelDashboard extends Component {
     })
 
     return allMessagesContainer.map(messageChunk => {
-      return (<ListMessage messages={messageChunk} showUserInfo={showUserInfo} />)
+      return (
+        <ListMessage
+          messages={messageChunk}
+          showUserInfo={showUserInfo}
+        />
+      )
     })
   }
 
