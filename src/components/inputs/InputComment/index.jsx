@@ -28,13 +28,11 @@ export default class InputComment extends Component {
     const { postId, commentCreate } = this.props
     const text = postTranspiler(this._inputComment)
 
-    if (event.keyCode === 13) {
-      if (event.shiftKey) {
+    if (event.keyCode === 13 && !event.isDefaultPrevented()) {
+      if (!event.shiftKey) {
         event.preventDefault()
         commentCreate({ postId , text: text})
         this._inputComment.innerHTML = ''
-      } else if ($('#input').atwho('isSelecting') === false) {
-        console.log($('#input').atwho('isSelecting'))
       }
     }
   }

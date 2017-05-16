@@ -80,7 +80,7 @@ export default class CardReview extends Component {
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
+            <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
           </div>
           { this.state.toggle &&
