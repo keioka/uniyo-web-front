@@ -67,6 +67,8 @@ export default class CardPost extends Component {
     if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
 
+    console.warn(comments)
+
     return (
       <div key={id} className={wrapper}>
         <div className={sectionImage}>

@@ -21,7 +21,12 @@
 }
 
 .section--cards {
-  padding: 2rem;
+  padding: 2rem 4rem;
+}
+
+.section--cards__title {
+  font-size: 15px;
+  color: $darkgray;
 }
 
 .section--content {

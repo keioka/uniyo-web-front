@@ -52,7 +52,7 @@ export default class CardQuestion extends Component {
       text,
       user,
       likesCount,
-      commentsCount,
+      answersCount,
       currentUserLiked,
       createdAt,
       allComments,
@@ -78,8 +78,8 @@ export default class CardQuestion extends Component {
             </div>
             <TextPost text={text} showUserInfo={showUserInfo}/>
             <div className={sectionContentFotter}>
-              <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Comments</button>
-              <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
+              <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>
+              <button className={btnLike} data-count={likesCount}><Donnut size="xs"/></button>
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>
