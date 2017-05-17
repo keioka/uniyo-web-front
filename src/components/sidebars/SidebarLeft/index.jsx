@@ -8,7 +8,7 @@ import {
   wrapper,
   section,
   sectionTag,
-  sectionTagAll,
+  sectionTagHot,
   sectionLabel,
   inputSearchTag,
   hide,
@@ -227,7 +227,9 @@ export default class SidebarLeft extends Component {
           onChange={event => this.setState({ keywordForSort: event.target.value })}
         />
         <ul className={section}>
-          <h3 className={`${sectionTag} ${sectionTagAll}`} >All in EDHECBUSINES</h3>
+          <h3 className={`${sectionTag} ${sectionTagHot}`}>
+            <Link to="/dashboard/posts/top">All in EDHECBUSINES</Link>
+          </h3>
         </ul>
         {this.navSideBar}
       </aside>
