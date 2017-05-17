@@ -64,14 +64,14 @@ $left-padding: 25px;
   align-items: center;
 }
 
-.section__tag--all {
-  color: $gray;
+.section__tag--hot {
+  color: $darkgray;
   background-color: white;
   display: flex;
   align-items: center;
 }
 
-.section__tag--all:before {
+.section__tag--hot:before {
   content: '🏫';
   margin-right: 20px;
 }

@@ -30,6 +30,8 @@ const {
   notificationReadMarkSaga,
   webSocket,
   watchMarkNotificationAsRead,
+  postsRelevantSearchSaga,
+  postsTrendingSearchSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -61,6 +63,8 @@ export default function* rootSaga() {
     fork(notificationSearchSaga),
     fork(notificationReadMarkSaga),
     fork(hashtagDeleteSaga),
+    fork(postsRelevantSearchSaga),
+    fork(postsTrendingSearchSaga),
 
     /*
       saga form UI

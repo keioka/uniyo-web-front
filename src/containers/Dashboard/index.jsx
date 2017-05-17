@@ -59,6 +59,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   postsSearch: actions.postsSearch,
   postCreate: actions.postCreate,
+  postsRelevantSearch: actions.postsRelevantSearch,
+  postsTrendingSearch: actions.postsTrendingSearch,
   commentsSearch: actions.commentsSearch,
   commentCreate: actions.commentCreate,
   userSearch: actions.userSearch,
@@ -179,11 +181,13 @@ export default class DashBoard extends Component {
       answers,
       messages,
       notifications,
+      postsTrendingSearch,
+      postsRelevantSearch,
     } = this.props
 
     const { currentUser } = auth
     const { hashtags: hashtagsCurrentUser, image } = currentUser
-    const { all: allPosts, fetching: isPostsFetching } = posts
+    const { all: allPosts, fetching: isPostsFetching, trending: trendingPosts, relevant: relevantPosts } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
     const { all: allChannels } = channels
@@ -272,6 +276,10 @@ export default class DashBoard extends Component {
       answerCreate,
       postInfo,
       allAnswers,
+      postsTrendingSearch,
+      postsRelevantSearch,
+      trendingPosts,
+      relevantPosts,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 

@@ -31,6 +31,7 @@ export IndexDashboard from './pages/dashboard/IndexDashboard'
 export QuestionDashboard from './pages/dashboard/QuestionDashboard'
 export ChannelDashboard from './pages/dashboard/ChannelDashboard'
 export ChannelNewDashboard from './pages/dashboard/ChannelNewDashboard'
+export PostTopDashboard from './pages/dashboard/PostTopDashboard'
 
 /*
   layouts
