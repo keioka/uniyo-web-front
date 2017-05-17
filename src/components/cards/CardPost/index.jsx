@@ -47,6 +47,11 @@ export default class CardPost extends Component {
     })
   }
 
+  onClickDonutsHandler(event) {
+    const { postGiveDonuts, id } = this.props
+    postGiveDonuts({ postId: id, amount: 1 })
+  }
+
   render() {
     const {
       id,
@@ -61,13 +66,14 @@ export default class CardPost extends Component {
       comments,
       showUserInfo,
       currentUser,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
     if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
-
-    console.warn(comments)
 
     return (
       <div key={id} className={wrapper}>
@@ -81,8 +87,20 @@ export default class CardPost extends Component {
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
-            <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
+            <button
+              className={btnLike}
+              data-count={commentsCount}
+              onClick={::this.onClickCommentHandler}>
+                comments
+            </button>
+            <button
+              className={btnComment}
+              data-role='give-donuts'
+              data-count={likesCount}
+              onClick={::this.onClickDonutsHandler}
+            >
+              <Donnut size="xs" />
+            </button>
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
@@ -90,7 +108,15 @@ export default class CardPost extends Component {
                 <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               </div>
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
+                {comments && comments.map(comment =>
+                  <ListComment
+                    key={comment.id}
+                    commentGiveDonuts={commentGiveDonuts}
+                    {...comment}
+                  >
+                    {comment.text}
+                  </ListComment>
+                )}
               </ul>
             </div>
           }

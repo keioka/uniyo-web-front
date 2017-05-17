@@ -101,7 +101,7 @@ export default class InputPost extends Component {
     if (hashtag) {
       this._input.innerHTML = `#${hashtag}`
     }
-    
+
     if (
       this.props.suggestionedUsers &&
       this.props.suggestionedUsers.length > 0
@@ -262,7 +262,7 @@ export default class InputPost extends Component {
               <h4>{`${(this.state.form.file.size / 1024 / 1024).toFixed(3)}MB`}</h4>
               <button className={btnFileDelete} onClick={(event) => {
                 event.stopPropagation();
-                this.setState({form: { file: null }})
+                this.setState({ form: { file: null } })
               }}></button>
             </div>
           }

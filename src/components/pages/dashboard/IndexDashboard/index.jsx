@@ -102,6 +102,9 @@ export default class IndexDashboard extends Component {
       postCreate,
       onClearCurrentTypeHandler,
       currentPostType,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
@@ -120,6 +123,9 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
             />
           )
         case TYPES['docs']:
@@ -132,6 +138,9 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
             />
           )
         case TYPES['reviews']:
@@ -144,6 +153,9 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
             />
           )
         case TYPES['questions']:
@@ -156,6 +168,9 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
             />
           )
       }
@@ -168,7 +183,6 @@ export default class IndexDashboard extends Component {
           onPostSubmit={postCreate}
           currentHashTag={hashtag}
           currentPostType={currentPostType}
-          // suggestionedUsers={suggestionedUsers}
           userSearch={userSearch}
           showUserInfo={showUserInfo}
         />

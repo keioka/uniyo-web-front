@@ -74,6 +74,8 @@ export default class InputComment extends Component {
       <span className={wrapper}>
         <span className={inputBoxImg}><img src={`${currentUser.image.smallUrl}`} alt="" /></span>
         <div
+          ref={ref => this._inputComment = ref }
+          contentEditable={true}
           className={input}
           type="text"
           ref={ref => this._inputComment = ref}

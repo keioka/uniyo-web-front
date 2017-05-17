@@ -182,6 +182,7 @@ function* helloWebSocket() {
 
 function* eventWebSocket() {
   yield takeEvery('WEBSOCKET_EVENT', function* eventHandler(payload) {
+    console.log(payload)
     try {
       const { type } = payload.data
       let action
@@ -206,10 +207,27 @@ function* eventWebSocket() {
         }
 
         case 'NOTIFICATIONS_READ': {
-          console.log(payload.data)
           const { notificationIds } = payload.data
           const notificationId = notificationIds[0]
           // action = { type: actionTypes.notificationReadMark.success, result: { data: { notificationId } } }
+          break
+        }
+
+        case 'USER_RECEIVED_DONUT': {
+          const { amount } = payload.data
+          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { amount } } }
+          break
+        }
+
+        case 'POST_RECEIVED_DONUT': {
+          const { postId, amount } = payload.data
+          action = { type: actionTypes.postDonutsCountFetch.success, result: { data: { postId, amount } } }
+          break
+        }
+
+        case 'USER_SPENT_DONUT': {
+          const { amount } = payload.data
+          action = { type: actionTypes.userSpentDonutsFetch.success, result: { data: { amount }  } }
           break
         }
 

@@ -60,6 +60,28 @@
   font-size: 1.6rem;
 }
 
+.box--donuts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box--donuts__row {
+  display: inline-flex;
+  color: #878787;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: $font-family;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.box--donuts__row svg {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;

@@ -80,6 +80,8 @@ export default class CardQuestion extends Component {
             <div className={sectionContentFotter}>
               <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>
               <button className={btnLike} data-count={likesCount}><Donnut size="xs"/></button>
+              <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Comments</button>
+              <button className={btnComment} data-role='give-donuts' data-count={likesCount}><Donnut size="xs"/></button>
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>

@@ -30,6 +30,9 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.hashtagDelete.request ||
     action.type === actionTypes.postsTrendingSearch.request ||
     action.type === actionTypes.postsRelevantSearch.request
+    action.type === actionTypes.postGiveDonuts.request ||
+    action.type === actionTypes.commentGiveDonuts.request ||
+    action.type === actionTypes.userGiveDonuts.request
   ) {
     action.accessToken = storage.accessToken
   }

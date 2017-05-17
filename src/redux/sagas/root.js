@@ -32,6 +32,10 @@ const {
   watchMarkNotificationAsRead,
   postsRelevantSearchSaga,
   postsTrendingSearchSaga,
+  currentUserDonutsSaga,
+  commentGiveDonutsSaga,
+  postGiveDonutsSaga,
+  userGiveDonutsSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -65,7 +69,10 @@ export default function* rootSaga() {
     fork(hashtagDeleteSaga),
     fork(postsRelevantSearchSaga),
     fork(postsTrendingSearchSaga),
-
+    fork(currentUserDonutsSaga),
+    fork(commentGiveDonutsSaga),
+    fork(postGiveDonutsSaga),
+    fork(userGiveDonutsSaga),
     /*
       saga form UI
     */
