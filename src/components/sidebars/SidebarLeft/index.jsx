@@ -18,9 +18,12 @@ import {
   iconChannelOnlineStatus,
   iconOnline,
   userNames,
+  tag,
+  tagBtnClose,
 } from './style'
 
 import Plus from './plus-active'
+import Close from './close'
 
 const dashboardPathGenarator = ({ hashtag, type }) => {
   let path = '/dashboard'
@@ -46,7 +49,7 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
 
 function hashCode(str) {
   return str.split('').reduce((prevHash, currVal) =>
-    ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
+    ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0)
 }
 
 export default class SidebarLeft extends Component {
@@ -83,18 +86,26 @@ export default class SidebarLeft extends Component {
 
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
-    const { allChannels, hashtagsCurrentUser, hashtagsTrending } = this.props
+    const { allChannels, hashtagsCurrentUser, hashtagsTrending, hashtagDelete } = this.props
 
-    const ListHashtag = ({ className, hashtag, type}) => (
-      <Link
-        className={className}
-        key={hashCode(hashtag)}
-        to={dashboardPathGenarator({ hashtag: hashtag, type: type })}
-      >
+    const ListHashtag = ({ className, hashtag, hashtagType, type, showBtnDelete, hashtagDelete }) => (
         <li className={sectionTag}>
-          #{hashtag}
+          <Link
+            className={className}
+            key={hashCode(hashtag)}
+            to={dashboardPathGenarator({ hashtag })}
+          >
+            <span className={tag}>#{hashtag}</span>
+          </Link>
+          { showBtnDelete &&
+            <span
+              className={tagBtnClose}
+              onClick={(event) => { hashtagDelete({ hashtag, hashtagType }); event.stopPropagation() }}
+            >
+              <Close />
+            </span>
+          }
         </li>
-      </Link>
     )
 
     const ListChannel = ({ className, channel }) => (
@@ -123,6 +134,9 @@ export default class SidebarLeft extends Component {
         <ListHashtag
           className={classNames.join(' ')}
           hashtag={hashtag.hashtag}
+          hashtagType={hashtag.type}
+          hashtagDelete={hashtagDelete}
+          showBtnDelete
           type={this.props.type}
         />
       )
@@ -143,7 +157,7 @@ export default class SidebarLeft extends Component {
 
     const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
       let classNames = []
-      if (!this.state.isShowMoreTags && index > 9) {
+      if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
         classNames.push(hide)
       }
       return (
@@ -169,6 +183,8 @@ export default class SidebarLeft extends Component {
           }
           { hashtagsCurrentUser && ComponentsHashtag }
           { keywordForSort === '' &&
+            hashtagsCurrentUser &&
+            hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
             <button
               className={btnShowMore}
               onClick={() => { this.setState({ isShowMoreTags: !this.state.isShowMoreTags }) }}
@@ -187,6 +203,8 @@ export default class SidebarLeft extends Component {
           <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>PRIVATE MESSAGES <Plus /></h4></Link>
           {allChannels && ComponentsChannel}
           { keywordForSort === '' &&
+            allChannels &&
+            allChannels.length > MAX_NUMBER_SHOW_ITEM &&
             <button
               className={btnShowMore}
               onClick={() => { this.setState({ isShowMoreChannels: !this.state.isShowMoreChannels }) }}
