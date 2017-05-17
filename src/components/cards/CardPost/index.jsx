@@ -59,6 +59,7 @@ export default class CardPost extends Component {
       user,
       likesCount,
       commentsCount,
+      donutsCount,
       currentUserLiked,
       createdAt,
       commentsSearch,
@@ -96,7 +97,7 @@ export default class CardPost extends Component {
             <button
               className={btnComment}
               data-role='give-donuts'
-              data-count={likesCount}
+              data-count={donutsCount}
               onClick={::this.onClickDonutsHandler}
             >
               <Donnut size="xs" />
