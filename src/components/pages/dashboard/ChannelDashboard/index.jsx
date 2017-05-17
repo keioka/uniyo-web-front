@@ -197,30 +197,27 @@ export default class ChannelDashboard extends Component {
 
     return (
       <div>
-        {Object.keys(messageObj).map(function(key, index) {
-           const messages = messageObj[key]
+        {Object.keys(messageObj).map((key, index) => {
+          const messages = messageObj[key]
 
-           const componentsMessages = messages.map(messageChunk => {
-             return (
-               <ListMessage
-                 messages={messageChunk}
-                 showUserInfo={showUserInfo}
-               />
-             )}
-           )
+          const componentsMessages = messages.map(messageChunk => (
+            <ListMessage
+              messages={messageChunk}
+              showUserInfo={showUserInfo}
+            />
+          ))
 
-           return (
-             <div className={sectionMessagesChunk}>
-               <div className={sectionMessagesChunkHeader}>
-                 <div className={sectionMessagesChunkDate}>
-                   {key}
-                 </div>
-               </div>
-               <div>{componentsMessages}</div>
-             </div>
-           )
-
-         })
+          return (
+            <div className={sectionMessagesChunk}>
+              <div className={sectionMessagesChunkHeader}>
+                <div className={sectionMessagesChunkDate}>
+                  {key}
+                </div>
+              </div>
+              <div>{componentsMessages}</div>
+            </div>
+          )
+        })
        }
 
       </div>

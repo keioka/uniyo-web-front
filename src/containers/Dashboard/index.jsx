@@ -71,6 +71,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   messageSearch: actions.messageSearch,
   messageCreate: actions.messageCreate,
   hashtagAdd: actions.hashtagAdd,
+  hashtagDelete: actions.hashtagDelete,
   postInfo: actions.postInfo,
   answerSearch: actions.answerSearch,
   answerCreate: actions.answerCreate,
@@ -148,8 +149,6 @@ export default class DashBoard extends Component {
   }
 
   get renderContent() {
-
-
     const {
       showUserInfo,
       showChannelUsers,
@@ -173,6 +172,7 @@ export default class DashBoard extends Component {
       channels,
       hashtagsTrending,
       hashtagAdd,
+      hashtagDelete,
       answerSearch,
       answerCreate,
       postInfo,
@@ -282,6 +282,7 @@ export default class DashBoard extends Component {
           allChannels={allChannels}
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
+          hashtagDelete={hashtagDelete}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>

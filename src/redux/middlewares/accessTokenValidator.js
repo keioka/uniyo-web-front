@@ -26,7 +26,8 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.messageSearch.request ||
     action.type === actionTypes.messageCreate.request ||
     action.type === actionTypes.channelCreate.request ||
-    action.type === actionTypes.notificationReadMark.request
+    action.type === actionTypes.notificationReadMark.request ||
+    action.type === actionTypes.hashtagDelete.request
   ) {
     action.accessToken = storage.accessToken
   }

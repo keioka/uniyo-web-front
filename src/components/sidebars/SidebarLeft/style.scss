@@ -80,14 +80,6 @@ $left-padding: 25px;
   max-width: 160px;
 }
 
-.section__tag:hover {
-  background-color: $pink;
-}
-
-.section__tag:hover {
-  color: white;
-}
-
 .icon--channel {
   display: flex;
   align-items: center;
@@ -161,6 +153,25 @@ $left-padding: 25px;
   padding: 8px 10px;
   border-radius: 4px;
   border: none;
+}
+
+.tag {
+
+}
+
+.tagBtnClose {
+  opacity: 0;
+  margin-left: 12px;
+  width: 16px;
+  height: 16px;
+}
+
+.tagBtnClose:hover {
+  opacity: 1;
+}
+
+.tagBtnClose svg {
+  fill: $darkgray;
 }
 
 @media only screen and (min-width: 769px) {
