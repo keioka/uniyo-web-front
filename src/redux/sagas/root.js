@@ -23,6 +23,7 @@ const {
   channelCreateSaga,
   hashtagTrendingSearchSaga,
   postInfoSaga,
+  hashtagDeleteSaga,
   answerSearchSaga,
   answerCreateSaga,
   notificationSearchSaga,
@@ -59,6 +60,7 @@ export default function* rootSaga() {
     fork(answerCreateSaga),
     fork(notificationSearchSaga),
     fork(notificationReadMarkSaga),
+    fork(hashtagDeleteSaga),
 
     /*
       saga form UI
