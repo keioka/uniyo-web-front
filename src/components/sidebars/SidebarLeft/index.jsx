@@ -192,6 +192,7 @@ export default class SidebarLeft extends Component {
               {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
             </button>
           }
+          <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>Add a new hashtag</span></h4>
         </ul>
 
         <ul className={section}>
@@ -212,6 +213,7 @@ export default class SidebarLeft extends Component {
               {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
             </button>
           }
+          <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>+ Start a new chat</h4></Link>
         </ul>
       </nav>
     )

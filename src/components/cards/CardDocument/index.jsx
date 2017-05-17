@@ -85,7 +85,7 @@ export default class CardDocument extends Component {
             {/* <span className={textPostTime}>{time}</span> */}
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
-          <div className={sectionFileDetail}><ButtonFile fileName={fileName} fileSize={fileSize} contentType={contentType} /></div>
+          <div className={sectionFileDetail}><ButtonFile {...this.props}/></div>
           <div className={sectionContentFotter}>
             <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
             <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
