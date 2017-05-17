@@ -14,13 +14,12 @@ import {
 import {
   sectionQuestion,
   sectionImage,
-  sectionContent,
+  sectionCards,
   sectionContentHeader,
   sectionContentFotter,
   textUserName,
   btnLike,
   btnComment,
-  sectionCards,
   sectionCardsTitle,
 } from './style'
 
@@ -63,8 +62,15 @@ export default class PostTopDashboard extends Component {
          }
 
         {trendingPosts && trendingPosts.length > 0 && trendingPosts.map(post =>
-          <div>
-            {post.id}
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>HOT</h3>
+            <CardPost
+              {...post}
+              comments={allComments}
+              currentUser={currentUser}
+              commentsSearch={commentsSearch}
+              commentCreate={commentCreate}
+            />
           </div>
         )}
 
