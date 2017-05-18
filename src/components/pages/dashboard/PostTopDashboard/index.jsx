@@ -45,6 +45,7 @@ export default class PostTopDashboard extends Component {
       userSearch,
       currentUser,
       allComments,
+      postGiveDonuts,
       postsTrendingSearch,
       postsRelevantSearch,
       relevantPosts,
@@ -67,6 +68,7 @@ export default class PostTopDashboard extends Component {
             {trendingPosts.length > 0 && trendingPosts.map(post =>
               <CardPost
                 {...post}
+                postGiveDonuts={postGiveDonuts}
                 comments={allComments}
                 currentUser={currentUser}
                 commentsSearch={commentsSearch}

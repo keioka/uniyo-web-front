@@ -112,7 +112,7 @@ export default class IndexDashboard extends Component {
 
     const cardFactory = ({ post, commentsSearch,
     comments, showUserInfo, currentUser }) => {
-      switch(post.postType) {
+      switch(post.type) {
         case TYPES['post']:
           return (
             <CardPost
