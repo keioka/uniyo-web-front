@@ -45,6 +45,7 @@ export default class PostTopDashboard extends Component {
       userSearch,
       currentUser,
       allComments,
+      postGiveDonuts,
       postsTrendingSearch,
       postsRelevantSearch,
       relevantPosts,
@@ -61,18 +62,21 @@ export default class PostTopDashboard extends Component {
            </div>
          }
 
-        {trendingPosts && trendingPosts.length > 0 && trendingPosts.map(post =>
+        {trendingPosts &&
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>HOT</h3>
-            <CardPost
-              {...post}
-              comments={allComments}
-              currentUser={currentUser}
-              commentsSearch={commentsSearch}
-              commentCreate={commentCreate}
-            />
+            {trendingPosts.length > 0 && trendingPosts.map(post =>
+              <CardPost
+                {...post}
+                postGiveDonuts={postGiveDonuts}
+                comments={allComments}
+                currentUser={currentUser}
+                commentsSearch={commentsSearch}
+                commentCreate={commentCreate}
+              />
+            )}
           </div>
-        )}
+        }
 
       </div>
     )
