@@ -12,6 +12,10 @@ import {
   notification,
   historyDonut,
   close,
+  btnDonutsHistory,
+  btnDonutsHistoryInner,
+  image,
+  btn,
 } from './style'
 
 import {
@@ -24,6 +28,7 @@ import {
 import uiAction from '../../redux/actions'
 
 const mapStateToProps = state => ({
+  donutsHistory: state.api.auth.currentUser.donutsHistory,
   rightbar: state.ui.rightbar,
   channels: state.api.channels,
   notifications: state.api.notifications,
@@ -64,8 +69,20 @@ export default class SidebarRight extends Component {
   }
 
   display() {
-    const { displayType, isOpen, userInfo, channelUsers } = this.props.rightbar
-    const { channelCreate, channels, notifications, setReadNotificationIds, notificationReadMark } = this.props
+
+    const {
+      rightbar,
+      channelCreate,
+      channels,
+      notifications,
+      setReadNotificationIds,
+      notificationReadMark,
+      donutsHistory,
+      showHistoryDonut,
+    } = this.props
+
+    const { displayType, isOpen, userInfo, channelUsers } = rightbar
+
     const { all: allChannels } = channels
     const { all: allNotifications } = notifications
 
@@ -96,21 +113,44 @@ export default class SidebarRight extends Component {
           />
         )
       }
+
+      case 'Donuts': {
+        return (
+          <SidebarRightHistoryDonuts
+            donutsHistory={donutsHistory}
+          />
+        )
+      }
     }
   }
 
   render() {
     const { displayType, isOpen, userInfo } = this.props.rightbar
-    const { channelCreate, channels } = this.props
+    const { channelCreate, channels, showHistoryDonut, hideSidebarRight, donutsHistory } = this.props
     const { all: allChannels } = channels
+    const userImages = [...new Set(donutsHistory.map(history => history.fromUser.image.mediumUrl))].slice(0, 3)
     return (
       <div>
         { isOpen ? (
           <aside className={wrapper}>
-            <div className={close} onClick={() => this.props.hideSidebarRight()}></div>
+            <div className={close} onClick={() => hideSidebarRight()}></div>
             {this.display()}
           </aside>
         ) : null }
+        { !isOpen &&
+        <div className={btnDonutsHistory}>
+          <div className={btnDonutsHistoryInner}>
+            {userImages && userImages.map((imageUrl, index) => {
+              return (
+                <div className={image} data-image-id={index+1}>
+                  <img src={imageUrl} alt="" />
+                </div>
+              )
+            })}
+            <button className={btn} onClick={() => showHistoryDonut()}>open</button>
+          </div>
+        </div>
+        }
      </div>
     )
   }
