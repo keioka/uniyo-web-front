@@ -47,7 +47,7 @@ export LayoutDashboard from './layouts/LayoutDashboard'
 
 export Button from './buttons/Button'
 export ButtonFile from './buttons/ButtonFile'
-
+export ButtonDonut from './buttons/ButtonDonut'
 
 /*
   nav
@@ -96,7 +96,7 @@ export TextMention from './texts/TextMention'
   common
 */
 
-export Donnut from './common/Donnut'
+export Donut from './common/Donut'
 
 /*
   list
@@ -108,3 +108,4 @@ export ListMessage from './lists/ListMessage'
 export ListNewChatUser from './lists/ListNewChatUser'
 export ListRecentConversation from './lists/ListRecentConversation'
 export ListNotification from './lists/ListNotification'
+export ListDonutsReceive from './lists/ListDonutsReceive'
