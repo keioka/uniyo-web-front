@@ -110,19 +110,21 @@ export default class ChannelDashboard extends Component {
     ) {
       // TODO: fix bug 'this.props.postsSearch action dispatched twice'
       const firstMessage = messages[0]
-      const searchMessage = () => {
-        this.props.messageSearch({
-          limit: 50,
-          channelId,
-          before: moment.utc(firstMessage.createdAt).format(),
-        })
+      if (firstMessage) {
+        const searchMessage = () => {
+          this.props.messageSearch({
+            limit: 50,
+            channelId,
+            before: moment.utc(firstMessage.createdAt).format(),
+          })
+        }
+        this.setState({
+          // if it is not loaded, this won't be turned to false.
+          // which means engine never call this block.
+          isLazyLoading: true,
+        }, searchMessage)
       }
 
-      this.setState({
-        // if it is not loaded, this won't be turned to false.
-        // which means engine never call this block.
-        isLazyLoading: true,
-      }, searchMessage)
     }
   }
 

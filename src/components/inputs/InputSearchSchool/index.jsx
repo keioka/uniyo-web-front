@@ -31,7 +31,7 @@ export default class InputSearchSchool extends Component {
     const { data } = schools
     const slicedList = []
     var i,j,tempArray,chunk = 5;
-    for (i=0,j=data.length; i<j; i+=chunk) {
+    for (i = 0, j = data.length; i < j; i += chunk) {
       tempArray = array.slice(i,i+chunk);
       slicedList.push(tempArray)
     }
@@ -40,7 +40,7 @@ export default class InputSearchSchool extends Component {
       currentPage: 0,
       source: data,
       slicedList: slicedList
-    }, console.log(this))
+    })
   }
 
 

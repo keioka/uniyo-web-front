@@ -10,12 +10,17 @@ import {
   InputPost,
 } from '../../../index'
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+
 import Cross from './cross'
 
 import {
   sectionCards,
   barFilter,
   btnClose,
+  enter,
+  leave,
+  appear,
 } from './style'
 
 export default class IndexDashboard extends Component {
