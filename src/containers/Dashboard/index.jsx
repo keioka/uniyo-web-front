@@ -19,7 +19,7 @@ import {
   LayoutDashboard,
   SidebarLeft,
   NavPostType,
-  Donnut,
+  Donut,
   InputPost,
   NavChannel,
 } from '../../components'
@@ -42,6 +42,8 @@ import {
   notification,
   boxDonuts,
   boxDonutsRow,
+  moveDonuts,
+  donuts,
 } from './style'
 
 import Setting from './settings.svg'
@@ -130,8 +132,6 @@ export default class DashBoard extends Component {
     const docElm = document.documentElement
     const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
     const currentUserDonutElm = document.querySelector('#available-donuts')
-    console.log(giveDonutsElm)
-
     const onClickDonuts$ = Rx.Observable
       .fromEvent(giveDonutsElm, 'click')
       .map(event => ({ x: event.clientX, y: event.clientY }))
@@ -140,7 +140,6 @@ export default class DashBoard extends Component {
     onClickDonuts$.subscribe(pos => {
       const rotX = (pos.y / clientHeight * -50) + 25;
       const rotY = (pos.x / clientWidth * 50) - 25;
-      console.log(pos)
     })
   }
 
@@ -148,19 +147,24 @@ export default class DashBoard extends Component {
     const docElm = document.documentElement
     const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
     const currentUserDonutElm = document.querySelector('#available-donuts')
-    console.log(giveDonutsElm)
-    console.log(currentUserDonutElm)
     const onClickDonuts$ = Rx.Observable
       .fromEvent(giveDonutsElm, 'click')
       .map(event => ({ x: event.clientX, y: event.clientY }))
 
-
     onClickDonuts$.subscribe(pos => {
-      console.log(pos)
-      const cloneDonuts = currentUserDonutElm.cloneNode(true)
-      cloneDonuts.style.position = 'absolute'
-      cloneDonuts.style.top = pos.y
-      cloneDonuts.style.left = pos.x
+      currentUserDonutElm.className += ` ${moveDonuts}`
+      let height = 0
+      let animationId
+      const repeat = () => {
+        console.log('hi')
+        height += 1
+        currentUserDonutElm.style.position = "absolute"
+        currentUserDonutElm.style.top = `${height}px`
+        animationId = requestAnimationFrame(repeat)
+      }
+      repeat()
+
+      setTimeout(() => cancelAnimationFrame(animationId), 5000)
     })
   }
 
@@ -289,7 +293,7 @@ export default class DashBoard extends Component {
     }
 
     if (type) {
-      sortedPosts = sortedPosts.filter(post => post.postType === TYPES[type])
+      sortedPosts = sortedPosts.filter(post => post.type === TYPES[type])
     }
 
     /* **************************************
@@ -368,8 +372,8 @@ export default class DashBoard extends Component {
               />
             }
             <div className={boxDonuts}>
-              <span id="available-donuts" className={boxDonutsRow}><Donnut size="large" />{currentUser.availableDonutsCount}</span>
-              <span className={boxDonutsRow}><Donnut size="large" />{currentUser.receivedDonutsCount}</span>
+              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" color="PINK" />{currentUser.availableDonutsCount}</span>
+              <span className={boxDonutsRow}><Donut size="large" color="GREEN" />{currentUser.receivedDonutsCount}</span>
             </div>
           </header>
           <div className={mainContent}>
