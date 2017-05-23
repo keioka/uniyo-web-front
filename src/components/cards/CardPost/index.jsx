@@ -4,9 +4,10 @@ import { Link } from 'react-router'
 
 import {
   TextPost,
-  Donnut,
+  Donut,
   ListComment,
   InputComment,
+  ButtonDonut,
 } from '../../'
 
 import {
@@ -38,7 +39,7 @@ export default class CardPost extends Component {
 
   onClickCommentHandler(event) {
     const { commentsSearch, commentsCount, id } = this.props
-    if (commentsCount > 0) {
+    if (commentsCount > 0 && !this.state.toggle) {
       commentsSearch({ postId: id })
     }
 
@@ -48,6 +49,7 @@ export default class CardPost extends Component {
   }
 
   onClickDonutsHandler(event) {
+    event.stopPropagation()
     const { postGiveDonuts, id } = this.props
     postGiveDonuts({ postId: id, amount: 1 })
   }
@@ -91,17 +93,15 @@ export default class CardPost extends Component {
             <button
               className={btnLike}
               data-count={commentsCount}
-              onClick={::this.onClickCommentHandler}>
+              onClick={::this.onClickCommentHandler}
+            >
                 comments
             </button>
-            <button
+            <ButtonDonut
               className={btnComment}
-              data-role='give-donuts'
-              data-count={donutsCount}
+              donutsCount={donutsCount}
               onClick={::this.onClickDonutsHandler}
-            >
-              <Donnut size="xs" />
-            </button>
+            />
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>

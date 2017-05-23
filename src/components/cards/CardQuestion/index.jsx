@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 import {
   TextPost,
-  Donnut,
+  Donut,
   ListComment,
   InputComment,
 } from '../../'
@@ -46,6 +46,13 @@ export default class CardQuestion extends Component {
     })
   }
 
+  onClickDonutsHandler(event) {
+    event.stopPropagation()
+    const { postGiveDonuts, id } = this.props
+    postGiveDonuts({ postId: id, amount: 1 })
+  }
+
+
   render() {
     const {
       id,
@@ -79,7 +86,14 @@ export default class CardQuestion extends Component {
             <TextPost text={text} showUserInfo={showUserInfo}/>
             <div className={sectionContentFotter}>
               <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answer</button>
-              <button className={btnComment} data-role='give-donuts' data-count={donutsCount}><Donnut size="xs"/></button>
+              <button
+                className={btnComment}
+                data-role='give-donuts'
+                data-count={donutsCount}
+                onClick={::this.onClickDonutsHandler}
+              >
+                <Donut size="xs" />
+              </button>
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>
