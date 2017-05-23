@@ -288,13 +288,10 @@ export default class Profile extends Component {
           }
         }
       }
-    }, () => {
-      console.log(this.state)
     })
   }
 
   get renderThirdPage() {
-    console.log(this.props)
     const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
     const MIME_TYPE = 'image/*'
     return (
