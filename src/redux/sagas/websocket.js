@@ -56,7 +56,6 @@ function subscribe(socket) {
       let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
-      console.log('message type', type)
       switch (type) {
         case 'SOCKET_READY': {
           emit({ type: 'WEBSOCKET_READY', response })
@@ -182,7 +181,6 @@ function* helloWebSocket() {
 
 function* eventWebSocket() {
   yield takeEvery('WEBSOCKET_EVENT', function* eventHandler(payload) {
-    console.log(payload)
     try {
       const { type } = payload.data
       let action
@@ -214,8 +212,8 @@ function* eventWebSocket() {
         }
 
         case 'USER_RECEIVED_DONUT': {
-          const { amount } = payload.data
-          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { amount } } }
+          const { amount, user } = payload.data
+          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { amount, user } } }
           break
         }
 
