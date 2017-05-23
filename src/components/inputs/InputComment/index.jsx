@@ -54,7 +54,7 @@ export default class InputComment extends Component {
                 callback(mappedData)
               },
               error: function() {
-                console.log('Search is not working')
+                console.warn('Search is not working')
               }
             })
           }
