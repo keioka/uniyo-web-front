@@ -130,7 +130,6 @@ export default class DashBoard extends Component {
     const docElm = document.documentElement
     const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
     const currentUserDonutElm = document.querySelector('#available-donuts')
-    console.log(giveDonutsElm)
 
     const onClickDonuts$ = Rx.Observable
       .fromEvent(giveDonutsElm, 'click')
@@ -140,7 +139,6 @@ export default class DashBoard extends Component {
     onClickDonuts$.subscribe(pos => {
       const rotX = (pos.y / clientHeight * -50) + 25;
       const rotY = (pos.x / clientWidth * 50) - 25;
-      console.log(pos)
     })
   }
 
@@ -148,15 +146,12 @@ export default class DashBoard extends Component {
     const docElm = document.documentElement
     const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
     const currentUserDonutElm = document.querySelector('#available-donuts')
-    console.log(giveDonutsElm)
-    console.log(currentUserDonutElm)
     const onClickDonuts$ = Rx.Observable
       .fromEvent(giveDonutsElm, 'click')
       .map(event => ({ x: event.clientX, y: event.clientY }))
 
 
     onClickDonuts$.subscribe(pos => {
-      console.log(pos)
       const cloneDonuts = currentUserDonutElm.cloneNode(true)
       cloneDonuts.style.position = 'absolute'
       cloneDonuts.style.top = pos.y
