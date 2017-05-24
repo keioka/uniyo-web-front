@@ -117,13 +117,16 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 20px 30px;
+  height: 60px;
   border-bottom: 1px solid $lightgray;
   background-color: white;
+  padding: 0px 30px;
 }
 
 .header__nav--basic {
+  display: flex;
   position: relative;
+  align-items: center;
 }
 
 .header__nav--basic svg {

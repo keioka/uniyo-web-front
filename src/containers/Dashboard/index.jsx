@@ -152,19 +152,10 @@ export default class DashBoard extends Component {
       .map(event => ({ x: event.clientX, y: event.clientY }))
 
     onClickDonuts$.subscribe(pos => {
-      currentUserDonutElm.className += ` ${moveDonuts}`
-      let height = 0
-      let animationId
-      const repeat = () => {
-        console.log('hi')
-        height += 1
-        currentUserDonutElm.style.position = "absolute"
-        currentUserDonutElm.style.top = `${height}px`
-        animationId = requestAnimationFrame(repeat)
-      }
-      repeat()
-
-      setTimeout(() => cancelAnimationFrame(animationId), 5000)
+      const cloneDonuts = currentUserDonutElm.cloneNode(true)
+      cloneDonuts.style.position = 'absolute'
+      cloneDonuts.style.top = pos.y
+      cloneDonuts.style.left = pos.x
     })
   }
 
