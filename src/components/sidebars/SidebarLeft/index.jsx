@@ -20,6 +20,7 @@ import {
   userNames,
   tag,
   tagBtnClose,
+  sectionTextAdd,
 } from './style'
 
 import Plus from './plus-active'
@@ -192,7 +193,7 @@ export default class SidebarLeft extends Component {
               {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
             </button>
           }
-          <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>Add a new hashtag</span></h4>
+          <h4 className={sectionTextAdd} onClick={::this.onClickBtnAddHashTag}>+ Add a new hashtag</h4>
         </ul>
 
         <ul className={section}>
@@ -201,8 +202,13 @@ export default class SidebarLeft extends Component {
         </ul>
 
         <ul className={section}>
-          <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>PRIVATE MESSAGES <Plus /></h4></Link>
+          <Link to='/dashboard/channels/new'>
+            <h4 className={sectionLabel}>
+              PRIVATE MESSAGES <Plus />
+            </h4>
+          </Link>
           {allChannels && ComponentsChannel}
+          <Link to='/dashboard/channels/new'><h4 className={sectionTextAdd}>+ Start a new chat</h4></Link>
           { keywordForSort === '' &&
             allChannels &&
             allChannels.length > MAX_NUMBER_SHOW_ITEM &&
@@ -213,7 +219,6 @@ export default class SidebarLeft extends Component {
               {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
             </button>
           }
-          <Link to='/dashboard/channels/new'><h4 className={sectionLabel}>+ Start a new chat</h4></Link>
         </ul>
       </nav>
     )
