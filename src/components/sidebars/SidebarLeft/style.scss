@@ -31,10 +31,11 @@ $left-padding: 25px;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
+  color: #2D2D2D;
 }
 
 .section__label span {
-  line-height: 20px;
+  line-height: 15px;
 }
 
 .section__label:after {
@@ -42,8 +43,8 @@ $left-padding: 25px;
 }
 
 .section__label svg {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin-left: 10px;
 }
 
@@ -75,6 +76,19 @@ $left-padding: 25px;
   content: '🏫';
   margin-right: 20px;
 }
+
+.section__text--add {
+  @include label
+  display: inline-block;
+  padding-left: $left-padding;
+  margin: 4px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 3px dotted inherit;
+}
+
 .user-names {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -115,10 +129,10 @@ $left-padding: 25px;
 }
 
 .input--search-tag {
-  margin: 20px 20px;
-  padding: 15px 10px;
+  margin: 17px 20px 12px;
   font-family: $font-family;
   padding-left: $left-padding;
+  padding: 0px 20px 0px 25px;
 }
 
 .hide {
