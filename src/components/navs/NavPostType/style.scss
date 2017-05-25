@@ -24,7 +24,25 @@
   vertical-align: middle;
 }
 
-.item--active {
-  border-bottom: 2px solid $pink;
+.item--active--all,
+.item--active--review,
+.item--active--question,
+.item--active--doc {
   transition: border-bottom 1s ease;
+}
+
+.item--active--all {
+  border-bottom: 2px solid $pink;
+}
+
+.item--active--review {
+  border-bottom: 2px solid $yellow;
+}
+
+.item--active--question {
+  border-bottom: 2px solid $lightblue;
+}
+
+.item--active--doc {
+  border-bottom: 2px solid $darkpurple;
 }
