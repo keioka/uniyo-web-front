@@ -6,6 +6,7 @@ import {
   CardDocument,
   CardReview,
   CardQuestion,
+  CardFake,
   InputPost,
   Donnut,
   TextPost,
@@ -32,7 +33,16 @@ export default class PostTopDashboard extends Component {
     } = this.props
 
     postsTrendingSearch({})
-    postsRelevantSearch({limit: 5})
+    postsRelevantSearch({ limit: 5 })
+  }
+
+  get cardsFake() {
+    return (
+      <div>
+        <CardFake />
+        <CardFake />
+      </div>
+    )
   }
 
   render() {
@@ -52,20 +62,32 @@ export default class PostTopDashboard extends Component {
       trendingPosts,
     } = this.props
 
+    const { image } = currentUser
+
     return (
       <div ref={(div)=> this._dashboard = div}>
-
+        <InputPost
+          imgUrl={image && image.mediumUrl}
+          onPostSubmit={postCreate}
+          currentPostType={'ALL'}
+          userSearch={userSearch}
+          showUserInfo={showUserInfo}
+        />
         {trendingPosts && trendingPosts.length === 0 &&
          relevantPosts && relevantPosts.length === 0 &&
-           <div>
-            show dammy dsda
-           </div>
+         <div className={sectionCards}>
+           <h3 className={sectionCardsTitle}>HOT 🔥</h3>
+           {this.cardsFake}
+
+           <h3 className={sectionCardsTitle}>RELEVANT</h3>
+           {this.cardsFake}
+         </div>
          }
 
         {trendingPosts &&
           <div className={sectionCards}>
-            <h3 className={sectionCardsTitle}>HOT</h3>
-            {trendingPosts.length > 0 && trendingPosts.map(post =>
+            <h3 className={sectionCardsTitle}>HOT 🔥</h3>
+            {trendingPosts.length > 0 ? trendingPosts.map(post =>
               <CardPost
                 {...post}
                 postGiveDonuts={postGiveDonuts}
@@ -74,7 +96,23 @@ export default class PostTopDashboard extends Component {
                 commentsSearch={commentsSearch}
                 commentCreate={commentCreate}
               />
-            )}
+            ) : this.cardsFake }
+          </div>
+        }
+
+        { relevantPosts &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>RELEVANT</h3>
+            {relevantPosts.length > 0 ? relevantPosts.map(post =>
+              <CardPost
+                {...post}
+                postGiveDonuts={postGiveDonuts}
+                comments={allComments}
+                currentUser={currentUser}
+                commentsSearch={commentsSearch}
+                commentCreate={commentCreate}
+              />
+            ) : this.cardsFake }
           </div>
         }
 
