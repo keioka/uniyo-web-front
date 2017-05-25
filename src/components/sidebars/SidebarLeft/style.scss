@@ -1,6 +1,6 @@
 @import "../../../styles/main";
 
-$left-padding: 25px;
+$left-padding: 16px;
 
 .wrapper {
   position: fixed;
@@ -14,7 +14,7 @@ $left-padding: 25px;
 }
 
 .section {
-  margin-top: 1.5rem;
+  margin-top: 25px;
   padding: 0;
 }
 
@@ -74,19 +74,24 @@ $left-padding: 25px;
 
 .section__tag--hot:before {
   content: '🏫';
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .section__text--add {
   @include label
   display: inline-block;
-  padding-left: $left-padding;
-  margin: 4px 0px;
+  margin: 4px 25px;
   display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
   border-bottom: 3px dotted inherit;
+}
+
+.section__text--add span{
+  text-transform: capitalize;
+  border-bottom: 2px dotted $darkgray;
 }
 
 .user-names {
@@ -129,10 +134,11 @@ $left-padding: 25px;
 }
 
 .input--search-tag {
-  margin: 17px 20px 12px;
+  margin: 17px 13px 18px 13px;
   font-family: $font-family;
   padding-left: $left-padding;
   padding: 0px 20px 0px 25px;
+  box-sizing: border-box;
 }
 
 .hide {
@@ -170,10 +176,6 @@ $left-padding: 25px;
   border: none;
 }
 
-.tag {
-
-}
-
 .tagBtnClose {
   opacity: 0;
   margin-left: 12px;
@@ -192,8 +194,8 @@ $left-padding: 25px;
 @media only screen and (min-width: 769px) {
   .wrapper {
     opacity: 1;
-    min-width: 220px;
-    flex-basis: 220px;
+    min-width: 230px;
+    flex-basis: 230px;
     transition: padding 2s ease;
     transition: opactiy 0.4s ease;
     transition: min-width 0.4s ease;
