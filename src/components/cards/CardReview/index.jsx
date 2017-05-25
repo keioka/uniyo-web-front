@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import moment from 'moment'
 
 import {
   TextPost,
   Donut,
+  ButtonDonut,
   ListComment,
   InputComment,
 } from '../../'
@@ -28,7 +29,7 @@ import {
 
 import Star from './star.svg'
 
-export default class CardReview extends Component {
+export default class CardReview extends PureComponent {
 
   constructor() {
     super()
@@ -69,6 +70,7 @@ export default class CardReview extends Component {
       commentCreate,
       rating,
       currentUser,
+      currentPostType,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -86,15 +88,12 @@ export default class CardReview extends Component {
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
-            <button
-              className={btnComment}
-              data-role='give-donuts'
-              data-count={donutsCount}
+            <button className={btnComment} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
+            <ButtonDonut
+              className={btnLike}
+              donutsCount={donutsCount}
               onClick={::this.onClickDonutsHandler}
-            >
-              <Donut size="xs" />
-            </button>
+            />
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>

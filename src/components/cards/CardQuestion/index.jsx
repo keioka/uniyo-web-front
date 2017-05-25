@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 
@@ -6,6 +6,7 @@ import {
   TextPost,
   Donut,
   ListComment,
+  ButtonDonut,
   InputComment,
 } from '../../'
 
@@ -26,7 +27,7 @@ import {
   show,
 } from '../style'
 
-export default class CardQuestion extends Component {
+export default class CardQuestion extends PureComponent {
 
   constructor() {
     super()
@@ -68,6 +69,7 @@ export default class CardQuestion extends Component {
       commentCreate,
       showUserInfo,
       currentUser,
+      currentPostType,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -83,17 +85,18 @@ export default class CardQuestion extends Component {
               <span className={textUserName}>{user.name}</span>
               {/* <span className={textPostTime}>{time}</span> */}
             </div>
-            <TextPost text={text} showUserInfo={showUserInfo}/>
+            <TextPost
+              text={text}
+              showUserInfo={showUserInfo}
+              currentPostType={currentPostType}
+            />
             <div className={sectionContentFotter}>
               <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answer</button>
-              <button
-                className={btnComment}
-                data-role='give-donuts'
-                data-count={donutsCount}
+              <ButtonDonut
+                className={btnLike}
+                donutsCount={donutsCount}
                 onClick={::this.onClickDonutsHandler}
-              >
-                <Donut size="xs" />
-              </button>
+              />
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>
