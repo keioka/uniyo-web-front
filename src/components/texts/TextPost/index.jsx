@@ -11,13 +11,29 @@ import {
   hashtag,
 } from './style'
 
-const TextPost = ({ text, showUserInfo }) => {
+const TYPES = {
+  'CLASS_NOTE': 'docs',
+  'POST': 'post',
+  'REVIEW': 'reviews',
+  'QUESTION': 'questions',
+}
+
+const TextPost = ({ text, showUserInfo, currentPostType }) => {
 
   let parsedText = ReactEmoji.emojify(text)
 
   parsedText = reactStringReplace(parsedText, /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g, (tag, i) => {
+    let type
+    console.log(currentPostType)
+    if (currentPostType) {
+      type = TYPES[currentPostType]
+    }
+
+    console.log(type)
+
+    const link = type ? `/dashboard?type=${type}&hashtag=${tag}` : `/dashboard?hashtag=${tag}`
     return (
-      <Link to={`/dashboard?hashtag=${tag}`} className={hashtag}>#{tag}</Link>
+      <Link to={link} className={hashtag}>#{tag}</Link>
     )
   })
 
