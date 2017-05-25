@@ -1,5 +1,12 @@
 @import "../../../styles/main";
 
+$height-icon: 35px;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .ul {
   display: flex;
   flex-direction: row;
@@ -9,14 +16,14 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  height: 40px;
-  margin: 0px 10px;
+  height: $height-icon;
+  margin: 0px 7px;
   justify-content: center;
   cursor: pointer;
 }
 
 .icon--user__img {
-  height: 40px;
+  height: $height-icon;
   border-radius: 8px;
   border: 2px solid white;
   transition: border 0.2s ease;
@@ -39,12 +46,12 @@
 
 .icon--user__online-status {
   position: absolute;
-  top: 0px;
+  bottom: 0px;
   right: 0px;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: green;
+  background-color: #5fe36f;
 }
 
 .icon--user:hover .icon--user__img {
@@ -54,4 +61,26 @@
 
 .icon--use:hover .icon--user__name {
   opacity: 0.4;
+}
+
+.icon--user--number, .icon--setting {
+  display: flex;
+  height: $height-icon;
+  width: 35px;
+  height: 35px;
+  background-color: #d8d8d8;
+  color: white;
+  margin: 0px 7px;
+  padding: 0px 1px;
+  border: 2px solid white;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon--user--number:before {
+  content: '+';
+  color: white;
+  font-size: 16px;
 }
