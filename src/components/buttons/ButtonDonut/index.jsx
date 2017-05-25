@@ -11,8 +11,7 @@ import {
 const ButtonDonuts = ({
   className,
   donutsCount,
-  onClickDonutsHandler,
-  onClick
+  onClick,
 }) => {
   const classNames = `${element} ${className}`
   return (
