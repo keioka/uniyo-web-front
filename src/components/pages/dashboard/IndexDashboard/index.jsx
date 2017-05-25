@@ -10,12 +10,17 @@ import {
   InputPost,
 } from '../../../index'
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+
 import Cross from './cross'
 
 import {
   sectionCards,
   barFilter,
   btnClose,
+  enter,
+  leave,
+  appear,
 } from './style'
 
 export default class IndexDashboard extends Component {
@@ -102,14 +107,24 @@ export default class IndexDashboard extends Component {
       postCreate,
       onClearCurrentTypeHandler,
       currentPostType,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { hashtag, type } = location.query
 
-    const cardFactory = ({ post, commentsSearch,
-    comments, showUserInfo, currentUser }) => {
-      switch(post.postType) {
+    const cardFactory = ({
+      post,
+      commentsSearch,
+      comments,
+      showUserInfo,
+      currentUser,
+      currentPostType,
+    }) => {
+
+      switch(post.type) {
         case TYPES['post']:
           return (
             <CardPost
@@ -120,6 +135,10 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
         case TYPES['docs']:
@@ -132,6 +151,10 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
         case TYPES['reviews']:
@@ -144,6 +167,10 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
         case TYPES['questions']:
@@ -156,6 +183,10 @@ export default class IndexDashboard extends Component {
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              postGiveDonuts={postGiveDonuts}
+              userGiveDonuts={userGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
       }
@@ -168,7 +199,6 @@ export default class IndexDashboard extends Component {
           onPostSubmit={postCreate}
           currentHashTag={hashtag}
           currentPostType={currentPostType}
-          // suggestionedUsers={suggestionedUsers}
           userSearch={userSearch}
           showUserInfo={showUserInfo}
         />

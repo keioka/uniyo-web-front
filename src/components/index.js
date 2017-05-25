@@ -31,6 +31,7 @@ export IndexDashboard from './pages/dashboard/IndexDashboard'
 export QuestionDashboard from './pages/dashboard/QuestionDashboard'
 export ChannelDashboard from './pages/dashboard/ChannelDashboard'
 export ChannelNewDashboard from './pages/dashboard/ChannelNewDashboard'
+export PostTopDashboard from './pages/dashboard/PostTopDashboard'
 
 /*
   layouts
@@ -46,7 +47,7 @@ export LayoutDashboard from './layouts/LayoutDashboard'
 
 export Button from './buttons/Button'
 export ButtonFile from './buttons/ButtonFile'
-
+export ButtonDonut from './buttons/ButtonDonut'
 
 /*
   nav
@@ -63,6 +64,8 @@ export CardPost from './cards/CardPost'
 export CardReview from './cards/CardReview'
 export CardQuestion from './cards/CardQuestion'
 export CardDocument from './cards/CardDocument'
+export CardFake from './cards/CardFake'
+
 /*
   input
 */
@@ -95,7 +98,7 @@ export TextMention from './texts/TextMention'
   common
 */
 
-export Donnut from './common/Donnut'
+export Donut from './common/Donut'
 
 /*
   list
@@ -107,3 +110,5 @@ export ListMessage from './lists/ListMessage'
 export ListNewChatUser from './lists/ListNewChatUser'
 export ListRecentConversation from './lists/ListRecentConversation'
 export ListNotification from './lists/ListNotification'
+export ListDonutsReceive from './lists/ListDonutsReceive'
+export ListHashtag from './lists/ListHashtag'

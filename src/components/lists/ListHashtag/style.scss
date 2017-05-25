@@ -1,0 +1,35 @@
+@import "../../../styles/main";
+
+$left-padding: 16px;
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px;
+  padding-left: $left-padding;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 80%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.btn--close {
+  opacity: 0;
+  margin-left: 12px;
+  width: 16px;
+  height: 16px;
+}
+
+.btn--close:hover {
+  opacity: 1;
+}
+
+.btn--close svg {
+  fill: $darkgray;
+}

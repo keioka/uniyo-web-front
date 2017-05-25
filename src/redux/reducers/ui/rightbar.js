@@ -22,6 +22,13 @@ export default (state = initialiState, action) => {
       })
     }
 
+    case actionTypes.showHistoryDonut.request: {
+      return Object.assign({
+        isOpen: true,
+        displayType: 'Donuts'
+      })
+    }
+
     case actionTypes.showUserInfo.request: {
       return Object.assign({
         isOpen: true,
@@ -45,13 +52,7 @@ export default (state = initialiState, action) => {
         displayType: 'ChannelUsers',
       })
     }
-
-    case actionTypes.showHistoryDonut.request: {
-      return Object.assign({
-        displayType: ''
-      })
-    }
-
+    
     case actionTypes.hideSidebarRight.request: {
       return Object.assign({
         displayType: '',

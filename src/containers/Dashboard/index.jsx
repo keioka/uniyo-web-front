@@ -4,10 +4,12 @@ import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
+import { Link, browserHistory } from 'react-router'
+import Rx from 'rx'
+
 import uiActions from '../../redux/actions'
-import { Link } from 'react-router'
 import authService from '../../services/authentification'
-import { browserHistory } from 'react-router'
+
 
 import {
   SidebarRight,
@@ -17,7 +19,7 @@ import {
   LayoutDashboard,
   SidebarLeft,
   NavPostType,
-  Donnut,
+  Donut,
   InputPost,
   NavChannel,
 } from '../../components'
@@ -38,6 +40,10 @@ import {
   input,
   icon,
   notification,
+  boxDonuts,
+  boxDonutsRow,
+  moveDonuts,
+  donuts,
 } from './style'
 
 import Setting from './settings.svg'
@@ -56,9 +62,12 @@ const mapStateToProps = state => ({
   notifications: state.api.notifications,
 })
 
+
 const mapDispatchToProps = dispatch => bindActionCreators({
   postsSearch: actions.postsSearch,
   postCreate: actions.postCreate,
+  postsRelevantSearch: actions.postsRelevantSearch,
+  postsTrendingSearch: actions.postsTrendingSearch,
   commentsSearch: actions.commentsSearch,
   commentCreate: actions.commentCreate,
   userSearch: actions.userSearch,
@@ -71,9 +80,13 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   messageSearch: actions.messageSearch,
   messageCreate: actions.messageCreate,
   hashtagAdd: actions.hashtagAdd,
+  hashtagDelete: actions.hashtagDelete,
   postInfo: actions.postInfo,
   answerSearch: actions.answerSearch,
   answerCreate: actions.answerCreate,
+  userGiveDonuts: actions.userGiveDonuts,
+  commentGiveDonuts: actions.commentGiveDonuts,
+  postGiveDonuts: actions.postGiveDonuts,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -115,6 +128,37 @@ export default class DashBoard extends Component {
     })
   }
 
+  componentDidMount() {
+    const docElm = document.documentElement
+    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
+    const currentUserDonutElm = document.querySelector('#available-donuts')
+    const onClickDonuts$ = Rx.Observable
+      .fromEvent(giveDonutsElm, 'click')
+      .map(event => ({ x: event.clientX, y: event.clientY }))
+
+
+    onClickDonuts$.subscribe(pos => {
+      const rotX = (pos.y / clientHeight * -50) + 25;
+      const rotY = (pos.x / clientWidth * 50) - 25;
+    })
+  }
+
+  componentDidUpdate() {
+    const docElm = document.documentElement
+    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
+    const currentUserDonutElm = document.querySelector('#available-donuts')
+    const onClickDonuts$ = Rx.Observable
+      .fromEvent(giveDonutsElm, 'click')
+      .map(event => ({ x: event.clientX, y: event.clientY }))
+
+    onClickDonuts$.subscribe(pos => {
+      const cloneDonuts = currentUserDonutElm.cloneNode(true)
+      cloneDonuts.style.position = 'absolute'
+      cloneDonuts.style.top = pos.y
+      cloneDonuts.style.left = pos.x
+    })
+  }
+
   onSelectPostType(type) {
     this.setState({
       currentPostType: type,
@@ -148,8 +192,6 @@ export default class DashBoard extends Component {
   }
 
   get renderContent() {
-
-
     const {
       showUserInfo,
       showChannelUsers,
@@ -173,17 +215,23 @@ export default class DashBoard extends Component {
       channels,
       hashtagsTrending,
       hashtagAdd,
+      hashtagDelete,
       answerSearch,
       answerCreate,
       postInfo,
       answers,
       messages,
       notifications,
+      postsTrendingSearch,
+      postsRelevantSearch,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
     } = this.props
 
     const { currentUser } = auth
     const { hashtags: hashtagsCurrentUser, image } = currentUser
-    const { all: allPosts, fetching: isPostsFetching } = posts
+    const { all: allPosts, fetching: isPostsFetching, trending: trendingPosts, relevant: relevantPosts } = posts
     const { all: suggestionedUsers } = users
     const { all: allComments } = comments
     const { all: allChannels } = channels
@@ -192,6 +240,7 @@ export default class DashBoard extends Component {
     const { all: allNotifications } = notifications
 
     const { currentHashTag, currentPostType } = this.state
+
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
@@ -236,7 +285,7 @@ export default class DashBoard extends Component {
     }
 
     if (type) {
-      sortedPosts = sortedPosts.filter(post => post.postType === TYPES[type])
+      sortedPosts = sortedPosts.filter(post => post.type === TYPES[type])
     }
 
     /* **************************************
@@ -272,6 +321,13 @@ export default class DashBoard extends Component {
       answerCreate,
       postInfo,
       allAnswers,
+      postsTrendingSearch,
+      postsRelevantSearch,
+      trendingPosts,
+      relevantPosts,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 
@@ -282,6 +338,7 @@ export default class DashBoard extends Component {
           allChannels={allChannels}
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
+          hashtagDelete={hashtagDelete}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
@@ -297,7 +354,7 @@ export default class DashBoard extends Component {
             {!isChannel ?
               <NavPostType
                 onSelectPostType={::this.onSelectPostType}
-                currentPostType={this.state.currentPostType}
+                currentPostType={currentPostType}
                 currentHashTag={hashtag}
               /> :
               <NavChannel
@@ -306,8 +363,9 @@ export default class DashBoard extends Component {
                 showChannelUsers={showChannelUsers}
               />
             }
-            <div>
-              <Donnut size="large" />
+            <div className={boxDonuts}>
+              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" color="PINK" />{currentUser.availableDonutsCount}</span>
+              <span className={boxDonutsRow}><Donut size="large" color="GREEN" />{currentUser.receivedDonutsCount}</span>
             </div>
           </header>
           <div className={mainContent}>

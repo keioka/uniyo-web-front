@@ -22,6 +22,38 @@
   z-index: 1;
 }
 
+.donuts {
+  position: absolute;
+  top: 0px;
+  transition: top 5s ease-out;
+}
+
+.moveDonuts {
+  animation: shake 0s cubic-bezier(.36,.07,.19,.97) infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 .notification {
   font-size: 0.7rem;
   position: absolute;
@@ -60,16 +92,44 @@
   font-size: 1.6rem;
 }
 
+.box--donuts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box--donuts__row {
+  display: inline-flex;
+  color: #878787;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: $font-family;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.box--donuts__row svg {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 20px 30px;
+  height: 60px;
   border-bottom: 1px solid $lightgray;
   background-color: white;
+  padding: 0px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .header__nav--basic {
+  display: flex;
   position: relative;
+  align-items: center;
 }
 
 .header__nav--basic svg {
@@ -85,7 +145,7 @@
 
 @media only screen and (min-width: 769px) {
   .main {
-    padding-left: 280px; // === leftbar width and padding
+    padding-left: 230px;
     transition: padding-left 0.4s ease;
     transition: width 0.4s ease;
     width: 100%;

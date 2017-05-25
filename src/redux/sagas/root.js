@@ -23,12 +23,19 @@ const {
   channelCreateSaga,
   hashtagTrendingSearchSaga,
   postInfoSaga,
+  hashtagDeleteSaga,
   answerSearchSaga,
   answerCreateSaga,
   notificationSearchSaga,
   notificationReadMarkSaga,
   webSocket,
   watchMarkNotificationAsRead,
+  postsRelevantSearchSaga,
+  postsTrendingSearchSaga,
+  currentUserDonutsSaga,
+  commentGiveDonutsSaga,
+  postGiveDonutsSaga,
+  userGiveDonutsSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -59,7 +66,13 @@ export default function* rootSaga() {
     fork(answerCreateSaga),
     fork(notificationSearchSaga),
     fork(notificationReadMarkSaga),
-
+    fork(hashtagDeleteSaga),
+    fork(postsRelevantSearchSaga),
+    fork(postsTrendingSearchSaga),
+    fork(currentUserDonutsSaga),
+    fork(commentGiveDonutsSaga),
+    fork(postGiveDonutsSaga),
+    fork(userGiveDonutsSaga),
     /*
       saga form UI
     */

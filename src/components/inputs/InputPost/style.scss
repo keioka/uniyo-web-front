@@ -1,23 +1,23 @@
 @import "../../../styles/main";
 
-.input-post--wrapper {
+.wrapper {
   position: relative;
   display: flex;
   background: white;
   border-bottom: 1px solid $gray;
 }
 
-.input-post--wrapper__image-box {
+.wrapper__image-box {
   width: 5%;
   margin-top: 0.5px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  padding: 20px 0px 20px 20px;
+  padding: 20px 0px 20px 40px;
 }
 
-.input-post--wrapper__image-box img {
+.wrapper__image-box img {
   width: 45px;
   height: 45px;
   border-radius: 100%;
@@ -25,17 +25,26 @@
 
 .input {
   z-index: 200;
+  font-size: 25px;
   display: inline-block;
   background: transparent;
   border-radius: 20px;
   padding: 20px 20px 20px 0px;
-  font-size: 16px;
+  // font-size: 16px;
   width: 90%;
   outline: none;
   border: none;
   caret-color: $black;
   top: 0;
   left: 0;
+}
+
+.input:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+  font-size: 25px;
+	font-weight: 500;
+  color: #dcdcdc;
 }
 
 .box--optional {

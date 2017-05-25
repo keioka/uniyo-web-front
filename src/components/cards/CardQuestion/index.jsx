@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 
 import {
   TextPost,
-  Donnut,
+  Donut,
   ListComment,
+  ButtonDonut,
   InputComment,
 } from '../../'
 
@@ -26,7 +27,7 @@ import {
   show,
 } from '../style'
 
-export default class CardQuestion extends Component {
+export default class CardQuestion extends PureComponent {
 
   constructor() {
     super()
@@ -46,13 +47,20 @@ export default class CardQuestion extends Component {
     })
   }
 
+  onClickDonutsHandler(event) {
+    event.stopPropagation()
+    const { postGiveDonuts, id } = this.props
+    postGiveDonuts({ postId: id, amount: 1 })
+  }
+
+
   render() {
     const {
       id,
       text,
       user,
-      likesCount,
-      commentsCount,
+      donutsCount,
+      answersCount,
       currentUserLiked,
       createdAt,
       allComments,
@@ -61,6 +69,7 @@ export default class CardQuestion extends Component {
       commentCreate,
       showUserInfo,
       currentUser,
+      currentPostType,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -76,10 +85,18 @@ export default class CardQuestion extends Component {
               <span className={textUserName}>{user.name}</span>
               {/* <span className={textPostTime}>{time}</span> */}
             </div>
-            <TextPost text={text} showUserInfo={showUserInfo}/>
+            <TextPost
+              text={text}
+              showUserInfo={showUserInfo}
+              currentPostType={currentPostType}
+            />
             <div className={sectionContentFotter}>
-              <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Comments</button>
-              <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
+              <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answer</button>
+              <ButtonDonut
+                className={btnLike}
+                donutsCount={donutsCount}
+                onClick={::this.onClickDonutsHandler}
+              />
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>

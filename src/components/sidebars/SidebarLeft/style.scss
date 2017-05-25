@@ -1,6 +1,6 @@
 @import "../../../styles/main";
 
-$left-padding: 25px;
+$left-padding: 16px;
 
 .wrapper {
   position: fixed;
@@ -14,7 +14,7 @@ $left-padding: 25px;
 }
 
 .section {
-  margin-top: 1.5rem;
+  margin-top: 25px;
   padding: 0;
 }
 
@@ -30,10 +30,12 @@ $left-padding: 25px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
+  color: #2D2D2D;
 }
 
 .section__label span {
-  line-height: 20px;
+  line-height: 15px;
 }
 
 .section__label:after {
@@ -41,8 +43,8 @@ $left-padding: 25px;
 }
 
 .section__label svg {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin-left: 10px;
 }
 
@@ -63,29 +65,51 @@ $left-padding: 25px;
   align-items: center;
 }
 
-.section__tag--all {
-  color: $gray;
+.section__tag--hot {
+  color: $darkgray;
   background-color: white;
   display: flex;
   align-items: center;
 }
 
-.section__tag--all:before {
+.section__tag--hot:before {
   content: '🏫';
-  margin-right: 20px;
+  margin-right: 10px;
 }
+
+.section__text--add {
+  @include label
+  display: inline-block;
+  margin: 4px 25px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 3px dotted inherit;
+}
+
+.section__text--add span{
+  text-transform: capitalize;
+  border-bottom: 2px dotted $darkgray;
+}
+
+.section__text--add {
+  @include label
+  display: inline-block;
+  padding-left: $left-padding;
+  margin: 4px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 3px dotted inherit;
+}
+
 .user-names {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 160px;
-}
-
-.section__tag:hover {
-  background-color: $pink;
-}
-
-.section__tag:hover {
-  color: white;
 }
 
 .icon--channel {
@@ -122,10 +146,18 @@ $left-padding: 25px;
 }
 
 .input--search-tag {
-  margin: 20px 20px;
-  padding: 15px 10px;
+<<<<<<< HEAD
+  margin: 17px 13px 18px 13px;
   font-family: $font-family;
   padding-left: $left-padding;
+  padding: 0px 20px 0px 25px;
+  box-sizing: border-box;
+=======
+  margin: 17px 20px 12px;
+  font-family: $font-family;
+  padding-left: $left-padding;
+  padding: 0px 20px 0px 25px;
+>>>>>>> d2dd96c95337fd040c9062e2568da98132a31d10
 }
 
 .hide {
@@ -163,11 +195,26 @@ $left-padding: 25px;
   border: none;
 }
 
+.tagBtnClose {
+  opacity: 0;
+  margin-left: 12px;
+  width: 16px;
+  height: 16px;
+}
+
+.tagBtnClose:hover {
+  opacity: 1;
+}
+
+.tagBtnClose svg {
+  fill: $darkgray;
+}
+
 @media only screen and (min-width: 769px) {
   .wrapper {
     opacity: 1;
-    min-width: 220px;
-    flex-basis: 220px;
+    min-width: 230px;
+    flex-basis: 230px;
     transition: padding 2s ease;
     transition: opactiy 0.4s ease;
     transition: min-width 0.4s ease;

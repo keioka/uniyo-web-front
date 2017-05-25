@@ -16,8 +16,8 @@ import {
 } from '../../'
 
 import {
-  inputPostWrapper,
-  inputPostWrapperImageBox,
+  wrapper,
+  wrapperImageBox,
   input,
   inputWrapper,
   boxOptional,
@@ -50,9 +50,6 @@ export default class InputPost extends Component {
   componentDidMount() {
     const { hashtag } = this.props
     const self = this
-    if (hashtag) {
-      this._input.innerHTML = `#${hashtag}`
-    }
     // TODO: Move this or connect to redux
     if (!this.props.suggestionedUsers) {
       $('#input').atwho({
@@ -98,10 +95,7 @@ export default class InputPost extends Component {
   componentWillReceiveProps() {
     const { hashtag } = this.props
     const self = this
-    if (hashtag) {
-      this._input.innerHTML = `#${hashtag}`
-    }
-    
+
     if (
       this.props.suggestionedUsers &&
       this.props.suggestionedUsers.length > 0
@@ -154,6 +148,11 @@ export default class InputPost extends Component {
   onPaste(event) {
   }
 
+  onFocus() {
+    const { currentHashTag } = this.props
+    this._input.innerHTML === '' && currentHashTag ? this._input.innerHTML = `#${currentHashTag} ` : ''
+  }
+
   onKeyDown(event) {
     if (event.keyCode === 13 && !event.isDefaultPrevented()) {
       if (!event.shiftKey) {
@@ -165,60 +164,68 @@ export default class InputPost extends Component {
   }
 
   onSubmit() {
-    const { currentPostType } = this.props
+    const { currentPostType, currentHashTag } = this.props
     const text = postTranspiler(this._input)
 
-    if (currentPostType === 'ALL') {
-      this.props.onPostSubmit({
-        postType: 'POST',
-        text,
-      })
-    }
-
-    if (currentPostType === 'REVIEW') {
-      this.props.onPostSubmit({
-        postType: currentPostType,
-        text,
-        rating: this.state.form.rating,
-      })
-    }
-
-    if (currentPostType === 'QUESTION') {
-      this.props.onPostSubmit({
-        postType: currentPostType,
-        text,
-      })
-    }
-
-    if (currentPostType === 'CLASS_NOTE') {
-      if (!this.state.form.file) {
-        // if file is not uploaded.
+    switch (currentPostType) {
+      case 'ALL': {
+        this.props.onPostSubmit({
+          postType: 'POST',
+          text,
+        })
+        break
       }
 
-      this.props.onPostSubmit({
-        postType: currentPostType,
-        text,
-        classNote: this.state.form.file,
-      })
+      case 'REVIEW': {
+        this.props.onPostSubmit({
+          postType: currentPostType,
+          text,
+          rating: this.state.form.rating,
+        })
+        break
+      }
+
+      case 'QUESTION': {
+        this.props.onPostSubmit({
+          postType: currentPostType,
+          text,
+        })
+        break
+      }
+
+      case 'CLASS_NOTE': {
+        this.props.onPostSubmit({
+          postType: currentPostType,
+          text,
+          classNote: this.state.form.file,
+        })
+        break
+      }
+
+      case 'ANSWER': {
+        const { questionId } = this.props
+        this.props.onPostSubmit({
+          text,
+          questionId,
+        })
+        break
+      }
+
+      case 'MESSAGE': {
+        const { channelId } = this.props
+        this.props.onPostSubmit({
+          text,
+          channelId,
+        })
+        break
+      }
+
+      default: {
+        console.warn('InputPost does not have correct post type')
+      }
     }
 
-    if (currentPostType === 'ANSWER') {
-      const { questionId } = this.props
-      this.props.onPostSubmit({
-        text,
-        questionId,
-      })
-    }
-
-    if (currentPostType === 'MESSAGE') {
-      const { channelId } = this.props
-      this.props.onPostSubmit({
-        text,
-        channelId,
-      })
-    }
-
-    this._input.innerHTML = ''
+    currentHashTag ? this._input.innerHTML = `#${currentHashTag} ` : ''
   }
 
   onStarClick(nextValue) {
@@ -227,6 +234,38 @@ export default class InputPost extends Component {
         rating: nextValue,
       },
     })
+  }
+
+  get placeholder() {
+    const { currentPostType, currentHashTag } = this.props
+    let placeholder
+
+    switch (currentPostType) {
+      case 'ALL': {
+        placeholder = currentHashTag ? `#${currentHashTag}` : 'Share'
+        break
+      }
+
+      case 'REVIEW': {
+        placeholder = currentHashTag ? `#${currentHashTag} is the best!` : 'Write a review'
+        break
+      }
+
+      case 'QUESTION': {
+        placeholder = currentHashTag ? `#${currentHashTag}` : 'Share'
+        break
+      }
+
+      case 'CLASS_NOTE': {
+        placeholder = currentHashTag ? `#${currentHashTag} This is nice summary of chapter 4` : 'Share'
+        break
+      }
+
+      default: {
+        placeholder = 'Hi'
+      }
+    }
+    return placeholder
   }
 
   get BoxOptional() {
@@ -262,32 +301,33 @@ export default class InputPost extends Component {
               <h4>{`${(this.state.form.file.size / 1024 / 1024).toFixed(3)}MB`}</h4>
               <button className={btnFileDelete} onClick={(event) => {
                 event.stopPropagation();
-                this.setState({form: { file: null }})
+                this.setState({ form: { file: null } })
               }}></button>
             </div>
           }
         </Dropzone>
       )
     }
-
     return BoxOptional
   }
 
   render() {
-    const { imgUrl, hashtag } = this.props
+    const { imgUrl, hashtag, currentHashTag } = this.props
     return (
-      <span className={inputPostWrapper}>
-        <span className={inputPostWrapperImageBox}>
+      <span className={wrapper}>
+        <span className={wrapperImageBox}>
           <img src={imgUrl || 'loading'} />
         </span>
         {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
         <div className={inputWrapper}>
           <div
             id="input"
+            placeholder={this.placeholder}
             ref={(input) => { this._input = input }}
             className={input}
             contentEditable
             onChange={event => event.preventDefault()}
+            onFocus={::this.onFocus}
             onCopy={::this.onCopy}
             onKeyDown={::this.onKeyDown}
             onPaste={::this.onPaste}

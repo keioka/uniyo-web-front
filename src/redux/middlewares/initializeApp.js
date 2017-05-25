@@ -35,6 +35,10 @@ export const initializeApp = store => next => action => {
       accessToken,
     }))
 
+    store.dispatch(actions.currentUserDonuts({
+      accessToken,
+    }))
+
     store.dispatch({ type: 'WEBSOCKET_INIT' })
   }
 

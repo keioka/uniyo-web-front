@@ -21,6 +21,7 @@ import {
   btnLike,
   btnComment,
   sectionCards,
+  sectionCardsTitle,
 } from './style'
 
 export default class QuestionDashboard extends Component {
@@ -92,13 +93,6 @@ export default class QuestionDashboard extends Component {
   }
 
   render() {
-    const TYPES = {
-      docs: 'CLASS_NOTE',
-      post: 'POST',
-      reviews: 'REVIEW',
-      questions: 'QUESTION',
-    }
-
     const {
       postCreate,
       commentsSearch,
@@ -107,64 +101,11 @@ export default class QuestionDashboard extends Component {
       suggestionedUsers,
       userSearch,
       currentUser,
-      comments,
+      allComments,
     } = this.props
 
-    const { hashtags: hashtagsCurrentUser, image } = currentUser
+    const { image } = currentUser
 
-    const cardFactory = ({ post, commentsSearch,
-    comments, showUserInfo, currentUser }) => {
-      switch(post.postType) {
-        case TYPES['post']:
-          return (
-            <CardPost
-              key={post.id}
-              {...post}
-              currentUser={currentUser}
-              showUserInfo={showUserInfo}
-              commentsSearch={commentsSearch}
-              comments={comments}
-              commentCreate={commentCreate}
-            />
-          )
-        case TYPES['docs']:
-          return (
-            <CardDocument
-              key={post.id}
-              {...post}
-              currentUser={currentUser}
-              showUserInfo={showUserInfo}
-              commentsSearch={commentsSearch}
-              comments={comments}
-              commentCreate={commentCreate}
-            />
-          )
-        case TYPES['reviews']:
-          return (
-            <CardReview
-              key={post.id}
-              {...post}
-              currentUser={currentUser}
-              showUserInfo={showUserInfo}
-              commentsSearch={commentsSearch}
-              comments={comments}
-              commentCreate={commentCreate}
-            />
-          )
-        case TYPES['questions']:
-          return (
-            <CardQuestion
-              key={post.id}
-              {...post}
-              currentUser={currentUser}
-              showUserInfo={showUserInfo}
-              commentsSearch={commentsSearch}
-              comments={comments}
-              commentCreate={commentCreate}
-            />
-          )
-      }
-    }
 
     const { answerCreate } = this.props
     const { questionId } = this.props.params
@@ -174,6 +115,15 @@ export default class QuestionDashboard extends Component {
     if (question) {
       var { user, text, commentsCount, likesCount } = question
     }
+
+
+    const answerBest = answers.filter(answer => answer.isBestAnswer)
+    const isBestAnswerExsist = answerBest.lenght > 0
+    const answerRecent = answers && answers[answers.length - 1]
+
+    // TODO: Avoid Mutation
+    const answersOther = [...answers]
+    answersOther.splice(answers.length - 1, 1)
 
     return (
       <div ref={(div)=> this._dashboard = div}>
@@ -189,7 +139,6 @@ export default class QuestionDashboard extends Component {
               </div>
               <TextPost text={text} showUserInfo={showUserInfo} />
               <div className={sectionContentFotter}>
-                <button className={btnLike} data-count={commentsCount}>comments</button>
                 <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
               </div>
             </div>
@@ -204,14 +153,49 @@ export default class QuestionDashboard extends Component {
           showUserInfo={showUserInfo}
           questionId={questionId}
         />
+        {isBestAnswerExsist &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>BEST ANSWER</h3>
+            {answerBest.map(answer => {
+              return (
+                <CardPost
+                  key={answer.id}
+                  {...answer}
+                  comments={allComments}
+                  currentUser={currentUser}
+                  commentCreate={commentCreate}
+                  commentsSearch={commentsSearch}
+                />
+              )
+            })}
+          </div>
+        }
+        { answerRecent &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>MOST RECENT ANSWER</h3>
+            <CardPost
+              key={answerRecent.id}
+              {...answerRecent}
+              comments={allComments}
+              currentUser={currentUser}
+              commentCreate={commentCreate}
+              commentsSearch={commentsSearch}
+            />
+          </div>
+        }
         <div className={sectionCards}>
-          {answers.map(answer => {
-            return (
-              <CardPost {...answer} />
-            )
-          })}
+          <h3 className={sectionCardsTitle}>OTHER ANSWERS</h3>
+          {answersOther.map(answer => (
+            <CardPost
+              key={answer.id}
+              {...answer}
+              comments={allComments}
+              currentUser={currentUser}
+              commentCreate={commentCreate}
+              commentsSearch={commentsSearch}
+            />
+            ))}
         </div>
-
       </div>
     )
   }

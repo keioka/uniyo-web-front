@@ -56,7 +56,6 @@ function subscribe(socket) {
       let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
-      console.log('message type', type)
       switch (type) {
         case 'SOCKET_READY': {
           emit({ type: 'WEBSOCKET_READY', response })
@@ -206,10 +205,27 @@ function* eventWebSocket() {
         }
 
         case 'NOTIFICATIONS_READ': {
-          console.log(payload.data)
           const { notificationIds } = payload.data
           const notificationId = notificationIds[0]
           // action = { type: actionTypes.notificationReadMark.success, result: { data: { notificationId } } }
+          break
+        }
+
+        case 'USER_RECEIVED_DONUT': {
+          const { amount, user } = payload.data
+          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { amount, user } } }
+          break
+        }
+
+        case 'POST_RECEIVED_DONUT': {
+          const { postId, amount } = payload.data
+          action = { type: actionTypes.postDonutsCountFetch.success, result: { data: { postId, amount } } }
+          break
+        }
+
+        case 'USER_SPENT_DONUT': {
+          const { amount } = payload.data
+          action = { type: actionTypes.userSpentDonutsFetch.success, result: { data: { amount }  } }
           break
         }
 

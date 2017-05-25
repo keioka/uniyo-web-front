@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 
 import {
   TextPost,
-  Donnut,
+  Donut,
   ListComment,
   InputComment,
+  ButtonDonut,
 } from '../../'
 
 import {
@@ -27,7 +28,7 @@ import {
   show,
 } from '../style'
 
-export default class CardPost extends Component {
+export default class CardPost extends PureComponent  {
 
   constructor() {
     super()
@@ -37,16 +38,20 @@ export default class CardPost extends Component {
   }
 
   onClickCommentHandler(event) {
-    event.preventDefault()
-    event.stopPropagation()
     const { commentsSearch, commentsCount, id } = this.props
-    if (commentsCount > 0) {
+    if (commentsCount > 0 && !this.state.toggle) {
       commentsSearch({ postId: id })
     }
 
     this.setState({
       toggle: !this.state.toggle,
     })
+  }
+
+  onClickDonutsHandler(event) {
+    event.stopPropagation()
+    const { postGiveDonuts, id } = this.props
+    postGiveDonuts({ postId: id, amount: 1 })
   }
 
   render() {
@@ -56,6 +61,7 @@ export default class CardPost extends Component {
       user,
       likesCount,
       commentsCount,
+      donutsCount,
       currentUserLiked,
       createdAt,
       commentsSearch,
@@ -63,6 +69,10 @@ export default class CardPost extends Component {
       comments,
       showUserInfo,
       currentUser,
+      postGiveDonuts,
+      userGiveDonuts,
+      commentGiveDonuts,
+      currentPostType,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -71,18 +81,32 @@ export default class CardPost extends Component {
 
     return (
       <div key={id} className={wrapper}>
-        <div className={sectionImage}>
+        <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
-            <span className={textUserName}>{user.name}</span>
+            <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.name}</span>
             {/* <span className={textPostTime}>{time}</span> */}
           </div>
-          <TextPost text={text} showUserInfo={showUserInfo} />
+          <TextPost
+            text={text}
+            showUserInfo={showUserInfo}
+            currentPostType={currentPostType}
+          />
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
-            <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
+            <button
+              className={btnComment}
+              data-count={commentsCount}
+              onClick={::this.onClickCommentHandler}
+            >
+                comments
+            </button>
+            <ButtonDonut
+              className={btnLike}
+              donutsCount={donutsCount}
+              onClick={::this.onClickDonutsHandler}
+            />
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
@@ -90,7 +114,15 @@ export default class CardPost extends Component {
                 <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
               </div>
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
+                {comments && comments.map(comment =>
+                  <ListComment
+                    key={comment.id}
+                    commentGiveDonuts={commentGiveDonuts}
+                    {...comment}
+                  >
+                    {comment.text}
+                  </ListComment>
+                )}
               </ul>
             </div>
           }
