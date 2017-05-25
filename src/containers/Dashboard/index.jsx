@@ -240,6 +240,7 @@ export default class DashBoard extends Component {
     const { all: allNotifications } = notifications
 
     const { currentHashTag, currentPostType } = this.state
+
     const { hashtag, type } = location.query
     const { isOpen } = rightbar
     const toggleDisplayRightBar = isOpen ? mainShrink : mainExpand
@@ -353,7 +354,7 @@ export default class DashBoard extends Component {
             {!isChannel ?
               <NavPostType
                 onSelectPostType={::this.onSelectPostType}
-                currentPostType={this.state.currentPostType}
+                currentPostType={currentPostType}
                 currentHashTag={hashtag}
               /> :
               <NavChannel

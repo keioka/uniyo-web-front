@@ -121,6 +121,9 @@
   border-bottom: 1px solid $lightgray;
   background-color: white;
   padding: 0px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .header__nav--basic {
@@ -142,7 +145,7 @@
 
 @media only screen and (min-width: 769px) {
   .main {
-    padding-left: 280px; // === leftbar width and padding
+    padding-left: 230px; 
     transition: padding-left 0.4s ease;
     transition: width 0.4s ease;
     width: 100%;
