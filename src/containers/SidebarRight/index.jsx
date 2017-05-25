@@ -48,6 +48,7 @@ const {
 const {
   channelCreate,
   notificationReadMark,
+  userGiveDonuts,
 } = actions
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -60,6 +61,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   channelCreate,
   notificationReadMark,
   setReadNotificationIds,
+  userGiveDonuts,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -79,6 +81,7 @@ export default class SidebarRight extends Component {
       notificationReadMark,
       donutsHistory,
       showHistoryDonut,
+      userGiveDonuts,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -93,6 +96,7 @@ export default class SidebarRight extends Component {
             user={userInfo}
             channels={allChannels}
             channelCreate={channelCreate}
+            userGiveDonuts={userGiveDonuts}
           />
         )
       }

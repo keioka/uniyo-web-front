@@ -42,7 +42,6 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
 
 
  const NavPostType = ({ currentPostType, onSelectPostType, currentHashTag }) => {
-  console.log(currentPostType)
   return (
     <ul className={wrapper}>
       {types.map((type) => {
