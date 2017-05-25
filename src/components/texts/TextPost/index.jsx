@@ -24,12 +24,9 @@ const TextPost = ({ text, showUserInfo, currentPostType }) => {
 
   parsedText = reactStringReplace(parsedText, /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g, (tag, i) => {
     let type
-    console.log(currentPostType)
     if (currentPostType) {
       type = TYPES[currentPostType]
     }
-
-    console.log(type)
 
     const link = type ? `/dashboard?type=${type}&hashtag=${tag}` : `/dashboard?hashtag=${tag}`
     return (
