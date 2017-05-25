@@ -115,8 +115,15 @@ export default class IndexDashboard extends Component {
     const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { hashtag, type } = location.query
 
-    const cardFactory = ({ post, commentsSearch,
-    comments, showUserInfo, currentUser }) => {
+    const cardFactory = ({
+      post,
+      commentsSearch,
+      comments,
+      showUserInfo,
+      currentUser,
+      currentPostType,
+    }) => {
+
       switch(post.type) {
         case TYPES['post']:
           return (
@@ -131,6 +138,7 @@ export default class IndexDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
         case TYPES['docs']:
@@ -146,6 +154,7 @@ export default class IndexDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
         case TYPES['reviews']:
@@ -161,6 +170,7 @@ export default class IndexDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
         case TYPES['questions']:
@@ -176,6 +186,7 @@ export default class IndexDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              currentPostType={currentPostType}
             />
           )
       }
