@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 
@@ -28,7 +28,7 @@ import {
   show,
 } from '../style'
 
-export default class CardPost extends Component {
+export default class CardPost extends PureComponent  {
 
   constructor() {
     super()
@@ -72,6 +72,7 @@ export default class CardPost extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      currentPostType,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -80,25 +81,29 @@ export default class CardPost extends Component {
 
     return (
       <div key={id} className={wrapper}>
-        <div className={sectionImage}>
+        <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
-            <span className={textUserName}>{user.name}</span>
+            <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.name}</span>
             {/* <span className={textPostTime}>{time}</span> */}
           </div>
-          <TextPost text={text} showUserInfo={showUserInfo} />
+          <TextPost
+            text={text}
+            showUserInfo={showUserInfo}
+            currentPostType={currentPostType}
+          />
           <div className={sectionContentFotter}>
             <button
-              className={btnLike}
+              className={btnComment}
               data-count={commentsCount}
               onClick={::this.onClickCommentHandler}
             >
                 comments
             </button>
             <ButtonDonut
-              className={btnComment}
+              className={btnLike}
               donutsCount={donutsCount}
               onClick={::this.onClickDonutsHandler}
             />

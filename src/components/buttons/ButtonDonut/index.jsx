@@ -8,7 +8,12 @@ import {
   element,
 } from './style'
 
-const ButtonDonuts = ({ className, donutsCount, onClickDonutsHandler, onClick }) => {
+const ButtonDonuts = ({
+  className,
+  donutsCount,
+  onClickDonutsHandler,
+  onClick
+}) => {
   const classNames = `${element} ${className}`
   return (
     <button

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 
@@ -6,6 +6,7 @@ import {
   TextPost,
   Donut,
   ButtonFile,
+  ButtonDonut,
   ListComment,
   InputComment,
 } from '../../'
@@ -29,7 +30,7 @@ import {
   show,
 } from '../style'
 
-export default class CardDocument extends Component {
+export default class CardDocument extends PureComponent {
 
   constructor() {
     super()
@@ -73,6 +74,7 @@ export default class CardDocument extends Component {
       commentCreate,
       showUserInfo,
       currentUser,
+      currentPostType,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -90,18 +92,21 @@ export default class CardDocument extends Component {
             <span className={textUserName}>{user.name}</span>
             {/* <span className={textPostTime}>{time}</span> */}
           </div>
-          <TextPost text={text} showUserInfo={showUserInfo} />
+          <TextPost
+            text={text}
+            showUserInfo={showUserInfo}
+            currentPostType={currentPostType}
+          />
           <div className={sectionFileDetail}><ButtonFile {...this.props}/></div>
           <div className={sectionContentFotter}>
-            <button className={btnLike} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>comments</button>
-            <button
-              className={btnComment}
-              data-role='give-donuts'
-              data-count={donutsCount}
-              onClick={::this.onClickDonutsHandler}
-            >
-              <Donut size="xs" />
+            <button className={btnComment} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>
+              comments
             </button>
+            <ButtonDonut
+              className={btnLike}
+              donutsCount={donutsCount}
+              onClick={::this.onClickDonutsHandler}
+            />
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>

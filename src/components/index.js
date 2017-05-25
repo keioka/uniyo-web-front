@@ -64,6 +64,8 @@ export CardPost from './cards/CardPost'
 export CardReview from './cards/CardReview'
 export CardQuestion from './cards/CardQuestion'
 export CardDocument from './cards/CardDocument'
+export CardFake from './cards/CardFake'
+
 /*
   input
 */
@@ -109,3 +111,4 @@ export ListNewChatUser from './lists/ListNewChatUser'
 export ListRecentConversation from './lists/ListRecentConversation'
 export ListNotification from './lists/ListNotification'
 export ListDonutsReceive from './lists/ListDonutsReceive'
+export ListHashtag from './lists/ListHashtag'
