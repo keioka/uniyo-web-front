@@ -8,6 +8,7 @@ import {
 import {
   boxImage,
   fontName,
+  fontTime,
   imgUser,
   wrapper,
   sectionContent,
@@ -25,7 +26,7 @@ const ListMessage = ({ messages, showUserInfo }) => {
       </div>
       <div className={sectionContent}>
         <span className={fontName}>{user.firstName}</span>
-        <span>{time}</span>
+        <span className={fontTime}>{time}</span>
         {messages.map(message => <p className={paragaph}><TextPost text={message.text} showUserInfo={showUserInfo} /></p>)}
       </div>
     </li>

@@ -8,6 +8,7 @@ import {
 } from '../../../index'
 
 import {
+  page,
   header,
   headerBar,
   headerBarChannelInfo,
@@ -19,6 +20,9 @@ import {
   sectionMessagesChunk,
   sectionMessagesChunkHeader,
   sectionMessagesChunkDate,
+  sectionMessagesChunkContent,
+  fontGroupName,
+  fontDescription,
 } from './style'
 
 export default class ChannelDashboard extends Component {
@@ -41,7 +45,7 @@ export default class ChannelDashboard extends Component {
       channelId,
       around: timeNow,
     })
-    document.body.scrollTop = document.body.scrollHeight
+    document.body.scrollTop = document.body.scrollHeight + 2000
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,7 +63,7 @@ export default class ChannelDashboard extends Component {
     const { allMessages, showUserInfo } = this.props
     // if new message is coming through
     if (allMessages.length !== nextProps.allMessages.length) {
-      document.body.scrollTop = document.body.scrollHeight
+      document.body.scrollTop = document.body.scrollHeight + 2000
     }
   }
 
@@ -216,7 +220,7 @@ export default class ChannelDashboard extends Component {
                   {key}
                 </div>
               </div>
-              <div>{componentsMessages}</div>
+              <div className={sectionMessagesChunkContent}>{componentsMessages}</div>
             </div>
           )
         })
@@ -237,20 +241,18 @@ export default class ChannelDashboard extends Component {
       messageSearch,
       messageCreate,
     } = this.props
-
     const { channelId } = this.props.params
     const channel = allChannels.filter(channel => channel.id == channelId)[0]
     const messages = allMessages.filter(message => message.channelId == channelId)
     const { hashtags: hashtagsCurrentUser, image } = currentUser
     return (
-      <div ref={(div)=> this._dashboard = div}>
+      <div className={page} ref={(div)=> this._dashboard = div}>
         <div className={header}>
           <div className={headerBar}>
             <div className={headerBarChannelInfo}>
-              <div className={headerBarChannelInfoUsersCount}>{channel && channel.users.length}</div>
               <div className={headerBarChannelInfoDescription}>
-                <span>Title</span>
-                <span>description</span>
+                <span className={fontGroupName}>{channel && channel.name || 'Private Group Name' }</span>
+                <span className={fontDescription}>{channel && channel.description || 'Add a short description' }</span>
               </div>
             </div>
           </div>
