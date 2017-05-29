@@ -8,11 +8,10 @@ import {
   CardReview,
   CardQuestion,
   InputPost,
+  BarTag,
 } from '../../../index'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
-
-import Cross from './cross'
 
 import {
   sectionCards,
@@ -203,18 +202,11 @@ export default class IndexDashboard extends Component {
           showUserInfo={showUserInfo}
         />
        {hashtag &&
-         <div
-           className={barFilter}
-           onClearCurrentTypeHandler={onClearCurrentTypeHandler}
-         >
-           <Link
-             to={type ? `dashboard?type=${type}` : `dashboard`}
-             className={btnClose}
-           >
-             <Cross />
-           </Link>
-           <span>#{hashtag}</span>
-        </div>
+          <BarTag
+            type={type}
+            hashtag={hashtag}
+            onClearCurrentTypeHandler={onClearCurrentTypeHandler}
+          />
        }
        <div className={sectionCards}>
          {this.props.posts.map((post) => {

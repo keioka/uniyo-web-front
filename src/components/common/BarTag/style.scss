@@ -1,0 +1,25 @@
+@import "../../../styles/main";
+
+.bar--filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 40px;
+  background-color: $pink;
+  font-size: 1.6rem;
+}
+
+.btn--close {
+  display: flex;
+  margin-right: 10px;
+  fill: white;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  padding: 3px 10px;
+}
+
+.btn--close svg {
+  fill: white;
+  width: 0.6rem;
+}
