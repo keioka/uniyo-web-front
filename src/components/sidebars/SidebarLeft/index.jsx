@@ -61,11 +61,13 @@ export default class SidebarLeft extends Component {
     const { keywordForSort } = this.state
     const { allChannels, hashtagsCurrentUser, hashtagsTrending, hashtagDelete } = this.props
 
-    const ListChannel = ({ className, channel }) => (
-      <Link
-        className={className}
-        key={channel.id}
-        to={`/dashboard/channels/${channel.id}`}
+    const ListChannel = ({ className, channel }) => {
+      const users = channel.users.length === 1 ? channel.users : channel.users.slice(0, channel.users.length - 1)
+      return (
+        <Link
+          className={className}
+          key={channel.id}
+          to={`/dashboard/channels/${channel.id}`}
         >
           <li className={sectionTag}>
             {channel.users.length > 1 ?
@@ -73,10 +75,11 @@ export default class SidebarLeft extends Component {
                 {channel.users.length}
               </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
             }
-            <span className={userNames}>{channel.users.map(user => user.name.split(' ')[0]).join(', ')}</span>
+            <span className={userNames}>{users.map(user => user.name.split(' ')[0]).join(', ')}</span>
           </li>
         </Link>
       )
+    }
 
       const ComponentsHashtag = hashtagsCurrentUser &&
       Array.from(new Set(hashtagsCurrentUser)).filter(hashtag =>
