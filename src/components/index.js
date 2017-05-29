@@ -99,6 +99,7 @@ export TextMention from './texts/TextMention'
 */
 
 export Donut from './common/Donut'
+export DonutPlusOne from './common/DonutPlusOne'
 export BarTag from './common/BarTag'
 
 
@@ -106,6 +107,7 @@ export BarTag from './common/BarTag'
   list
 */
 
+export ListUserDonutGive from './lists/ListUserDonutGive'
 export ListComment from './lists/ListComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
 export ListMessage from './lists/ListMessage'

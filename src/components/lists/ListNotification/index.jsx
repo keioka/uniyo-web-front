@@ -63,9 +63,8 @@ const ListNotification = ({
       component = (
         <span>
           <span>
-            @{user.firstName}
+            @{user.firstName} mentioned you on his post
           </span>
-          mentioned you on his post
         </span>
       )
       userImageUrl = user.image.smallUrl
@@ -73,12 +72,12 @@ const ListNotification = ({
     }
 
     case 'POST_HASHTAG': {
-      component = (<span><span>@{user.firstName}</span> mentioned you on his post</span>)
+      component = (<span><span>@{user.firstName}</span> posted new one</span>)
       break
     }
 
     case 'NEW_CHANNEL_MESSAGE': {
-      const user = notification.channel.users[1]
+      const user = notification.channel.users[0]
       userImageUrl = user ? user.image.smallUrl : ''
       component = (<span>new messages in your private chat with <span>@{user.firstName}</span></span>)
       break

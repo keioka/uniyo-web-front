@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import moment from 'moment'
 import Close from './close'
@@ -40,7 +40,7 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
   return path
 }
 
-class ListHashtag extends PureComponent {
+class ListHashtag extends Component {
   render() {
     const {
       className,

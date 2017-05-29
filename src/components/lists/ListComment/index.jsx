@@ -10,6 +10,7 @@ import {
   fontName,
   imgUser,
   wrapper,
+  content,
 } from './style'
 
 const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount }) => {
@@ -19,11 +20,13 @@ const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount }) => {
         <img src={user.image.smallUrl} className={imgUser} />
       </span>
       <span className={fontName}>{user.firstName}</span>
-      <TextPost text={text} />
-      <ButtonDonut
-        donutsCount={donutsCount}
-        onClick={(event) => {   event.stopPropagation(); commentGiveDonuts({ commentId: id, amount: 1 })} }
-      />
+      <span className={content}>
+        <TextPost text={text} />
+        <ButtonDonut
+          donutsCount={donutsCount}
+          onClick={(event) => {   event.stopPropagation(); commentGiveDonuts({ commentId: id, amount: 1 })} }
+        />
+      </span>
     </li>
   )
   // TODO: what if long comment

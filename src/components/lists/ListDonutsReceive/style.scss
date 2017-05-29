@@ -3,10 +3,9 @@
   list-style: none;
   align-items: center;
   background: white;
-  border-radius: 10px;
-  margin: 10px;
-  height: 60px;
-  padding: 10px 10px;
+  border-radius: 15px;
+  margin: 11px 17px;
+  padding: 8px;
   box-sizing: border-box;
 }
 
@@ -18,7 +17,9 @@
 
 .boxInfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .boxImage img {
@@ -28,9 +29,25 @@
 }
 
 .fontName {
+  font-size: 12px;
+  color: #4b4b4b;
+}
 
+.fontName b {
+  color: #2d2d2d;
+}
+
+.fontTime {
+	font-size: 9px;
+	font-weight: 900;
+  color: #bdbdbd;
 }
 
 .imgUser {
 
+}
+
+.boxInfoLeft {
+  display: flex;
+  flex-direction: column;
 }
