@@ -27,10 +27,6 @@ import {
   btnFileDelete,
 } from './style'
 
-// Since the decorators are stored in the EditorState it's important to not reset the complete EditorState.
-// The proper way is to reset the ContentState which is part of the EditorState. In addition this ensures proper undo/redo behavior.
-//https://github.com/draft-js-plugins/draft-js-plugins/blob/master/FAQ.md
-
 export default class InputPost extends Component {
 
   static propTypes = {
@@ -242,7 +238,7 @@ export default class InputPost extends Component {
 
     switch (currentPostType) {
       case 'ALL': {
-        placeholder = currentHashTag ? `#${currentHashTag}` : 'Share'
+        placeholder = currentHashTag ? `#${currentHashTag} Feed the news with hashtags` : 'Share'
         break
       }
 

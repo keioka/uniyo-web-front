@@ -8,6 +8,8 @@ import { Link } from 'react-router'
 
 import {
   wrapper,
+  sidebarOpen,
+  sidebarClose,
   userInfo,
   notification,
   historyDonut,
@@ -48,6 +50,7 @@ const {
 const {
   channelCreate,
   notificationReadMark,
+  notificationSearch,
   userGiveDonuts,
 } = actions
 
@@ -59,6 +62,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   hideNotification,
   hideHistoryDonut,
   channelCreate,
+  notificationSearch,
   notificationReadMark,
   setReadNotificationIds,
   userGiveDonuts,
@@ -78,6 +82,7 @@ export default class SidebarRight extends Component {
       channels,
       notifications,
       setReadNotificationIds,
+      notificationSearch,
       notificationReadMark,
       donutsHistory,
       showHistoryDonut,
@@ -113,6 +118,7 @@ export default class SidebarRight extends Component {
         return (
           <SidebarRightNotification
             allNotifications={allNotifications}
+            notificationSearch={notificationSearch}
             notificationReadMark={notificationReadMark}
           />
         )
@@ -130,17 +136,26 @@ export default class SidebarRight extends Component {
 
   render() {
     const { displayType, isOpen, userInfo } = this.props.rightbar
-    const { channelCreate, channels, showHistoryDonut, hideSidebarRight, donutsHistory } = this.props
+    const {
+      channelCreate,
+      channels,
+      showHistoryDonut,
+      hideSidebarRight,
+      donutsHistory,
+      notificationSearch,
+    } = this.props
+
     const { all: allChannels } = channels
     const userImages = [...new Set(donutsHistory.map(history => history.fromUser.image.mediumUrl))].slice(0, 3)
+
+    const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
+
     return (
       <div>
-        { isOpen ? (
-          <aside className={wrapper}>
-            <div className={close} onClick={() => hideSidebarRight()}></div>
-            {this.display()}
-          </aside>
-        ) : null }
+        <aside className={wrapperClassNames.join(' ')}>
+          {isOpen && <div className={close} onClick={() => hideSidebarRight()}></div>}
+          {this.display()}
+        </aside>
         { !isOpen &&
         <div className={btnDonutsHistory}>
           <div className={btnDonutsHistoryInner}>

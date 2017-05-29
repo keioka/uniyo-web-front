@@ -24,6 +24,7 @@ import {
   QuestionDashboard,
   ChannelDashboard,
   ChannelNewDashboard,
+  PostShowDashboard,
   PostTopDashboard,
 } from './components'
 
@@ -50,7 +51,7 @@ export default () => (
         <Route path="/dashboard/questions/:questionId" component={QuestionDashboard} />
         <Route path="/dashboard/notifications" />
         <Route path="/dashboard/posts/top" component={PostTopDashboard} />
-        <Route path="/dashboard/posts/:postId" />
+        <Route path="/dashboard/posts/:postId" component={PostShowDashboard} />
       </Route>
 
       <Route path="/error/:errorCode" />

@@ -10,6 +10,7 @@ import {
   header,
   headerTitle,
   ul,
+  ulTitle,
 } from './style'
 
 class SidebarRightNotification extends Component {
@@ -21,23 +22,48 @@ class SidebarRightNotification extends Component {
   // isRead false and is same channel and show latest time and
 
   render() {
-    const { allNotifications, notificationReadMark, setReadNotificationIds } = this.props
+    const {
+      allNotifications,
+      notificationReadMark,
+      setReadNotificationIds,
+      notificationSearch,
+    } = this.props
 
     const countNotification = allNotifications.filter(notification => !notification.isRead).length
+    const newNotification = allNotifications.filter((notification) => !notification.isRead)
+    const pastNotifications = allNotifications.filter((notification) => notification.isRead)
 
     return (
       <div className={wrapper} >
         <header className={header}>
-          <h3 className={headerTitle} data-count-notification={countNotification}>Notification</h3>
+          <h3 className={headerTitle} data-count-notification={countNotification}>
+            Notification
+          </h3>
         </header>
         <ul className={ul}>
           { allNotifications &&
-            allNotifications.map(notification =>
-                              <ListNotification
-                                notification={notification}
-                                notificationReadMark={notificationReadMark}
-                                onVisiable={notificationReadMark}
-                              />)
+          <div>
+            {newNotification.map(notification =>
+              <ListNotification
+                notification={notification}
+                notificationReadMark={notificationReadMark}
+                onVisiable={notificationReadMark}
+              />
+            )}
+            <h3 className={ulTitle}>Past Notification 👵🏻</h3>
+            {pastNotifications.map((notification, index) => {
+              const isLastNotification = (index === (pastNotifications.length - 1))
+              return (
+                <ListNotification
+                  notification={notification}
+                  notificationReadMark={notificationReadMark}
+                  onVisiable={notificationReadMark}
+                  notificationSearch={notificationSearch}
+                  isLastNotification={isLastNotification}
+                />
+              )
+            })}
+          </div>
           }
         </ul>
       </div>

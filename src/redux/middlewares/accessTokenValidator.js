@@ -32,7 +32,8 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.postsRelevantSearch.request ||
     action.type === actionTypes.postGiveDonuts.request ||
     action.type === actionTypes.commentGiveDonuts.request ||
-    action.type === actionTypes.userGiveDonuts.request
+    action.type === actionTypes.userGiveDonuts.request ||
+    action.type === actionTypes.notificationSearch.request
   ) {
     action.accessToken = storage.accessToken
   }
@@ -56,7 +57,7 @@ export const accessTokenValidator = store => next => action => {
     setTokens.then((result) => {
       console.log('%c Token is saved on local server ', 'color: blue')
       store.dispatch(actions.postsSearch({
-        limit: 50,
+        limit: 10,
         accessToken: storage.accessToken
       }))
     }).catch((e) => {
