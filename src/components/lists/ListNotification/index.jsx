@@ -78,7 +78,7 @@ const ListNotification = ({
     }
 
     case 'NEW_CHANNEL_MESSAGE': {
-      const user = notification.channel.users[1]
+      const user = notification.channel.users[0]
       userImageUrl = user ? user.image.smallUrl : ''
       component = (<span>new messages in your private chat with <span>@{user.firstName}</span></span>)
       break
