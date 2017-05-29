@@ -35,6 +35,7 @@ const mapStateToProps = state => ({
   channels: state.api.channels,
   notifications: state.api.notifications,
   formNotifications: state.form.notifications,
+  users: state.api.users,
 })
 
 const {
@@ -52,6 +53,7 @@ const {
   notificationReadMark,
   notificationSearch,
   userGiveDonuts,
+  userSearch,
 } = actions
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -66,6 +68,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   notificationReadMark,
   setReadNotificationIds,
   userGiveDonuts,
+  userSearch,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -77,6 +80,7 @@ export default class SidebarRight extends Component {
   display() {
 
     const {
+      users,
       rightbar,
       channelCreate,
       channels,
@@ -87,10 +91,11 @@ export default class SidebarRight extends Component {
       donutsHistory,
       showHistoryDonut,
       userGiveDonuts,
+      userSearch,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
-
+    const { all: allUsers } = users
     const { all: allChannels } = channels
     const { all: allNotifications } = notifications
 
@@ -127,6 +132,8 @@ export default class SidebarRight extends Component {
       case 'Donuts': {
         return (
           <SidebarRightHistoryDonuts
+            userSearch={userSearch}
+            allUsers={allUsers}
             donutsHistory={donutsHistory}
           />
         )
@@ -146,6 +153,7 @@ export default class SidebarRight extends Component {
     } = this.props
 
     const { all: allChannels } = channels
+
     const userImages = [...new Set(donutsHistory.map(history => history.fromUser.image.mediumUrl))].slice(0, 3)
 
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]

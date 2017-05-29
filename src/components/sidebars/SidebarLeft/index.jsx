@@ -88,10 +88,10 @@ export default class SidebarLeft extends Component {
           if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
             classNames.push(hide)
           }
-
+          classNames.join(' ')
           return (
             <ListHashtag
-              className={classNames.join(' ')}
+              className={classNames}
               hashtag={hashtag.hashtag}
               hashtagType={hashtag.type}
               hashtagDelete={hashtagDelete}
