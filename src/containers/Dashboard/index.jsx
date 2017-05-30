@@ -9,7 +9,7 @@ import Rx from 'rx'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
-
+import * as pushNotification from '../../services/pushNotification'
 
 import {
   SidebarRight,
@@ -33,17 +33,15 @@ import {
   mainContent,
   mainShrink,
   mainExpand,
-  footer,
-  barNoification,
-  inputPostWrapper,
-  inputPostWrapperImageBox,
-  input,
   icon,
   notification,
   boxDonuts,
   boxDonutsRow,
   moveDonuts,
   donuts,
+  barPushNotification,
+  barPushNotificationButtonSubscribe,
+  barPushNotificationButtonClose,
 } from './style'
 
 import Setting from './settings.svg'
@@ -141,6 +139,8 @@ export default class DashBoard extends Component {
       const rotX = (pos.y / clientHeight * -50) + 25;
       const rotY = (pos.x / clientWidth * 50) - 25;
     })
+
+    pushNotification.subscribe()
   }
 
   componentDidUpdate() {
@@ -389,6 +389,19 @@ export default class DashBoard extends Component {
     // TODO: fetching case
     return (
       <LayoutDashboard>
+        {pushNotification.permissionStatus === "default" &&
+        <div className={barPushNotification}>
+          <Donut size="sm" />
+          UniYo needs your permission to enable desktop notifications.
+          <button
+            className={barPushNotificationButtonSubscribe}
+            onClick={() => pushNotification.requestPermissionForNotifications()}
+          >
+            Setting
+          </button>
+          <button className={barPushNotificationButtonClose}>X</button>
+        </div>
+        }
         { this.renderContent }
       </LayoutDashboard>
     )
