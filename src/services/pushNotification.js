@@ -1,6 +1,4 @@
-const base64UrlEncodedApplicationServerKey = process.env.NODE_ENV === "production"
-  ? "BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts"
-  : "BOyrRA5otpkiB4pm4ZX6ev1JravtZmH8V2W_CewV9Yv_gxSEKV6ESiaDK1Ni32BAEpXssIVLhm4_UAQIZZ25wYg"
+const base64UrlEncodedApplicationServerKey = "BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts"
 const browserSupportsNotifications = ("Notification" in window && "serviceWorker" in navigator)
 
 const base64UrlToUint8Array = (base64UrlData) => {
@@ -15,14 +13,14 @@ const base64UrlToUint8Array = (base64UrlData) => {
   }
   return buffer
 }
+
 export const permissionStatus = Notification.permission
 
-export async function subscribe() {
-  console.log('subscribe')
-  console.log('browserSupportsNotifications', browserSupportsNotifications)
-  console.log('Notification.permission', Notification.permission)
+let addDeviceAction
+
+export async function subscribe(addDevice) {
+  addDeviceAction = addDevice
   if (browserSupportsNotifications && Notification.permission === "granted") {
-    console.log('subscribe permission')
     await syncSubscription()
   }
 }
@@ -37,8 +35,6 @@ export async function requestPermissionForNotifications() {
 }
 
 export async function syncSubscription() {
-  console.log('syncSubscription')
-
   const applicationServerKey = base64UrlToUint8Array(base64UrlEncodedApplicationServerKey)
   const subscriptionOptions = {
     userVisibleOnly: true,
@@ -51,8 +47,10 @@ export async function syncSubscription() {
 
     // If the browser doesn't support payloads, the subscription object won't contain keys.
     const data = JSON.parse(JSON.stringify(subscription))
+    const { endpoint, keys } = data
+    const { auth: authSecret, p256dh: p256dhKey } = keys
     if (data.keys) {
-      
+      addDeviceAction({ endpoint, authSecret, p256dhKey })
     }
 
     return true

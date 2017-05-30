@@ -85,6 +85,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userGiveDonuts: actions.userGiveDonuts,
   commentGiveDonuts: actions.commentGiveDonuts,
   postGiveDonuts: actions.postGiveDonuts,
+  addDevice: actions.addDevice,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -140,7 +141,8 @@ export default class DashBoard extends Component {
       const rotY = (pos.x / clientWidth * 50) - 25;
     })
 
-    pushNotification.subscribe()
+    const { addDevice } = this.props
+    pushNotification.subscribe(addDevice)
   }
 
   componentDidUpdate() {

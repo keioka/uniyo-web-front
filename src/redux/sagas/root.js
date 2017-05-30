@@ -36,6 +36,7 @@ const {
   commentGiveDonutsSaga,
   postGiveDonutsSaga,
   userGiveDonutsSaga,
+  addDeviceSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -73,6 +74,7 @@ export default function* rootSaga() {
     fork(commentGiveDonutsSaga),
     fork(postGiveDonutsSaga),
     fork(userGiveDonutsSaga),
+    fork(addDeviceSaga),
     /*
       saga form UI
     */
