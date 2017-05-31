@@ -13,7 +13,7 @@ import {
 const types = [
   { id: 1, name: 'ALL', title: 'All posts', path: null },
   { id: 2, name: 'REVIEW', title: 'Reviews', path: 'reviews' },
-  { id: 3, name: 'QUESTION', title: 'Questions', path: 'questions' },
+  { id: 3, name: 'QUESTION', title: 'Questions  🙋', path: 'questions' },
   { id: 4, name: 'CLASS_NOTE', title: 'Documents', path: 'docs' },
 ]
 

@@ -204,6 +204,7 @@ export default class IndexDashboard extends Component {
        {hashtag &&
           <BarTag
             type={type}
+            currentPostType={this.props.currentPostType}
             hashtag={hashtag}
             onClearCurrentTypeHandler={onClearCurrentTypeHandler}
           />
