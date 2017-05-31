@@ -8,13 +8,17 @@ import {
   itemActiveReview,
   itemActiveQuestion,
   itemActiveDoc,
+  itemAll,
+  itemReview,
+  itemQuestion,
+  itemDoc,
 } from './style'
 
 const types = [
-  { id: 1, name: 'ALL', title: 'All posts', path: null },
-  { id: 2, name: 'REVIEW', title: 'Reviews', path: 'reviews' },
-  { id: 3, name: 'QUESTION', title: 'Questions  🙋', path: 'questions' },
-  { id: 4, name: 'CLASS_NOTE', title: 'Documents', path: 'docs' },
+  { id: 1, name: 'ALL', title: 'All posts', path: null, className: itemAll },
+  { id: 2, name: 'REVIEW', title: 'Reviews', path: 'reviews', className: itemReview },
+  { id: 3, name: 'QUESTION', title: 'Questions  🙋', path: 'questions', className: itemQuestion },
+  { id: 4, name: 'CLASS_NOTE', title: 'Documents', path: 'docs', className: itemDoc },
 ]
 
 
@@ -45,7 +49,7 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
   return (
     <ul className={wrapper}>
       {types.map((type) => {
-        const classNames = [item]
+        const classNames = [item, type.className]
 
         if (type.name === currentPostType) {
           if (currentPostType === 'ALL') {
