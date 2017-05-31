@@ -4,32 +4,34 @@ import moment from 'moment'
 import {
   TextPost,
   DonutPlusOne,
+  ButtonDonut,
 } from '../../'
 
 import {
   boxImage,
-  boxInfo,
   fontName,
+  fontLink,
   fontTime,
   imgUser,
   wrapper,
+  boxInfo,
   boxInfoLeft,
   boxInfoRight,
 } from './style'
 
-const ListDonutsReceive = ({ id, fromUser, time }) => {
+const ListUserDonutGive = ({ id, name, image, }) => {
   return (
     <li key={id} className={wrapper}>
       <span className={boxImage}>
-        <img src={fromUser.image.smallUrl} className={imgUser} />
+        <img src={image.smallUrl} className={imgUser} />
       </span>
       <div className={boxInfo}>
         <div className={boxInfoLeft}>
-          <span className={fontName}><b>{fromUser.firstName} {fromUser.lastName}</b> sent to you</span>
-          <span className={fontTime}>{moment.utc(time).local().format("HH:mm A")}</span>
+          <span className={fontName}><b>{name}</b></span>
+          <span className={fontLink}>send message</span>
         </div>
         <div className={boxInfoRight}>
-          <DonutPlusOne />
+          <ButtonDonut />
         </div>
       </div>
     </li>
@@ -37,4 +39,4 @@ const ListDonutsReceive = ({ id, fromUser, time }) => {
   // TODO: what if long comment
 }
 
-export default ListDonutsReceive
+export default ListUserDonutGive

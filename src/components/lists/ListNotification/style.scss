@@ -1,28 +1,34 @@
 @import "../../../styles/main";
 
 .wrapper {
-  list-style: none;
   width: 100%;
-  padding: 14px 10px;
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.box {
+  list-style: none;
+  padding: 3px 1px;
   background: white;
+  position: relative;
   border-radius: 20px;
-  margin: 5px 0px;
   font-size: 0.8rem;
   display: inline-block;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
+  width: 261px;
   align-items: center;
   border: 2px solid white;
   transition: border 5s ease;
-  position: relative;
+  border-radius: 20px;
 }
 
 .box--img {
   display: inline-block;
-  width: 45px;
-  height: 45px;
-  margin-right: 16px;
+  width: 60px;
+  margin-right: 8px;
 }
 
 .img--user {
@@ -40,6 +46,13 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
+}
+
+.time {
+  font-size: 10px;
+  font-weight: 900;
+  margin-left: 5px;
+  color: #bcbcbc;
 }
 
 @keyframes blinker {

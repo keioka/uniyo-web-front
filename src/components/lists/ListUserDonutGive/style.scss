@@ -4,7 +4,9 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  padding: 17px 2rem;
+  padding: 7px 0.3rem;
+  border-radius: 20px;
+  margin: 7px 17px;
   background: white;
   align-items: flex-start;
 }
@@ -25,14 +27,20 @@
   color: #e0e0e0;
 }
 
+.font-link {
+  height: 14px;
+  font-family: Roboto;
+  font-size: 12px;
+  color: #878787;
+}
+
 .section__content {
   width: 93%;
 }
 
 .box-image {
   display: flex;
-  width: 4%;
-  min-width: 40px;
+  min-width: 55px;
   overflow: hidden;
   margin-right: 15px;
   justify-content: flex-end;
@@ -40,10 +48,21 @@
 }
 
 .img-user {
-  width: 40px;
-  border-radius: 8px;
+  width: 55px;
+  border-radius: 50%;
 }
 
-.paragaph {
-  padding: 5px 0px;
+.box--info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 55px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.box--info__left {
+  display: flex;
+  flex-direction: column;
+
 }

@@ -8,6 +8,8 @@ import { Link } from 'react-router'
 
 import {
   wrapper,
+  sidebarOpen,
+  sidebarClose,
   userInfo,
   notification,
   historyDonut,
@@ -33,6 +35,7 @@ const mapStateToProps = state => ({
   channels: state.api.channels,
   notifications: state.api.notifications,
   formNotifications: state.form.notifications,
+  users: state.api.users,
 })
 
 const {
@@ -48,6 +51,9 @@ const {
 const {
   channelCreate,
   notificationReadMark,
+  notificationSearch,
+  userGiveDonuts,
+  userSearch,
 } = actions
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -58,8 +64,11 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   hideNotification,
   hideHistoryDonut,
   channelCreate,
+  notificationSearch,
   notificationReadMark,
   setReadNotificationIds,
+  userGiveDonuts,
+  userSearch,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -71,18 +80,22 @@ export default class SidebarRight extends Component {
   display() {
 
     const {
+      users,
       rightbar,
       channelCreate,
       channels,
       notifications,
       setReadNotificationIds,
+      notificationSearch,
       notificationReadMark,
       donutsHistory,
       showHistoryDonut,
+      userGiveDonuts,
+      userSearch,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
-
+    const { all: allUsers } = users
     const { all: allChannels } = channels
     const { all: allNotifications } = notifications
 
@@ -93,6 +106,7 @@ export default class SidebarRight extends Component {
             user={userInfo}
             channels={allChannels}
             channelCreate={channelCreate}
+            userGiveDonuts={userGiveDonuts}
           />
         )
       }
@@ -109,6 +123,7 @@ export default class SidebarRight extends Component {
         return (
           <SidebarRightNotification
             allNotifications={allNotifications}
+            notificationSearch={notificationSearch}
             notificationReadMark={notificationReadMark}
           />
         )
@@ -117,6 +132,8 @@ export default class SidebarRight extends Component {
       case 'Donuts': {
         return (
           <SidebarRightHistoryDonuts
+            userSearch={userSearch}
+            allUsers={allUsers}
             donutsHistory={donutsHistory}
           />
         )
@@ -126,17 +143,27 @@ export default class SidebarRight extends Component {
 
   render() {
     const { displayType, isOpen, userInfo } = this.props.rightbar
-    const { channelCreate, channels, showHistoryDonut, hideSidebarRight, donutsHistory } = this.props
+    const {
+      channelCreate,
+      channels,
+      showHistoryDonut,
+      hideSidebarRight,
+      donutsHistory,
+      notificationSearch,
+    } = this.props
+
     const { all: allChannels } = channels
+
     const userImages = [...new Set(donutsHistory.map(history => history.fromUser.image.mediumUrl))].slice(0, 3)
+
+    const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
+
     return (
       <div>
-        { isOpen ? (
-          <aside className={wrapper}>
-            <div className={close} onClick={() => hideSidebarRight()}></div>
-            {this.display()}
-          </aside>
-        ) : null }
+        <aside className={wrapperClassNames.join(' ')}>
+          {isOpen && <div className={close} onClick={() => hideSidebarRight()}></div>}
+          {this.display()}
+        </aside>
         { !isOpen &&
         <div className={btnDonutsHistory}>
           <div className={btnDonutsHistoryInner}>

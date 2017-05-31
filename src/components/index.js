@@ -31,6 +31,7 @@ export IndexDashboard from './pages/dashboard/IndexDashboard'
 export QuestionDashboard from './pages/dashboard/QuestionDashboard'
 export ChannelDashboard from './pages/dashboard/ChannelDashboard'
 export ChannelNewDashboard from './pages/dashboard/ChannelNewDashboard'
+export PostShowDashboard from './pages/dashboard/PostShowDashboard'
 export PostTopDashboard from './pages/dashboard/PostTopDashboard'
 
 /*
@@ -93,17 +94,20 @@ export SidebarRightChannelUsers from './sidebars/SidebarRightChannelUsers'
 export TextPost from './texts/TextPost'
 export TextMention from './texts/TextMention'
 
-
 /*
   common
 */
 
 export Donut from './common/Donut'
+export DonutPlusOne from './common/DonutPlusOne'
+export BarTag from './common/BarTag'
+
 
 /*
   list
 */
 
+export ListUserDonutGive from './lists/ListUserDonutGive'
 export ListComment from './lists/ListComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
 export ListMessage from './lists/ListMessage'

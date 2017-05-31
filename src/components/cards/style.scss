@@ -88,16 +88,17 @@
   justify-content: center;
   width: 30px;
   background-color: $yellow;
-  padding: 1px 10px;
-  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 16px;
+  border-radius: 8px;
   height: 24px;
   margin-left: 15px;
   line-height: 14px;
 }
 
-.star-review:after {
+.star-review:before {
   content: attr(data-reviews);
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: white;
   font-weight: $font-weight-exbold;
 }
@@ -134,9 +135,6 @@
   outline: none;
   text-transform: uppercase;
   color: #999999;
-}
-
-.btn--comment {
   margin-left: 15px;
 }
 

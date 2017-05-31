@@ -56,6 +56,7 @@ function subscribe(socket) {
       let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
+      console.log(type)
       switch (type) {
         case 'SOCKET_READY': {
           emit({ type: 'WEBSOCKET_READY', response })
@@ -79,6 +80,10 @@ function subscribe(socket) {
           const action = { type: 'WEBSOCKET_NOTIFICATION', notification }
           emit(action)
           break
+        }
+
+        default: {
+          console.warn(`Don't know how to handle ${type} event.`)
         }
       }
     }
@@ -214,6 +219,12 @@ function* eventWebSocket() {
         case 'USER_RECEIVED_DONUT': {
           const { amount, user } = payload.data
           action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { amount, user } } }
+          break
+        }
+
+        case 'COMMENT_RECEIVED_DONUT': {
+          const { amount, commentId } = payload.data
+          action = { type: actionTypes.commentReceivedDonutsFetch.success, result: { data: { amount, commentId } } }
           break
         }
 

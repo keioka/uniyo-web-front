@@ -57,8 +57,8 @@
 .notification {
   font-size: 0.7rem;
   position: absolute;
-  top: -10px;
-  left: 35px;
+  top: 5px;
+  left: 22px;
   color: white;
   background-color: $red;
   padding: 5px 7px;
@@ -133,7 +133,7 @@
 }
 
 .header__nav--basic svg {
-  margin: 0px 12.5px;
+  margin-right: 25px;
 }
 
 .footer {

@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { Link, browserHistory } from 'react-router'
 
 import {
+  ButtonDonut,
+} from '../../'
+
+import {
   wrapper,
   boxImg,
   imageProfile,
@@ -12,9 +16,10 @@ import {
   tags,
   tagsList,
   tagsItem,
+  btnMessage,
 } from './style'
 
-const userInfo = ({ user, channelCreate, channels }) => {
+const userInfo = ({ user, channelCreate, channels, userGiveDonuts }) => {
 
   const onClickBtnMessage = () => {
     const filteredChannel = channels.filter(channel => {
@@ -36,16 +41,20 @@ const userInfo = ({ user, channelCreate, channels }) => {
     <div className={wrapper} >
       <div className={boxImg}>
         <img className={imageProfile} src={user.image.largeUrl} alt=""/>
-      </div>
-      <div className={profile}>
-        <div className={profileName}>
-          <h3 className={profileNameH3}>{user.name}</h3>
+        <div className={profile}>
+          <div className={profileName}>
+            <h3 className={profileNameH3}>{user.firstName} {user.lastName}</h3>
+          </div>
+          <div className={profileNav}>
+            <button className={btnMessage} onClick={onClickBtnMessage}>Message</button>
+            <ButtonDonut
+              onClick={() => userGiveDonuts({ userId: user.id, amount: 1 })}
+              donutsCount={user.receivedDonutsCount}
+            />
+          </div>
         </div>
-        <div className={profileNav}>
-          <button onClick={onClickBtnMessage}>Message</button>
-          <button>Donut</button>
-        </div>
       </div>
+
       <div className={tags}>
         <ul className={tagsList}>
           {user.hashtags && user.hashtags.map(hashtag => <li className={tagsItem}><Link to={`dashboard?hashtag=${hashtag.hashtag}`}>#{hashtag.hashtag}</Link></li>)}

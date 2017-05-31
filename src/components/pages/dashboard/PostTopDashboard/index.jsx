@@ -60,6 +60,7 @@ export default class PostTopDashboard extends Component {
       postsRelevantSearch,
       relevantPosts,
       trendingPosts,
+      posts,
     } = this.props
 
     const { image } = currentUser
@@ -104,6 +105,22 @@ export default class PostTopDashboard extends Component {
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>RELEVANT</h3>
             {relevantPosts.length > 0 ? relevantPosts.map(post =>
+              <CardPost
+                {...post}
+                postGiveDonuts={postGiveDonuts}
+                comments={allComments}
+                currentUser={currentUser}
+                commentsSearch={commentsSearch}
+                commentCreate={commentCreate}
+              />
+            ) : this.cardsFake }
+          </div>
+        }
+
+        { posts &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>RECENT</h3>
+            {posts ? posts.slice(0, 5).map(post =>
               <CardPost
                 {...post}
                 postGiveDonuts={postGiveDonuts}
