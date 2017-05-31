@@ -33,4 +33,14 @@ var devConfig = Object.assign({}, webpackConfigBase, {
   }
 });
 
+devConfig.module.rules.push({
+  test: /\.(scss)$/,
+  loaders: [
+    'style-loader',
+    'css-loader?sourceMap&modules&camelCase&importLoaders=1&localIdentName=[folder]--[local]--[hash:base64:5]',
+    'postcss-loader',
+    'sass-loader'
+  ]
+})
+
 module.exports = devConfig

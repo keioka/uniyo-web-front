@@ -29,4 +29,16 @@ var prdConfig = Object.assign({}, webpackConfigBase, {
   ],
 })
 
+prdConfig.module.rules.push({
+  test: /\.(scss)$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      'css-loader?sourceMap&modules&camelCase&importLoaders=1&localIdentName=[folder]--[local]--[hash:base64:5]',
+      'postcss-loader',
+      'sass-loader',
+    ],
+  }),
+})
+
 module.exports = prdConfig
