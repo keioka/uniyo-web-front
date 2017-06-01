@@ -72,7 +72,7 @@ export default class SidebarLeft extends Component {
           <li className={sectionTag}>
             {channel.users.length > 2 ?
               (<span data-amount-users={channel.users.length} className={iconChannel}>
-                {channel.users.length}
+                {channel.users.length - 1}
               </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
             }
             <span className={userNames}>{users.map(user => user.name.split(' ')[0]).join(', ')}</span>
