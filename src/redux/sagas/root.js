@@ -30,6 +30,7 @@ const {
   notificationReadMarkSaga,
   webSocket,
   watchMarkNotificationAsRead,
+  watchUserReceivedDonutsFetch,
   postsRelevantSearchSaga,
   postsTrendingSearchSaga,
   currentUserDonutsSaga,
@@ -78,7 +79,7 @@ export default function* rootSaga() {
     */
     fork(watchShowUserInfo),
     fork(watchShowChannelUsers),
-
+    fork(watchShowChannelUsers),
     /*
       saga for webSocket
     */
