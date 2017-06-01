@@ -22,10 +22,18 @@
   z-index: 1;
 }
 
+.icon {
+  cursor: pointer;
+}
+
 .donuts {
   position: absolute;
   top: 0px;
   transition: top 5s ease-out;
+}
+
+.donutsShakeActive {
+  animation: shake 0s cubic-bezier(.36,.07,.19,.97) infinite;
 }
 
 .moveDonuts {
@@ -52,6 +60,10 @@
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+.receivedDonutsActive {
+
 }
 
 .notification {

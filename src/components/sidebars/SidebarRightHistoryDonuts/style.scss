@@ -4,6 +4,7 @@
   background: $gray;
   height: 100%;
   cursor: pointer;
+  overflow-y: scroll;
 }
 
 .inputSearch svg {
@@ -110,4 +111,5 @@
 .ul {
   overflow: scroll;
   height: 100%;
+  padding-bottom: 20px;
 }

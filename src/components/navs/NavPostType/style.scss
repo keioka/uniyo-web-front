@@ -16,6 +16,7 @@
   border-bottom: 2px solid transparent;
   font-size: 0.8rem;
 	font-weight: bold;
+  white-space: nowrap;
 }
 
 .item a {
@@ -40,7 +41,27 @@
   color: #2d2d2d;
 }
 
+.item--all:hover {
+  border-bottom: 2px solid #fdedf2;
+}
+
+.item--review:hover {
+  border-bottom: 2px solid #faf5ce;
+}
+
+.item--question:hover {
+  border-bottom: 2px solid #e3f6fe;
+}
+
+.item--doc:hover {
+  border-bottom: 2px solid #f8e8ff;
+}
+
 .item--active--all {
+  border-bottom: 2px solid $pink;
+}
+
+.item--active--all:hover {
   border-bottom: 2px solid $pink;
 }
 
@@ -48,10 +69,22 @@
   border-bottom: 2px solid $yellow;
 }
 
+.item--active--review:hover {
+  border-bottom: 2px solid $yellow;
+}
+
 .item--active--question {
   border-bottom: 2px solid $lightblue;
 }
 
+.item--active--question:hover {
+  border-bottom: 2px solid $lightblue;
+}
+
 .item--active--doc {
+  border-bottom: 2px solid $darkpurple;
+}
+
+.item--active--doc:hover {
   border-bottom: 2px solid $darkpurple;
 }
