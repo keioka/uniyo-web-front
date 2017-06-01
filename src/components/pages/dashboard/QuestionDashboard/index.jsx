@@ -3,11 +3,8 @@ import React, { Component, PropTypes } from 'react'
 
 import {
   CardPost,
-  CardDocument,
-  CardReview,
-  CardQuestion,
   InputPost,
-  Donnut,
+  ButtonDonut,
   TextPost,
 } from '../../../index'
 
@@ -16,6 +13,7 @@ import {
   sectionImage,
   sectionContent,
   sectionContentHeader,
+  sectionContentText,
   sectionContentFotter,
   textUserName,
   btnLike,
@@ -106,16 +104,32 @@ export default class QuestionDashboard extends Component {
 
     const { image } = currentUser
 
-
     const { answerCreate } = this.props
     const { questionId } = this.props.params
-    const question = this.props.posts.filter((post) => post.postType === 'QUESTION' && post.id == questionId)[0]
+    const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
     const answers = this.props.allAnswers.filter(answer => answer.questionId == questionId)
 
-    if (question) {
-      var { user, text, commentsCount, likesCount } = question
+    const ComponentSectionQuestion = ({ user, text, showUserInfo, donutsCount }) => {
+      return (
+        <div className={sectionQuestion}>
+          <div className={sectionImage}>
+            <img src={user.image.smallUrl} alt="" />
+          </div>
+          <div className={sectionContent}>
+            <div className={sectionContentHeader}>
+              <span className={textUserName}>{user.name}</span>
+              {/* <span className={textPostTime}>{time}</span> */}
+            </div>
+            <span className={sectionContentText}>
+              <TextPost text={text} showUserInfo={showUserInfo} />
+            </span>
+            <div className={sectionContentFotter}>
+              <ButtonDonut donutsCount={donutsCount} />
+            </div>
+          </div>
+        </div>
+      )
     }
-
 
     const answerBest = answers.filter(answer => answer.isBestAnswer)
     const isBestAnswerExsist = answerBest.lenght > 0
@@ -127,23 +141,7 @@ export default class QuestionDashboard extends Component {
 
     return (
       <div ref={(div)=> this._dashboard = div}>
-        { question &&
-          <div className={sectionQuestion}>
-            <div className={sectionImage}>
-              <img src={user.image.smallUrl} alt="" />
-            </div>
-            <div className={sectionContent}>
-              <div className={sectionContentHeader}>
-                <span className={textUserName}>{user.name}</span>
-                {/* <span className={textPostTime}>{time}</span> */}
-              </div>
-              <TextPost text={text} showUserInfo={showUserInfo} />
-              <div className={sectionContentFotter}>
-                <button className={btnComment} data-count={likesCount}><Donnut size="xs"/></button>
-              </div>
-            </div>
-          </div>
-        }
+        { question && <ComponentSectionQuestion {...question} /> }
         <InputPost
           imgUrl={image && image.mediumUrl}
           onPostSubmit={answerCreate}
