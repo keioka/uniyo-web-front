@@ -42,6 +42,7 @@ import {
   notification,
   boxDonuts,
   boxDonutsRow,
+  receivedDonutsActive,
   moveDonuts,
   donuts,
 } from './style'
@@ -56,6 +57,7 @@ const mapStateToProps = state => ({
   comments: state.api.comments,
   hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
+  uiStateHeader: state.ui.header,
   channels: state.api.channels,
   answers: state.api.answers,
   messages: state.api.messages,
@@ -364,8 +366,8 @@ export default class DashBoard extends Component {
               />
             }
             <div className={boxDonuts}>
-              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" color="PINK" />{currentUser.availableDonutsCount}</span>
-              <span className={boxDonutsRow}><Donut size="large" color="GREEN" />{currentUser.receivedDonutsCount}</span>
+              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" />{currentUser.availableDonutsCount}</span>
+              <span className={boxDonutsRow}><Donut id="received-donuts" className={receivedDonutsActive} size="large" />{currentUser.receivedDonutsCount}</span>
             </div>
           </header>
           <div className={mainContent}>

@@ -32,6 +32,10 @@
   transition: top 5s ease-out;
 }
 
+.donutsShakeActive {
+  animation: shake 0s cubic-bezier(.36,.07,.19,.97) infinite;
+}
+
 .moveDonuts {
   animation: shake 0s cubic-bezier(.36,.07,.19,.97) infinite;
   transform: translate3d(0, 0, 0);
@@ -56,6 +60,10 @@
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+.receivedDonutsActive {
+
 }
 
 .notification {
