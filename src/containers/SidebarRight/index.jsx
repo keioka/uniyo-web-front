@@ -78,7 +78,6 @@ export default class SidebarRight extends Component {
   }
 
   display() {
-
     const {
       users,
       rightbar,
@@ -92,6 +91,7 @@ export default class SidebarRight extends Component {
       showHistoryDonut,
       userGiveDonuts,
       userSearch,
+
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -133,6 +133,8 @@ export default class SidebarRight extends Component {
         return (
           <SidebarRightHistoryDonuts
             userSearch={userSearch}
+            channelCreate={channelCreate}
+            allChannels={allChannels}
             allUsers={allUsers}
             donutsHistory={donutsHistory}
           />
