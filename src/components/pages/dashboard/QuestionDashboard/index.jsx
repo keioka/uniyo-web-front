@@ -6,6 +6,7 @@ import {
   InputPost,
   ButtonDonut,
   TextPost,
+  Donut,
 } from '../../../index'
 
 import {
@@ -20,6 +21,8 @@ import {
   btnComment,
   sectionCards,
   sectionCardsTitle,
+  sectionNoAnswer,
+  sectionNoAnswerTitle,
 } from './style'
 
 export default class QuestionDashboard extends Component {
@@ -55,11 +58,17 @@ export default class QuestionDashboard extends Component {
     const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
+    const answers = this.props.allPosts.filter(answer => answer.questionId == questionId)
 
     // console.log("---------------------------")
     // console.log(scrollHeight, currentHeight)
     // console.log(scrollHeight < currentHeight)
     // console.log("---------------------------")
+
+    // avoid unneccessary api get answers call
+    if (answersCount === answers.length) {
+      return false
+    }
 
     if (
       scrollHeight < currentHeight &&
@@ -100,6 +109,9 @@ export default class QuestionDashboard extends Component {
       userSearch,
       currentUser,
       allComments,
+      postGiveDonuts,
+      commentGiveDonuts,
+      allPosts,
     } = this.props
 
     const { image } = currentUser
@@ -107,8 +119,7 @@ export default class QuestionDashboard extends Component {
     const { answerCreate } = this.props
     const { questionId } = this.props.params
     const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
-    const answers = this.props.allAnswers.filter(answer => answer.questionId == questionId)
-
+    const answers = allPosts.filter(post => post.type === 'ANSWER' && post.questionId == questionId)
     const ComponentSectionQuestion = ({ user, text, showUserInfo, donutsCount }) => {
       return (
         <div className={sectionQuestion}>
@@ -124,7 +135,7 @@ export default class QuestionDashboard extends Component {
               <TextPost text={text} showUserInfo={showUserInfo} />
             </span>
             <div className={sectionContentFotter}>
-              <ButtonDonut donutsCount={donutsCount} />
+              <ButtonDonut donutsCount={donutsCount} onClick={() => postGiveDonuts({ postId: question.id })}/>
             </div>
           </div>
         </div>
@@ -133,7 +144,7 @@ export default class QuestionDashboard extends Component {
 
     const answerBest = answers.filter(answer => answer.isBestAnswer)
     const isBestAnswerExsist = answerBest.lenght > 0
-    const answerRecent = answers && answers[answers.length - 1]
+    const answerRecent = answers && answers[0]
 
     // TODO: Avoid Mutation
     const answersOther = [...answers]
@@ -163,6 +174,8 @@ export default class QuestionDashboard extends Component {
                   currentUser={currentUser}
                   commentCreate={commentCreate}
                   commentsSearch={commentsSearch}
+                  postGiveDonuts={postGiveDonuts}
+                  commentGiveDonuts={commentGiveDonuts}
                 />
               )
             })}
@@ -178,22 +191,34 @@ export default class QuestionDashboard extends Component {
               currentUser={currentUser}
               commentCreate={commentCreate}
               commentsSearch={commentsSearch}
+              postGiveDonuts={postGiveDonuts}
+              commentGiveDonuts={commentGiveDonuts}
             />
           </div>
         }
-        <div className={sectionCards}>
-          <h3 className={sectionCardsTitle}>OTHER ANSWERS</h3>
-          {answersOther.map(answer => (
-            <CardPost
-              key={answer.id}
-              {...answer}
-              comments={allComments}
-              currentUser={currentUser}
-              commentCreate={commentCreate}
-              commentsSearch={commentsSearch}
-            />
+        { answersOther.length > 0 &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>OTHER ANSWERS</h3>
+            {answersOther.map(answer => (
+              <CardPost
+                key={answer.id}
+                {...answer}
+                comments={allComments}
+                currentUser={currentUser}
+                commentCreate={commentCreate}
+                commentsSearch={commentsSearch}
+                postGiveDonuts={postGiveDonuts}
+                commentGiveDonuts={commentGiveDonuts}
+              />
             ))}
-        </div>
+          </div>
+       }
+       { answers.length === 0 &&
+         <div className={sectionNoAnswer}>
+           <Donut size="large" color="PINK" />
+           <h3 className={sectionNoAnswerTitle}>No Answers.</h3>
+         </div>
+       }
       </div>
     )
   }

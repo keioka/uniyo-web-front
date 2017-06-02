@@ -21,7 +21,7 @@
 }
 
 .section--cards {
-  padding: 2rem 4rem;
+  padding: 2rem;
 }
 
 .section--cards__title {
@@ -72,6 +72,18 @@
 
 .section--content {
   width: 100%;
+}
+
+.section--no-answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.section--no-answer__title {
+  margin-top: 30px;
 }
 
 .text--user-name {
