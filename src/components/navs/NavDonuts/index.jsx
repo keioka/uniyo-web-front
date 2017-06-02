@@ -21,7 +21,6 @@ export default class NavDonuts extends Component {
       donutsShake,
     } = this.props
 
-    console.log(isReceiveDonuts)
     const donutsReceiveClassName = isReceiveDonuts ? receiveDonutsActive : null
 
     if (isReceiveDonuts) {
@@ -30,8 +29,8 @@ export default class NavDonuts extends Component {
 
     return (
       <div className={boxDonuts}>
-        <span className={boxDonutsRow}><Donut id="available-donuts" size="large" count={availableDonutsCount} />{availableDonutsCount}</span>
-        <span className={boxDonutsRow}><Donut id="received-donuts" className={donutsReceiveClassName} size="large" count={receivedDonutsCount} />{receivedDonutsCount}</span>
+        <span className={boxDonutsRow}><Donut id="available-donuts" size="medium" count={availableDonutsCount} />{availableDonutsCount}</span>
+        <span className={boxDonutsRow}><Donut id="received-donuts" className={donutsReceiveClassName} size="medium" count={receivedDonutsCount} />{receivedDonutsCount}</span>
       </div>
     )
   }
