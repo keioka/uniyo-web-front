@@ -20,8 +20,8 @@ import {
   SidebarLeft,
   NavPostType,
   Donut,
-  InputPost,
   NavChannel,
+  NavDonuts,
 } from '../../components'
 
 import {
@@ -42,7 +42,7 @@ import {
   notification,
   boxDonuts,
   boxDonutsRow,
-  receivedDonutsActive,
+  receiveDonutsActive,
   moveDonuts,
   donuts,
 } from './style'
@@ -89,6 +89,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userGiveDonuts: actions.userGiveDonuts,
   commentGiveDonuts: actions.commentGiveDonuts,
   postGiveDonuts: actions.postGiveDonuts,
+  donutsShake: uiActions.donutsShake,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -229,6 +230,8 @@ export default class DashBoard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      uiStateHeader,
+      donutsShake,
     } = this.props
 
     const { currentUser } = auth
@@ -240,6 +243,7 @@ export default class DashBoard extends Component {
     const { all: allAnswers } = answers
     const { all: allMessages } = messages
     const { all: allNotifications } = notifications
+    const { isReceiveDonuts } = uiStateHeader
 
     const { currentHashTag, currentPostType } = this.state
 
@@ -365,10 +369,12 @@ export default class DashBoard extends Component {
                 showChannelUsers={showChannelUsers}
               />
             }
-            <div className={boxDonuts}>
-              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" />{currentUser.availableDonutsCount}</span>
-              <span className={boxDonutsRow}><Donut id="received-donuts" className={receivedDonutsActive} size="large" />{currentUser.receivedDonutsCount}</span>
-            </div>
+            <NavDonuts
+              donutsShake={donutsShake}
+              isReceiveDonuts={uiStateHeader.isReceiveDonuts}
+              availableDonutsCount={currentUser.availableDonutsCount}
+              receivedDonutsCount={currentUser.receivedDonutsCount}
+            />
           </header>
           <div className={mainContent}>
             {childComponents}
