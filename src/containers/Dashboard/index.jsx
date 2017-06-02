@@ -90,6 +90,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   commentGiveDonuts: actions.commentGiveDonuts,
   postGiveDonuts: actions.postGiveDonuts,
   donutsShake: uiActions.donutsShake,
+  donutsThrow: uiActions.donutsThrow,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -128,37 +129,6 @@ export default class DashBoard extends Component {
     this.setState({
       currentHashTag: hashtag,
       currentPostType: TYPES[type],
-    })
-  }
-
-  componentDidMount() {
-    const docElm = document.documentElement
-    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
-    const currentUserDonutElm = document.querySelector('#available-donuts')
-    const onClickDonuts$ = Rx.Observable
-      .fromEvent(giveDonutsElm, 'click')
-      .map(event => ({ x: event.clientX, y: event.clientY }))
-
-
-    onClickDonuts$.subscribe(pos => {
-      const rotX = (pos.y / clientHeight * -50) + 25;
-      const rotY = (pos.x / clientWidth * 50) - 25;
-    })
-  }
-
-  componentDidUpdate() {
-    const docElm = document.documentElement
-    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
-    const currentUserDonutElm = document.querySelector('#available-donuts')
-    const onClickDonuts$ = Rx.Observable
-      .fromEvent(giveDonutsElm, 'click')
-      .map(event => ({ x: event.clientX, y: event.clientY }))
-
-    onClickDonuts$.subscribe(pos => {
-      const cloneDonuts = currentUserDonutElm.cloneNode(true)
-      cloneDonuts.style.position = 'absolute'
-      cloneDonuts.style.top = pos.y
-      cloneDonuts.style.left = pos.x
     })
   }
 
@@ -232,6 +202,7 @@ export default class DashBoard extends Component {
       commentGiveDonuts,
       uiStateHeader,
       donutsShake,
+      donutsThrow,
     } = this.props
 
     const { currentUser } = auth
@@ -243,7 +214,7 @@ export default class DashBoard extends Component {
     const { all: allAnswers } = answers
     const { all: allMessages } = messages
     const { all: allNotifications } = notifications
-    const { isReceiveDonuts } = uiStateHeader
+    const { isReceiveDonuts, isSpentDonuts } = uiStateHeader
 
     const { currentHashTag, currentPostType } = this.state
 
@@ -335,8 +306,11 @@ export default class DashBoard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      donutsThrow,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
+
+    console.log(donutsThrow)
 
     return (
       <div className={container}>
@@ -372,7 +346,8 @@ export default class DashBoard extends Component {
             }
             <NavDonuts
               donutsShake={donutsShake}
-              isReceiveDonuts={uiStateHeader.isReceiveDonuts}
+              isReceiveDonuts={isReceiveDonuts}
+              isSpentDonuts={isSpentDonuts}
               availableDonutsCount={currentUser.availableDonutsCount}
               receivedDonutsCount={currentUser.receivedDonutsCount}
             />

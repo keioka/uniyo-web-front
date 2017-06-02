@@ -5,7 +5,6 @@ import {
   Donut,
 } from '../../'
 
-
 import {
   boxDonuts,
   boxDonutsRow,
@@ -18,10 +17,12 @@ export default class NavDonuts extends Component {
       availableDonutsCount,
       receivedDonutsCount,
       isReceiveDonuts,
+      isSpentDonuts,
       donutsShake,
     } = this.props
 
     const donutsReceiveClassName = isReceiveDonuts ? receiveDonutsActive : null
+    const donutsSpendClassName = null
 
     if (isReceiveDonuts) {
       setTimeout(() => donutsShake(), 1000)
@@ -29,7 +30,7 @@ export default class NavDonuts extends Component {
 
     return (
       <div className={boxDonuts}>
-        <span className={boxDonutsRow}><Donut id="available-donuts" size="medium" count={availableDonutsCount} />{availableDonutsCount}</span>
+        <span className={boxDonutsRow}><Donut id="available-donuts" className={donutsSpendClassName} size="medium" count={availableDonutsCount} />{availableDonutsCount}</span>
         <span className={boxDonutsRow}><Donut id="received-donuts" className={donutsReceiveClassName} size="medium" count={receivedDonutsCount} />{receivedDonutsCount}</span>
       </div>
     )

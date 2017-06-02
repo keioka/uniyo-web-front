@@ -50,7 +50,6 @@ export default class CardReview extends PureComponent {
   }
 
   onClickDonutsHandler(event) {
-    event.stopPropagation()
     const { postGiveDonuts, id } = this.props
     postGiveDonuts({ postId: id, amount: 1 })
   }
@@ -61,6 +60,7 @@ export default class CardReview extends PureComponent {
       text,
       user,
       donutsCount,
+      donutsThrow,
       commentsCount,
       currentUserLiked,
       createdAt,
@@ -92,6 +92,7 @@ export default class CardReview extends PureComponent {
             <ButtonDonut
               className={btnLike}
               donutsCount={donutsCount}
+              donutsThrow={donutsThrow}
               onClick={::this.onClickDonutsHandler}
             />
           </div>
