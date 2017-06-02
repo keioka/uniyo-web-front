@@ -1,7 +1,9 @@
 import { actionTypes } from 'uniyo-redux'
 
+import uiActionsType from '../../actionTypes'
+
 const initialiState = {
-  receiveDonuts: false,
+  isReceiveDonuts: false,
 }
 
 export default (state = initialiState, action) => {
@@ -9,7 +11,13 @@ export default (state = initialiState, action) => {
   switch (action.type) {
     case actionTypes.userReceivedDonutsFetch.success: {
       return Object.assign({
-        isFetchDonut: true,
+        isReceiveDonuts: true,
+      })
+    }
+
+    case uiActionsType.donutsShake.done: {
+      return Object.assign({
+        isReceiveDonuts: false,
       })
     }
 

@@ -32,38 +32,11 @@
   transition: top 5s ease-out;
 }
 
-.donutsShakeActive {
-  animation: shake 0s cubic-bezier(.36,.07,.19,.97) infinite;
-}
-
 .moveDonuts {
   animation: shake 0s cubic-bezier(.36,.07,.19,.97) infinite;
   transform: translate3d(0, 0, 0);
   opacity: 0;
   transition: opacity 1s ease-out;
-}
-
-
-@keyframes shake {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
-
-.receivedDonutsActive {
-
 }
 
 .notification {
@@ -102,28 +75,6 @@
   padding: 40px;
   background-color: $pink;
   font-size: 1.6rem;
-}
-
-.box--donuts {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.box--donuts__row {
-  display: inline-flex;
-  color: #878787;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-family: $font-family;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.box--donuts__row svg {
-  margin-left: 10px;
-  margin-right: 5px;
 }
 
 .header {

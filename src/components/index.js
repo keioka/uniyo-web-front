@@ -54,6 +54,7 @@ export ButtonDonut from './buttons/ButtonDonut'
   nav
 */
 
+export NavDonuts from './navs/NavDonuts'
 export NavPostType from './navs/NavPostType'
 export NavChannel from './navs/NavChannel'
 
