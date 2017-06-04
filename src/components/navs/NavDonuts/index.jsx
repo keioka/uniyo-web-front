@@ -9,6 +9,7 @@ import {
   boxDonuts,
   boxDonutsRow,
   receiveDonutsActive,
+  spentDonutsActive,
 } from './style'
 
 export default class NavDonuts extends Component {
@@ -22,10 +23,14 @@ export default class NavDonuts extends Component {
     } = this.props
 
     const donutsReceiveClassName = isReceiveDonuts ? receiveDonutsActive : null
-    const donutsSpendClassName = null
+    const donutsSpendClassName = isSpentDonuts ? spentDonutsActive : null
 
     if (isReceiveDonuts) {
       setTimeout(() => donutsShake(), 1000)
+    }
+
+    if (isSpentDonuts) {
+      
     }
 
     return (
