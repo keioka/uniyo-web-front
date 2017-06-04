@@ -109,6 +109,7 @@ export default class IndexDashboard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      donutsThrow,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
@@ -121,6 +122,7 @@ export default class IndexDashboard extends Component {
       showUserInfo,
       currentUser,
       currentPostType,
+      donutsThrow,
     }) => {
 
       switch(post.type) {
@@ -138,6 +140,7 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
             />
           )
         case TYPES['docs']:
@@ -154,6 +157,7 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
             />
           )
         case TYPES['reviews']:
@@ -170,6 +174,7 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
             />
           )
         case TYPES['questions']:
@@ -186,6 +191,7 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
             />
           )
       }
@@ -218,6 +224,7 @@ export default class IndexDashboard extends Component {
              commentCreate,
              comments,
              showUserInfo,
+             donutsThrow,
              currentUser,
            })
          })}
