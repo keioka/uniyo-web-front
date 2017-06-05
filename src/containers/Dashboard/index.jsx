@@ -8,6 +8,7 @@ import Rx from 'rx'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
+import * as pushNotification from '../../services/pushNotification'
 
 import {
   SidebarRight,
@@ -31,11 +32,6 @@ import {
   mainContent,
   mainShrink,
   mainExpand,
-  footer,
-  barNoification,
-  inputPostWrapper,
-  inputPostWrapperImageBox,
-  input,
   icon,
   notification,
   boxDonuts,
@@ -43,6 +39,9 @@ import {
   receiveDonutsActive,
   moveDonuts,
   donuts,
+  barPushNotification,
+  barPushNotificationButtonSubscribe,
+  barPushNotificationButtonClose,
 } from './style'
 
 import Setting from './settings.svg'
@@ -86,6 +85,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userGiveDonuts: actions.userGiveDonuts,
   commentGiveDonuts: actions.commentGiveDonuts,
   postGiveDonuts: actions.postGiveDonuts,
+  addDevice: actions.addDevice,
   donutsShake: uiActions.donutsShake,
   donutsThrow: uiActions.donutsThrow,
 }, dispatch)
@@ -126,6 +126,40 @@ export default class DashBoard extends Component {
     this.setState({
       currentHashTag: hashtag,
       currentPostType: TYPES[type],
+    })
+  }
+      
+  componentDidMount() {
+    const docElm = document.documentElement
+    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
+    const currentUserDonutElm = document.querySelector('#available-donuts')
+    const onClickDonuts$ = Rx.Observable
+      .fromEvent(giveDonutsElm, 'click')
+      .map(event => ({ x: event.clientX, y: event.clientY }))
+
+
+    onClickDonuts$.subscribe(pos => {
+      const rotX = (pos.y / clientHeight * -50) + 25;
+      const rotY = (pos.x / clientWidth * 50) - 25;
+    })
+
+    const { addDevice } = this.props
+    pushNotification.subscribe(addDevice)
+  }
+
+  componentDidUpdate() {
+    const docElm = document.documentElement
+    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
+    const currentUserDonutElm = document.querySelector('#available-donuts')
+    const onClickDonuts$ = Rx.Observable
+      .fromEvent(giveDonutsElm, 'click')
+      .map(event => ({ x: event.clientX, y: event.clientY }))
+
+    onClickDonuts$.subscribe(pos => {
+      const cloneDonuts = currentUserDonutElm.cloneNode(true)
+      cloneDonuts.style.position = 'absolute'
+      cloneDonuts.style.top = pos.y
+      cloneDonuts.style.left = pos.x
     })
   }
 
@@ -369,6 +403,19 @@ export default class DashBoard extends Component {
     // TODO: fetching case
     return (
       <LayoutDashboard>
+        {pushNotification.permissionStatus === "default" &&
+        <div className={barPushNotification}>
+          <Donut size="sm" />
+          UniYo needs your permission to enable desktop notifications.
+          <button
+            className={barPushNotificationButtonSubscribe}
+            onClick={() => pushNotification.requestPermissionForNotifications()}
+          >
+            Setting
+          </button>
+          <button className={barPushNotificationButtonClose}>X</button>
+        </div>
+        }
         { this.renderContent }
       </LayoutDashboard>
     )
