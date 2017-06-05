@@ -156,7 +156,9 @@ export default class SidebarRight extends Component {
 
     const { all: allChannels } = channels
 
-    const userImages = [...new Set(donutsHistory.map(history => history.fromUser.image.mediumUrl))].slice(0, 3)
+    const userImages = donutsHistory && [...new Set(donutsHistory.map(history => {
+      return history.fromUser.image.mediumUrl
+    }))].slice(0, 3)
 
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
     const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
