@@ -70,9 +70,9 @@ export default class SidebarLeft extends Component {
           to={`/dashboard/channels/${channel.id}`}
         >
           <li className={sectionTag}>
-            {channel.users.length > 1 ?
+            {channel.users.length > 2 ?
               (<span data-amount-users={channel.users.length} className={iconChannel}>
-                {channel.users.length}
+                {channel.users.length - 1}
               </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
             }
             <span className={userNames}>{users.map(user => user.name.split(' ')[0]).join(', ')}</span>
@@ -85,9 +85,10 @@ export default class SidebarLeft extends Component {
       Array.from(new Set(hashtagsCurrentUser)).filter(hashtag =>
         hashtag.hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
           const classNames = []
-          if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
-            classNames.push(hide)
-          }
+          // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
+          //   classNames.push(hide)
+          // }
+          const isSelected = this.props.selectedHashtag === hashtag.hashtag
           classNames.join(' ')
           return (
             <ListHashtag
@@ -95,6 +96,7 @@ export default class SidebarLeft extends Component {
               hashtag={hashtag.hashtag}
               hashtagType={hashtag.type}
               hashtagDelete={hashtagDelete}
+              isSelected={isSelected}
               showBtnDelete
               type={this.props.type}
             />
@@ -105,9 +107,9 @@ export default class SidebarLeft extends Component {
         allChannels.filter(channel =>
           channel.users[0].name.toLowerCase().includes(keywordForSort)).map((channel, index) => {
             let classNames = []
-            if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
-              classNames.push(hide)
-            }
+            // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
+            //   classNames.push(hide)
+            // }
             return (
               <ListChannel
                 className={classNames.join(' ')}
@@ -118,13 +120,16 @@ export default class SidebarLeft extends Component {
 
           const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
             const classNames = []
-            if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
-              classNames.push(hide)
-            }
+            // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
+            //   classNames.push(hide)
+            // }
+            const isSelected = this.props.selectedHashtag === hashtag
+        
             return (
               <ListHashtag
                 className={classNames.join(' ')}
                 hashtag={hashtag}
+                isSelected={isSelected}
                 type={this.props.type}
               />
             )
@@ -143,7 +148,7 @@ export default class SidebarLeft extends Component {
                   />
                 }
                 { hashtagsCurrentUser && ComponentsHashtag }
-                { keywordForSort === '' &&
+                {/* { keywordForSort === '' &&
                 hashtagsCurrentUser &&
                 hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
                 <button
@@ -152,7 +157,7 @@ export default class SidebarLeft extends Component {
                   >
                     {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
                   </button>
-                }
+                } */}
                 <h4
                   className={sectionTextAdd}
                   onClick={::this.onClickBtnAddHashTag}
@@ -178,7 +183,7 @@ export default class SidebarLeft extends Component {
                   <span>+ Start a new chat</span>
                 </h4>
               </Link>
-              { keywordForSort === '' &&
+              {/* { keywordForSort === '' &&
               allChannels &&
               allChannels.length > MAX_NUMBER_SHOW_ITEM &&
               <button
@@ -187,7 +192,7 @@ export default class SidebarLeft extends Component {
                 >
                   {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
                 </button>
-              }
+             */}
             </ul>
           </nav>
         )

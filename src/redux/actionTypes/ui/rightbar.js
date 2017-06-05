@@ -1,7 +1,7 @@
 const actionTypes = (baseType) => ({
-  request: `${baseType}_REQUEST`,
-  success: `${baseType}_SUCCESS`,
-  error: `${baseType}_ERROR`,
+  request: `UI/${baseType}_REQUEST`,
+  success: `UI/${baseType}_SUCCESS`,
+  error: `UI/${baseType}_ERROR`,
 })
 
 export const fetchUserInfo = actionTypes('FETCH_USER_INFO')

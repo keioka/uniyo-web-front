@@ -40,12 +40,18 @@ export default class ChannelDashboard extends Component {
     const timeNow = moment.utc(new Date()).format()
     window.addEventListener('scroll', ::this.onScrollHandler)
     // check if channelId is found from current user's channel reducer 'all'.
-    messageSearch({
-      limit: 50,
-      channelId,
-      around: timeNow,
-    })
-    document.body.scrollTop = document.body.scrollHeight + 2000
+
+    // TODO: This is patch
+    // The problem is when messageSearch is called it is used old access token
+    // Should make flag whether token is refreshed or not and if it true, get messageSearch action fired.
+    setTimeout(() => {
+      messageSearch({
+        limit: 50,
+        channelId,
+        around: timeNow,
+      })
+    }, 1000)
+    document.body.scrollTop = document.body.scrollHeight + 14000
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,7 +67,8 @@ export default class ChannelDashboard extends Component {
       })
     }
     const { allMessages, showUserInfo } = this.props
-    // if new message is coming through
+
+    // when new message is coming through websocket
     if (allMessages.length !== nextProps.allMessages.length) {
       document.body.scrollTop = document.body.scrollHeight + 2000
     }

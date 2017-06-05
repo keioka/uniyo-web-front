@@ -253,7 +253,7 @@ export default class InputPost extends Component {
       }
 
       case 'CLASS_NOTE': {
-        placeholder = currentHashTag ? `#${currentHashTag} This is nice summary of chapter 4` : 'Share'
+        placeholder = currentHashTag ? `#${currentHashTag} This is nice summary of chapter 4` : 'Share your documents or images'
         break
       }
 
@@ -289,8 +289,7 @@ export default class InputPost extends Component {
         >
           {!this.state.form.file ?
             <div className={dropZoneBox}>
-              <h4>Upload File</h4>
-              <h5>Drop the file or click here</h5>
+              <h5>Drop a file to attach or click and browse to find a document.</h5>
             </div> :
             <div className={dropZoneBox}>
               <h4 className={dropZoneFilename}>{this.state.form.file.name}</h4>

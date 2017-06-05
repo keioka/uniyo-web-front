@@ -1,5 +1,4 @@
 /* @flow */
-
 import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -20,8 +19,8 @@ import {
   SidebarLeft,
   NavPostType,
   Donut,
-  InputPost,
   NavChannel,
+  NavDonuts,
 } from '../../components'
 
 import {
@@ -37,6 +36,7 @@ import {
   notification,
   boxDonuts,
   boxDonutsRow,
+  receiveDonutsActive,
   moveDonuts,
   donuts,
   barPushNotification,
@@ -54,12 +54,12 @@ const mapStateToProps = state => ({
   comments: state.api.comments,
   hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
+  uiStateHeader: state.ui.header,
   channels: state.api.channels,
   answers: state.api.answers,
   messages: state.api.messages,
   notifications: state.api.notifications,
 })
-
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   postsSearch: actions.postsSearch,
@@ -86,6 +86,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   commentGiveDonuts: actions.commentGiveDonuts,
   postGiveDonuts: actions.postGiveDonuts,
   addDevice: actions.addDevice,
+  donutsShake: uiActions.donutsShake,
+  donutsThrow: uiActions.donutsThrow,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -126,7 +128,7 @@ export default class DashBoard extends Component {
       currentPostType: TYPES[type],
     })
   }
-
+      
   componentDidMount() {
     const docElm = document.documentElement
     const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
@@ -229,6 +231,9 @@ export default class DashBoard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      uiStateHeader,
+      donutsShake,
+      donutsThrow,
     } = this.props
 
     const { currentUser } = auth
@@ -240,6 +245,7 @@ export default class DashBoard extends Component {
     const { all: allAnswers } = answers
     const { all: allMessages } = messages
     const { all: allNotifications } = notifications
+    const { isReceiveDonuts, isSpentDonuts } = uiStateHeader
 
     const { currentHashTag, currentPostType } = this.state
 
@@ -303,6 +309,8 @@ export default class DashBoard extends Component {
       allComments,
       allMessages,
       allChannels,
+      allAnswers,
+      allPosts,
       postsSearch,
       postCreate,
       showUserInfo,
@@ -322,7 +330,6 @@ export default class DashBoard extends Component {
       answerSearch,
       answerCreate,
       postInfo,
-      allAnswers,
       postsTrendingSearch,
       postsRelevantSearch,
       trendingPosts,
@@ -330,6 +337,7 @@ export default class DashBoard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      donutsThrow,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 
@@ -341,6 +349,7 @@ export default class DashBoard extends Component {
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
+          selectedHashtag={this.props.location.query.hashtag}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
@@ -365,10 +374,13 @@ export default class DashBoard extends Component {
                 showChannelUsers={showChannelUsers}
               />
             }
-            <div className={boxDonuts}>
-              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" color="PINK" />{currentUser.availableDonutsCount}</span>
-              <span className={boxDonutsRow}><Donut size="large" color="GREEN" />{currentUser.receivedDonutsCount}</span>
-            </div>
+            <NavDonuts
+              donutsShake={donutsShake}
+              isReceiveDonuts={isReceiveDonuts}
+              isSpentDonuts={isSpentDonuts}
+              availableDonutsCount={currentUser.availableDonutsCount}
+              receivedDonutsCount={currentUser.receivedDonutsCount}
+            />
           </header>
           <div className={mainContent}>
             {childComponents}

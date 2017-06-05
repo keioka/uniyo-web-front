@@ -6,7 +6,6 @@
   justify-content: center;
   color: white;
   padding: 40px;
-  background-color: $pink;
   font-size: 1.6rem;
 }
 
@@ -22,4 +21,24 @@
 .btn--close svg {
   fill: white;
   width: 0.6rem;
+}
+
+.pink {
+  color: $black;
+  background: #fdedf2;
+}
+
+.yellow {
+  color: $black;
+  background: #faf5ce;
+}
+
+.blue {
+  color: $black;
+  background: #e3f6fe;
+}
+
+.purple {
+  color: $black;
+  background: #f8e8ff;
 }

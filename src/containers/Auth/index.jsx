@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   schoolsSearch: actions.schoolsSearch,
+  schoolInfo: actions.schoolInfo,
   logIn: actions.logIn,
   userCreate: actions.userCreate,
   hashtagAdd: actions.hashtagAdd,
@@ -72,6 +73,7 @@ export default class Auth extends Component {
       auth,
       children,
       schools,
+      schoolInfo,
       schoolsSearch,
       logIn,
       userCreate,
@@ -82,6 +84,7 @@ export default class Auth extends Component {
     const childComponents = React.Children.map(children, child => React.cloneElement(child, {
       auth,
       schools,
+      schoolInfo,
       schoolsSearch,
       logIn,
       userCreate,

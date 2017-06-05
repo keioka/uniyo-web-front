@@ -17,6 +17,35 @@ $left-padding: 16px;
   overflow: hidden;
   white-space: nowrap;
   align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper:hover {
+  background-color: white;
+}
+
+.wrapper--active {
+  background-color: $pink;
+}
+
+.wrapper--active:hover {
+  background-color: $pink;
+}
+
+.wrapper--active span {
+  color: white !important;
+}
+
+.wrapper--active .btn--close svg {
+  fill: white;
+}
+
+.tag:hover {
+  background: white;
+}
+
+.tag--active {
+  background-color: $pink;
 }
 
 .btn--close {

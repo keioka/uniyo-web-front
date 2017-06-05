@@ -15,54 +15,63 @@ import YellowDonut from './donut_yellow.svg'
 import BlueDonut from './donut_blue.svg'
 
 const allDonuts = [PinkDonut, GreenDonut, PurpleDonut, WhiteDonut, YellowDonut, BlueDonut]
-const Donut = ({ color = 'RANDOM', size, id }) => {
-  let className
-  let ComponentDonut
+export default class Donut extends Component {
 
-  switch (size) {
-    case 'large':
-      className = lg
-      break
-    case 'medium':
-      className = med
-      break
-    case 'small':
-      className = sm
-      break
-    case 'xs':
-      className = xs
-      break
-    default:
-      className = med
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.color !== this.props.color || nextProps.count !== this.props.count) {
+      return true
+    }
+    return false
   }
 
-  switch (color) {
-    case 'PINK': {
-      ComponentDonut = PinkDonut
+  render() {
+    const { color = 'RANDOM', size, id, className } = this.props
+    let classNames = [className]
+    let ComponentDonut
+
+    switch (size) {
+      case 'large':
+      classNames.push(lg)
       break
+      case 'medium':
+      classNames.push(med)
+      break
+      case 'small':
+      classNames.push(sm)
+      break
+      case 'xs':
+      classNames.push(xs)
+      break
+      default:
+      classNames.push(med)
     }
 
-    case 'GREEN': {
-      ComponentDonut = GreenDonut
-      break
+    switch (color) {
+      case 'PINK': {
+        ComponentDonut = PinkDonut
+        break
+      }
+
+      case 'GREEN': {
+        ComponentDonut = GreenDonut
+        break
+      }
+
+      case 'RANDOM': {
+        const index = Math.floor(Math.random() * allDonuts.length)
+        ComponentDonut = allDonuts[index]
+        break
+      }
+
+      default: {
+        const index = Math.floor(Math.random() * allDonuts.length)
+        ComponentDonut = allDonuts[index]
+        break
+      }
     }
 
-    case 'RANDOM': {
-      const index = Math.floor(Math.random() * allDonuts.length)
-      ComponentDonut = allDonuts[index]
-      break
-    }
-
-    default: {
-      const index = Math.floor(Math.random() * allDonuts.length)
-      ComponentDonut = allDonuts[index]
-      break
-    }
+    return (
+      <ComponentDonut id={id} className={classNames.join(' ')} />
+    )
   }
-
-  return (
-    <ComponentDonut id={id} className={className} />
-  )
 }
-
-export default Donut

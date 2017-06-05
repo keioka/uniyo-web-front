@@ -9,7 +9,7 @@ import {
 
 import {
   wrapper,
-  tag,
+  wrapperActive,
   btnClose,
 } from './style'
 
@@ -48,30 +48,31 @@ class ListHashtag extends Component {
       hashtagType,
       type,
       showBtnDelete,
-      hashtagDelete
+      hashtagDelete,
+      isSelected,
     } = this.props
+    const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
+
     return (
-      <li className={wrapper}>
+      <li className={wrapperClassNames}>
         <Link
-          className={className}
           key={hashCode(hashtag)}
           to={dashboardPathGenarator({ hashtag })}
+        >
+          <span>#{hashtag}</span>
+        </Link>
+
+        { showBtnDelete &&
+          <span
+            className={btnClose}
+            onClick={(event) => { hashtagDelete({ hashtag, hashtagType }); event.stopPropagation() }}
           >
-            <span className={tag}>#{hashtag}</span>
-          </Link>
+            <Close />
+          </span>
+        }
+      </li>
+    )
+  }
+}
 
-          { showBtnDelete &&
-            <span
-              className={btnClose}
-              onClick={(event) => { hashtagDelete({ hashtag, hashtagType }); event.stopPropagation() }}
-              >
-                <Close />
-              </span>
-            }
-          </li>
-        )
-      }
-      // TODO: what if long comment
-    }
-
-    export default ListHashtag
+export default ListHashtag
