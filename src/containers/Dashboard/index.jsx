@@ -164,10 +164,7 @@ export default class DashBoard extends Component {
 
   onReadContent(contentType, id) {
     const { contentReadCheckNotification } = this.props
-    console.log('content read')
-    const c = { contentType, id }
-    console.log(contentType, id)
-    contentReadCheckNotification()
+    contentReadCheckNotification({ contentType, id })
   }
 
   onClearCurrentTypeHandler() {

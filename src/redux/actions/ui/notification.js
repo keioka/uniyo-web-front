@@ -1,6 +1,7 @@
 import actionTypes from '../../actionTypes'
 
-export const contentReadCheckNotification = (userId) => ({
+export const contentReadCheckNotification = ({ id, contentType }) => ({
   type: actionTypes.contentReadCheckNotification.request,
-  userId,
+  id,
+  contentType,
 })
