@@ -1,5 +1,7 @@
 @import "../../styles/main";
 
+$animation-duraion: 0.2s;
+
 .wrapper {
   display: flex;
   flex-direction: row;
@@ -9,6 +11,36 @@
   margin: 20px 0px;
   padding: 8px 12px;
   border-radius: 5px;
+  animation-name: slideLeft;
+	-webkit-animation-name: slideLeft;
+
+	animation-duration: $animation-duraion;
+	-webkit-animation-duration: $animation-duraion;
+
+	animation-timing-function: ease-in-out;
+	-webkit-animation-timing-function: ease-in-out;
+
+	visibility: visible !important;
+}
+
+@keyframes slideLeft {
+	0% {
+		transform: translateY(-150%);
+	}
+
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+@-webkit-keyframes slideLeft {
+  0% {
+    transform: translateY(150%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
 }
 
 .wrapper--link {
