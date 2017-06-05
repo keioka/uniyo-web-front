@@ -1,0 +1,12 @@
+{
+  "name": "UniYo",
+  "short_name": "UniYo",
+  "icons": [{
+        "src": "/public/assets/img/uniyo.png",
+        "sizes": "88x88",
+        "type": "image/png"
+      }],
+  "start_url": "/",
+  "display": "standalone",
+  "gcm_sender_id": "739667962022"
+}
