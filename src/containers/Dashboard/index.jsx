@@ -1,5 +1,4 @@
 /* @flow */
-
 import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -9,7 +8,6 @@ import Rx from 'rx'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
-
 
 import {
   SidebarRight,
@@ -63,7 +61,6 @@ const mapStateToProps = state => ({
   messages: state.api.messages,
   notifications: state.api.notifications,
 })
-
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   postsSearch: actions.postsSearch,
@@ -310,8 +307,6 @@ export default class DashBoard extends Component {
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
     }))
 
-    console.log(donutsThrow)
-
     return (
       <div className={container}>
         <SidebarLeft
@@ -320,6 +315,7 @@ export default class DashBoard extends Component {
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
+          selectedHashtag={this.props.location.query.hashtag}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
