@@ -217,8 +217,14 @@ function* eventWebSocket() {
         }
 
         case 'USER_RECEIVED_DONUT': {
-          const { amount, user } = payload.data
-          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { amount, user } } }
+          const { fromUser } = payload.data
+          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { fromUser } } }
+          break
+        }
+
+        case 'USER_PRESENCE_CHANGED': {
+          const { status, userId } = payload.data
+          action = { type: actionTypes.userOnlineStatusUpdate.success, result: { data: { status, userId } } }
           break
         }
 

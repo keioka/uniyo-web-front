@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory } from 'react-router'
-import VisibilitySensor from 'react-visibility-sensor';
+import moment from 'moment'
+import VisibilitySensor from 'react-visibility-sensor'
 import {
   wrapper,
   box,
@@ -8,7 +9,7 @@ import {
   time,
   imgUser,
   unread,
-  read
+  read,
 } from './style'
 
 const ListNotification = ({
@@ -19,27 +20,19 @@ const ListNotification = ({
   isLastNotification,
 }) => {
 
-  const { id, type, isRead } = notification
-  const user = 'kei'
-
-  const commentNotification = `@${user} commented on your post`
-  const hashtagNotification = `#${user} commented on your post`
-  const messageNotification = `${2} new messages in your private chat with @Emmanuel and 4 others`
+  const { id, type, isRead, createdAt } = notification
 
   let component
   let userImageUrl
 
   const onChange = function (isVisible) {
     if (isVisible && !isRead) {
-      onVisiable({ notificationId: id })
-    }
 
-    if (isVisible && isLastNotification) {
-      // notificationSearch({})
     }
   }
 
   const onClick = () => {
+    onVisiable({ notificationId: id })
     switch(type) {
       case 'POST_MENTION': {
         const { post } = notification
@@ -48,6 +41,11 @@ const ListNotification = ({
       case 'POST_HASHTAG': {
         const { post } = notification
         browserHistory.push(`/dashboard/posts/${post.id}`)
+      }
+      case 'NEW_COMMENT': {
+        const { comment } = notification
+        const { postId, user } = comment
+        browserHistory.push(`/dashboard/posts/${postId}`)
       }
       case 'NEW_CHANNEL_MESSAGE': {
         const { channel } = notification
@@ -63,7 +61,7 @@ const ListNotification = ({
       component = (
         <span>
           <span>
-            @{user.firstName} mentioned you on his post
+            @{user.firstName} mentioned you on the post
           </span>
         </span>
       )
@@ -72,7 +70,18 @@ const ListNotification = ({
     }
 
     case 'POST_HASHTAG': {
+      const { post } = notification
+      const { user } = post
+      userImageUrl = user ? user.image.smallUrl : ''
       component = (<span><span>@{user.firstName}</span> posted new one</span>)
+      break
+    }
+
+    case 'NEW_COMMENT': {
+      const { comment } = notification
+      const { postId, user } = comment
+      userImageUrl = user ? user.image.smallUrl : ''
+      component = (<span><span>@{user.firstName}</span> commented on your post</span>)
       break
     }
 
@@ -105,7 +114,7 @@ const ListNotification = ({
           </span>
         </span>
         <span className={time}>
-          21:32 PM
+          {moment.utc(createdAt).local().format("HH:mm A")}
         </span>
       </li>
 

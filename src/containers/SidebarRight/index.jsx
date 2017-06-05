@@ -17,6 +17,9 @@ import {
   btnDonutsHistory,
   btnDonutsHistoryInner,
   image,
+  imageAnimationOne,
+  imageAnimationTwo,
+  imageAnimationThree,
   btn,
 } from './style'
 
@@ -73,12 +76,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SidebarRight extends Component {
-  static propTypes = {
-
-  }
 
   display() {
-
     const {
       users,
       rightbar,
@@ -92,6 +91,7 @@ export default class SidebarRight extends Component {
       showHistoryDonut,
       userGiveDonuts,
       userSearch,
+
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -133,6 +133,8 @@ export default class SidebarRight extends Component {
         return (
           <SidebarRightHistoryDonuts
             userSearch={userSearch}
+            channelCreate={channelCreate}
+            allChannels={allChannels}
             allUsers={allUsers}
             donutsHistory={donutsHistory}
           />
@@ -154,10 +156,12 @@ export default class SidebarRight extends Component {
 
     const { all: allChannels } = channels
 
-    const userImages = [...new Set(donutsHistory.map(history => history.fromUser.image.mediumUrl))].slice(0, 3)
+    const userImages = donutsHistory && [...new Set(donutsHistory.map(history => {
+      return history.fromUser.image.mediumUrl
+    }))].slice(0, 3)
 
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
-
+    const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
     return (
       <div>
         <aside className={wrapperClassNames.join(' ')}>
@@ -168,8 +172,10 @@ export default class SidebarRight extends Component {
         <div className={btnDonutsHistory}>
           <div className={btnDonutsHistoryInner}>
             {userImages && userImages.map((imageUrl, index) => {
+              const animationClass = animationClasses[index]
+              const classNames = [image, animationClass].join(' ')
               return (
-                <div className={image} data-image-id={index+1}>
+                <div className={classNames} data-image-id={index+1}>
                   <img src={imageUrl} alt="" />
                 </div>
               )

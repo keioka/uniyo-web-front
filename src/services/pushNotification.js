@@ -55,7 +55,7 @@ export async function syncSubscription() {
 
     return true
   } catch (e) {
-    console.error(e);
+    console.error(e)
     return false
   }
 }

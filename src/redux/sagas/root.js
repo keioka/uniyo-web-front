@@ -2,6 +2,7 @@ import sagas from './index'
 import { fork } from 'redux-saga/effects'
 
 const {
+  schoolInfoSaga,
   schoolsSearchSaga,
   logInSaga,
   userCreateSaga,
@@ -30,12 +31,16 @@ const {
   notificationReadMarkSaga,
   webSocket,
   watchMarkNotificationAsRead,
+  watchUserReceivedDonutsFetch,
+  watchContentReadCheckNotificationSaga,
+  watchDonutsThrow,
   postsRelevantSearchSaga,
   postsTrendingSearchSaga,
   currentUserDonutsSaga,
   commentGiveDonutsSaga,
   postGiveDonutsSaga,
   userGiveDonutsSaga,
+  addDeviceSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -43,6 +48,7 @@ export default function* rootSaga() {
     /*
       saga for api
     */
+    fork(schoolInfoSaga),
     fork(schoolsSearchSaga),
     fork(logInSaga),
     fork(userCreateSaga),
@@ -73,11 +79,16 @@ export default function* rootSaga() {
     fork(commentGiveDonutsSaga),
     fork(postGiveDonutsSaga),
     fork(userGiveDonutsSaga),
+    fork(addDeviceSaga),
+
     /*
       saga form UI
     */
     fork(watchShowUserInfo),
     fork(watchShowChannelUsers),
+    fork(watchShowChannelUsers),
+    fork(watchDonutsThrow),
+    fork(watchContentReadCheckNotificationSaga),
 
     /*
       saga for webSocket

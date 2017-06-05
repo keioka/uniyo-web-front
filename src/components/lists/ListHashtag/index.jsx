@@ -9,8 +9,9 @@ import {
 
 import {
   wrapper,
-  tag,
+  wrapperActive,
   btnClose,
+  iconNumberMention,
 } from './style'
 
 function hashCode(str) {
@@ -48,30 +49,34 @@ class ListHashtag extends Component {
       hashtagType,
       type,
       showBtnDelete,
-      hashtagDelete
+      hashtagDelete,
+      isSelected,
+      isIncludeNewPost,
+      amountMention,
     } = this.props
+    const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
+
     return (
-      <li className={wrapper}>
+      <li className={wrapperClassNames}>
         <Link
-          className={className}
           key={hashCode(hashtag)}
           to={dashboardPathGenarator({ hashtag })}
+        >
+          <span>{isIncludeNewPost ? (<b>#{hashtag}</b>) : `#${hashtag}`}</span>
+          {amountMention && <span className={iconNumberMention}>{amountMention}</span> }
+        </Link>
+
+        { showBtnDelete &&
+          <span
+            className={btnClose}
+            onClick={(event) => { hashtagDelete({ hashtag, hashtagType }); event.stopPropagation() }}
           >
-            <span className={tag}>#{hashtag}</span>
-          </Link>
+            <Close />
+          </span>
+        }
+      </li>
+    )
+  }
+}
 
-          { showBtnDelete &&
-            <span
-              className={btnClose}
-              onClick={(event) => { hashtagDelete({ hashtag, hashtagType }); event.stopPropagation() }}
-              >
-                <Close />
-              </span>
-            }
-          </li>
-        )
-      }
-      // TODO: what if long comment
-    }
-
-    export default ListHashtag
+export default ListHashtag

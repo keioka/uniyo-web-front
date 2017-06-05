@@ -42,14 +42,11 @@
   height: 100%;
 }
 
-.image {
-  width: 60px;
-  border-radius: 50%;
-}
 
 .image img {
   width: 100%;
   border-radius: 50%;
+  border: 2px solid white;
 }
 
 .btn {
@@ -62,14 +59,16 @@
   width: 171.8px;
 	height: 51px;
 	border-radius: 15px;
-	background-color: #ffc7d7;
 	box-shadow: 0 0 10px 0 #cdcdcd;
-	border: solid 2px #ffffff;
   font-size: 1rem;
   color: white;
   font-size: 1.4rem;
   border: 3px solid white;
   outline: none;
+  position: absolute;
+  bottom: 30px;
+  z-index: 400;
+  cursor: pointer;
 }
 
 .btnDonutsHistory {
@@ -90,25 +89,205 @@
   flex-direction: column;
   align-items: center;
   padding: 10px 40px;
+  height: 200px;
+  width: 100%;
 }
 
+.image {
+  width: 60px;
+  border-radius: 50%;
+}
+
+.image--animation--one {
+  animation: floattop1 3s ease-in-out infinite;
+}
+
+.image--animation--two {
+  animation: floattop2 3s ease-in-out infinite;
+}
+
+.image--animation--three {
+  animation: floattop3 3s ease-in-out infinite;
+}
+
+@keyframes floattop1 {
+  10%, {
+    transform: translate3d(24px, -80px, 0px) scale(1);
+    top: 90%;
+    opacity: 1;
+  }
+
+  20%, {
+    transform: translate3d(44px, -140px, 0px) scale(0.8);
+    top: 85%;
+  }
+
+  30%, {
+    transform: translate3d(34px, -150px, 0px) scale(0.7);
+    top: 70%;
+  }
+
+  40%, {
+    transform: translate3d(14px, -160px, 0px) scale(0.6);
+    top: 60%;
+  }
+
+  50%, {
+    transform: translate3d(24px, -170px, 0px) scale(0.5);
+    top: 50%;
+  }
+
+  60%, {
+    transform: translate3d(14px, -180px, 0px) scale(0.4);
+    top: 50%;
+  }
+
+  70%, {
+    transform: translate3d(4px, -190px, 0px) scale(0.3);
+    top: 50%;
+  }
+
+  80%, {
+    transform: translate3d(14px, -200px, 0px) scale(0.2);
+    top: 50%;
+  }
+
+  90%, {
+    transform: translate3d(24px, -1050px, 0px) scale(0.2);
+    top: 50%;
+  }
+
+  100%, {
+    transform: translate3d(18px, -1150px, 0px) ;
+
+    opacity: 0;
+  }
+}
+
+
+@keyframes floattop2 {
+  10%, {
+    transform: translate3d(44px, -80px, 0px) scale(1);
+    top: 90%;
+    opacity: 1;
+  }
+
+  20%, {
+    transform: translate3d(24px, -140px, 0px) scale(0.8);
+    top: 85%;
+  }
+
+  30%, {
+    transform: translate3d(14px, -150px, 0px) scale(0.7);
+    top: 70%;
+  }
+
+  40%, {
+    transform: translate3d(24px, -160px, 0px) scale(0.6);
+    top: 60%;
+  }
+
+  50%, {
+    transform: translate3d(34px, -170px, 0px) scale(0.5);
+    top: 50%;
+  }
+
+  60%, {
+    transform: translate3d(17px, -180px, 0px) scale(0.4);
+    top: 50%;
+  }
+
+  70%, {
+    transform: translate3d(8px, -190px, 0px) scale(0.3);
+    top: 50%;
+  }
+
+  80%, {
+    transform: translate3d(24px, -200px, 0px) scale(0.2);
+    top: 50%;
+  }
+
+  90%, {
+    transform: translate3d(24px, -1050px, 0px) scale(0.2);
+    top: 50%;
+  }
+
+  100%, {
+    transform: translate3d(18px, -1150px, 0px) ;
+
+    opacity: 0;
+  }
+}
+
+
+@keyframes floattop3 {
+  10%, {
+    transform: translate3d(18px, -80px, 0px) scale(1);
+    top: 90%;
+    opacity: 1;
+  }
+
+  20%, {
+    transform: translate3d(28px, -140px, 0px) scale(0.8);
+    top: 85%;
+  }
+
+  30%, {
+    transform: translate3d(32px, -150px, 0px) scale(0.7);
+    top: 70%;
+  }
+
+  40%, {
+    transform: translate3d(28px, -160px, 0px) scale(0.6);
+    top: 60%;
+  }
+
+  50%, {
+    transform: translate3d(34px, -170px, 0px) scale(0.5);
+    top: 50%;
+  }
+
+  60%, {
+    transform: translate3d(17px, -180px, 0px) scale(0.4);
+    top: 50%;
+  }
+
+  70%, {
+    transform: translate3d(8px, -190px, 0px) scale(0.3);
+    top: 50%;
+  }
+
+  80%, {
+    transform: translate3d(24px, -200px, 0px) scale(0.2);
+    top: 50%;
+  }
+
+  90%, {
+    transform: translate3d(24px, -1050px, 0px) scale(0.2);
+    top: 50%;
+  }
+
+  100%, {
+    transform: translate3d(18px, -1150px, 0px) ;
+
+    opacity: 0;
+  }
+}
+
+
 .btnDonutsHistoryInner .image[data-image-id='1'] {
-  width: 80px;
-  border: 2px solid white;
+
+  z-index: 300;
 }
 
 .btnDonutsHistoryInner .image[data-image-id='2'] {
-  opacity: 0.5;
-  width: 50px;
+
+  z-index: 200;
 }
 
-
 .btnDonutsHistoryInner .image[data-image-id='3'] {
-  position: absolute;
-  opacity: 0.4;
-  top: 0px;
-  right: 80px;
-  width: 37px;
+
+  z-index: 100;
 }
 
 .notification {

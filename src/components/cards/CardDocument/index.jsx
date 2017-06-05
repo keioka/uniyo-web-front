@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import {
   TextPost,
@@ -39,6 +40,10 @@ export default class CardDocument extends PureComponent {
     }
   }
 
+  onChange() {
+
+  }
+
   onClickCommentHandler() {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
@@ -50,8 +55,7 @@ export default class CardDocument extends PureComponent {
     })
   }
 
-  onClickDonutsHandler(event) {
-    event.stopPropagation()
+  onClickDonutsHandler() {
     const { postGiveDonuts, id } = this.props
     postGiveDonuts({ postId: id, amount: 1 })
   }
@@ -63,6 +67,7 @@ export default class CardDocument extends PureComponent {
       user,
       commentsCount,
       donutsCount,
+      donutsThrow,
       currentUserLiked,
       createdAt,
       fileName,
@@ -82,7 +87,10 @@ export default class CardDocument extends PureComponent {
     const time = moment.utc(createdAt).format("HH:mm A")
 
 
-    return (
+  return (
+    <VisibilitySensor
+      onChange={::this.onChange}
+    >
       <div key={id} className={wrapper}>
         <div className={sectionImage}>
           <img src={user.image.smallUrl} alt="" />
@@ -104,6 +112,7 @@ export default class CardDocument extends PureComponent {
             </button>
             <ButtonDonut
               className={btnLike}
+              donutsThrow={donutsThrow}
               donutsCount={donutsCount}
               onClick={::this.onClickDonutsHandler}
             />
@@ -118,6 +127,7 @@ export default class CardDocument extends PureComponent {
           }
         </div>
       </div>
+    </VisibilitySensor>
     )
   }
 }

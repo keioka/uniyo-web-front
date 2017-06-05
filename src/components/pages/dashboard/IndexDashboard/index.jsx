@@ -109,6 +109,8 @@ export default class IndexDashboard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      donutsThrow,
+      onReadContent,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
@@ -121,6 +123,7 @@ export default class IndexDashboard extends Component {
       showUserInfo,
       currentUser,
       currentPostType,
+      donutsThrow,
     }) => {
 
       switch(post.type) {
@@ -138,6 +141,8 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['docs']:
@@ -154,6 +159,8 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['reviews']:
@@ -170,6 +177,8 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['questions']:
@@ -186,6 +195,8 @@ export default class IndexDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
+              donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
       }
@@ -218,6 +229,7 @@ export default class IndexDashboard extends Component {
              commentCreate,
              comments,
              showUserInfo,
+             donutsThrow,
              currentUser,
            })
          })}

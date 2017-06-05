@@ -1,5 +1,4 @@
 /* @flow */
-
 import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -9,7 +8,7 @@ import Rx from 'rx'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
-
+import * as pushNotification from '../../services/pushNotification'
 
 import {
   SidebarRight,
@@ -20,8 +19,8 @@ import {
   SidebarLeft,
   NavPostType,
   Donut,
-  InputPost,
   NavChannel,
+  NavDonuts,
 } from '../../components'
 
 import {
@@ -33,17 +32,16 @@ import {
   mainContent,
   mainShrink,
   mainExpand,
-  footer,
-  barNoification,
-  inputPostWrapper,
-  inputPostWrapperImageBox,
-  input,
   icon,
   notification,
   boxDonuts,
   boxDonutsRow,
+  receiveDonutsActive,
   moveDonuts,
   donuts,
+  barPushNotification,
+  barPushNotificationButtonSubscribe,
+  barPushNotificationButtonClose,
 } from './style'
 
 import Setting from './settings.svg'
@@ -56,12 +54,12 @@ const mapStateToProps = state => ({
   comments: state.api.comments,
   hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
+  uiStateHeader: state.ui.header,
   channels: state.api.channels,
   answers: state.api.answers,
   messages: state.api.messages,
   notifications: state.api.notifications,
 })
-
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   postsSearch: actions.postsSearch,
@@ -87,6 +85,10 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userGiveDonuts: actions.userGiveDonuts,
   commentGiveDonuts: actions.commentGiveDonuts,
   postGiveDonuts: actions.postGiveDonuts,
+  addDevice: actions.addDevice,
+  donutsShake: uiActions.donutsShake,
+  donutsThrow: uiActions.donutsThrow,
+  contentReadCheckNotification: uiActions.contentReadCheckNotification,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -129,40 +131,8 @@ export default class DashBoard extends Component {
   }
 
   componentDidMount() {
-    const docElm = document.documentElement
-    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
-    const currentUserDonutElm = document.querySelector('#available-donuts')
-    const onClickDonuts$ = Rx.Observable
-      .fromEvent(giveDonutsElm, 'click')
-      .map(event => ({ x: event.clientX, y: event.clientY }))
-
-
-    onClickDonuts$.subscribe(pos => {
-      const rotX = (pos.y / clientHeight * -50) + 25;
-      const rotY = (pos.x / clientWidth * 50) - 25;
-    })
-  }
-
-  componentDidUpdate() {
-    const docElm = document.documentElement
-    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
-    const currentUserDonutElm = document.querySelector('#available-donuts')
-    const onClickDonuts$ = Rx.Observable
-      .fromEvent(giveDonutsElm, 'click')
-      .map(event => ({ x: event.clientX, y: event.clientY }))
-
-    onClickDonuts$.subscribe(pos => {
-      const cloneDonuts = currentUserDonutElm.cloneNode(true)
-      cloneDonuts.style.position = 'absolute'
-      cloneDonuts.style.top = pos.y
-      cloneDonuts.style.left = pos.x
-    })
-  }
-
-  onSelectPostType(type) {
-    this.setState({
-      currentPostType: type,
-    })
+    const { addDevice } = this.props
+    pushNotification.subscribe(addDevice)
   }
 
   componentWillReceiveProps(prevProps, nextProps) {
@@ -183,6 +153,21 @@ export default class DashBoard extends Component {
       if (typeForQuery && typeForQuery !== 'ALL') { params.types = [TYPES[type]] }
       postsSearch(params)
     }
+  }
+
+
+  onSelectPostType(type) {
+    this.setState({
+      currentPostType: type,
+    })
+  }
+
+  onReadContent(contentType, id) {
+    const { contentReadCheckNotification } = this.props
+    console.log('content read')
+    const c = { contentType, id }
+    console.log(contentType, id)
+    contentReadCheckNotification()
   }
 
   onClearCurrentTypeHandler() {
@@ -227,6 +212,9 @@ export default class DashBoard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      uiStateHeader,
+      donutsShake,
+      donutsThrow,
     } = this.props
 
     const { currentUser } = auth
@@ -238,6 +226,7 @@ export default class DashBoard extends Component {
     const { all: allAnswers } = answers
     const { all: allMessages } = messages
     const { all: allNotifications } = notifications
+    const { isReceiveDonuts, isSpentDonuts } = uiStateHeader
 
     const { currentHashTag, currentPostType } = this.state
 
@@ -301,6 +290,8 @@ export default class DashBoard extends Component {
       allComments,
       allMessages,
       allChannels,
+      allAnswers,
+      allPosts,
       postsSearch,
       postCreate,
       showUserInfo,
@@ -320,7 +311,6 @@ export default class DashBoard extends Component {
       answerSearch,
       answerCreate,
       postInfo,
-      allAnswers,
       postsTrendingSearch,
       postsRelevantSearch,
       trendingPosts,
@@ -328,8 +318,12 @@ export default class DashBoard extends Component {
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
+      donutsThrow,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
+      onReadContent: this.onReadContent.bind(this),
     }))
+
+    const unreadNotification = allNotifications.filter(notification => !notification.isRead)
 
     return (
       <div className={container}>
@@ -339,6 +333,8 @@ export default class DashBoard extends Component {
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
+          unreadNotification={unreadNotification}
+          selectedHashtag={this.props.location.query.hashtag}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
@@ -363,10 +359,13 @@ export default class DashBoard extends Component {
                 showChannelUsers={showChannelUsers}
               />
             }
-            <div className={boxDonuts}>
-              <span className={boxDonutsRow}><Donut id="available-donuts" size="large" color="PINK" />{currentUser.availableDonutsCount}</span>
-              <span className={boxDonutsRow}><Donut size="large" color="GREEN" />{currentUser.receivedDonutsCount}</span>
-            </div>
+            <NavDonuts
+              donutsShake={donutsShake}
+              isReceiveDonuts={isReceiveDonuts}
+              isSpentDonuts={isSpentDonuts}
+              availableDonutsCount={currentUser.availableDonutsCount}
+              receivedDonutsCount={currentUser.receivedDonutsCount}
+            />
           </header>
           <div className={mainContent}>
             {childComponents}
@@ -389,6 +388,19 @@ export default class DashBoard extends Component {
     // TODO: fetching case
     return (
       <LayoutDashboard>
+        {pushNotification.permissionStatus === "default" &&
+        <div className={barPushNotification}>
+          <Donut size="sm" />
+          UniYo needs your permission to enable desktop notifications.
+          <button
+            className={barPushNotificationButtonSubscribe}
+            onClick={() => pushNotification.requestPermissionForNotifications()}
+          >
+            Setting
+          </button>
+          <button className={barPushNotificationButtonClose}>X</button>
+        </div>
+        }
         { this.renderContent }
       </LayoutDashboard>
     )

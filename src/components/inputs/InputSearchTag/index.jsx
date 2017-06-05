@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 
 import {
-  input,
+  element,
 } from './style'
 
 
 const InputSearchTag = (props) => {
-  const classNames = `${input} ${props.className}`
+  const classNames = `${element} ${props.className}`
   return (
     <input
       type="text"

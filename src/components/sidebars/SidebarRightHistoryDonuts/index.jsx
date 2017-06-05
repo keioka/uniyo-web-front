@@ -24,14 +24,27 @@ import {
   ButtonDonut,
 } from '../../'
 
-export default class SidebarRightHisotryDonuts extends Component {
+export default class SidebarRightHistoryDonuts extends Component {
 
   state = {
     type: 1,
+    userSearchQuery: '',
+  }
+
+  get usersDonutsToGive() {
+    const { allUsers, userSearch, channelCreate, allChannels } = this.props
+    const filteredUsers = allUsers && this.state.userSearchQuery !== '' ? allUsers.filter(user => user.name.toLowerCase().includes(this.state.userSearchQuery)) : allUsers
+    return filteredUsers.map(user =>
+      <ListUserDonutGive
+        {...user}
+        channelCreate={channelCreate}
+        channels={allChannels}
+      />
+    )
   }
 
   render() {
-     const { donutsHistory, allUsers, userSearch } = this.props
+     const { donutsHistory, allUsers, userSearch, channelCreate, allChannels } = this.props
      const classNameFirstTab = this.state.type === 0 ? headerNavActive : headerNav
      const classNameSecondTab = this.state.type === 1 ? headerNavActive : headerNav
 
@@ -50,7 +63,7 @@ export default class SidebarRightHisotryDonuts extends Component {
                  type="text"
                  className={inputSearch}
                  placeholder="Search in your campus"
-                 onChange={event => userSearch({ query: event.target.value })}
+                 onChange={event => { this.setState({ userSearchQuery: event.target.value }); userSearch({ query: event.target.value }) }}
                />
              </div>
              <div className={listUserInvite}>
@@ -63,7 +76,8 @@ export default class SidebarRightHisotryDonuts extends Component {
                </div>
                <span className={listUserInviteRight}><ButtonDonut donutsCount={0}/></span>
              </div>
-             {allUsers && allUsers.map(user => <ListUserDonutGive {...user} />)}
+             {this.usersDonutsToGive}
+
            </ul>) :
            (<ul className={ul}>
              {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history} />)}

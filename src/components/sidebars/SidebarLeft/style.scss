@@ -54,15 +54,16 @@ $left-padding: 16px;
   list-style: none;
   font-size: 1rem;
   cursor: pointer;
-  padding: 4px;
   padding-left: $left-padding;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   width: 80%;
+  height: 1.2rem;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   align-items: center;
+  margin: 4px 0px;
 }
 
 .section__tag--hot {
@@ -118,18 +119,16 @@ $left-padding: 16px;
   justify-content: center;
   background: #969696;
   border-radius: 4px;
-  width: 20px;
-  height: 20px;
   color: white;
-  margin-right: 12px;
-  padding: 1px 2px 3px 2px;
+  margin-right: 5px;
   font-size: 0.6rem;
+  width: 16px;
+  height: 16px;
+  font-size: 0.7rem;
 }
 
 .icon--channel--online-status {
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
+  margin-right: 5px;
   padding: 1px 2px 3px 2px;
   display: flex;
   align-items: center;
@@ -143,6 +142,17 @@ $left-padding: 16px;
   padding: 2px;
   border-radius: 50%;
   background: #5fe36f;
+}
+
+.icon--number--new-message {
+  background: red;
+  color: white;
+  width: 8px;
+  height: 8px;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 50%;
+  margin-left: 5px;
 }
 
 .input--search-tag {

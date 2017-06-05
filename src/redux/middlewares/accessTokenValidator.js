@@ -33,7 +33,8 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.postGiveDonuts.request ||
     action.type === actionTypes.commentGiveDonuts.request ||
     action.type === actionTypes.userGiveDonuts.request ||
-    action.type === actionTypes.notificationSearch.request
+    action.type === actionTypes.notificationSearch.request ||
+    action.type === actionTypes.addDevice.request
   ) {
     action.accessToken = storage.accessToken
   }

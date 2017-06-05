@@ -17,6 +17,35 @@ $left-padding: 16px;
   overflow: hidden;
   white-space: nowrap;
   align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper:hover {
+  background-color: white;
+}
+
+.wrapper--active {
+  background-color: $pink;
+}
+
+.wrapper--active:hover {
+  background-color: $pink;
+}
+
+.wrapper--active span {
+  color: white !important;
+}
+
+.wrapper--active .btn--close svg {
+  fill: white;
+}
+
+.tag:hover {
+  background: white;
+}
+
+.tag--active {
+  background-color: $pink;
 }
 
 .btn--close {
@@ -32,4 +61,15 @@ $left-padding: 16px;
 
 .btn--close svg {
   fill: $darkgray;
+}
+
+.icon--number-mention {
+  background: red;
+  color: white;
+  width: 8px;
+  height: 8px;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 50%;
+  margin-left: 5px;
 }

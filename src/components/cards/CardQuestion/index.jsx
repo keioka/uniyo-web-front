@@ -1,6 +1,7 @@
 import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import {
   TextPost,
@@ -36,6 +37,10 @@ export default class CardQuestion extends PureComponent {
     }
   }
 
+  onChange() {
+
+  }
+
   onClickCommentHandler() {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
@@ -48,7 +53,6 @@ export default class CardQuestion extends PureComponent {
   }
 
   onClickDonutsHandler(event) {
-    event.stopPropagation()
     const { postGiveDonuts, id } = this.props
     postGiveDonuts({ postId: id, amount: 1 })
   }
@@ -60,6 +64,7 @@ export default class CardQuestion extends PureComponent {
       text,
       user,
       donutsCount,
+      donutsThrow,
       answersCount,
       currentUserLiked,
       createdAt,
@@ -95,6 +100,7 @@ export default class CardQuestion extends PureComponent {
               <ButtonDonut
                 className={btnLike}
                 donutsCount={donutsCount}
+                donutsThrow={donutsThrow}
                 onClick={::this.onClickDonutsHandler}
               />
             </div>

@@ -1,6 +1,7 @@
 import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import {
   TextPost,
@@ -37,6 +38,11 @@ export default class CardPost extends PureComponent  {
     }
   }
 
+  onChange() {
+    const { id } = this.props
+    this.props.onReadContent('POST_READ', id)
+  }
+
   onClickCommentHandler(event) {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0 && !this.state.toggle) {
@@ -49,7 +55,6 @@ export default class CardPost extends PureComponent  {
   }
 
   onClickDonutsHandler(event) {
-    event.stopPropagation()
     const { postGiveDonuts, id } = this.props
     postGiveDonuts({ postId: id, amount: 1 })
   }
@@ -73,6 +78,7 @@ export default class CardPost extends PureComponent  {
       userGiveDonuts,
       commentGiveDonuts,
       currentPostType,
+      donutsThrow,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
@@ -80,6 +86,9 @@ export default class CardPost extends PureComponent  {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
+    <VisibilitySensor
+      onChange={::this.onChange}
+    >
       <div key={id} className={wrapper}>
         <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
@@ -106,6 +115,7 @@ export default class CardPost extends PureComponent  {
               className={btnLike}
               donutsCount={donutsCount}
               onClick={::this.onClickDonutsHandler}
+              donutsThrow={donutsThrow}
             />
           </div>
           { this.state.toggle &&
@@ -128,6 +138,7 @@ export default class CardPost extends PureComponent  {
           }
         </div>
       </div>
+    </VisibilitySensor>
     )
   }
 }
