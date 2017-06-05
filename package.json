@@ -52,7 +52,7 @@
     "redux": "^3.6.0",
     "redux-saga": "^0.14.6",
     "rx": "^4.1.0",
-    "uniyo-redux": "git+https://c44ed71924d2577ef2909b0afa2a3d335d387f78:x-oauth-basic@github.com/uniyo/uniyo-redux.git#dev-basic"
+    "uniyo-redux": "file:../uniyo-redux"
   },
   "devDependencies": {
     "babel": "^6.23.0",
