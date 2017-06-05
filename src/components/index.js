@@ -20,6 +20,8 @@ export Index from './pages/static/Index'
 export Profile from './pages/auth/Profile'
 export Signup from './pages/auth/Signup'
 export Signin from './pages/auth/Signin'
+export SelectSchool from './pages/auth/SelectSchool'
+
 export EmailVerified from './pages/auth/EmailVerified'
 export ResetPassword from './pages/auth/ResetPassword'
 
@@ -88,6 +90,7 @@ export SidebarRightUserInfo from './sidebars/SidebarRightUserInfo'
 export SidebarRightNotification from './sidebars/SidebarRightNotification'
 export SidebarRightHistoryDonuts from './sidebars/SidebarRightHistoryDonuts'
 export SidebarRightChannelUsers from './sidebars/SidebarRightChannelUsers'
+
 /*
   text
 */

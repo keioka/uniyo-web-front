@@ -33,46 +33,36 @@ export default class Signup extends Component {
     }
   }
 
-  onClick() {
-    this.setState({
-      pageIndex: this.state.pageIndex + 1
-    })
-  }
-
-  onSelectSchool(school) {
-    this.setState({
-      pageIndex: 1,
-      form: {
-        school: school,
-      },
-    })
-  }
+    componentDidMount() {
+      const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
+      if (!isDemo && this.props.schools.data.filter(school => school.slag === this.props.params.schoolSlug).length === 0) {
+        this.props.schoolInfo({
+          id: this.props.params.schoolSlug,
+        })
+      }
+    }
 
   onSubmit() {
+    const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
+    const schools = this.props.schools.data.filter(school => school.slag === this.props.params.schoolSlug)
+    const selectedSchool = schools.length > 0 && schools[0]
+    if (!isDemo && !selectedSchool) {
+      browserHistory.push(`/signup`)
+    }
+
     const { userCreate } = this.props
-    const { email, firstName, lastName, password, school } = this.state.form
-    userCreate({name: `${firstName} ${lastName}`, email: email, password: password, schoolId: 1})
+    const { email, firstName, lastName, password } = this.state.form
+    const schoolId = isDemo ? 1 : selectedSchool.id
+    userCreate({ firstName, lastName, email, password, schoolId })
   }
 
-  get renderFirstPage() {
-    return (
-      <div className={layoutSelectSchool}>
-        <div className={layoutSelectSchoolHeader}>
-          <h2 className={layoutSelectSchoolTitle}>Yo. What is your campus?</h2>
-        </div>
-        <div className={layoutSelectSchoolContent}>
-          <InputSearchSchool {...this.props} onSelectSchool={::this.onSelectSchool} />
-        </div>
-        <div className={layoutSelectSchoolFotter}>
-        </div>
-      </div>
-    )
-  }
-
-  get renderSecondPage() {
+  render() {
+    const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
+    const schools = this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug)
+    const selectedSchool = schools.length > 0 && schools[0]
     return (
       <div className={layoutUserInfo}>
-        <h1>{this.state.form.school.name}? Great, here we go!</h1>
+        <h1>{selectedSchool.name}? Great, here we go!</h1>
         <InputTextTransparent
           className={input}
           onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
@@ -100,14 +90,6 @@ export default class Signup extends Component {
         <div className={layoutSelectSchoolFotter}>
           <Button onClick={::this.onSubmit} type="primary">Sign Up</Button>
         </div>
-      </div>
-    )
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.pageIndex === 0 ? this.renderFirstPage : this.renderSecondPage}
       </div>
     )
   }
