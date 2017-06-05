@@ -11,6 +11,7 @@ import {
   wrapper,
   wrapperActive,
   btnClose,
+  iconNumberMention,
 } from './style'
 
 function hashCode(str) {
@@ -50,6 +51,8 @@ class ListHashtag extends Component {
       showBtnDelete,
       hashtagDelete,
       isSelected,
+      isIncludeNewPost,
+      amountMention,
     } = this.props
     const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
 
@@ -59,7 +62,8 @@ class ListHashtag extends Component {
           key={hashCode(hashtag)}
           to={dashboardPathGenarator({ hashtag })}
         >
-          <span>#{hashtag}</span>
+          <span>{isIncludeNewPost ? (<b>#{hashtag}</b>) : `#${hashtag}`}</span>
+          {amountMention && <span className={iconNumberMention}>{amountMention}</span> }
         </Link>
 
         { showBtnDelete &&

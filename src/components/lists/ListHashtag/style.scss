@@ -62,3 +62,14 @@ $left-padding: 16px;
 .btn--close svg {
   fill: $darkgray;
 }
+
+.icon--number-mention {
+  background: red;
+  color: white;
+  width: 8px;
+  height: 8px;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
