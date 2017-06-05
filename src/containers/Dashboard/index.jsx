@@ -128,39 +128,10 @@ export default class DashBoard extends Component {
       currentPostType: TYPES[type],
     })
   }
-      
+
   componentDidMount() {
-    const docElm = document.documentElement
-    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
-    const currentUserDonutElm = document.querySelector('#available-donuts')
-    const onClickDonuts$ = Rx.Observable
-      .fromEvent(giveDonutsElm, 'click')
-      .map(event => ({ x: event.clientX, y: event.clientY }))
-
-
-    onClickDonuts$.subscribe(pos => {
-      const rotX = (pos.y / clientHeight * -50) + 25;
-      const rotY = (pos.x / clientWidth * 50) - 25;
-    })
-
     const { addDevice } = this.props
     pushNotification.subscribe(addDevice)
-  }
-
-  componentDidUpdate() {
-    const docElm = document.documentElement
-    const giveDonutsElm = document.querySelectorAll("[data-role='give-donuts']")
-    const currentUserDonutElm = document.querySelector('#available-donuts')
-    const onClickDonuts$ = Rx.Observable
-      .fromEvent(giveDonutsElm, 'click')
-      .map(event => ({ x: event.clientX, y: event.clientY }))
-
-    onClickDonuts$.subscribe(pos => {
-      const cloneDonuts = currentUserDonutElm.cloneNode(true)
-      cloneDonuts.style.position = 'absolute'
-      cloneDonuts.style.top = pos.y
-      cloneDonuts.style.left = pos.x
-    })
   }
 
   onSelectPostType(type) {
