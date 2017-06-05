@@ -55,9 +55,12 @@ export default class QuestionDashboard extends Component {
   onScrollHandler(event) {
     const dashboard = this._dashboard
     const { posts } = this.props
+    const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
+    const answersCount = question && question.answersCount
     const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
+    const questionId = this.props.params.questionId
     const answers = this.props.allPosts.filter(answer => answer.questionId == questionId)
 
     // console.log("---------------------------")
