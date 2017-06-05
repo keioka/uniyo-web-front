@@ -13,6 +13,7 @@ import {
   Index,
   Signin,
   Signup,
+  SelectSchool,
   Profile,
   FAQ,
   Privacy,
@@ -39,9 +40,17 @@ export default () => (
       <Route path="/invite_friends" component={InviteFriends} />
 
       <Route component={Auth} >
-        <Route path="/signin" component={Signin} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/signin" component={SelectSchool} />
+        <Route path="/signup" component={SelectSchool} />
         <Route path="/profile_settings" component={Profile} />
+      </Route>
+
+      <Route path="/schools/:schoolSlug" component={Auth}>
+        <Route path="/schools/:schoolSlug/signin" component={Signin} />
+        <Route path="/schools/:schoolSlug/signup" component={Signup} />
+        <Route path="/schools/:schoolSlug/email_verified" />
+        <Route path="/schools/:schoolSlug/reset_password" />
+        <Route path="/schools/:schoolSlug/reset_password/:token" />
       </Route>
 
       <Route path="/dashboard" component={Dashboard}>
@@ -56,11 +65,6 @@ export default () => (
 
       <Route path="/error/:errorCode" />
 
-      <Route path="/:schoolSlug">
-        <Route path="/:schoolSlug/email_verified" />
-        <Route path="/:schoolSlug/reset_password" />
-        <Route path="/:schoolSlug/reset_password/:token" />
-      </Route>
 
       <Route path="*" />
     </Route>
