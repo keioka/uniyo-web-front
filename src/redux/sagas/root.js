@@ -2,6 +2,7 @@ import sagas from './index'
 import { fork } from 'redux-saga/effects'
 
 const {
+  schoolInfoSaga,
   schoolsSearchSaga,
   logInSaga,
   userCreateSaga,
@@ -45,6 +46,7 @@ export default function* rootSaga() {
     /*
       saga for api
     */
+    fork(schoolInfoSaga),
     fork(schoolsSearchSaga),
     fork(logInSaga),
     fork(userCreateSaga),
