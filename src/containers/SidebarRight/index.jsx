@@ -76,9 +76,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SidebarRight extends Component {
-  static propTypes = {
-
-  }
 
   display() {
     const {
@@ -173,8 +170,6 @@ export default class SidebarRight extends Component {
         <div className={btnDonutsHistory}>
           <div className={btnDonutsHistoryInner}>
             {userImages && userImages.map((imageUrl, index) => {
-              console.log(index)
-              console.log(animationClasses)
               const animationClass = animationClasses[index]
               const classNames = [image, animationClass].join(' ')
               return (
