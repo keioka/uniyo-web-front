@@ -110,6 +110,7 @@ export default class IndexDashboard extends Component {
       userGiveDonuts,
       commentGiveDonuts,
       donutsThrow,
+      onReadContent,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
@@ -141,6 +142,7 @@ export default class IndexDashboard extends Component {
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['docs']:
@@ -158,6 +160,7 @@ export default class IndexDashboard extends Component {
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['reviews']:
@@ -175,6 +178,7 @@ export default class IndexDashboard extends Component {
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['questions']:
@@ -192,6 +196,7 @@ export default class IndexDashboard extends Component {
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
+              onReadContent={onReadContent}
             />
           )
       }
