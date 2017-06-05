@@ -1,5 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
+
+import {
+  postValue,
+} from '../../../utils'
+
+const {
+  extractHashtagFromText,
+} = postValue
+
 import {
   InputSearchTag,
   ListHashtag,
@@ -17,6 +26,7 @@ import {
   inputAddTag,
   iconChannel,
   iconChannelOnlineStatus,
+  iconNumberNewMessage,
   iconOnline,
   userNames,
   tag,
@@ -59,27 +69,61 @@ export default class SidebarLeft extends Component {
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
-    const { allChannels, hashtagsCurrentUser, hashtagsTrending, hashtagDelete } = this.props
+    const { allChannels, hashtagsCurrentUser, hashtagsTrending, hashtagDelete, unreadNotification } = this.props
 
-    const ListChannel = ({ className, channel }) => {
+    const unreadPostNotification = unreadNotification.filter(notification =>
+      notification.type === "POST_HASHTAG" ||
+      notification.type === "POST_MENTION" ||
+      notification.type === "NEW_COMMENT"
+    )
+
+    const hashtagsNotification = unreadPostNotification.map(notification =>
+      extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
+    )
+
+    const flattenHashtags = Array.prototype.concat.apply([], hashtagsNotification)
+
+    const unreadMentionNotification = unreadNotification.filter(notification =>
+      notification.type === "POST_MENTION"
+    )
+
+    const mentionNotification = unreadMentionNotification.map(notification =>
+      extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
+    )
+
+    const flattenMentions = Array.prototype.concat.apply([], mentionNotification)
+
+    const mentionHashtagList = flattenMentions.length > 0 ? flattenMentions.reduce((allMentions, tag) => {
+      if (tag in allMentions) {
+        allMentions[tag]++
+      } else {
+        allMentions[tag] = 1
+      }
+      return allMentions
+    }, {}) : {}
+
+    const ListChannel = ({ className, channel, amountNewMessage }) => {
       const users = channel.users.length === 1 ? channel.users : channel.users.slice(0, channel.users.length - 1)
       return (
         <Link
           className={className}
           key={channel.id}
           to={`/dashboard/channels/${channel.id}`}
-        >
-          <li className={sectionTag}>
-            {channel.users.length > 2 ?
-              (<span data-amount-users={channel.users.length} className={iconChannel}>
-                {channel.users.length - 1}
-              </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
-            }
-            <span className={userNames}>{users.map(user => user.name.split(' ')[0]).join(', ')}</span>
-          </li>
-        </Link>
-      )
-    }
+          >
+            <li className={sectionTag}>
+              {channel.users.length > 2 ?
+                (<span data-amount-users={channel.users.length} className={iconChannel}>
+                  {channel.users.length - 1}
+                </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
+              }
+              <span className={userNames}>
+                <span>{users.map(user => user.name.split(' ')[0]).join(', ')}</span>
+                {amountNewMessage > 0 && <span className={iconNumberNewMessage}>{amountNewMessage}</span>}
+              </span>
+            </li>
+          </Link>
+        )
+      }
 
       const ComponentsHashtag = hashtagsCurrentUser &&
       Array.from(new Set(hashtagsCurrentUser)).filter(hashtag =>
@@ -90,6 +134,9 @@ export default class SidebarLeft extends Component {
           // }
           const isSelected = this.props.selectedHashtag === hashtag.hashtag
           classNames.join(' ')
+          const isIncludeNewPost = flattenHashtags.includes(hashtag.hashtag)
+          const amountMention = mentionHashtagList[hashtag.hashtag]
+
           return (
             <ListHashtag
               className={classNames}
@@ -97,121 +144,142 @@ export default class SidebarLeft extends Component {
               hashtagType={hashtag.type}
               hashtagDelete={hashtagDelete}
               isSelected={isSelected}
+              isIncludeNewPost={isIncludeNewPost}
+              amountMention={amountMention}
               showBtnDelete
               type={this.props.type}
             />
           )
         })
 
-        const ComponentsChannel = allChannels &&
-        allChannels.filter(channel =>
-          channel.users[0].name.toLowerCase().includes(keywordForSort)).map((channel, index) => {
-            let classNames = []
-            // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
-            //   classNames.push(hide)
-            // }
-            return (
-              <ListChannel
-                className={classNames.join(' ')}
-                channel={channel}
-              />
-            )
-          })
+        const unreadMessageNotification = unreadNotification.filter(notification =>
+          notification.type === "NEW_CHANNEL_MESSAGE"
+        )
 
-          const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
-            const classNames = []
-            // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
-            //   classNames.push(hide)
-            // }
-            const isSelected = this.props.selectedHashtag === hashtag
-        
-            return (
-              <ListHashtag
-                className={classNames.join(' ')}
-                hashtag={hashtag}
-                isSelected={isSelected}
-                type={this.props.type}
-              />
-            )
-          })
+        const messageNotification = unreadMessageNotification.reduce((allNotifications, notification) => {
+          const channelId = notification.channel.id
+          if (channelId in allNotifications) {
+            allNotifications[channelId]++
+          } else {
+            allNotifications[channelId] = 1
+          }
+
+          return allNotifications
+        }, {})
+
+        console.log(messageNotification)
+
+        const ComponentsChannel = allChannels &&
+        allChannels.filter(channel => channel.users[0].name.toLowerCase().includes(keywordForSort))
+        .map((channel, index) => {
+          let classNames = []
+          // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
+          //   classNames.push(hide)
+          // }
+          const amountNewMessage = messageNotification[channel.id]
+          return (
+            <ListChannel
+              className={classNames.join(' ')}
+              channel={channel}
+              amountNewMessage={amountNewMessage}
+            />
+          )
+        })
+
+        const ComponentsTrendingHashtag = hashtagsTrending && hashtagsTrending.filter(hashtag => hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
+          const classNames = []
+          // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
+          //   classNames.push(hide)
+          // }
+          const isSelected = this.props.selectedHashtag === hashtag
 
           return (
-            <nav>
-              <ul className={section}>
-                <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>News Feed</span><Plus /></h4>
-                { this.state.isShowInputAddTag &&
-                  <input
-                    type="text"
-                    className={inputAddTag}
-                    ref={(ref) => this._inputAddTag = ref}
-                    onKeyUp={::this.onSubmitAddTag}
-                  />
-                }
-                { hashtagsCurrentUser && ComponentsHashtag }
-                {/* { keywordForSort === '' &&
-                hashtagsCurrentUser &&
-                hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
-                <button
-                  className={btnShowMore}
-                  onClick={() => { this.setState({ isShowMoreTags: !this.state.isShowMoreTags }) }}
-                  >
-                    {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
-                  </button>
-                } */}
-                <h4
-                  className={sectionTextAdd}
-                  onClick={::this.onClickBtnAddHashTag}
-                  >
-                    <span>+ Add a new hashtag</span>
-                  </h4>
-                </ul>
+            <ListHashtag
+              className={classNames.join(' ')}
+              hashtag={hashtag}
+              isSelected={isSelected}
+              type={this.props.type}
+            />
+          )
+        })
 
-                <ul className={section}>
-                  <h4 className={sectionLabel}>TRENDING TOPIC</h4>
-                  {hashtagsTrending && ComponentsTrendingHashtag}
-                </ul>
-
-                <ul className={section}>
-                  <Link to='/dashboard/channels/new'>
-                  <h4 className={sectionLabel}>
-                    PRIVATE MESSAGES <Plus />
-                  </h4>
-                </Link>
-                {allChannels && ComponentsChannel}
-                <Link to='/dashboard/channels/new'>
-                <h4 className={sectionTextAdd}>
-                  <span>+ Start a new chat</span>
-                </h4>
-              </Link>
+        return (
+          <nav>
+            <ul className={section}>
+              <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>News Feed</span><Plus /></h4>
+              { this.state.isShowInputAddTag &&
+                <input
+                  type="text"
+                  className={inputAddTag}
+                  ref={(ref) => this._inputAddTag = ref}
+                  onKeyUp={::this.onSubmitAddTag}
+                />
+              }
+              { hashtagsCurrentUser && ComponentsHashtag }
               {/* { keywordForSort === '' &&
-              allChannels &&
-              allChannels.length > MAX_NUMBER_SHOW_ITEM &&
+              hashtagsCurrentUser &&
+              hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
               <button
-                className={btnShowMore}
-                onClick={() => { this.setState({ isShowMoreChannels: !this.state.isShowMoreChannels }) }}
-                >
-                  {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
-                </button>
-             */}
-            </ul>
-          </nav>
-        )
-      }
-
-    render() {
-      return (
-        <aside className={wrapper} >
-          <InputSearchTag
-            className={inputSearchTag}
-            onChange={event => this.setState({ keywordForSort: event.target.value })}
-          />
-          <ul className={section}>
-            <h3 className={`${sectionTag} ${sectionTagHot}`}>
-              <Link to="/dashboard/posts/top">All in EDHECBUSINES</Link>
-            </h3>
+              className={btnShowMore}
+              onClick={() => { this.setState({ isShowMoreTags: !this.state.isShowMoreTags }) }}
+              >
+              {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
+            </button>
+          } */}
+          <h4
+            className={sectionTextAdd}
+            onClick={::this.onClickBtnAddHashTag}
+            >
+              <span>+ Add a new hashtag</span>
+            </h4>
           </ul>
-          {this.navSideBar}
-        </aside>
-      )
-    }
-  }
+
+          <ul className={section}>
+            <h4 className={sectionLabel}>TRENDING TOPIC</h4>
+            {hashtagsTrending && ComponentsTrendingHashtag}
+          </ul>
+
+          <ul className={section}>
+            <Link to='/dashboard/channels/new'>
+            <h4 className={sectionLabel}>
+              PRIVATE MESSAGES <Plus />
+            </h4>
+          </Link>
+          {allChannels && ComponentsChannel}
+          <Link to='/dashboard/channels/new'>
+          <h4 className={sectionTextAdd}>
+            <span>+ Start a new chat</span>
+          </h4>
+        </Link>
+        {/* { keywordForSort === '' &&
+        allChannels &&
+        allChannels.length > MAX_NUMBER_SHOW_ITEM &&
+        <button
+        className={btnShowMore}
+        onClick={() => { this.setState({ isShowMoreChannels: !this.state.isShowMoreChannels }) }}
+        >
+        {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
+      </button>
+      */}
+    </ul>
+  </nav>
+)
+}
+
+render() {
+  return (
+    <aside className={wrapper} >
+      <InputSearchTag
+        className={inputSearchTag}
+        onChange={event => this.setState({ keywordForSort: event.target.value })}
+      />
+      <ul className={section}>
+        <h3 className={`${sectionTag} ${sectionTagHot}`}>
+          <Link to="/dashboard/posts/top">All in EDHECBUSINES</Link>
+        </h3>
+      </ul>
+      {this.navSideBar}
+    </aside>
+  )
+}
+}

@@ -1,6 +1,7 @@
 import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import {
   TextPost,
@@ -35,6 +36,11 @@ export default class CardPost extends PureComponent  {
     this.state = {
       toggle: false,
     }
+  }
+
+  onChange() {
+    const { id } = this.props
+    this.props.onReadContent('POST_READ', id)
   }
 
   onClickCommentHandler(event) {
@@ -80,6 +86,9 @@ export default class CardPost extends PureComponent  {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
+    <VisibilitySensor
+      onChange={::this.onChange}
+    >
       <div key={id} className={wrapper}>
         <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
@@ -129,6 +138,7 @@ export default class CardPost extends PureComponent  {
           }
         </div>
       </div>
+    </VisibilitySensor>
     )
   }
 }

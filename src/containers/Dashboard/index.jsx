@@ -88,6 +88,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   addDevice: actions.addDevice,
   donutsShake: uiActions.donutsShake,
   donutsThrow: uiActions.donutsThrow,
+  contentReadCheckNotification: uiActions.contentReadCheckNotification,
 }, dispatch)
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
@@ -134,12 +135,6 @@ export default class DashBoard extends Component {
     pushNotification.subscribe(addDevice)
   }
 
-  onSelectPostType(type) {
-    this.setState({
-      currentPostType: type,
-    })
-  }
-
   componentWillReceiveProps(prevProps, nextProps) {
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type = 'all' } = prevProps.location.query
@@ -158,6 +153,21 @@ export default class DashBoard extends Component {
       if (typeForQuery && typeForQuery !== 'ALL') { params.types = [TYPES[type]] }
       postsSearch(params)
     }
+  }
+
+
+  onSelectPostType(type) {
+    this.setState({
+      currentPostType: type,
+    })
+  }
+
+  onReadContent(contentType, id) {
+    const { contentReadCheckNotification } = this.props
+    console.log('content read')
+    const c = { contentType, id }
+    console.log(contentType, id)
+    contentReadCheckNotification()
   }
 
   onClearCurrentTypeHandler() {
@@ -310,7 +320,10 @@ export default class DashBoard extends Component {
       commentGiveDonuts,
       donutsThrow,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
+      onReadContent: this.onReadContent.bind(this),
     }))
+
+    const unreadNotification = allNotifications.filter(notification => !notification.isRead)
 
     return (
       <div className={container}>
@@ -320,6 +333,7 @@ export default class DashBoard extends Component {
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
+          unreadNotification={unreadNotification}
           selectedHashtag={this.props.location.query.hashtag}
           type={type}
         />

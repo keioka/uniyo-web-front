@@ -27,11 +27,12 @@ const ListNotification = ({
 
   const onChange = function (isVisible) {
     if (isVisible && !isRead) {
-      onVisiable({ notificationId: id })
+
     }
   }
 
   const onClick = () => {
+    onVisiable({ notificationId: id })
     switch(type) {
       case 'POST_MENTION': {
         const { post } = notification
@@ -69,9 +70,9 @@ const ListNotification = ({
     }
 
     case 'POST_HASHTAG': {
-      console.log(notification)
       const { post } = notification
       const { user } = post
+      userImageUrl = user ? user.image.smallUrl : ''
       component = (<span><span>@{user.firstName}</span> posted new one</span>)
       break
     }

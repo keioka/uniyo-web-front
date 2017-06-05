@@ -1,6 +1,7 @@
 import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import {
   TextPost,
@@ -34,6 +35,10 @@ export default class CardQuestion extends PureComponent {
     this.state = {
       toggle: false,
     }
+  }
+
+  onChange() {
+
   }
 
   onClickCommentHandler() {

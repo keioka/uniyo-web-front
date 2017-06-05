@@ -1,5 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import moment from 'moment'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import {
   TextPost,
@@ -38,6 +39,10 @@ export default class CardReview extends PureComponent {
     }
   }
 
+  onChange() {
+
+  }
+
   onClickCommentHandler() {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
@@ -62,7 +67,6 @@ export default class CardReview extends PureComponent {
       donutsCount,
       donutsThrow,
       commentsCount,
-      currentUserLiked,
       createdAt,
       showUserInfo,
       commentsSearch,
