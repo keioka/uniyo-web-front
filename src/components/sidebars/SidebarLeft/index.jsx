@@ -88,6 +88,7 @@ export default class SidebarLeft extends Component {
           // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
+          const isSelected = this.props.selectedHashtag === hashtag.hashtag
           classNames.join(' ')
           return (
             <ListHashtag
@@ -95,6 +96,7 @@ export default class SidebarLeft extends Component {
               hashtag={hashtag.hashtag}
               hashtagType={hashtag.type}
               hashtagDelete={hashtagDelete}
+              isSelected={isSelected}
               showBtnDelete
               type={this.props.type}
             />
@@ -121,10 +123,13 @@ export default class SidebarLeft extends Component {
             // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
             //   classNames.push(hide)
             // }
+            const isSelected = this.props.selectedHashtag === hashtag
+        
             return (
               <ListHashtag
                 className={classNames.join(' ')}
                 hashtag={hashtag}
+                isSelected={isSelected}
                 type={this.props.type}
               />
             )

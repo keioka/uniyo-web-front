@@ -316,7 +316,6 @@ export default class DashBoard extends Component {
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
           selectedHashtag={this.props.location.query.hashtag}
-          // unReadNotification={}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>

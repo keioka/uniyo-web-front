@@ -222,6 +222,12 @@ function* eventWebSocket() {
           break
         }
 
+        case 'USER_PRESENCE_CHANGED': {
+          const { status, userId } = payload.data
+          action = { type: actionTypes.userOnlineStatusUpdate.success, result: { data: { status, userId } } }
+          break
+        }
+
         case 'COMMENT_RECEIVED_DONUT': {
           const { amount, commentId } = payload.data
           action = { type: actionTypes.commentReceivedDonutsFetch.success, result: { data: { amount, commentId } } }
