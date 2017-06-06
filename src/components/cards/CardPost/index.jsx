@@ -17,7 +17,7 @@ import {
   sectionImage,
   sectionContent,
   sectionContentHeader,
-  sectionContentFotter,
+  sectionContentFooter,
   sectionContentUserName,
   sectionContentComment,
   sectionContentCommentForm,
@@ -27,15 +27,26 @@ import {
   btnLike,
   btnComment,
   show,
+  footerSectionBtns,
+  sectionFileDetail,
 } from '../style'
 
 export default class CardPost extends PureComponent  {
 
-  constructor() {
-    super()
-    this.state = {
-      toggle: false,
+  state = {
+    toggle: false,
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.commentsCount !== this.props.commentsCount ||
+      nextProps.comments.length !== this.props.length ||
+      nextProps.donutsCount !== this.props.donutsCount ||
+      nextState.toggle !== this.state.toggle
+    ) {
+      return true
     }
+    return false
   }
 
   onChange() {
@@ -103,25 +114,29 @@ export default class CardPost extends PureComponent  {
             showUserInfo={showUserInfo}
             currentPostType={currentPostType}
           />
-          <div className={sectionContentFotter}>
-            <button
-              className={btnComment}
-              data-count={commentsCount}
-              onClick={::this.onClickCommentHandler}
-            >
-                comments
-            </button>
-            <ButtonDonut
-              className={btnLike}
-              donutsCount={donutsCount}
-              onClick={::this.onClickDonutsHandler}
-              donutsThrow={donutsThrow}
-            />
+          <div className={sectionContentFooter}>
+            <div className={sectionFileDetail}>
+            </div>
+            <div className={footerSectionBtns}>
+              <button
+                className={btnComment}
+                data-count={commentsCount}
+                onClick={::this.onClickCommentHandler}
+              >
+               comments
+              </button>
+              <ButtonDonut
+                className={btnLike}
+                donutsCount={donutsCount}
+                onClick={::this.onClickDonutsHandler}
+                donutsThrow={donutsThrow}
+              />
+            </div>
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
               <div className={sectionContentCommentForm}>
-                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
+                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
               </div>
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment =>
