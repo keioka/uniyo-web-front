@@ -10,6 +10,7 @@ import {
 import {
   wrapper,
   wrapperActive,
+  tag,
   btnClose,
   iconNumberMention,
 } from './style'
@@ -61,28 +62,26 @@ class ListHashtag extends Component {
         key={hashCode(hashtag)}
         to={dashboardPathGenarator({ hashtag })}
       >
-          <li className={wrapperClassNames}>
+        <li className={wrapperClassNames}>
 
-            <span>{isIncludeNewPost ? (<b>#{hashtag}</b>) : `#${hashtag}`}</span>
-            {amountMention && <span className={iconNumberMention}>{amountMention}</span> }
+          <span className={tag}>{isIncludeNewPost ? (<b>#{hashtag}</b>) : `#${hashtag}`}</span>
+          { amountMention && <span className={iconNumberMention}>{amountMention}</span> }
+          { showBtnDelete &&
+            <span
+              className={btnClose}
+              onClick={(event) => {
+                event.stopPropagation()
+                event.preventDefault()
+                hashtagDelete({ hashtag, hashtagType })
+              }}
+            >
+              <Close />
+            </span>
+          }
+        </li>
+      </Link>
+    )
+  }
+}
 
-
-            { showBtnDelete &&
-              <span
-                className={btnClose}
-                onClick={(event) => {
-                  event.stopPropagation()
-                  event.preventDefault()
-                  hashtagDelete({ hashtag, hashtagType })
-                }}
-              >
-                <Close />
-              </span>
-              }
-            </li>
-          </Link>
-        )
-      }
-    }
-
-    export default ListHashtag
+export default ListHashtag

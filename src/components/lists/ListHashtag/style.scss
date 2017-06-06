@@ -26,11 +26,11 @@ $left-padding: 16px;
 }
 
 .wrapper--active {
-  background-color: $pink;
+  background-color: $strongpink;
 }
 
 .wrapper--active:hover {
-  background-color: $pink;
+  background-color: $strongpink;
 }
 
 .wrapper--active span {
@@ -39,14 +39,6 @@ $left-padding: 16px;
 
 .wrapper--active .btn--close svg {
   fill: white;
-}
-
-.tag:hover {
-  background: white;
-}
-
-.tag--active {
-  background-color: $pink;
 }
 
 .btn--close {
@@ -67,10 +59,13 @@ $left-padding: 16px;
 .icon--number-mention {
   background: red;
   color: white;
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
   font-size: 12px;
-  padding: 3px 7px;
+  padding: 7px 7px;
   border-radius: 50%;
   margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
+ justify-content: center;
 }
