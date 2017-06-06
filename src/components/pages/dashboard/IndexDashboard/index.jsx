@@ -124,6 +124,7 @@ export default class IndexDashboard extends Component {
       currentUser,
       currentPostType,
       donutsThrow,
+      onReadContent,
     }) => {
 
       switch(post.type) {
@@ -231,6 +232,7 @@ export default class IndexDashboard extends Component {
              showUserInfo,
              donutsThrow,
              currentUser,
+             onReadContent,
            })
          })}
        </div>
