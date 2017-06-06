@@ -18,7 +18,7 @@ import {
   sectionImage,
   sectionContent,
   sectionContentHeader,
-  sectionContentFotter,
+  sectionContentFooter,
   sectionContentUserName,
   sectionContentComment,
   sectionContentCommentList,
@@ -29,19 +29,13 @@ import {
   btnLike,
   btnComment,
   show,
+  footerSectionBtns,
 } from '../style'
 
 export default class CardDocument extends PureComponent {
 
-  constructor() {
-    super()
-    this.state = {
-      toggle: false,
-    }
-  }
-
-  onChange() {
-
+  state = {
+    toggle: false,
   }
 
   onClickCommentHandler() {
@@ -53,6 +47,11 @@ export default class CardDocument extends PureComponent {
     this.setState({
       toggle: !this.state.toggle,
     })
+  }
+
+  onChange() {
+    const { id } = this.props
+    this.props.onReadContent('POST_READ', id)
   }
 
   onClickDonutsHandler() {
@@ -87,47 +86,51 @@ export default class CardDocument extends PureComponent {
     const time = moment.utc(createdAt).format("HH:mm A")
 
 
-  return (
-    <VisibilitySensor
-      onChange={::this.onChange}
-    >
-      <div key={id} className={wrapper}>
-        <div className={sectionImage}>
-          <img src={user.image.smallUrl} alt="" />
-        </div>
-        <div className={sectionContent}>
-          <div className={sectionContentHeader}>
-            <span className={textUserName}>{user.name}</span>
-            {/* <span className={textPostTime}>{time}</span> */}
+    return (
+      <VisibilitySensor
+        onChange={::this.onChange}
+      >
+        <div key={id} className={wrapper}>
+          <div className={sectionImage}>
+            <img src={user.image.smallUrl} alt="" />
           </div>
-          <TextPost
-            text={text}
-            showUserInfo={showUserInfo}
-            currentPostType={currentPostType}
-          />
-          <div className={sectionFileDetail}><ButtonFile {...this.props}/></div>
-          <div className={sectionContentFotter}>
-            <button className={btnComment} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>
-              comments
-            </button>
-            <ButtonDonut
-              className={btnLike}
-              donutsThrow={donutsThrow}
-              donutsCount={donutsCount}
-              onClick={::this.onClickDonutsHandler}
-            />
-          </div>
-          { this.state.toggle &&
-            <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
-              <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
-              </ul>
+          <div className={sectionContent}>
+            <div className={sectionContentHeader}>
+              <span className={textUserName}>{user.name}</span>
+                {/* <span className={textPostTime}>{time}</span> */}
             </div>
-          }
+            <TextPost
+              text={text}
+              showUserInfo={showUserInfo}
+              currentPostType={currentPostType}
+            />
+            <div className={sectionContentFooter}>
+              <div className={sectionFileDetail}>
+                <ButtonFile {...this.props} />
+              </div>
+              <div className={footerSectionBtns}>
+                <button className={btnComment} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>
+                  comments
+                </button>
+                <ButtonDonut
+                  className={btnLike}
+                  donutsThrow={donutsThrow}
+                  donutsCount={donutsCount}
+                  onClick={::this.onClickDonutsHandler}
+                />
+              </div>
+            </div>
+            { this.state.toggle &&
+              <div className={sectionContentComment}>
+                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
+                <ul className={sectionContentCommentList}>
+                  {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
+                </ul>
+              </div>
+            }
+          </div>
         </div>
-      </div>
-    </VisibilitySensor>
+      </VisibilitySensor>
     )
   }
 }

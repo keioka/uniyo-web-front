@@ -43,6 +43,20 @@ export default class InputPost extends Component {
     },
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.suggestionedUsers !== this.props.suggestionedUsers ||
+      nextProps.hashtag !== this.props.hashtag ||
+      nextProps.currentPostType !== this.props.currentPostType ||
+      nextProps.currentHashTag !== this.props.currentHashTag ||
+      nextProps.imgUrl !== this.props.imgUrl
+    ) {
+      return true
+    }
+
+    return false
+  }
+
   componentDidMount() {
     const { hashtag } = this.props
     const self = this
@@ -238,22 +252,22 @@ export default class InputPost extends Component {
 
     switch (currentPostType) {
       case 'ALL': {
-        placeholder = currentHashTag ? `#${currentHashTag} Feed the news with hashtags` : 'Share'
+        placeholder = currentHashTag ? `#${currentHashTag} Feed the news with hashtags` : '#Yo Feed the news with hasthags…'
         break
       }
 
       case 'REVIEW': {
-        placeholder = currentHashTag ? `#${currentHashTag} is the best!` : 'Write a review'
+        placeholder = currentHashTag ? `#${currentHashTag} is the best class ever!` : '#CLASS001 is the best class ever!'
         break
       }
 
       case 'QUESTION': {
-        placeholder = currentHashTag ? `#${currentHashTag}` : 'Share'
+        placeholder = currentHashTag ? `#${currentHashTag} Can we use a calculator during the exam?` : '#CLASS001 Can we use a calculator during the exam?'
         break
       }
 
       case 'CLASS_NOTE': {
-        placeholder = currentHashTag ? `#${currentHashTag} This is nice summary of chapter 4` : 'Share your documents or images'
+        placeholder = currentHashTag ? `#${currentHashTag} This is a nice summary of chapter 4` : '#CLASS001 This is a nice summary of chapter 4'
         break
       }
 

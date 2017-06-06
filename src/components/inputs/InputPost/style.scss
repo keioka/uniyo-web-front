@@ -5,10 +5,10 @@
   display: flex;
   background: white;
   border-bottom: 1px solid $gray;
+  z-index: 10;
 }
 
 .wrapper__image-box {
-  width: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,10 +28,11 @@
   display: inline-block;
   background: transparent;
   border-radius: 20px;
-  padding: 20px;
+  padding: 18px 15px;
   width: 90%;
   outline: none;
   border: none;
+  line-height: 1rem;
   caret-color: $black;
   top: 0;
   left: 0;
@@ -39,7 +40,7 @@
 
 .input--wrapper {
   width: 100%;
-  padding: 20px 0px;
+  padding: 16.5px 0px;
   height: auto;
   border: none;
   font-size: 1rem;
@@ -47,6 +48,8 @@
   box-sizing: border-box;
   position: relative;
   letter-spacing: 0.4px;
+  display: flex;
+  align-items: center;
 }
 
 .input:empty:before {

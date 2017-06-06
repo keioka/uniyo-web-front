@@ -71,16 +71,12 @@ $animation-duraion: 0.2s;
   margin-bottom: 10px;
 }
 
-.section--content__fotter {
-  margin-top: 0.3rem;
+.section--content__footer {
+  display: flex;
+  flex-direction: row;
 }
 
 .section--content__comment {
-  // opacity: 0;
-  // height: 0;
-  // position: absolute;
-  // top: -100px;
-  // transition: height 1s ease;
   transition: opacity 0.5s ease;
   margin-top: 15px;
 }
@@ -92,11 +88,12 @@ $animation-duraion: 0.2s;
   margin-top: 25px;
 }
 
-.section--content__fotter {
+.section--content__footer {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-top: 23px;
 }
 
 .section--content {
@@ -110,7 +107,6 @@ $animation-duraion: 0.2s;
 .section--file__detail {
   width: 100%;
   height: auto;
-  padding: 30px 0px 20px;
 }
 
 .star-review {
@@ -121,7 +117,7 @@ $animation-duraion: 0.2s;
   background-color: $yellow;
   padding: 1px 8px;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 20px;
   height: 24px;
   margin-left: 15px;
   line-height: 14px;
@@ -158,6 +154,7 @@ $animation-duraion: 0.2s;
   align-items: center;
   padding: 3px 5px;
   font-size: 0.8rem;
+  height: 34px;
 	border-radius: 8px;
   background: white;
   cursor: pointer;
@@ -194,4 +191,11 @@ $animation-duraion: 0.2s;
   color: gray;
   font-size: 0.8rem;
   margin-left: 20px;
+}
+
+.footer__section--btns {
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 }

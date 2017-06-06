@@ -17,12 +17,14 @@ import {
   sectionImage,
   sectionContent,
   sectionContentHeader,
-  sectionContentFotter,
+  sectionContentFooter,
+  footerSectionBtns,
   sectionContentUserName,
   sectionContentComment,
   sectionContentCommentList,
   textUserName,
   textPostTime,
+  sectionFileDetail,
   btnLike,
   btnComment,
   show,
@@ -38,7 +40,8 @@ export default class CardQuestion extends PureComponent {
   }
 
   onChange() {
-
+    const { id } = this.props
+    this.props.onReadContent('POST_READ', id)
   }
 
   onClickCommentHandler() {
@@ -56,7 +59,6 @@ export default class CardQuestion extends PureComponent {
     const { postGiveDonuts, id } = this.props
     postGiveDonuts({ postId: id, amount: 1 })
   }
-
 
   render() {
     const {
@@ -95,18 +97,21 @@ export default class CardQuestion extends PureComponent {
               showUserInfo={showUserInfo}
               currentPostType={currentPostType}
             />
-            <div className={sectionContentFotter}>
-              <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answer</button>
-              <ButtonDonut
-                className={btnLike}
-                donutsCount={donutsCount}
-                donutsThrow={donutsThrow}
-                onClick={::this.onClickDonutsHandler}
-              />
+            <div className={sectionContentFooter}>
+              <div className={sectionFileDetail}></div>
+              <div className={footerSectionBtns}>
+                <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answer</button>
+                <ButtonDonut
+                  className={btnLike}
+                  donutsCount={donutsCount}
+                  donutsThrow={donutsThrow}
+                  onClick={::this.onClickDonutsHandler}
+                />
+              </div>
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>
-                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
+                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
                 <ul className={sectionContentCommentList}>
                   {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
                 </ul>

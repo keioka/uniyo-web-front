@@ -21,11 +21,6 @@
   transition: border 0.2s ease-out;
 }
 
-.button:hover {
-  border: 2px solid $gray;
-  transition: border 0.2s ease-out;
-}
-
 .icon {
   width: 20px;
   margin-right: 30px;
@@ -48,13 +43,10 @@
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 0.9rem;
   text-decoration: none;
   color: $darkgray;
-}
-
-.button:hover .info {
-  width: 1000px;
 }
 
 .font--file--size {

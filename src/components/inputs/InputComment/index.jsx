@@ -67,15 +67,17 @@ export default class InputComment extends Component {
   }
 
   render() {
-    const { postId, className, commentCreate, currentUser } = this.props
+    const { postId, className, commentCreate, currentUser, userPost } = this.props
     const classNames = `${input} ${className}`
-
     return (
       <span className={wrapper}>
-        <span className={inputBoxImg}><img src={`${currentUser.image.smallUrl}`} alt="" /></span>
+        <span className={inputBoxImg}>
+          <img src={`${currentUser.image.smallUrl}`} alt="" />
+        </span>
         <div
-          ref={ref => this._inputComment = ref }
-          contentEditable={true}
+          ref={ref => this._inputComment = ref}
+          contentEditable
+          placeholder={userPost.firstName}
           className={input}
           type="text"
           ref={ref => this._inputComment = ref}
