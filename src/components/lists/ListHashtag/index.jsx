@@ -57,26 +57,32 @@ class ListHashtag extends Component {
     const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
 
     return (
-      <li className={wrapperClassNames}>
-        <Link
-          key={hashCode(hashtag)}
-          to={dashboardPathGenarator({ hashtag })}
-        >
-          <span>{isIncludeNewPost ? (<b>#{hashtag}</b>) : `#${hashtag}`}</span>
-          {amountMention && <span className={iconNumberMention}>{amountMention}</span> }
-        </Link>
+      <Link
+        key={hashCode(hashtag)}
+        to={dashboardPathGenarator({ hashtag })}
+      >
+          <li className={wrapperClassNames}>
 
-        { showBtnDelete &&
-          <span
-            className={btnClose}
-            onClick={(event) => { hashtagDelete({ hashtag, hashtagType }); event.stopPropagation() }}
-          >
-            <Close />
-          </span>
-        }
-      </li>
-    )
-  }
-}
+            <span>{isIncludeNewPost ? (<b>#{hashtag}</b>) : `#${hashtag}`}</span>
+            {amountMention && <span className={iconNumberMention}>{amountMention}</span> }
 
-export default ListHashtag
+
+            { showBtnDelete &&
+              <span
+                className={btnClose}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  event.preventDefault()
+                  hashtagDelete({ hashtag, hashtagType })
+                }}
+              >
+                <Close />
+              </span>
+              }
+            </li>
+          </Link>
+        )
+      }
+    }
+
+    export default ListHashtag
