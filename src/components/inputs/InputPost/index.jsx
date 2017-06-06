@@ -43,6 +43,20 @@ export default class InputPost extends Component {
     },
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.suggestionedUsers !== this.props.suggestionedUsers ||
+      nextProps.hashtag !== this.props.hashtag ||
+      nextProps.currentPostType !== this.props.currentPostType ||
+      nextProps.currentHashTag !== this.props.currentHashTag ||
+      nextProps.imgUrl !== this.props.imgUrl
+    ) {
+      return true
+    }
+
+    return false
+  }
+
   componentDidMount() {
     const { hashtag } = this.props
     const self = this
