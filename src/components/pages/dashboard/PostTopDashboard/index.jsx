@@ -36,15 +36,6 @@ export default class PostTopDashboard extends Component {
     postsRelevantSearch({ limit: 5 })
   }
 
-  get cardsFake() {
-    return (
-      <div>
-        <CardFake />
-        <CardFake />
-      </div>
-    )
-  }
-
   render() {
     const {
       postCreate,
@@ -74,21 +65,11 @@ export default class PostTopDashboard extends Component {
           userSearch={userSearch}
           showUserInfo={showUserInfo}
         />
-        {trendingPosts && trendingPosts.length === 0 &&
-         relevantPosts && relevantPosts.length === 0 &&
-         <div className={sectionCards}>
-           <h3 className={sectionCardsTitle}>HOT 🔥</h3>
-           {this.cardsFake}
 
-           <h3 className={sectionCardsTitle}>RELEVANT</h3>
-           {this.cardsFake}
-         </div>
-         }
-
-        {trendingPosts &&
+        {trendingPosts && trendingPosts.length > 0 &&
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>HOT 🔥</h3>
-            {trendingPosts.length > 0 ? trendingPosts.map(post =>
+            {trendingPosts.map(post =>
               <CardPost
                 {...post}
                 postGiveDonuts={postGiveDonuts}
@@ -97,14 +78,14 @@ export default class PostTopDashboard extends Component {
                 commentsSearch={commentsSearch}
                 commentCreate={commentCreate}
               />
-            ) : this.cardsFake }
+            )}
           </div>
         }
 
-        { relevantPosts &&
+        {relevantPosts && relevantPosts.length > 0 &&
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>RELEVANT</h3>
-            {relevantPosts.length > 0 ? relevantPosts.map(post =>
+            {relevantPosts.map(post =>
               <CardPost
                 {...post}
                 postGiveDonuts={postGiveDonuts}
@@ -113,13 +94,14 @@ export default class PostTopDashboard extends Component {
                 commentsSearch={commentsSearch}
                 commentCreate={commentCreate}
               />
-            ) : this.cardsFake }
+            )}
           </div>
         }
 
         { posts &&
           <div className={sectionCards}>
-            <h3 className={sectionCardsTitle}>RECENT</h3>
+            { (trendingPosts && trendingPosts.length > 0) || (relevantPosts && relevantPosts.length > 0) &&
+              <h3 className={sectionCardsTitle}>RECENT</h3> }
             {posts ? posts.slice(0, 5).map(post =>
               <CardPost
                 {...post}
