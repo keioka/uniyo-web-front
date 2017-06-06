@@ -155,7 +155,6 @@ export default class DashBoard extends Component {
     }
   }
 
-
   onSelectPostType(type) {
     this.setState({
       currentPostType: type,
@@ -321,7 +320,7 @@ export default class DashBoard extends Component {
     }))
 
     const unreadNotification = allNotifications.filter(notification => !notification.isRead)
-
+    const isSchoolTop = this.props.location.pathname === "/dashboard/posts/top"
     return (
       <div className={container}>
         <SidebarLeft
@@ -331,16 +330,19 @@ export default class DashBoard extends Component {
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
           unreadNotification={unreadNotification}
+          isSchoolTop={isSchoolTop}
           selectedHashtag={this.props.location.query.hashtag}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
             <div className={headerNavBasic}>
-              <Notification className={icon} onClick={() => showNotification()} />
               { allNotifications &&
-                allNotifications.filter(notification => !notification.isRead).length > 0 &&
-                <span className={notification}> {allNotifications.filter(notification => !notification.isRead).length}</span>
+                allNotifications.filter(notification => !notification.isRead).length > 0 ?
+                <span className={notification} onClick={() => showNotification()}>
+                  {allNotifications.filter(notification => !notification.isRead).length}
+                </span> :
+                <Notification className={icon} onClick={() => showNotification()} />
               }
               <Setting className={icon} />
             </div>
