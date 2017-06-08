@@ -51,8 +51,8 @@ export default class SidebarRightHistoryDonuts extends Component {
      return (
        <div className={wrapper} >
          <div className={header}>
-           <span className={classNameFirstTab} onClick={() => this.setState({ type: 0 })}>Donuts to give (2)</span>
-           <span className={classNameSecondTab} onClick={() => this.setState({ type: 1 })}>Donuts receive (2)</span>
+           <span className={classNameFirstTab} count={0} onClick={() => this.setState({ type: 0 })}>Donuts to give</span>
+           <span className={classNameSecondTab} count={0} onClick={() => this.setState({ type: 1 })}>Donuts receive</span>
          </div>
 
          {this.state.type === 0 ?
