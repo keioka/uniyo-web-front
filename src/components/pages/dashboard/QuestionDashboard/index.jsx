@@ -20,6 +20,7 @@ import {
   btnLike,
   btnComment,
   sectionCards,
+  sectionCardsFirst,
   sectionCardsTitle,
   sectionNoAnswer,
   sectionNoAnswerTitle,
@@ -117,7 +118,7 @@ export default class QuestionDashboard extends Component {
       allPosts,
     } = this.props
 
-    const { image } = currentUser
+    const { image, firstName } = currentUser
 
     const { answerCreate } = this.props
     const { questionId } = this.props.params
@@ -132,7 +133,6 @@ export default class QuestionDashboard extends Component {
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
               <span className={textUserName}>{user.name}</span>
-              {/* <span className={textPostTime}>{time}</span> */}
             </div>
             <span className={sectionContentText}>
               <TextPost text={text} showUserInfo={showUserInfo} />
@@ -145,10 +145,15 @@ export default class QuestionDashboard extends Component {
       )
     }
 
-    const answerBest = answers.filter(answer => answer.isBestAnswer)
+    const answerBest = answers ? answers.reduce(function(a, b) {
+      return Math.max(a.donutsCount, b.donutsCount)
+    }, 0) : []
+
+    console.log(answerBest)
+
     const isBestAnswerExsist = answerBest.lenght > 0
     const answerRecent = answers && answers[0]
-
+    const textPlaceHolder = question ? `Help @${question.user.firstName} to find the best answer` : 'Help other students to find the best answer'
     // TODO: Avoid Mutation
     const answersOther = [...answers]
     answersOther.splice(answers.length - 1, 1)
@@ -158,16 +163,17 @@ export default class QuestionDashboard extends Component {
         { question && <ComponentSectionQuestion {...question} /> }
         <InputPost
           imgUrl={image && image.mediumUrl}
+          placeholder={textPlaceHolder}
           onPostSubmit={answerCreate}
           currentPostType={'ANSWER'}
-          // suggestionedUsers={suggestionedUsers}
           userSearch={userSearch}
           showUserInfo={showUserInfo}
           questionId={questionId}
         />
+        <div className={sectionCardsFirst}>
         {isBestAnswerExsist &&
-          <div className={sectionCards}>
-            <h3 className={sectionCardsTitle}>BEST ANSWER</h3>
+          <div className={[sectionCards].join(' ')}>
+            <h3 className={sectionCardsTitle}>BEST ANSWER 🚀</h3>
             {answerBest.map(answer => {
               return (
                 <CardPost
@@ -216,6 +222,7 @@ export default class QuestionDashboard extends Component {
             ))}
           </div>
        }
+       </div>
        { answers.length === 0 &&
          <div className={sectionNoAnswer}>
            <Donut size="large" color="PINK" />

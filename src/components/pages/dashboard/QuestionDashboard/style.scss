@@ -12,9 +12,9 @@
 
 .section-question {
   width: 100%;
-  padding: 20px 5%;
+  padding: 24px 18px 24px 23px;
   background-color: white;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   box-sizing: border-box;
   display: flex;
 }
@@ -31,7 +31,11 @@
 }
 
 .section--cards {
-  padding: 2rem;
+  padding: 15px 2rem;
+}
+
+.section--cards--first {
+  padding-top: 39px;
 }
 
 .section--cards__title {
@@ -44,11 +48,12 @@
 }
 
 .section--content__header {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 .section--content__text {
   font-size: 25px;
+  color: #5d5d5d;
 }
 
 .section--content__fotter {
