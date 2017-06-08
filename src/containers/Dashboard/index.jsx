@@ -316,6 +316,7 @@ export default class DashBoard extends Component {
       userGiveDonuts,
       commentGiveDonuts,
       donutsThrow,
+      hashtagAdd,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
     }))

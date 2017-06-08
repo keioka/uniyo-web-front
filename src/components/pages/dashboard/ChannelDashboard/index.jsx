@@ -216,7 +216,6 @@ export default class ChannelDashboard extends Component {
       <div>
         {Object.keys(messageObj).map((key, index) => {
           const messages = messageObj[key]
-
           const componentsMessages = messages.map(messageChunk => (
             <ListMessage
               messages={messageChunk}
