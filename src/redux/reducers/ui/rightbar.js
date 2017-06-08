@@ -3,6 +3,7 @@ import actionTypes from '../../actionTypes'
 const initialiState = {
   displayType: '',
   isOpen: false,
+  isReceiveDonuts: false,
   isFetchingUserInfo: false,
   isFetchingNotification: false,
   isFetchingHistoryDonut: false,
@@ -10,6 +11,7 @@ const initialiState = {
   channelUsers: [],
   notifications: [],
   historyDonut: [],
+  campusDonuts: [],
 }
 
 export default (state = initialiState, action) => {
@@ -52,7 +54,7 @@ export default (state = initialiState, action) => {
         displayType: 'ChannelUsers',
       })
     }
-    
+
     case actionTypes.hideSidebarRight.request: {
       return Object.assign({
         displayType: '',
@@ -65,6 +67,29 @@ export default (state = initialiState, action) => {
         historyDonut: [],
       })
     }
+
+    case actionTypes.donutsCampusFetch.success: {
+      console.log('actionTypes.donutsCampusFetch.success')
+      const { toUser } = action.result.data
+      return Object.assign({
+        isReceiveDonuts: true,
+        campusDonuts: [...state.campusDonuts, toUser],
+      })
+    }
+
+    case actionTypes.donutsCampusThrow.success: {
+      const campusDonuts = [...new Set(state.campusDonuts)]
+
+      if (campusDonuts.length > 0) {
+        campusDonuts.shift()
+      }
+
+      return Object.assign({
+        isReceiveDonuts: false,
+        campusDonuts,
+      })
+    }
+
 
     default: {
       return state

@@ -1,6 +1,8 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
+import { decorator } from '../../../../utils'
+const { placeholderMessage, usersWithoutCurrentUser } = decorator
 
 import {
   InputPost,
@@ -214,7 +216,6 @@ export default class ChannelDashboard extends Component {
       <div>
         {Object.keys(messageObj).map((key, index) => {
           const messages = messageObj[key]
-
           const componentsMessages = messages.map(messageChunk => (
             <ListMessage
               messages={messageChunk}
@@ -234,7 +235,6 @@ export default class ChannelDashboard extends Component {
           )
         })
        }
-
       </div>
     )
   }
@@ -254,6 +254,15 @@ export default class ChannelDashboard extends Component {
     const channel = allChannels.filter(channel => channel.id == channelId)[0]
     const messages = allMessages.filter(message => message.channelId == channelId)
     const { hashtags: hashtagsCurrentUser, image } = currentUser
+
+    let placeholder
+    let channelUsers
+    if (channel) {
+      const { users } = channel
+      const channelUsers = usersWithoutCurrentUser(users, currentUser)
+      placeholder = channel && placeholderMessage(channelUsers)
+    }
+
     return (
       <div className={page} ref={(div)=> this._dashboard = div}>
         <div className={header}>
@@ -274,6 +283,7 @@ export default class ChannelDashboard extends Component {
         <div className={sectionInput}>
           <InputPost
             imgUrl={image && image.mediumUrl}
+            placeholder={placeholder}
             suggestionedUsers={channel ? channel.users : []}
             onPostSubmit={messageCreate}
             currentPostType={'MESSAGE'}

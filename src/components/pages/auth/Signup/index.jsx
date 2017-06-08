@@ -28,7 +28,10 @@ export default class Signup extends Component {
     this.state = {
       pageIndex: 0,
       form: {
-        school: null,
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
       },
     }
   }
@@ -62,7 +65,7 @@ export default class Signup extends Component {
     const selectedSchool = schools.length > 0 && schools[0]
     return (
       <div className={layoutUserInfo}>
-        <h1>{selectedSchool.name}? Great, here we go!</h1>
+        <h1>{isDemo ? 'Demo' : selectedSchool.name}? Great, here we go!</h1>
         <InputTextTransparent
           className={input}
           onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}

@@ -4,5 +4,5 @@ const actionTypes = (baseType) => ({
   error: `UI_@_${baseType}_ERROR`,
 })
 
-export const donutsShake = actionTypes('ANIMATION_DONUTS_SHAKE')
-export const donutsThrow = actionTypes('ANIMATION_DONUTS_THROW')
+export const donutsShake = actionTypes('DONUTS_SHAKE')
+export const donutsThrow = actionTypes('DONUTS_THROW')

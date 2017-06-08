@@ -47,6 +47,7 @@ export default class InputPost extends Component {
     if (
       nextProps.suggestionedUsers !== this.props.suggestionedUsers ||
       nextProps.hashtag !== this.props.hashtag ||
+      nextProps.placeholder !== this.props.placeholder ||
       nextProps.currentPostType !== this.props.currentPostType ||
       nextProps.currentHashTag !== this.props.currentHashTag ||
       nextProps.imgUrl !== this.props.imgUrl
@@ -93,7 +94,6 @@ export default class InputPost extends Component {
         insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
         searchKey: 'name',
       })
-
 
       $('#input').on("inserted.atwho", function(event, flag, query) {
         event.stopImmediatePropagation()
@@ -235,7 +235,8 @@ export default class InputPost extends Component {
       }
     }
 
-    currentHashTag ? this._input.innerHTML = `#${currentHashTag} ` : ''
+    this._input.innerHTML = currentHashTag ? `#${currentHashTag} ` : ''
+    this._input.blur()
   }
 
   onStarClick(nextValue) {
@@ -331,7 +332,7 @@ export default class InputPost extends Component {
         <div className={inputWrapper}>
           <div
             id="input"
-            placeholder={this.placeholder}
+            placeholder={this.props.placeholder || this.placeholder}
             ref={(input) => { this._input = input }}
             className={input}
             contentEditable

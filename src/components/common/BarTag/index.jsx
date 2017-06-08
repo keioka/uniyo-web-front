@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 import {
   barFilter,
-  btnClose,
+  btn,
   pink,
   yellow,
   blue,
@@ -11,11 +11,13 @@ import {
 } from './style'
 
 import Cross from './cross'
+import Plus from './plus'
 
 const BarTag = ({
   type,
   currentPostType,
   hashtag,
+  hashtagAdd,
   onClearCurrentTypeHandler,
 }) => {
   let color
@@ -40,19 +42,29 @@ const BarTag = ({
     }
   }
 
+  const onAddHashtag = () => {
+    hashtagAdd({
+      hashtags: [hashtag],
+      tagType: 'Campus',
+    })
+  }
+
   const classNames = [ barFilter, color ]
   return (
     <div
       className={classNames.join(' ')}
       onClearCurrentTypeHandler={onClearCurrentTypeHandler}
     >
+      <span>#{hashtag}</span>
       <Link
         to={type ? `dashboard?type=${type}` : `dashboard`}
-        className={btnClose}
+        className={btn}
       >
         <Cross />
       </Link>
-      <span>#{hashtag}</span>
+      <span className={btn} onClick={() => onAddHashtag()}>
+        <Plus />
+      </span>
    </div>
   )
 }

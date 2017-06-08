@@ -9,13 +9,13 @@
   border-left: 1px solid $lightgray;
 }
 
-.sidebarOpen {
+.sidebar--open {
   width: 330px;
   height: 100vh;
   transition: width 22s ease;
 }
 
-.sidebarClose {
+.sidebar--close {
   width: 0px;
   transition: width 22s ease;
 }
@@ -71,7 +71,7 @@
   cursor: pointer;
 }
 
-.btnDonutsHistory {
+.btn--donuts-history {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -83,7 +83,7 @@
   cursor: pointer;
 }
 
-.btnDonutsHistoryInner {
+.btn--donuts-history__inner {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -112,49 +112,49 @@
 
 @keyframes floattop1 {
   0%, {
-    transform: translate3d(8px, 170px, 0px) scale(0) rotate(-0deg);
+    transform: translate3d(8px, 90px, 0px) scale(0) rotate(-0deg);
     opacity: 1;
   }
 
   10%, {
-    transform: translate3d(8px, 40px, 0px) scale(1.5) rotate(1080deg);
+    transform: translate3d(8px, 40px, 0px) scale(0.4) rotate(0deg);
     opacity: 1;
   }
 
   20%, {
-    transform: translate3d(8px, 50px, 0px) scale(1) rotate(-17deg);
+    transform: translate3d(8px, 40px, 0px) scale(1.6) rotate(0deg);
   }
 
   30%, {
-    transform: translate3d(8px, 40px, 0px) scale(0.8) rotate(17deg);
+    transform: translate3d(8px, 40px, 0px) scale(0.4) rotate(0deg);
   }
 
   40%, {
-    transform: translate3d(8px, 30px, 0px) scale(0.6) rotate(-17deg);
+    transform: translate3d(8px, 40px, 0px) scale(0.6) rotate(0deg);
   }
 
   50%, {
-    transform: translate3d(8px, 20px, 0px) scale(0.5) rotate(17deg);
+    transform: translate3d(8px, 20px, 0px) scale(0.4) rotate(0deg);
   }
 
   60%, {
-    transform: translate3d(8px, 10px, 0px) scale(0.4) rotate(-17deg);
+    transform: translate3d(8px, 10px, 0px) scale(0.6) rotate(0deg);
   }
 
   70%, {
-    transform: translate3d(8px, 0px, 0px) scale(0.3) rotate(17deg);
+    transform: translate3d(8px, 0px, 0px) scale(0.4) rotate(0deg);
   }
 
   80%, {
-    transform: translate3d(8px, -10px, 0px) scale(0.2) rotate(-17deg);
+    transform: translate3d(8px, 0px, 0px) scale(0.6) rotate(0deg);
   }
 
   90%, {
-    transform: translate3d(8px, -240px, 0px) scale(0.2) rotate(17deg);
+    transform: translate3d(8px, -100px, 0px) scale(0) rotate(0deg);
   }
 
   100%, {
-    transform: translate3d(8px, -240px, 0px) rotate(-17deg);
+    transform: translate3d(8px, -440px, 0px) rotate(0deg);
     opacity: 0;
   }
 }
@@ -162,132 +162,112 @@
 
 @keyframes floattop2 {
   0%, {
-    transform: translate3d(44px, -80px, 0px) scale(1);
-    top: 90%;
+    transform: translate3d(8px, 90px, 0px) scale(0) rotate(10deg);
     opacity: 1;
   }
 
   10%, {
-    transform: translate3d(44px, -80px, 0px) scale(1);
-    top: 90%;
+    transform: translate3d(8px, 40px, 0px) scale(1);
     opacity: 1;
   }
 
   20%, {
-    transform: translate3d(24px, -140px, 0px) scale(0.8);
-    top: 85%;
+    transform: translate3d(8px, 40px, 0px) scale(2);
   }
 
   30%, {
-    transform: translate3d(14px, -150px, 0px) scale(0.7);
-    top: 70%;
+    transform: translate3d(8px, 40px, 0px) scale(1.5);
   }
 
   40%, {
-    transform: translate3d(24px, -160px, 0px) scale(0.6);
-    top: 60%;
+    transform: translate3d(8px, 40px, 0px) scale(2);
   }
 
   50%, {
-    transform: translate3d(34px, -170px, 0px) scale(0.5);
-    top: 50%;
+    transform: translate3d(8px, 20px, 0px) scale(1) rotate(-10deg);
   }
 
   60%, {
-    transform: translate3d(17px, -180px, 0px) scale(0.4);
-    top: 50%;
+    transform: translate3d(8px, 10px, 0px) scale(0.4) ;
   }
 
   70%, {
-    transform: translate3d(8px, -190px, 0px) scale(0.3);
-    top: 50%;
+    transform: translate3d(8px, 0px, 0px) scale(0.3) ;
   }
 
   80%, {
-    transform: translate3d(24px, -200px, 0px) scale(0.2);
-    top: 50%;
+    transform: translate3d(8px, -200px, 0px) scale(0.2);
   }
 
   90%, {
-    transform: translate3d(24px, -1050px, 0px) scale(0.2);
-    top: 50%;
+    transform: translate3d(8px, -440px, 0px) scale(0.2);
   }
 
   100%, {
-    transform: translate3d(18px, -1150px, 0px) ;
-
+    transform: translate3d(8px, -440px, 0px) rotate(10deg);
     opacity: 0;
   }
 }
 
 
 @keyframes floattop3 {
+  0%, {
+    transform: translate3d(8px, 90px, 0px) scale(0) rotate(-0deg);
+    opacity: 1;
+  }
+
   10%, {
-    transform: translate3d(18px, -80px, 0px) scale(1);
-    top: 90%;
+    transform: translate3d(8px, 40px, 0px) scale(1) rotate(0deg);
     opacity: 1;
   }
 
   20%, {
-    transform: translate3d(28px, -140px, 0px) scale(0.8);
-    top: 85%;
+    transform: translate3d(8px, 40px, 0px) scale(2) rotate(0deg);
   }
 
   30%, {
-    transform: translate3d(32px, -150px, 0px) scale(0.7);
-    top: 70%;
+    transform: translate3d(8px, 40px, 0px) scale(1.5) rotate(0deg);
   }
 
   40%, {
-    transform: translate3d(28px, -160px, 0px) scale(0.6);
-    top: 60%;
+    transform: translate3d(8px, 40px, 0px) scale(2) rotate(0deg);
   }
 
   50%, {
-    transform: translate3d(34px, -170px, 0px) scale(0.5);
-    top: 50%;
+    transform: translate3d(8px, 20px, 0px) scale(1) rotate(0deg);
   }
 
   60%, {
-    transform: translate3d(17px, -180px, 0px) scale(0.4);
-    top: 50%;
+    transform: translate3d(8px, 10px, 0px) scale(0.4) rotate(-27deg);
   }
 
   70%, {
-    transform: translate3d(8px, -190px, 0px) scale(0.3);
-    top: 50%;
+    transform: translate3d(8px, 0px, 0px) scale(0.3) rotate(-27deg);
   }
 
   80%, {
-    transform: translate3d(24px, -200px, 0px) scale(0.2);
-    top: 50%;
+    transform: translate3d(8px, 0px, 0px) scale(0.2) rotate(27deg);
   }
 
   90%, {
-    transform: translate3d(24px, -1050px, 0px) scale(0.2);
-    top: 50%;
+    transform: translate3d(8px, -440px, 0px) scale(0.2) rotate(27deg);
   }
 
   100%, {
-    transform: translate3d(18px, -1150px, 0px) ;
-
+    transform: translate3d(8px, -440px, 0px) rotate(-27deg);
     opacity: 0;
   }
 }
 
-
-.btnDonutsHistoryInner .image[data-image-id='1'] {
-
+.btn--donuts-history__inner .image[data-image-id='1'] {
   z-index: 300;
 }
 
-.btnDonutsHistoryInner .image[data-image-id='2'] {
-
+.btn--donuts-history__inner .image[data-image-id='2'] {
   z-index: 200;
 }
 
-.btnDonutsHistoryInner .image[data-image-id='3'] {
-
+.btn--donuts-history__inner .image[data-image-id='3'] {
   z-index: 100;
 }
 
