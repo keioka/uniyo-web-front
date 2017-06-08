@@ -25,7 +25,7 @@ $height-icon: 35px;
 .icon--user__img {
   height: $height-icon;
   border-radius: 8px;
-  border: 2px solid white;
+  border: 2px solid $lightgray;
   transition: border 0.2s ease;
 }
 
@@ -72,7 +72,7 @@ $height-icon: 35px;
   color: white;
   margin: 0px 7px;
   padding: 0px 1px;
-  border: 2px solid white;
+  border: 2px solid $lightgray;
   border-radius: 8px;
   align-items: center;
   justify-content: center;

@@ -1,3 +1,13 @@
+.wrapper {
+  width: 100%;
+}
+
+.wrapper--shrink {
+  width: 100%;
+  padding-right: 330px;
+  box-sizing: border-box;
+}
+
 .section--cards {
   padding: 2rem;
 }

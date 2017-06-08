@@ -13,8 +13,15 @@ $left-padding: 16px;
   z-index: 3;
 }
 
+.wrapper span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 145px;
+}
+
 .section {
-  margin-top: 25px;
+  margin-top: 18px;
+  margin-bottom: 9px;
   padding: 0;
 }
 
@@ -71,6 +78,16 @@ $left-padding: 16px;
   background-color: white;
   display: flex;
   align-items: center;
+  max-width: 180px;
+  padding: 3px 5px 3px $left-padding !important;
+}
+
+.section__tag--hot--active {
+  background-color: $strongpink;
+}
+
+.section__tag--hot--active a {
+  color: white;
 }
 
 .section__tag--hot:before {
@@ -78,10 +95,15 @@ $left-padding: 16px;
   margin-right: 10px;
 }
 
+.section__tag--hot a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .section__text--add {
   @include label
   display: inline-block;
-  margin: 4px 25px;
+  margin: 4px 16px;
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -90,21 +112,9 @@ $left-padding: 16px;
   border-bottom: 3px dotted inherit;
 }
 
-.section__text--add span{
+.section__text--add span {
   text-transform: capitalize;
   border-bottom: 2px dotted $darkgray;
-}
-
-.section__text--add {
-  @include label
-  display: inline-block;
-  padding-left: $left-padding;
-  margin: 4px 0px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-  border-bottom: 3px dotted inherit;
 }
 
 .user-names {
@@ -163,6 +173,10 @@ $left-padding: 16px;
   box-sizing: border-box;
 }
 
+.nav {
+  padding-bottom: 60px;
+}
+
 .hide {
   display: none;
 }
@@ -198,14 +212,14 @@ $left-padding: 16px;
   border: none;
 }
 
-.tagBtnClose {
+.tag__btn--close {
   opacity: 0;
   margin-left: 12px;
   width: 16px;
   height: 16px;
 }
 
-.tagBtnClose:hover {
+.tag__btn--close:hover {
   opacity: 1;
 }
 
@@ -217,13 +231,13 @@ $left-padding: 16px;
   .wrapper {
     opacity: 1;
     min-width: 230px;
+    max-width: 230px;
     flex-basis: 230px;
     transition: padding 2s ease;
     transition: opactiy 0.4s ease;
     transition: min-width 0.4s ease;
   }
 }
-
 
 @media only screen and (max-width: 768px) {
   .wrapper {

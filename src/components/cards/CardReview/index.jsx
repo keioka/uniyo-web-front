@@ -15,12 +15,14 @@ import {
   sectionImage,
   sectionContent,
   sectionContentHeader,
-  sectionContentFotter,
+  sectionContentFooter,
   sectionContentUserName,
   sectionContentComment,
   sectionContentCommentList,
   textUserName,
   textPostTime,
+  footerSectionBtns,
+  sectionFileDetail,
   btnLike,
   btnComment,
   show,
@@ -91,18 +93,22 @@ export default class CardReview extends PureComponent {
             <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
-          <div className={sectionContentFotter}>
-            <button className={btnComment} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
-            <ButtonDonut
-              className={btnLike}
-              donutsCount={donutsCount}
-              donutsThrow={donutsThrow}
-              onClick={::this.onClickDonutsHandler}
-            />
+          <div className={sectionContentFooter}>
+            <div className={sectionFileDetail}>
+            </div>
+            <div className={footerSectionBtns}>
+              <button className={btnComment} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>
+              <ButtonDonut
+                className={btnLike}
+                donutsCount={donutsCount}
+                donutsThrow={donutsThrow}
+                onClick={::this.onClickDonutsHandler}
+              />
+            </div>
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} />
+              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>

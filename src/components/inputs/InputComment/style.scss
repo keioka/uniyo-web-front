@@ -2,10 +2,12 @@
 
 .wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .input {
-  width: 80%;
+  width: 99%;
   display: inline-block;
   background-color: $gray;
   font-family: $font-family;
@@ -13,7 +15,18 @@
   border: none;
   border-radius: 20px;
   outline: none;
-  padding: 20px 10% 20px 10%;
+  padding: 18px 5px 18px 65px;
+  box-sizing: border-box;
+  line-height: 1rem;
+}
+
+.input:empty:before {
+  content: "Write a comment to @" attr(placeholder);
+  display: block; /* For Firefox */
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  color: #cacaca;
 }
 
 .instruction {
@@ -44,14 +57,13 @@
 .input__box--img {
   display: inline-block;
   position: absolute;
-  width: 40px;
-  border-radius: 50%;
+  width: 35px;
 }
 
 .input__box--img img {
   width: 100%;
-  padding: 25%;
   border-radius: 50%;
+  margin-left: 10px;
 }
 
 .inputText:before {

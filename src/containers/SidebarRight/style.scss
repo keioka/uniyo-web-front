@@ -3,7 +3,7 @@
 .wrapper {
   position: fixed;
   right: 0px;
-  top: 0px;
+  top: 62px;
   z-index: 3;
   background: white;
   border-left: 1px solid $lightgray;
@@ -111,61 +111,62 @@
 }
 
 @keyframes floattop1 {
+  0%, {
+    transform: translate3d(8px, 170px, 0px) scale(0) rotate(-0deg);
+    opacity: 1;
+  }
+
   10%, {
-    transform: translate3d(24px, -80px, 0px) scale(1);
-    top: 90%;
+    transform: translate3d(8px, 40px, 0px) scale(1.5) rotate(1080deg);
     opacity: 1;
   }
 
   20%, {
-    transform: translate3d(44px, -140px, 0px) scale(0.8);
-    top: 85%;
+    transform: translate3d(8px, 50px, 0px) scale(1) rotate(-17deg);
   }
 
   30%, {
-    transform: translate3d(34px, -150px, 0px) scale(0.7);
-    top: 70%;
+    transform: translate3d(8px, 40px, 0px) scale(0.8) rotate(17deg);
   }
 
   40%, {
-    transform: translate3d(14px, -160px, 0px) scale(0.6);
-    top: 60%;
+    transform: translate3d(8px, 30px, 0px) scale(0.6) rotate(-17deg);
   }
 
   50%, {
-    transform: translate3d(24px, -170px, 0px) scale(0.5);
-    top: 50%;
+    transform: translate3d(8px, 20px, 0px) scale(0.5) rotate(17deg);
   }
 
   60%, {
-    transform: translate3d(14px, -180px, 0px) scale(0.4);
-    top: 50%;
+    transform: translate3d(8px, 10px, 0px) scale(0.4) rotate(-17deg);
   }
 
   70%, {
-    transform: translate3d(4px, -190px, 0px) scale(0.3);
-    top: 50%;
+    transform: translate3d(8px, 0px, 0px) scale(0.3) rotate(17deg);
   }
 
   80%, {
-    transform: translate3d(14px, -200px, 0px) scale(0.2);
-    top: 50%;
+    transform: translate3d(8px, -10px, 0px) scale(0.2) rotate(-17deg);
   }
 
   90%, {
-    transform: translate3d(24px, -1050px, 0px) scale(0.2);
-    top: 50%;
+    transform: translate3d(8px, -240px, 0px) scale(0.2) rotate(17deg);
   }
 
   100%, {
-    transform: translate3d(18px, -1150px, 0px) ;
-
+    transform: translate3d(8px, -240px, 0px) rotate(-17deg);
     opacity: 0;
   }
 }
 
 
 @keyframes floattop2 {
+  0%, {
+    transform: translate3d(44px, -80px, 0px) scale(1);
+    top: 90%;
+    opacity: 1;
+  }
+
   10%, {
     transform: translate3d(44px, -80px, 0px) scale(1);
     top: 90%;

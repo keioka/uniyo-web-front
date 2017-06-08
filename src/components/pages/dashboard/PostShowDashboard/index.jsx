@@ -13,6 +13,8 @@ import {
 } from '../../../index'
 
 import {
+  wrapper,
+  wrapperShrink,
   sectionCards,
   sectionContentHeader,
   sectionContentFotter,
@@ -51,7 +53,7 @@ export default class PostShowDashboard extends Component {
       posts,
       postInfo,
     } = this.props
-    
+
     const { params } = this.props
     const { all } = posts
     const post = posts.filter(post => post.id == params.postId)[0]

@@ -30,8 +30,10 @@ import {
   iconOnline,
   userNames,
   tag,
+  nav,
   tagBtnClose,
   sectionTextAdd,
+  sectionTagHotActive,
 } from './style'
 
 import Plus from './plus-active'
@@ -43,6 +45,21 @@ export default class SidebarLeft extends Component {
     isShowInputAddTag: false,
     isShowMoreTags: false,
     isShowMoreChannels: false,
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.allChannels.length !== this.props.allChannels.length ||
+      nextProps.unreadNotification.length !== this.props.unreadNotification.length ||
+      nextProps.isSchoolTop !== this.props.isSchoolTop ||
+      nextProps.selectedHashtag !== this.props.selectedHashtag ||
+      nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
+      nextState !== this.state
+    ) {
+      return true
+    }
+
+    return false
   }
 
   onClickBtnAddHashTag() {
@@ -167,8 +184,6 @@ export default class SidebarLeft extends Component {
           return allNotifications
         }, {})
 
-        console.log(messageNotification)
-
         const ComponentsChannel = allChannels &&
         allChannels.filter(channel => channel.users[0].name.toLowerCase().includes(keywordForSort))
         .map((channel, index) => {
@@ -204,7 +219,7 @@ export default class SidebarLeft extends Component {
         })
 
         return (
-          <nav>
+          <nav className={nav}>
             <ul className={section}>
               <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>News Feed</span><Plus /></h4>
               { this.state.isShowInputAddTag &&
@@ -265,8 +280,9 @@ export default class SidebarLeft extends Component {
   </nav>
 )
 }
-
 render() {
+  const classNameForTopSchool = !this.props.selectedHashtag ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
+
   return (
     <aside className={wrapper} >
       <InputSearchTag
@@ -274,8 +290,8 @@ render() {
         onChange={event => this.setState({ keywordForSort: event.target.value })}
       />
       <ul className={section}>
-        <h3 className={`${sectionTag} ${sectionTagHot}`}>
-          <Link to="/dashboard/posts/top">All in EDHECBUSINES</Link>
+        <h3 className={classNameForTopSchool}>
+          <Link to="/dashboard">All in EDHECBUSINES</Link>
         </h3>
       </ul>
       {this.navSideBar}

@@ -21,11 +21,6 @@ export default class ButtonDonuts extends PureComponent {
   onClick(event) {
     event.stopPropagation()
     event.preventDefault()
-    const rect = event.target.getBoundingClientRect()
-    var x = rect.left
-    var y = rect.top
-    const { donutsThrow } = this.props
-    donutsThrow({ target: { x, y } })
     this.props.onClick()
   }
 

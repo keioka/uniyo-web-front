@@ -45,43 +45,59 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
 }
 
 
- const NavPostType = ({ currentPostType, onSelectPostType, currentHashTag }) => {
-  return (
-    <ul className={wrapper}>
-      {types.map((type) => {
-        const classNames = [item, type.className]
+class NavPostType extends Component {
 
-        if (type.name === currentPostType) {
-          if (currentPostType === 'ALL') {
-            classNames.push(itemActiveAll)
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.currentPostType !== this.props.currentPostType ||
+      nextProps.currentHashTag !== this.props.currentHashTag
+    ) {
+      return true
+    }
+
+    return false
+  }
+
+  render() {
+
+    const { currentPostType, onSelectPostType, currentHashTag } = this.props
+
+    return (
+      <ul className={wrapper}>
+        {types.map((type) => {
+          const classNames = [item, type.className]
+
+          if (type.name === currentPostType) {
+            if (currentPostType === 'ALL') {
+              classNames.push(itemActiveAll)
+            }
+
+            if (currentPostType === 'REVIEW') {
+              classNames.push(itemActiveReview)
+            }
+
+            if (currentPostType === 'QUESTION') {
+              classNames.push(itemActiveQuestion)
+            }
+
+            if (currentPostType === 'CLASS_NOTE') {
+              classNames.push(itemActiveDoc)
+            }
+
           }
 
-          if (currentPostType === 'REVIEW') {
-            classNames.push(itemActiveReview)
-          }
-
-          if (currentPostType === 'QUESTION') {
-            classNames.push(itemActiveQuestion)
-          }
-
-          if (currentPostType === 'CLASS_NOTE') {
-            classNames.push(itemActiveDoc)
-          }
-
-        }
-
-        const path = dashboardPathGenarator({ hashtag: currentHashTag, type: type.path })
-        return (
-          <li
-            key={type.id}
-            className={classNames.join(' ')}
-          >
-            <Link to={path}>{type.title}</Link>
-          </li>
-        )
-      })}
-    </ul>
-  )
+          const path = dashboardPathGenarator({ hashtag: currentHashTag, type: type.path })
+          return (
+            <li
+              key={type.id}
+              className={classNames.join(' ')}
+            >
+              <Link to={path}>{type.title}</Link>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
 }
-
 export default NavPostType

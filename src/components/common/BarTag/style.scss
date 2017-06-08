@@ -5,8 +5,14 @@
   align-items: center;
   justify-content: center;
   color: white;
-  padding: 40px;
-  font-size: 1.6rem;
+  padding: 33px;
+  font-size: 30px;
+}
+
+.bar--filter span {
+  font-weight: bold;
+  font-size: 30px;
+  color: #2d2d2d;
 }
 
 .btn--close {

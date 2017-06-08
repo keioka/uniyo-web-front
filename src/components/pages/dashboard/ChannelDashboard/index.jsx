@@ -8,6 +8,8 @@ import {
 } from '../../../index'
 
 import {
+  wrapper,
+  wrapperShrink,
   page,
   header,
   headerBar,
@@ -265,9 +267,9 @@ export default class ChannelDashboard extends Component {
           </div>
         </div>
         <div className={content}>
-          <ul className={contentUl}>
+          <div className={contentUl}>
             { messages && this.messages }
-          </ul>
+          </div>
         </div>
         <div className={sectionInput}>
           <InputPost

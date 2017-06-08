@@ -14,7 +14,10 @@ import {
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 
 import {
+  wrapper,
+  wrapperShrink,
   sectionCards,
+  sectionCardsTitle,
   barFilter,
   btnClose,
   enter,
@@ -43,6 +46,13 @@ export default class IndexDashboard extends Component {
   }
 
   componentDidMount() {
+    const {
+      postsTrendingSearch,
+      postsRelevantSearch,
+    } = this.props
+
+    postsTrendingSearch({})
+    postsRelevantSearch({ limit: 5 })
     window.addEventListener('scroll', ::this.onScrollHandler)
   }
 
@@ -106,16 +116,22 @@ export default class IndexDashboard extends Component {
       postCreate,
       onClearCurrentTypeHandler,
       currentPostType,
+      currentHashTag,
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
       donutsThrow,
       onReadContent,
+      rightbar,
+      relevantPosts,
+      trendingPosts,
+      posts,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { hashtag, type } = location.query
-
+    const { isOpen: isRightbarOpen } = rightbar
+    const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
     const cardFactory = ({
       post,
       commentsSearch,
@@ -124,6 +140,7 @@ export default class IndexDashboard extends Component {
       currentUser,
       currentPostType,
       donutsThrow,
+      onReadContent,
     }) => {
 
       switch(post.type) {
@@ -203,7 +220,7 @@ export default class IndexDashboard extends Component {
     }
 
     return (
-      <div ref={(div)=> this._dashboard = div}>
+      <div className={dashboardWrapperClassNames} ref={div => this._dashboard = div}>
         <InputPost
           imgUrl={image && image.mediumUrl}
           onPostSubmit={postCreate}
@@ -212,6 +229,46 @@ export default class IndexDashboard extends Component {
           userSearch={userSearch}
           showUserInfo={showUserInfo}
         />
+
+
+        {!currentHashTag && currentPostType === "ALL" && trendingPosts && trendingPosts.length > 0 &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>HOT 🔥</h3>
+            {trendingPosts.map(post => {
+              const comments = this.props.allComments.filter(comment => comment.postId === post.id)
+              return cardFactory({
+                post,
+                commentsSearch,
+                commentCreate,
+                comments,
+                showUserInfo,
+                donutsThrow,
+                currentUser,
+                onReadContent,
+              })
+            })}
+          </div>
+        }
+
+        {!currentHashTag && currentPostType === "ALL" && relevantPosts && relevantPosts.length > 0 &&
+          <div className={sectionCards}>
+            <h3 className={sectionCardsTitle}>RELEVANT</h3>
+              {relevantPosts.map(post => {
+                const comments = this.props.allComments.filter(comment => comment.postId === post.id)
+                return cardFactory({
+                  post,
+                  commentsSearch,
+                  commentCreate,
+                  comments,
+                  showUserInfo,
+                  donutsThrow,
+                  currentUser,
+                  onReadContent,
+                })
+              })}
+          </div>
+         }
+
        {hashtag &&
           <BarTag
             type={type}
@@ -221,6 +278,7 @@ export default class IndexDashboard extends Component {
           />
        }
        <div className={sectionCards}>
+         {!currentHashTag && this.props.currentPostType === "ALL" && <h3 className={sectionCardsTitle}>RECENT</h3>}
          {this.props.posts.map((post) => {
            const comments = this.props.allComments.filter(comment => comment.postId === post.id)
            return cardFactory({
@@ -231,6 +289,7 @@ export default class IndexDashboard extends Component {
              showUserInfo,
              donutsThrow,
              currentUser,
+             onReadContent,
            })
          })}
        </div>
