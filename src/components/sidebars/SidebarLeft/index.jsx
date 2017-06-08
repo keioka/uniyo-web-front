@@ -54,6 +54,7 @@ export default class SidebarLeft extends Component {
       nextProps.isSchoolTop !== this.props.isSchoolTop ||
       nextProps.selectedHashtag !== this.props.selectedHashtag ||
       nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
+      nextProps.isMainDashboard !== this.props.isMainDashboard ||
       nextState !== this.state
     ) {
       return true
@@ -280,8 +281,10 @@ export default class SidebarLeft extends Component {
   </nav>
 )
 }
+
 render() {
-  const classNameForTopSchool = !this.props.selectedHashtag ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
+  const { selectedHashtag, isMainDashboard } = this.props
+  const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   return (
     <aside className={wrapper} >
