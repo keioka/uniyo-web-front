@@ -9,43 +9,45 @@
   box-sizing: border-box;
 }
 
-.boxImage {
+.box--image {
   margin-right: 12px;
 }
 
-.boxInfo {
+.box--info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
 }
 
-.boxImage img {
-  width: 25px;
-  height: 25px;
+.box--image img {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 
-.fontName {
+.font--name {
   font-size: 12px;
   color: #4b4b4b;
 }
 
-.fontName b {
+.font--name b {
   color: #2d2d2d;
 }
 
-.fontTime {
+.font--time {
 	font-size: 9px;
 	font-weight: 900;
   color: #bdbdbd;
+  margin-top: 2px;
 }
 
-.imgUser {
+.img--user {
 
 }
 
-.boxInfoLeft {
+.box--info__left {
   display: flex;
   flex-direction: column;
 }

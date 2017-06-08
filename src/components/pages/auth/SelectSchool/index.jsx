@@ -25,8 +25,11 @@ export default class SelectSchool extends Component {
   }
 
   onSelectSchool(school) {
-    if (school) {
+    const { pathname } = this.props.location
+    if (school && pathname === '/signin') {
       browserHistory.push(`/schools/${school.slug}/signin`)
+    } else if (school && pathname === '/signup') {
+      browserHistory.push(`/schools/${school.slug}/signup`)
     }
   }
 

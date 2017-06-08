@@ -217,8 +217,16 @@ function* eventWebSocket() {
         }
 
         case 'USER_RECEIVED_DONUT': {
-          const { fromUser } = payload.data
-          action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { fromUser } } }
+          const { fromUser, toUser } = payload.data
+          const currentUserId = yield select(state => state.api.auth.currentUser.id)
+          console.log('toUser', toUser.id)
+          console.log('currentUserId', currentUserId)
+          if (toUser.id === currentUserId) {
+            action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { fromUser } } }
+          } else {
+            console.log('donutsCampusFetch')
+            action = { type: uiActionTypes.donutsCampusFetch.success, result: { data: { toUser } } }
+          }
           break
         }
 
@@ -247,7 +255,7 @@ function* eventWebSocket() {
         }
 
         default:
-          console.warn(`Don't know how to handle ${type} event.`);
+          console.warn(`Don't know how to handle ${type} event.`)
       }
       if (action) {
         yield put(action)

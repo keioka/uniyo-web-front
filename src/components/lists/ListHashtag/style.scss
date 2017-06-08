@@ -12,13 +12,12 @@ $left-padding: 16px;
   padding-left: $left-padding;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  width: 80%;
+  width: 196px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   align-items: center;
   justify-content: space-between;
-  max-width: 180px;
 }
 
 .wrapper:hover {

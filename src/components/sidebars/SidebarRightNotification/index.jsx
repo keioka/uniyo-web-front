@@ -9,6 +9,7 @@ import {
   wrapper,
   header,
   headerTitle,
+  headerTitleNumber,
   ul,
   ulTitle,
 } from './style'
@@ -27,6 +28,7 @@ class SidebarRightNotification extends Component {
       notificationReadMark,
       setReadNotificationIds,
       notificationSearch,
+      hideSidebarRight,
     } = this.props
 
     const countNotification = allNotifications.filter(notification => !notification.isRead).length
@@ -36,9 +38,13 @@ class SidebarRightNotification extends Component {
     return (
       <div className={wrapper} >
         <header className={header}>
-          <h3 className={headerTitle} data-count-notification={countNotification}>
-            Notification
-          </h3>
+          <div>
+            <h3 className={headerTitle}>
+              Notification
+            </h3>
+            { countNotification > 0 && <span className={headerTitleNumber}>{countNotification}</span> }
+          </div>
+          <span onClick={() => hideSidebarRight()}>X</span>
         </header>
         <ul className={ul}>
           { allNotifications &&
@@ -50,6 +56,7 @@ class SidebarRightNotification extends Component {
                 onVisiable={notificationReadMark}
               />
             )}
+            {newNotification.length > 0 && <hr/>}
             <h3 className={ulTitle}>Past Notification 👵🏻</h3>
             {pastNotifications.map((notification, index) => {
               const isLastNotification = (index === (pastNotifications.length - 1))

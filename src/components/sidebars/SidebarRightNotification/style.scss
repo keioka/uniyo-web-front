@@ -13,9 +13,14 @@
   padding: 1rem 1rem;
   margin-bottom: 15px;
   color: white;
-  position: sticky;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 100%;
   top: 0px;
   z-index: 6;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .header--title {
@@ -24,20 +29,22 @@
   font-size: 15px;
 }
 
-.header--title:after {
-  content: attr(data-count-notification);
-  width: 8px;
+.header--title__number {
+  width: 12px;
   height: 12px;
-  padding: 6px 6px;
+  padding: 6px 6px 6px 5px;
   margin-left: 10px;
   background: #FB3C3C;
   border-radius: 50%;
   color: white;
   font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ul {
-  padding: 0px 10px 120px 10px;
+  padding: 60px 10px 120px 10px;
 }
 
 .ul__title {
