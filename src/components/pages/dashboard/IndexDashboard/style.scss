@@ -1,5 +1,15 @@
 @import "../../../../styles/main";
 
+.wrapper {
+  width: 100%;
+}
+
+.wrapper--shrink {
+  width: 100%;
+  padding-right: 330px;
+  box-sizing: border-box;
+}
+
 .bar--filter {
   display: flex;
   align-items: center;
@@ -24,5 +34,11 @@
 }
 
 .section--cards {
-  padding: 2rem;
+  padding: 18px 2rem;
+}
+
+.section--cards__title {
+  font-size: 15px;
+  color: $darkgray;
+  text-transform: uppercase;
 }

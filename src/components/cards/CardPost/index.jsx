@@ -51,7 +51,7 @@ export default class CardPost extends PureComponent  {
 
   onChange() {
     const { id } = this.props
-    this.props.onReadContent('POST_READ', id)
+    // this.props.onReadContent('POST_READ', id)
   }
 
   onClickCommentHandler(event) {

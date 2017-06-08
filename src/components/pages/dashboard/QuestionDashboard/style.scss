@@ -1,5 +1,15 @@
 @import "../../../../styles/main";
 
+.wrapper {
+  width: 100%;
+}
+
+.wrapper--shrink {
+  width: 100%;
+  padding-right: 330px;
+  box-sizing: border-box;
+}
+
 .section-question {
   width: 100%;
   padding: 20px 5%;

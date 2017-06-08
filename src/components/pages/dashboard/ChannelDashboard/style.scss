@@ -1,13 +1,22 @@
 @import "../../../../styles/main";
 
+.wrapper {
+  width: 100%;
+}
+
+.wrapper--shrink {
+  width: 100%;
+  padding-right: 330px;
+  box-sizing: border-box;
+}
 
 .page {
-  height: 100vh;
+  height: 100%;
 }
 
 .section--input {
   position: sticky;
-  bottom: 0px;
+  bottom: -12px;
   height: 100px;
   width: 100%;
   box-sizing: border-box;
@@ -159,16 +168,15 @@
 
 .content {
   display: flex;
-  min-height: 100%;
+  min-height: 100vh;
   flex-direction: column-reverse;
   background: #f7f7f7;
 }
 
-.contentUl {
-  justify-content: flex-end;
-  overflow-y: scroll;
-  max-height: 100%;
+.content__ul {
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
+  height: 100%;
   padding: 20px 0px;
 }

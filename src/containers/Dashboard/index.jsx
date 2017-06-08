@@ -307,6 +307,7 @@ export default class DashBoard extends Component {
       answerSearch,
       answerCreate,
       postInfo,
+      rightbar,
       postsTrendingSearch,
       postsRelevantSearch,
       trendingPosts,
