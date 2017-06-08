@@ -281,7 +281,7 @@ export default class SidebarLeft extends Component {
 )
 }
 render() {
-  const classNameForTopSchool = this.props.isSchoolTop ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
+  const classNameForTopSchool = !this.props.selectedHashtag ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   return (
     <aside className={wrapper} >
@@ -291,7 +291,7 @@ render() {
       />
       <ul className={section}>
         <h3 className={classNameForTopSchool}>
-          <Link to="/dashboard/posts/top">All in EDHECBUSINES</Link>
+          <Link to="/dashboard">All in EDHECBUSINES</Link>
         </h3>
       </ul>
       {this.navSideBar}
