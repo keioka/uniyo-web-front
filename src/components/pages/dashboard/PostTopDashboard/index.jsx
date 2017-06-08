@@ -13,6 +13,8 @@ import {
 } from '../../../index'
 
 import {
+  wrapper,
+  wrapperShrink,
   sectionQuestion,
   sectionImage,
   sectionCards,
