@@ -15,9 +15,10 @@ import {
 import Setting from './setting'
 
 const NavChannel = ({ channel, showUserInfo, showChannelUsers }) => {
+  const MAX_LENGTH_USERS = 7
   const allChannelUsers = channel ? channel.users : []
-  const slicedUsers = allChannelUsers.slice(0, 11)
-  const numberUsersRest = allChannelUsers.length - 12
+  const slicedUsers = allChannelUsers.slice(0, MAX_LENGTH_USERS - 1)
+  const numberUsersRest = allChannelUsers.length - MAX_LENGTH_USERS
   return (
     <nav className={wrapper}>
       <ul className={ul}>
