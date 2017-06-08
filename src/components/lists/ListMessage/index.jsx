@@ -25,7 +25,7 @@ const ListMessage = ({ messages, showUserInfo }) => {
         <img src={user.image.smallUrl} className={imgUser} />
       </div>
       <div className={sectionContent}>
-        <span className={fontName}>{user.firstName}</span>
+        <span className={fontName}>{user.firstName} {user.lastName}</span>
         <span className={fontTime}>{time}</span>
         {messages.map(message => <p className={paragaph}><TextPost text={message.text} showUserInfo={showUserInfo} /></p>)}
       </div>
