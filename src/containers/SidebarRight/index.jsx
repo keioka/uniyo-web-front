@@ -91,7 +91,7 @@ export default class SidebarRight extends Component {
       showHistoryDonut,
       userGiveDonuts,
       userSearch,
-
+      hideSidebarRight,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -107,6 +107,7 @@ export default class SidebarRight extends Component {
             channels={allChannels}
             channelCreate={channelCreate}
             userGiveDonuts={userGiveDonuts}
+            hideSidebarRight={hideSidebarRight}
           />
         )
       }
@@ -115,6 +116,7 @@ export default class SidebarRight extends Component {
         return (
           <SidebarRightChannelUsers
             channelUsers={channelUsers}
+            hideSidebarRight={hideSidebarRight}
           />
         )
       }
@@ -125,6 +127,7 @@ export default class SidebarRight extends Component {
             allNotifications={allNotifications}
             notificationSearch={notificationSearch}
             notificationReadMark={notificationReadMark}
+            hideSidebarRight={hideSidebarRight}
           />
         )
       }
@@ -137,14 +140,14 @@ export default class SidebarRight extends Component {
             allChannels={allChannels}
             allUsers={allUsers}
             donutsHistory={donutsHistory}
+            hideSidebarRight={hideSidebarRight}
           />
         )
       }
     }
   }
 
-  render() {
-    const { displayType, isOpen, userInfo } = this.props.rightbar
+  generateDonuts() {
     const {
       channelCreate,
       channels,
@@ -152,16 +155,47 @@ export default class SidebarRight extends Component {
       hideSidebarRight,
       donutsHistory,
       notificationSearch,
+      rightbar,
+    } = this.props
+    const { displayType, isOpen, userInfo, campusDonuts } = rightbar
+
+    // const userImages = campusDonuts && campusDonuts.length > 0 && [...new Set(donutsHistory.map(user => {
+    //   return user.image.mediumUrl
+    // }))].slice(0, 1)
+
+    const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
+
+    return (
+      <div>
+      {campusDonuts && campusDonuts.length > 0 && campusDonuts.slice(0, 1).map((user, index) => {
+        const animationClass = animationClasses[index]
+        const classNames = [image, animationClass].join(' ')
+        return (
+          <div className={classNames} data-image-id={index+1}>
+            <img src={user.image.mediumUrl} alt="" />
+          </div>
+        )
+      })}
+      </div>
+    )
+  }
+
+  render() {
+
+    const {
+      channelCreate,
+      channels,
+      showHistoryDonut,
+      hideSidebarRight,
+      donutsHistory,
+      notificationSearch,
+      rightbar,
     } = this.props
 
+    const { displayType, isOpen, userInfo, campusDonuts } = rightbar
     const { all: allChannels } = channels
-
-    const userImages = donutsHistory && [...new Set(donutsHistory.map(history => {
-      return history.fromUser.image.mediumUrl
-    }))].slice(0, 3)
-
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
-    const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
+
     return (
       <div>
         <aside className={wrapperClassNames.join(' ')}>
@@ -171,15 +205,7 @@ export default class SidebarRight extends Component {
         { !isOpen &&
         <div className={btnDonutsHistory}>
           <div className={btnDonutsHistoryInner}>
-            {userImages && userImages.map((imageUrl, index) => {
-              const animationClass = animationClasses[index]
-              const classNames = [image, animationClass].join(' ')
-              return (
-                <div className={classNames} data-image-id={index+1}>
-                  <img src={imageUrl} alt="" />
-                </div>
-              )
-            })}
+            {this.generateDonuts()}
             <button className={btn} onClick={() => showHistoryDonut()}>open</button>
           </div>
         </div>

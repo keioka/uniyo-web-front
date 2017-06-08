@@ -321,7 +321,7 @@ export default class DashBoard extends Component {
     }))
 
     const unreadNotification = allNotifications.filter(notification => !notification.isRead)
-    const isSchoolTop = this.props.location.pathname === "/dashboard/posts/top"
+    const isMainDashboard = this.props.location.pathname === "/dashboard"
     return (
       <div className={container}>
         <SidebarLeft
@@ -331,7 +331,7 @@ export default class DashBoard extends Component {
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
           unreadNotification={unreadNotification}
-          isSchoolTop={isSchoolTop}
+          isMainDashboard={isMainDashboard}
           selectedHashtag={this.props.location.query.hashtag}
           type={type}
         />
