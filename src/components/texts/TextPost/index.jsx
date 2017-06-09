@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import reactStringReplace from 'react-string-replace'
 import ReactEmoji from 'react-emoji'
@@ -45,6 +45,19 @@ const TextPost = ({ text, showUserInfo, currentPostType }) => {
 
     return <TextMention key={`MENTION_${i}`} userId={userId} showUserInfo={showUserInfo} display={display} />
   })
+
+  parsedText = reactStringReplace(parsedText, /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g, (match, i) => {
+    return <a href={match} target="_blank" key={`${i}__${match}`}>{match}</a>
+  })
+
+
+   parsedText = reactStringReplace(parsedText, /&lt;/g, (match, i) => {
+     return "<"
+   })
+
+   parsedText = reactStringReplace(parsedText, /&gt;/g, (match, i) => {
+     return ">"
+   })
 
   return (
     <span>{parsedText}</span>
