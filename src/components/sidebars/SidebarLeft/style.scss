@@ -26,7 +26,7 @@ $left-padding: 16px;
 }
 
 .section__label {
-  @include label
+  font-size: 15px;
   padding-left: $left-padding;
   margin-bottom: 4px;
   display: flex;
@@ -34,6 +34,7 @@ $left-padding: 16px;
   align-items: center;
   cursor: pointer;
   color: #2D2D2D;
+  text-transform: uppercase;
 }
 
 .section__label span {

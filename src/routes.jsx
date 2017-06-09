@@ -42,6 +42,7 @@ export default () => (
       <Route component={Auth} >
         <Route path="/signin" component={SelectSchool} />
         <Route path="/signup" component={SelectSchool} />
+        <Route path="/signout" component={SelectSchool} />
         <Route path="/profile_settings" component={Profile} />
       </Route>
 

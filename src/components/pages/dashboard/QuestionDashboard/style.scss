@@ -135,7 +135,11 @@
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  cursor: pointer;
 }
+
 
 .btn--like:hover {
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);

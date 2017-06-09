@@ -133,13 +133,13 @@ export default class QuestionDashboard extends Component {
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
-              <span className={textUserName}>{user.name}</span>
+              <span className={textUserName}>{user.firstName}</span>
             </div>
             <span className={sectionContentText}>
               <TextPost text={text} showUserInfo={showUserInfo} />
             </span>
             <div className={sectionContentFotter}>
-              <span className={btnExit}><Link>Exit</Link></span>
+              <span className={btnExit} onClick={() => this.props.router.goBack()}>Exit</span>
               <ButtonDonut donutsCount={donutsCount} onClick={() => postGiveDonuts({ postId: question.id })}/>
             </div>
           </div>
