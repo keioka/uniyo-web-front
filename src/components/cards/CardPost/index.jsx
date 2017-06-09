@@ -106,7 +106,7 @@ export default class CardPost extends PureComponent  {
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
-            <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.name}</span>
+            <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
             {/* <span className={textPostTime}>{time}</span> */}
           </div>
           <TextPost

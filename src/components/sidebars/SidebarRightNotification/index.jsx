@@ -7,11 +7,14 @@ import {
 
 import {
   wrapper,
+  inner,
   header,
   headerTitle,
   headerTitleNumber,
   ul,
+  ulPastNotification,
   ulTitle,
+  hr,
 } from './style'
 
 class SidebarRightNotification extends Component {
@@ -40,39 +43,48 @@ class SidebarRightNotification extends Component {
         <header className={header}>
           <div>
             <h3 className={headerTitle}>
-              Notification
+              Notifications
             </h3>
             { countNotification > 0 && <span className={headerTitleNumber}>{countNotification}</span> }
           </div>
           <span onClick={() => hideSidebarRight()}>X</span>
         </header>
-        <ul className={ul}>
+
+        <div className={inner}>
           { allNotifications &&
-          <div>
-            {newNotification.map(notification =>
-              <ListNotification
-                notification={notification}
-                notificationReadMark={notificationReadMark}
-                onVisiable={notificationReadMark}
-              />
-            )}
-            {newNotification.length > 0 && <hr/>}
-            <h3 className={ulTitle}>Past Notification 👵🏻</h3>
-            {pastNotifications.map((notification, index) => {
-              const isLastNotification = (index === (pastNotifications.length - 1))
-              return (
-                <ListNotification
-                  notification={notification}
-                  notificationReadMark={notificationReadMark}
-                  onVisiable={notificationReadMark}
-                  notificationSearch={notificationSearch}
-                  isLastNotification={isLastNotification}
-                />
-              )
-            })}
-          </div>
+            <div>
+              <ul className={ul}>
+                {newNotification.map(notification =>
+                  <ListNotification
+                    notification={notification}
+                    notificationReadMark={notificationReadMark}
+                    onVisiable={notificationReadMark}
+                  />
+                )}
+              </ul>
+
+              {newNotification.length > 0 && <div className={hr}></div>}
+
+              <h3 className={ulTitle}>Past Notification 👵🏻</h3>
+
+              <ul className={[ul, ulPastNotification].join(' ')}>
+                {pastNotifications.map((notification, index) => {
+                  const isLastNotification = (index === (pastNotifications.length - 1))
+                  return (
+                    <ListNotification
+                      notification={notification}
+                      notificationReadMark={notificationReadMark}
+                      onVisiable={notificationReadMark}
+                      notificationSearch={notificationSearch}
+                      isLastNotification={isLastNotification}
+                    />
+                  )
+                })}
+              </ul>
+
+            </div>
           }
-        </ul>
+        </div>
       </div>
     )
   }

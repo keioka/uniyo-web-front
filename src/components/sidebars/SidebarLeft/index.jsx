@@ -222,10 +222,11 @@ export default class SidebarLeft extends Component {
         return (
           <nav className={nav}>
             <ul className={section}>
-              <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>News Feed</span><Plus /></h4>
+              <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>Newsfeed</span><Plus /></h4>
               { this.state.isShowInputAddTag &&
                 <input
                   type="text"
+                  placeholder="#AnyTopic"
                   className={inputAddTag}
                   ref={(ref) => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
@@ -251,7 +252,7 @@ export default class SidebarLeft extends Component {
           </ul>
 
           <ul className={section}>
-            <h4 className={sectionLabel}>TRENDING TOPIC</h4>
+            <h4 className={sectionLabel}>TRENDING TOPIC 👌</h4>
             {hashtagsTrending && ComponentsTrendingHashtag}
           </ul>
 
