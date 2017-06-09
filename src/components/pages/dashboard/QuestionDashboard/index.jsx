@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
-
+import { Link } from 'react-router'
 import {
   CardPost,
   InputPost,
@@ -18,6 +18,7 @@ import {
   sectionContentFotter,
   textUserName,
   btnLike,
+  btnExit,
   btnComment,
   sectionCards,
   sectionCardsFirst,
@@ -138,6 +139,7 @@ export default class QuestionDashboard extends Component {
               <TextPost text={text} showUserInfo={showUserInfo} />
             </span>
             <div className={sectionContentFotter}>
+              <span className={btnExit}><Link>Exit</Link></span>
               <ButtonDonut donutsCount={donutsCount} onClick={() => postGiveDonuts({ postId: question.id })}/>
             </div>
           </div>
@@ -148,8 +150,6 @@ export default class QuestionDashboard extends Component {
     const answerBest = answers ? answers.reduce(function(a, b) {
       return Math.max(a.donutsCount, b.donutsCount)
     }, 0) : []
-
-    console.log(answerBest)
 
     const isBestAnswerExsist = answerBest.lenght > 0
     const answerRecent = answers && answers[0]

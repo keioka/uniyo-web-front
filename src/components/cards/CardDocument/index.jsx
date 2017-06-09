@@ -96,7 +96,7 @@ export default class CardDocument extends PureComponent {
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
-              <span className={textUserName}>{user.name}</span>
+              <span className={textUserName}>{user.firstName}</span>
                 {/* <span className={textPostTime}>{time}</span> */}
             </div>
             <TextPost

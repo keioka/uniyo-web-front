@@ -146,6 +146,10 @@ $animation-duraion: 0.2s;
   @include h4;
   color: #2D2D2D;
   cursor: pointer;
+  text-transform: capitalize;
+  color: #2D2D2D;
+  font-size: 16px;
+  font-weight: 900;
 }
 
 .btn--comment {

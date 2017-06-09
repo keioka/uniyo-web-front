@@ -55,6 +55,12 @@ export default class App extends Component {
     }
   }
 
+  componentDidMount() {
+    if (authService.isTokenExist) {
+      browserHistory.push('/dashboard')
+    }
+  }
+
   componentWillReceiveProps() {
     // If user just logined or signup
     const { isLogin, fetching } = this.props.auth
