@@ -29,6 +29,14 @@
   color: #cacaca;
 }
 
+span[data-user-id] {
+  color: $lightpink;
+}
+
+span[data-mention=true] {
+  color: $lightpink;
+}
+
 .instruction {
   position: absolute;
   top: -50px;
