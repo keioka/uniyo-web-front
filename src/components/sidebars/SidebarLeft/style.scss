@@ -52,6 +52,7 @@ $left-padding: 16px;
 }
 
 .section__tag {
+  color: #868686;
   display: flex;
   flex-direction: row;
   list-style: none;
@@ -60,13 +61,17 @@ $left-padding: 16px;
   padding-left: $left-padding;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  width: 80%;
-  height: 1.2rem;
+  width: 196px;
+  line-height: 1.4rem;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   align-items: center;
-  margin: 4px 0px;
+  margin: 2px 0px;
+}
+
+.section__tag:hover {
+  background-color: white;
 }
 
 .section__tag--hot {
@@ -97,7 +102,7 @@ $left-padding: 16px;
 }
 
 .section__text--add {
-  color: #333333;
+  color: #575757;
   display: inline-block;
   margin: 4px 16px;
   display: flex;
@@ -110,8 +115,8 @@ $left-padding: 16px;
 
 .section__text--add span {
   white-space: nowrap;
-  color: #333333;
-  border-bottom: 2px dotted $darkgray;
+  color: #575757;
+  border-bottom: 2px dotted #575757;
 }
 
 .user-names {
@@ -131,7 +136,7 @@ $left-padding: 16px;
   font-size: 0.6rem;
   width: 16px;
   height: 16px;
-  font-size: 0.7rem;
+  font-size: 11px;
 }
 
 .icon--channel--online-status {
@@ -152,12 +157,12 @@ $left-padding: 16px;
 }
 
 .icon--number--new-message {
-  background: red;
+  background: $red;
   color: white;
   width: 8px;
   height: 8px;
   font-size: 12px;
-  padding: 3px 7px;
+  padding: 4px 7px;
   border-radius: 50%;
   margin-left: 5px;
 }
