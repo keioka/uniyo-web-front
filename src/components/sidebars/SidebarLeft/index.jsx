@@ -226,7 +226,7 @@ export default class SidebarLeft extends Component {
               { this.state.isShowInputAddTag &&
                 <input
                   type="text"
-                  placeholder="#AnyTopic"
+                  placeholder="Add a new topic"
                   className={inputAddTag}
                   ref={(ref) => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
