@@ -40,6 +40,17 @@ $left-padding: 16px;
   fill: white;
 }
 
+.tag {
+  color: #868686;
+  display: flex;
+  align-items: center;
+}
+
+.tag--bold {
+  color: #575757;
+  font-weight: bold;
+}
+
 .btn--close {
   opacity: 0;
   margin-left: 12px;
@@ -56,10 +67,10 @@ $left-padding: 16px;
 }
 
 .icon--number-mention {
-  background: red;
+  background: $red;
   color: white;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   font-size: 12px;
   padding: 7px 7px;
   border-radius: 50%;
