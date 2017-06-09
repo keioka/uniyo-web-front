@@ -11,12 +11,7 @@ $left-padding: 16px;
   will-change: transform;
   overflow: scroll;
   z-index: 3;
-}
-
-.wrapper span {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 145px;
+  color: #333333;
 }
 
 .section {
@@ -27,7 +22,7 @@ $left-padding: 16px;
 
 .section a {
   text-decoration: none;
-  color: $darkgray;
+  color: #333333;
 }
 
 .section__label {
@@ -101,7 +96,7 @@ $left-padding: 16px;
 }
 
 .section__text--add {
-  @include label
+  color: #333333;
   display: inline-block;
   margin: 4px 16px;
   display: flex;
@@ -113,7 +108,8 @@ $left-padding: 16px;
 }
 
 .section__text--add span {
-  text-transform: capitalize;
+  white-space: nowrap;
+  color: #333333;
   border-bottom: 2px dotted $darkgray;
 }
 
