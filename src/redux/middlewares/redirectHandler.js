@@ -4,6 +4,11 @@ import { browserHistory } from 'react-router'
 
 export const redirectHandler = store => next => action => {
 
+  if (action.type === actionTypes.tokenRefresh.error) {
+    localStorage.clear()
+    browserHistory.push('/')
+  }
+
   if (action.type === actionTypes.userCreate.success) {
     browserHistory.push('/profile_settings')
   }
