@@ -139,7 +139,7 @@ export default class QuestionDashboard extends Component {
               <TextPost text={text} showUserInfo={showUserInfo} />
             </span>
             <div className={sectionContentFotter}>
-              <span className={btnExit}><Link>Exit</Link></span>
+              <span className={btnExit}><Link to="/dashboard">Exit</Link></span>
               <ButtonDonut donutsCount={donutsCount} onClick={() => postGiveDonuts({ postId: question.id })}/>
             </div>
           </div>
