@@ -95,6 +95,9 @@ export default class SidebarLeft extends Component {
       notification.type === "NEW_COMMENT"
     )
 
+    const uniqueHashtagsCurrentUser = hashtagsCurrentUser && [...new Set(hashtagsCurrentUser.map(hashtag => hashtag.hashtag))];
+    console.log(uniqueHashtagsCurrentUser)
+
     const hashtagsNotification = unreadPostNotification.map(notification =>
       extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
     )
@@ -143,23 +146,23 @@ export default class SidebarLeft extends Component {
         )
       }
 
-      const ComponentsHashtag = hashtagsCurrentUser &&
-      Array.from(new Set(hashtagsCurrentUser)).filter(hashtag =>
-        hashtag.hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
+      const ComponentsHashtag = uniqueHashtagsCurrentUser &&
+      uniqueHashtagsCurrentUser.filter(hashtag =>
+        hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
           const classNames = []
           // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
-          const isSelected = this.props.selectedHashtag === hashtag.hashtag
+          const isSelected = this.props.selectedHashtag === hashtag
           classNames.join(' ')
-          const isIncludeNewPost = flattenHashtags.includes(hashtag.hashtag)
-          const amountMention = mentionHashtagList[hashtag.hashtag]
+          const isIncludeNewPost = flattenHashtags.includes(hashtag)
+          const amountMention = mentionHashtagList[hashtag]
 
           return (
             <ListHashtag
               className={classNames}
-              hashtag={hashtag.hashtag}
-              hashtagType={hashtag.type}
+              hashtag={hashtag}
+              hashtagType={hashtag}
               hashtagDelete={hashtagDelete}
               isSelected={isSelected}
               isIncludeNewPost={isIncludeNewPost}
@@ -232,7 +235,7 @@ export default class SidebarLeft extends Component {
                   onKeyUp={::this.onSubmitAddTag}
                 />
               }
-              { hashtagsCurrentUser && ComponentsHashtag }
+              { uniqueHashtagsCurrentUser && ComponentsHashtag }
               {/* { keywordForSort === '' &&
               hashtagsCurrentUser &&
               hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
