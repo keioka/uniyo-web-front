@@ -12,6 +12,7 @@ import {
   wrapperActive,
   tag,
   tagBold,
+  tagRegular,
   btnClose,
   iconNumberMention,
 } from './style'
@@ -66,7 +67,7 @@ class ListHashtag extends Component {
         <li className={wrapperClassNames}>
 
           <span className={tag}>
-            {isIncludeNewPost ? (<b className={tagBold}>#{hashtag}</b>) : `#${hashtag}`}
+            {isIncludeNewPost ? (<b className={tagBold}>#{hashtag}</b>) : <span className={tagRegular}>#{hashtag}</span>}
             { amountMention && <span className={iconNumberMention}>{amountMention}</span> }
           </span>
 
