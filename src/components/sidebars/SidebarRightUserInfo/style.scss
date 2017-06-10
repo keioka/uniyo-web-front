@@ -58,6 +58,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
+}
+
+.profile__nav button {
+  margin: 0px 5px;
 }
 
 .tags {
@@ -89,7 +94,7 @@
   border: 1px solid lightgray;
   display: flex;
   align-items: center;
-  padding: 9px 5px;
+  padding: 9px 15px;
   font-size: 0.8rem;
   border-radius: 8px;
   background: white;
