@@ -54,16 +54,13 @@ $animation-duraion: 0.2s;
 }
 
 .section--image {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: $darkgray;
   cursor: pointer;
 }
 
 .section--image img {
-  height: 100%;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
 }
 
 .section--content {
