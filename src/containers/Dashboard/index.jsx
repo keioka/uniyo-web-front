@@ -131,6 +131,22 @@ export default class DashBoard extends Component {
   }
 
   componentDidMount() {
+    const { currentHashTag, currentPostType } = this.state
+    const { hashtag, type = 'all' } = this.props.location.query
+    const { postsSearch } = this.props
+
+    // If query string is changed, get new posts.
+    this.setState({
+      currentHashTag: hashtag,
+      currentPostType: TYPES[type],
+    })
+
+    const params = {}
+    const typeForQuery = [TYPES[type]]
+    if (hashtag) { params.hashtags = [hashtag] }
+    if (typeForQuery && TYPES[type] !== 'ALL') { params.types = typeForQuery }
+    postsSearch(params)
+
     const { addDevice } = this.props
     pushNotification.subscribe(addDevice)
   }
@@ -150,7 +166,7 @@ export default class DashBoard extends Component {
       const params = {}
       const typeForQuery = [TYPES[type]]
       if (hashtag) { params.hashtags = [hashtag] }
-      if (typeForQuery && typeForQuery !== 'ALL') { params.types = [TYPES[type]] }
+      if (typeForQuery && TYPES[type] !== 'ALL') { params.types = typeForQuery }
       postsSearch(params)
     }
   }
