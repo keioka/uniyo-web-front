@@ -87,6 +87,11 @@ $left-padding: 16px;
   background-color: $strongpink;
 }
 
+.section__tag--hot--active:hover {
+  background-color: $strongpink;
+}
+
+
 .section__tag--hot--active a {
   color: white;
 }
