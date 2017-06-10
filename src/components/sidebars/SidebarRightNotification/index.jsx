@@ -9,6 +9,7 @@ import {
   wrapper,
   inner,
   header,
+  headerInner,
   headerTitle,
   headerTitleNumber,
   ul,
@@ -41,7 +42,7 @@ class SidebarRightNotification extends Component {
     return (
       <div className={wrapper} >
         <header className={header}>
-          <div>
+          <div className={headerInner}>
             <h3 className={headerTitle}>
               Notifications
             </h3>
