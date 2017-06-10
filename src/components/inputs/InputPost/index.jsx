@@ -50,7 +50,8 @@ export default class InputPost extends Component {
       nextProps.placeholder !== this.props.placeholder ||
       nextProps.currentPostType !== this.props.currentPostType ||
       nextProps.currentHashTag !== this.props.currentHashTag ||
-      nextProps.imgUrl !== this.props.imgUrl
+      nextProps.imgUrl !== this.props.imgUrl ||
+      nextState !== this.state
     ) {
       return true
     }
@@ -144,6 +145,7 @@ export default class InputPost extends Component {
   }
 
   onDropFile(event) {
+    console.log(event)
     const file = event[0]
     this.setState({
       form: {
@@ -310,7 +312,7 @@ export default class InputPost extends Component {
               <h4 className={dropZoneFilename}>{this.state.form.file.name}</h4>
               <h4>{`${(this.state.form.file.size / 1024 / 1024).toFixed(3)}MB`}</h4>
               <button className={btnFileDelete} onClick={(event) => {
-                event.stopPropagation();
+                event.stopPropagation()
                 this.setState({ form: { file: null } })
               }}></button>
             </div>
