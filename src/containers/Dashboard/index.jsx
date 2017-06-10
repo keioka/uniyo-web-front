@@ -42,6 +42,7 @@ import {
   barPushNotification,
   barPushNotificationButtonSubscribe,
   barPushNotificationButtonClose,
+  textEnableNotification,
 } from './style'
 
 import Setting from './settings.svg'
@@ -113,6 +114,7 @@ export default class DashBoard extends Component {
   }
 
   state = {
+    isOpenNotificationBar: true,
     currentHashTag: '',
     currentPostType: '',
   }
@@ -405,17 +407,22 @@ export default class DashBoard extends Component {
     // TODO: fetching case
     return (
       <LayoutDashboard>
-        {pushNotification.permissionStatus === "default" &&
+        {this.state.isOpenNotificationBar && pushNotification.permissionStatus === "default" &&
         <div className={barPushNotification}>
           <Donut size="sm" />
-          UniYo needs your permission to enable desktop notifications.
+          UniYo needs your permission to &nbsp;
+          <span
+            className={textEnableNotification}
+            onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
+            >
+            enable desktop notifications.
+          </span>
           <button
-            className={barPushNotificationButtonSubscribe}
-            onClick={() => pushNotification.requestPermissionForNotifications()}
+            className={barPushNotificationButtonClose}
+            onClick={() => this.setState({ isOpenNotificationBar: false })}
           >
-            Setting
+            X
           </button>
-          <button className={barPushNotificationButtonClose}>X</button>
         </div>
         }
         { this.renderContent }
