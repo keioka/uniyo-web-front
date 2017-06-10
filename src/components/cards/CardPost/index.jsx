@@ -70,6 +70,12 @@ export default class CardPost extends PureComponent  {
     postGiveDonuts({ postId: id, amount: 1 })
   }
 
+  closeCommentBox() {
+    this.setState({
+      toggle: false
+    })
+  }
+
   render() {
     const {
       id,
@@ -136,7 +142,13 @@ export default class CardPost extends PureComponent  {
           { this.state.toggle &&
             <div className={sectionContentComment}>
               <div className={sectionContentCommentForm}>
-                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
+                <InputComment
+                  postId={id}
+                  commentCreate={commentCreate}
+                  currentUser={currentUser}
+                  userPost={user}
+                  closeCommentBox={::this.closeCommentBox}
+                />
               </div>
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment =>
