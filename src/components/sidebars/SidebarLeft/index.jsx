@@ -84,6 +84,10 @@ export default class SidebarLeft extends Component {
     }
   }
 
+  onChangeInputSearchTag() {
+
+  }
+
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
@@ -96,7 +100,6 @@ export default class SidebarLeft extends Component {
     )
 
     const uniqueHashtagsCurrentUser = hashtagsCurrentUser && [...new Set(hashtagsCurrentUser.map(hashtag => hashtag.hashtag))];
-    console.log(uniqueHashtagsCurrentUser)
 
     const hashtagsNotification = unreadPostNotification.map(notification =>
       extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
@@ -233,6 +236,7 @@ export default class SidebarLeft extends Component {
                   className={inputAddTag}
                   ref={(ref) => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
+                  onKeyDown={event => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false })}}
                 />
               }
               { uniqueHashtagsCurrentUser && ComponentsHashtag }
