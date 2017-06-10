@@ -47,8 +47,19 @@ $left-padding: 16px;
 }
 
 .tag--bold {
+  display: inline;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 198px;
   color: #575757;
   font-weight: bold;
+}
+
+.tag--regular {
+  display: inline;
+  text-overflow: ellipsis;
+  width: 198px;
+  overflow: hidden;
 }
 
 .wrapper--active .tag--bold {
