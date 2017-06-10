@@ -73,6 +73,8 @@
 }
 
 .drop-zone {
+  display: flex;
+  align-items: center;
   text-align: left;
   height: 50px;
   width: 124px;
@@ -84,6 +86,7 @@
   font-size: 1rem;
   text-align: left;
   font-weight: 400;
+  cursor: pointer;
 }
 
 .drop-zone__box {
@@ -114,7 +117,7 @@
   content: 'X'
 }
 
-.btn--file--delete:hover {
+.btn--file--delete:hover, .btn--file--delete:after:hover {
   cursor: pointer;
 }
 
@@ -122,8 +125,9 @@
   @include h5;
   text-overflow: ellipsis;
   display: inline-block;
-  width: 80%;
+  width: 124px;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .image--user {

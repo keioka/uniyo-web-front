@@ -51,6 +51,11 @@ $left-padding: 16px;
   font-weight: bold;
 }
 
+.wrapper--active .tag--bold {
+  color: white;
+  font-weight: bold;
+}
+
 .btn--close {
   opacity: 0;
   margin-left: 12px;

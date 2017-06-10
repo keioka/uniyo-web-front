@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+.header__inner {
+  display: flex;
+  align-items: center;
+}
+
 .header--title {
   display: inline-block;
   color: white;
@@ -32,12 +37,14 @@
 
 .hr {
   border-bottom: 2px solid white;
+  margin-bottom: 38px;
+  margin-top: 10px;
 }
 
 .header--title__number {
   width: 12px;
   height: 12px;
-  padding: 6px 6px 6px 5px;
+  padding: 6px 7px 6px 5px;
   margin-left: 10px;
   background: #FB3C3C;
   border-radius: 50%;
@@ -71,6 +78,6 @@
   text-transform: uppercase;
   font-size: 15px;
   font-weight: bold;
-  margin: 5px 0px 0px 0px;
+  margin: 15px 0px 0px 0px;
   padding-left: 18px;
 }
