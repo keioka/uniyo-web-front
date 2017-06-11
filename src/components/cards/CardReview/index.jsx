@@ -45,6 +45,12 @@ export default class CardReview extends PureComponent {
 
   }
 
+  closeCommentBox() {
+    this.setState({
+      toggle: false
+    })
+  }
+
   onClickCommentHandler() {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
@@ -108,7 +114,13 @@ export default class CardReview extends PureComponent {
           </div>
           { this.state.toggle &&
             <div className={sectionContentComment}>
-              <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
+              <InputComment
+                postId={id} c
+                ommentCreate={commentCreate}
+                currentUser={currentUser} 
+                userPost={user}
+                closeCommentBox={::this.closeCommentBox}
+              />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
               </ul>

@@ -42,6 +42,7 @@ import {
   barPushNotification,
   barPushNotificationButtonSubscribe,
   barPushNotificationButtonClose,
+  textEnableNotification,
 } from './style'
 
 import Setting from './settings.svg'
@@ -113,6 +114,7 @@ export default class DashBoard extends Component {
   }
 
   state = {
+    isOpenNotificationBar: true,
     currentHashTag: '',
     currentPostType: '',
   }
@@ -131,6 +133,22 @@ export default class DashBoard extends Component {
   }
 
   componentDidMount() {
+    const { currentHashTag, currentPostType } = this.state
+    const { hashtag, type = 'all' } = this.props.location.query
+    const { postsSearch } = this.props
+
+    // If query string is changed, get new posts.
+    this.setState({
+      currentHashTag: hashtag,
+      currentPostType: TYPES[type],
+    })
+
+    const params = {}
+    const typeForQuery = [TYPES[type]]
+    if (hashtag) { params.hashtags = [hashtag] }
+    if (typeForQuery && TYPES[type] !== 'ALL') { params.types = typeForQuery }
+    postsSearch(params)
+
     const { addDevice } = this.props
     pushNotification.subscribe(addDevice)
   }
@@ -150,7 +168,7 @@ export default class DashBoard extends Component {
       const params = {}
       const typeForQuery = [TYPES[type]]
       if (hashtag) { params.hashtags = [hashtag] }
-      if (typeForQuery && typeForQuery !== 'ALL') { params.types = [TYPES[type]] }
+      if (typeForQuery && TYPES[type] !== 'ALL') { params.types = typeForQuery }
       postsSearch(params)
     }
   }
@@ -372,7 +390,7 @@ export default class DashBoard extends Component {
             {childComponents}
           </div>
         </div>
-        <SidebarRight hideSidebarRight={hideSidebarRight} />
+        <SidebarRight hideSidebarRight={hideSidebarRight} location={this.props.location} />
       </div>
     )
   }
@@ -389,17 +407,22 @@ export default class DashBoard extends Component {
     // TODO: fetching case
     return (
       <LayoutDashboard>
-        {pushNotification.permissionStatus === "default" &&
+        {this.state.isOpenNotificationBar && pushNotification.permissionStatus === "default" &&
         <div className={barPushNotification}>
           <Donut size="sm" />
-          UniYo needs your permission to enable desktop notifications.
+          UniYo needs your permission to &nbsp;
+          <span
+            className={textEnableNotification}
+            onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
+            >
+            enable desktop notifications.
+          </span>
           <button
-            className={barPushNotificationButtonSubscribe}
-            onClick={() => pushNotification.requestPermissionForNotifications()}
+            className={barPushNotificationButtonClose}
+            onClick={() => this.setState({ isOpenNotificationBar: false })}
           >
-            Setting
+            X
           </button>
-          <button className={barPushNotificationButtonClose}>X</button>
         </div>
         }
         { this.renderContent }

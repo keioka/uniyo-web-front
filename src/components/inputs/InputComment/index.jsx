@@ -23,6 +23,10 @@ export default class InputComment extends Component {
     const { postId, commentCreate } = this.props
     const text = postTranspiler(this._inputComment)
 
+    if (event.keyCode === 27) {
+      this.props.closeCommentBox()
+    }
+
     if (event.keyCode === 13 && !event.isDefaultPrevented()) {
       if (!event.shiftKey) {
         event.preventDefault()
