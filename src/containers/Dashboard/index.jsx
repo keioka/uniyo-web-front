@@ -390,7 +390,7 @@ export default class DashBoard extends Component {
             {childComponents}
           </div>
         </div>
-        <SidebarRight hideSidebarRight={hideSidebarRight} />
+        <SidebarRight hideSidebarRight={hideSidebarRight} location={this.props.location} />
       </div>
     )
   }

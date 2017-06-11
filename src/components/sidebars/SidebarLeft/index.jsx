@@ -15,6 +15,7 @@ import {
 } from '../../'
 
 import {
+  absolute,
   wrapper,
   section,
   sectionTag,
@@ -295,7 +296,8 @@ render() {
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   return (
-    <aside className={wrapper} >
+  <div className={absolute}>
+    <aside className={wrapper}>
       <InputSearchTag
         className={inputSearchTag}
         onChange={event => this.setState({ keywordForSort: event.target.value })}
@@ -307,6 +309,7 @@ render() {
       </ul>
       {this.navSideBar}
     </aside>
+  </div>
   )
 }
 }
