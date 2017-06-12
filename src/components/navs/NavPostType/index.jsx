@@ -59,8 +59,7 @@ class NavPostType extends Component {
   }
 
   render() {
-
-    const { currentPostType, onSelectPostType, currentHashTag } = this.props
+    const { currentPostType, onSelectPostType, currentHashTag, isQuestionDashboard } = this.props
 
     return (
       <ul className={wrapper}>
@@ -83,8 +82,9 @@ class NavPostType extends Component {
             if (currentPostType === 'CLASS_NOTE') {
               classNames.push(itemActiveDoc)
             }
-
           }
+
+
 
           const path = dashboardPathGenarator({ hashtag: currentHashTag, type: type.path })
           return (

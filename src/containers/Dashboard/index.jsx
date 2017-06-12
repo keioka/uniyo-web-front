@@ -349,6 +349,9 @@ export default class DashBoard extends Component {
 
     const unreadNotification = allNotifications.filter(notification => !notification.isRead)
     const isMainDashboard = this.props.location.pathname === "/dashboard"
+    const regexQuestionDashboard = /\/dashboard\/questions/
+    const isQuestionDashboard = regexQuestionDashboard.test(this.props.location.pathname)
+
     return (
       <div className={container}>
         <SidebarLeft
@@ -386,7 +389,7 @@ export default class DashBoard extends Component {
             {!isChannel ?
               <NavPostType
                 onSelectPostType={::this.onSelectPostType}
-                currentPostType={currentPostType}
+                currentPostType={isQuestionDashboard ? TYPES['questions']: currentPostType}
                 currentHashTag={hashtag}
               /> :
               <NavChannel
