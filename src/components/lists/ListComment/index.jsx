@@ -14,15 +14,15 @@ import {
   contentText,
 } from './style'
 
-const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount }) => {
+const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount, showUserInfo }) => {
   return (
     <li key={id} className={wrapper}>
-      <span className={boxImage}>
+      <span className={boxImage} onClick={(event) => { showUserInfo(user.id) }}>
         <img src={user.image.smallUrl} className={imgUser} />
       </span>
       <span className={content}>
         <span className={contentText}>
-          <span className={fontName}>{user.firstName}</span>
+          <span className={fontName} onClick={(event) => { showUserInfo(user.id) }}>{user.firstName}</span>
           <TextPost text={text} />
         </span>
         <ButtonDonut

@@ -24,7 +24,6 @@ import storage from '../../../utils/localStorageHandler'
 export function getClassNoteDownloadUrl(classNoteId) {
   const { accessToken } = storage
   const path = `/class_notes/${classNoteId}/download`
-
   const url = `https://api.uniyo.io/v1${path}?redirect=true&access_token=${accessToken}`
   return url
 }

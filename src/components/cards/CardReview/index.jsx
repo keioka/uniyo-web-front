@@ -115,14 +115,23 @@ export default class CardReview extends PureComponent {
           { this.state.toggle &&
             <div className={sectionContentComment}>
               <InputComment
-                postId={id} c
-                ommentCreate={commentCreate}
+                postId={id}
+                showUserInfo={showUserInfo}
+                commentCreate={commentCreate}
                 currentUser={currentUser}
                 userPost={user}
                 closeCommentBox={::this.closeCommentBox}
               />
               <ul className={sectionContentCommentList}>
-                {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
+                {comments && comments.map(comment =>
+                  <ListComment
+                    key={comment.id}
+                    showUserInfo={showUserInfo}
+                    {...comment}
+                  >
+                    {comment.text}
+                  </ListComment>
+                )}
               </ul>
             </div>
           }

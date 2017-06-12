@@ -100,7 +100,14 @@ export default class SidebarLeft extends Component {
       notification.type === "NEW_COMMENT"
     )
 
-    const uniqueHashtagsCurrentUser = hashtagsCurrentUser && [...new Set(hashtagsCurrentUser.map(hashtag => hashtag.hashtag))];
+    const uniq = (array, param) => {
+      return array.filter((item, pos, array) => {
+        return array.map((mapItem) => mapItem[param]).indexOf(item[param]) === pos
+      })
+    }
+
+
+    const uniqueHashtagsCurrentUser = hashtagsCurrentUser && uniq(hashtagsCurrentUser, 'hashtag')
 
     const hashtagsNotification = unreadPostNotification.map(notification =>
       extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
@@ -151,22 +158,25 @@ export default class SidebarLeft extends Component {
       }
 
       const ComponentsHashtag = uniqueHashtagsCurrentUser &&
-      uniqueHashtagsCurrentUser.filter(hashtag =>
-        hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
+      uniqueHashtagsCurrentUser
+      .filter(hashtag =>
+        hashtag.hashtag.toLowerCase().includes(keywordForSort)
+      )
+      .map((hashtag, index) => {
           const classNames = []
           // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
-          const isSelected = this.props.selectedHashtag === hashtag
+          const isSelected = this.props.selectedHashtag === hashtag.hashtag
           classNames.join(' ')
-          const isIncludeNewPost = flattenHashtags.includes(hashtag)
-          const amountMention = mentionHashtagList[hashtag]
+          const isIncludeNewPost = flattenHashtags.includes(hashtag.hashtag)
+          const amountMention = mentionHashtagList[hashtag.hashtag]
 
           return (
             <ListHashtag
               className={classNames}
-              hashtag={hashtag}
-              hashtagType={hashtag}
+              hashtag={hashtag.hashtag}
+              hashtagType={hashtag.type}
               hashtagDelete={hashtagDelete}
               isSelected={isSelected}
               isIncludeNewPost={isIncludeNewPost}
@@ -304,7 +314,7 @@ render() {
       />
       <ul className={section}>
         <h3 className={classNameForTopSchool}>
-          <Link to="/dashboard">All in EDHECBUSINES</Link>
+          <Link to="/dashboard">All in {localStorage['SCHOOL_NAME']}</Link>
         </h3>
       </ul>
       {this.navSideBar}

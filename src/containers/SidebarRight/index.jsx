@@ -128,6 +128,8 @@ export default class SidebarRight extends Component {
           <SidebarRightChannelUsers
             channelUsers={channelUsers}
             hideSidebarRight={hideSidebarRight}
+            channelCreate={channelCreate}
+            allChannels={allChannels}
           />
         )
       }

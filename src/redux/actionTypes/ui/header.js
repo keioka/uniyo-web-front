@@ -6,3 +6,4 @@ const actionTypes = (baseType) => ({
 
 export const donutsShake = actionTypes('DONUTS_SHAKE')
 export const donutsThrow = actionTypes('DONUTS_THROW')
+export const signout = actionTypes('SIGNOUT')
