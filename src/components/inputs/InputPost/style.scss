@@ -11,7 +11,7 @@
 .wrapper__image-box {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   border-radius: 50%;
   padding: 20px 0px 20px 30px;
 }
@@ -28,14 +28,15 @@
   display: inline-block;
   background: transparent;
   border-radius: 20px;
-  padding: 18px 15px;
   width: 90%;
   outline: none;
   border: none;
+  padding: 0px 15px;
   line-height: 25px;
   caret-color: $black;
   top: 0;
   left: 0;
+  word-break: break-all;
 }
 
 .input--wrapper {
