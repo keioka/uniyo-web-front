@@ -20,6 +20,7 @@
 }
 
 .section--image {
+  cursor: pointer;
 }
 
 .section--image img {
@@ -78,6 +79,7 @@
 
 .section--content__fotter {
   width: 100%;
+  height: 34px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -104,6 +106,7 @@
   text-transform: capitalize;
   color: #2d2d2d;
 	font-weight: 900;
+  cursor: pointer;
 }
 
 .btn--like {
@@ -122,24 +125,27 @@
 }
 
 .btn-exit {
-  width: 100px;
-	height: 30px;
-	border-radius: 8px;
-	background-color: #ffffff;
-	border: solid 1px #e1e1e1;
-  text-transform: uppercase;
-  font-size: 11px;
-  padding: 2px 0px;
-  color: #999999;
+  border: 1px solid #e1e1e1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  text-decoration: none;
-  letter-spacing: 0.2px;
+  padding: 3px 15px;
+  font-size: 0.8rem;
+	border-radius: 8px;
+  background: white;
   cursor: pointer;
+  text-transform: capitalize;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  outline: none;
+  text-transform: uppercase;
+  color: #999999;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
+.btn-exit:hover {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 100%); ;
+}
 
 .btn--like:hover {
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);

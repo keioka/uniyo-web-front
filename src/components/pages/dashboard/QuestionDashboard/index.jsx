@@ -107,6 +107,7 @@ export default class QuestionDashboard extends Component {
   render() {
     const {
       postCreate,
+      answerCreate,
       commentsSearch,
       commentCreate,
       showUserInfo,
@@ -121,46 +122,45 @@ export default class QuestionDashboard extends Component {
 
     const { image, firstName } = currentUser
 
-    const { answerCreate } = this.props
     const { questionId } = this.props.params
     const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
     const answers = allPosts.filter(post => post.type === 'ANSWER' && post.questionId == questionId)
+
     const ComponentSectionQuestion = ({ user, text, showUserInfo, donutsCount }) => {
       return (
         <div className={sectionQuestion}>
-          <div className={sectionImage}>
+          <div className={sectionImage} onClick={() => showUserInfo(question.user.id)}>
             <img src={user.image.smallUrl} alt="" />
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
-              <span className={textUserName}>{user.firstName}</span>
+              <span className={textUserName} onClick={() => showUserInfo(question.user.id)}>{user.firstName}</span>
             </div>
             <span className={sectionContentText}>
               <TextPost text={text} showUserInfo={showUserInfo} />
             </span>
             <div className={sectionContentFotter}>
               <span className={btnExit} onClick={() => this.props.router.goBack()}>Exit</span>
-              <ButtonDonut donutsCount={donutsCount} onClick={() => postGiveDonuts({ postId: question.id })}/>
+              <ButtonDonut donutsCount={donutsCount} onClick={() => postGiveDonuts({ postId: question.id })} />
             </div>
           </div>
         </div>
       )
     }
 
-    const answerBest = answers ? answers.reduce(function(a, b) {
-      return Math.max(a.donutsCount, b.donutsCount)
-    }, 0) : []
+    const allAnswers = [...answers]
+    const answerRecent = allAnswers && allAnswers.shift()
+    const count = Math.max(...allAnswers.map(answer => answer.donutsCount))
+    const answerBest = allAnswers.filter((answer, index) => answer.donutsCount !== 0 && answer.donutsCount === count)[0]
+    const answersOther = answerBest ? allAnswers.filter(answer => answer.id !== answerBest.id) : allAnswers
 
-    const isBestAnswerExsist = answerBest.lenght > 0
-    const answerRecent = answers && answers[0]
     const textPlaceHolder = question ? `Help @${question.user.firstName} to find the best answer` : 'Help other students to find the best answer'
     // TODO: Avoid Mutation
-    const answersOther = [...answers]
-    answersOther.splice(answers.length - 1, 1)
+
 
     return (
       <div ref={(div)=> this._dashboard = div}>
-        { question && <ComponentSectionQuestion {...question} /> }
+        { question && <ComponentSectionQuestion {...question} showUserInfo={showUserInfo} /> }
         <InputPost
           imgUrl={image && image.mediumUrl}
           placeholder={textPlaceHolder}
@@ -171,23 +171,21 @@ export default class QuestionDashboard extends Component {
           questionId={questionId}
         />
         <div className={sectionCardsFirst}>
-        {isBestAnswerExsist &&
+        {answerBest &&
           <div className={[sectionCards].join(' ')}>
             <h3 className={sectionCardsTitle}>BEST ANSWER 🚀</h3>
-            {answerBest.map(answer => {
-              return (
-                <CardPost
-                  key={answer.id}
-                  {...answer}
-                  comments={allComments}
-                  currentUser={currentUser}
-                  commentCreate={commentCreate}
-                  commentsSearch={commentsSearch}
-                  postGiveDonuts={postGiveDonuts}
-                  commentGiveDonuts={commentGiveDonuts}
-                />
-              )
-            })}
+            {answerBest &&
+              <CardPost
+                key={answerBest.id}
+                {...answerBest}
+                comments={allComments}
+                currentUser={currentUser}
+                commentCreate={commentCreate}
+                commentsSearch={commentsSearch}
+                postGiveDonuts={postGiveDonuts}
+                commentGiveDonuts={commentGiveDonuts}
+              />
+            }
           </div>
         }
         { answerRecent &&
