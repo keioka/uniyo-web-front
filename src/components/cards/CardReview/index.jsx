@@ -89,12 +89,12 @@ export default class CardReview extends PureComponent {
 
     return (
       <div className={wrapper}>
-        <div className={sectionImage}>
+        <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
-            <span className={textUserName}>{user.firstName}</span>
+            <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
             {/* <span className={textPostTime}>{time}</span> */}
             <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
           </div>
@@ -117,7 +117,7 @@ export default class CardReview extends PureComponent {
               <InputComment
                 postId={id} c
                 ommentCreate={commentCreate}
-                currentUser={currentUser} 
+                currentUser={currentUser}
                 userPost={user}
                 closeCommentBox={::this.closeCommentBox}
               />
