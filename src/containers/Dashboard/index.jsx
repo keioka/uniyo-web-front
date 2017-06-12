@@ -43,6 +43,7 @@ import {
   barPushNotificationButtonSubscribe,
   barPushNotificationButtonClose,
   textEnableNotification,
+  panelSetting,
 } from './style'
 
 import Setting from './settings.svg'
@@ -74,6 +75,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   showChannelUsers: uiActions.showChannelUsers,
   showNotification: uiActions.showNotification,
   hideSidebarRight: uiActions.hideSidebarRight,
+  signout: uiActions.signout,
   channelSearch: actions.channelSearch,
   channelCreate: actions.channelCreate,
   messageSearch: actions.messageSearch,
@@ -115,6 +117,7 @@ export default class DashBoard extends Component {
   }
 
   state = {
+    isOpenSettingMenu: false,
     isOpenNotificationBar: true,
     currentHashTag: '',
     currentPostType: '',
@@ -231,6 +234,7 @@ export default class DashBoard extends Component {
       donutsShake,
       donutsThrow,
       showHistoryDonut,
+      signout,
     } = this.props
 
     const { currentUser } = auth
@@ -338,6 +342,7 @@ export default class DashBoard extends Component {
       donutsThrow,
       hashtagAdd,
       showHistoryDonut,
+      signout,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
     }))
@@ -367,7 +372,16 @@ export default class DashBoard extends Component {
                 </span> :
                 <Notification className={icon} onClick={() => showNotification()} />
               }
-              <Setting className={icon} />
+              <Setting className={icon} onClick={() => this.setState({ isOpenSettingMenu: !this.state.isOpenSettingMenu })} />
+              { this.state.isOpenSettingMenu &&
+                <div className={panelSetting}>
+                  <ul>
+                    <li onClick={() => this.props.signout()}>Logout</li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                </div>
+              }
             </div>
             {!isChannel ?
               <NavPostType

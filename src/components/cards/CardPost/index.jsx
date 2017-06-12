@@ -144,6 +144,7 @@ export default class CardPost extends PureComponent  {
               <div className={sectionContentCommentForm}>
                 <InputComment
                   postId={id}
+                  showUserInfo={showUserInfo}
                   commentCreate={commentCreate}
                   currentUser={currentUser}
                   userPost={user}

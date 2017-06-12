@@ -8,3 +8,7 @@ export const donutsThrow = (params) => ({
   type: actionTypes.donutsThrow.request,
   ...params,
 })
+
+export const signout = () => ({
+  type: actionTypes.signout.request,
+})

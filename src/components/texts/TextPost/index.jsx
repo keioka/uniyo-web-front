@@ -9,6 +9,7 @@ import {
 
 import {
   hashtag,
+  element,
 } from './style'
 
 const TYPES = {
@@ -61,7 +62,7 @@ const TextPost = ({ text, showUserInfo, currentPostType }) => {
 
 
   return (
-    <span>{parsedText}</span>
+    <span className={element}>{parsedText}</span>
   )
 }
 

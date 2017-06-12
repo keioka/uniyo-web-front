@@ -136,7 +136,15 @@ export default class CardDocument extends PureComponent {
                   closeCommentBox={::this.closeCommentBox}
                 />
                 <ul className={sectionContentCommentList}>
-                  {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
+                  {comments && comments.map(comment =>
+                    <ListComment
+                      key={comment.id}
+                      showUserInfo={showUserInfo}
+                      {...comment}
+                    >
+                      {comment.text}
+                    </ListComment>
+                  )}
                 </ul>
               </div>
             }
