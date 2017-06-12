@@ -84,7 +84,7 @@ export default ({ id, fileName, fileSize, contentType }) => {
     }
 
     default: {
-      Icon = <Pdf />
+      Icon = <Other />
       break
     }
   }
