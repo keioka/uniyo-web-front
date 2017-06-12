@@ -57,6 +57,7 @@
 .main__content {
   min-height: 100vh;
   background-color: $lightgray;
+  height: 100%;
 }
 
 .main--shrink {
@@ -119,6 +120,21 @@
   filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.1));
   margin-right: 10px;
   animation: bounce 1s ease infinite;
+}
+
+.panel--setting {
+  background: white;
+  position: absolute;
+  top: 62px;
+  box-shadow: 1px 1px 2px rgba(20, 20, 20, 0.2);
+}
+
+
+.panel--setting ul li {
+  list-style: none;
+  padding: 20px;
+  border-bottom: 1px solid $lightgray;
+  cursor: pointer;
 }
 
 @keyframes bounce {

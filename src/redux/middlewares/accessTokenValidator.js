@@ -8,10 +8,23 @@ export const accessTokenValidator = store => next => action => {
     console.warn("Local Storage is not available")
   }
 
-  if (action.type === actionTypes.tokenRefresh.error) {
-    //storage.clear()
-  }
+  if (
+    action.type === actionTypes.logIn.request ||
+    action.type === actionTypes.userCreate.request
+  ) {
+    const { schoolId } = action
+    const schools = store.getState().api.schools.data
+    if (schoolId === 1) {
+      storage.setSchoolName = 'Demo'
+    } else {
+      const school = schools.filter(school => schoolId === school.id)[0]
+      if (school) {
+        storage.setSchoolName = school.name
+      } else {
 
+      }
+    }
+  }
 
   if (
     action.type === actionTypes.commentsSearch.request ||
@@ -45,6 +58,14 @@ export const accessTokenValidator = store => next => action => {
     action.type === actionTypes.tokenRefresh.success
   ) {
 
+  }
+
+  if (
+    action.type === actionTypes.userCreate.success ||
+    action.type === actionTypes.logIn.success ||
+    action.type === actionTypes.tokenRefresh.success
+  ) {
+
     const setTokens = new Promise((resolve, reject) => {
       try {
         console.log('%c setToken', 'color: blue')
@@ -57,10 +78,6 @@ export const accessTokenValidator = store => next => action => {
 
     setTokens.then((result) => {
       console.log('%c Token is saved on local server ', 'color: blue')
-      store.dispatch(actions.postsSearch({
-        limit: 10,
-        accessToken: storage.accessToken
-      }))
     }).catch((e) => {
       console.warn(e)
     })
