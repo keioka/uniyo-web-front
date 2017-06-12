@@ -163,7 +163,6 @@ export default class InputPost extends Component {
   }
 
   onDropFile(event) {
-    console.log(event)
     const file = event[0]
     this.setState({
       form: {
@@ -255,6 +254,14 @@ export default class InputPost extends Component {
         console.warn('InputPost does not have correct post type')
       }
     }
+
+    this.setState({
+      form: {
+        rating: 5,
+        file: null,
+      }
+    })
+
 
     this._input.innerHTML = currentHashTag ? `#${currentHashTag} ` : ''
     this._input.blur()
