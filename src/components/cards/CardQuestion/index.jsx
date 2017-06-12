@@ -90,12 +90,12 @@ export default class CardQuestion extends PureComponent {
     return (
       <Link to={`/dashboard/questions/${id}`} className={wrapperLink}>
         <div key={id} className={wrapper}>
-          <div className={sectionImage}>
+          <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>
             <img src={user.image.smallUrl} alt="" />
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
-              <span className={textUserName}>{user.firstName}</span>
+              <span className={textUserName} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>{user.firstName}</span>
               {/* <span className={textPostTime}>{time}</span> */}
             </div>
             <TextPost
