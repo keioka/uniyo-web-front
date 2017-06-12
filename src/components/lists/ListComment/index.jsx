@@ -27,7 +27,7 @@ const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount, showUserI
         </span>
         <ButtonDonut
           donutsCount={donutsCount}
-          onClick={(event) => { event.stopPropagation(); commentGiveDonuts({ commentId: id, amount: 1 })} }
+          onClick={() => commentGiveDonuts({ commentId: id, amount: 1 }) }
         />
       </span>
     </li>
