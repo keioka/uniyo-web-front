@@ -16,8 +16,7 @@
 
 .section--input {
   position: sticky;
-  bottom: -12px;
-  height: 100px;
+  bottom: 0px;
   width: 100%;
   box-sizing: border-box;
   border-top: 1px solid $gray;
@@ -171,7 +170,6 @@
   min-height: 100vh;
   flex-direction: column-reverse;
   background: #f7f7f7;
-  height: 100%;
 }
 
 .content__ul {

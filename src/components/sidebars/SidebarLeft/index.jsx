@@ -35,6 +35,7 @@ import {
   tagBtnClose,
   sectionTextAdd,
   sectionTagHotActive,
+  inner,
 } from './style'
 
 import Plus from './plus-active'
@@ -308,16 +309,18 @@ render() {
   return (
   <div className={absolute}>
     <aside className={wrapper}>
-      <InputSearchTag
-        className={inputSearchTag}
-        onChange={event => this.setState({ keywordForSort: event.target.value })}
-      />
-      <ul className={section}>
-        <h3 className={classNameForTopSchool}>
-          <Link to="/dashboard">All in {localStorage['SCHOOL_NAME']}</Link>
-        </h3>
-      </ul>
-      {this.navSideBar}
+      <div className={inner}>
+        <InputSearchTag
+          className={inputSearchTag}
+          onChange={event => this.setState({ keywordForSort: event.target.value })}
+        />
+        <ul className={section}>
+          <h3 className={classNameForTopSchool}>
+            <Link to="/dashboard">All in {localStorage['SCHOOL_NAME']}</Link>
+          </h3>
+        </ul>
+        {this.navSideBar}
+      </div>
     </aside>
   </div>
   )

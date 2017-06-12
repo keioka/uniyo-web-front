@@ -6,11 +6,15 @@ $left-padding: 16px;
   width: auto;
 }
 
+.inner {
+  overflow: scroll;
+}
+
 .wrapper {
   position: sticky;
   top: 0px;
   left: 0px;
-  min-height: 100vh;
+  height: 100vh;
   background-color: $gray;
   will-change: transform;
   overflow: scroll;
