@@ -15,6 +15,7 @@ import {
 } from '../../'
 
 import {
+  absolute,
   wrapper,
   section,
   sectionTag,
@@ -84,6 +85,10 @@ export default class SidebarLeft extends Component {
     }
   }
 
+  onChangeInputSearchTag() {
+
+  }
+
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
@@ -94,6 +99,8 @@ export default class SidebarLeft extends Component {
       notification.type === "POST_MENTION" ||
       notification.type === "NEW_COMMENT"
     )
+
+    const uniqueHashtagsCurrentUser = hashtagsCurrentUser && [...new Set(hashtagsCurrentUser.map(hashtag => hashtag.hashtag))];
 
     const hashtagsNotification = unreadPostNotification.map(notification =>
       extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
@@ -143,23 +150,23 @@ export default class SidebarLeft extends Component {
         )
       }
 
-      const ComponentsHashtag = hashtagsCurrentUser &&
-      Array.from(new Set(hashtagsCurrentUser)).filter(hashtag =>
-        hashtag.hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
+      const ComponentsHashtag = uniqueHashtagsCurrentUser &&
+      uniqueHashtagsCurrentUser.filter(hashtag =>
+        hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
           const classNames = []
           // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
-          const isSelected = this.props.selectedHashtag === hashtag.hashtag
+          const isSelected = this.props.selectedHashtag === hashtag
           classNames.join(' ')
-          const isIncludeNewPost = flattenHashtags.includes(hashtag.hashtag)
-          const amountMention = mentionHashtagList[hashtag.hashtag]
+          const isIncludeNewPost = flattenHashtags.includes(hashtag)
+          const amountMention = mentionHashtagList[hashtag]
 
           return (
             <ListHashtag
               className={classNames}
-              hashtag={hashtag.hashtag}
-              hashtagType={hashtag.type}
+              hashtag={hashtag}
+              hashtagType={hashtag}
               hashtagDelete={hashtagDelete}
               isSelected={isSelected}
               isIncludeNewPost={isIncludeNewPost}
@@ -230,9 +237,10 @@ export default class SidebarLeft extends Component {
                   className={inputAddTag}
                   ref={(ref) => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
+                  onKeyDown={event => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false })}}
                 />
               }
-              { hashtagsCurrentUser && ComponentsHashtag }
+              { uniqueHashtagsCurrentUser && ComponentsHashtag }
               {/* { keywordForSort === '' &&
               hashtagsCurrentUser &&
               hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
@@ -288,7 +296,8 @@ render() {
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   return (
-    <aside className={wrapper} >
+  <div className={absolute}>
+    <aside className={wrapper}>
       <InputSearchTag
         className={inputSearchTag}
         onChange={event => this.setState({ keywordForSort: event.target.value })}
@@ -300,6 +309,7 @@ render() {
       </ul>
       {this.navSideBar}
     </aside>
+  </div>
   )
 }
 }

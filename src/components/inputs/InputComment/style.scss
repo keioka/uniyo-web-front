@@ -22,7 +22,7 @@
 }
 
 .input:empty:before {
-  content: "Write a comment to @" attr(placeholder);
+  content: "Write a comment to @" attr(placeholder) "...";
   display: block; /* For Firefox */
   font-size: 20px;
   font-weight: 500;

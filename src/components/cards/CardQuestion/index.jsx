@@ -39,6 +39,12 @@ export default class CardQuestion extends PureComponent {
     }
   }
 
+  closeCommentBox() {
+    this.setState({
+      toggle: false
+    })
+  }
+
   onChange() {
     const { id } = this.props
     // this.props.onReadContent('POST_READ', id)
@@ -111,7 +117,13 @@ export default class CardQuestion extends PureComponent {
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>
-                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
+                <InputComment
+                  postId={id}
+                  commentCreate={commentCreate}
+                  currentUser={currentUser}
+                  userPost={user}
+                  closeCommentBox={::this.closeCommentBox}
+                />
                 <ul className={sectionContentCommentList}>
                   {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
                 </ul>
