@@ -89,6 +89,13 @@
   list-style: none;
   color: $pink;
   cursor: pointer;
+  color: #fc70a6;
+  cursor: pointer;
+  overflow: hidden;
+  width: 80%;
+  text-overflow: ellipsis;
+  display: inline-block;
+
 }
 
 .btn--message {
