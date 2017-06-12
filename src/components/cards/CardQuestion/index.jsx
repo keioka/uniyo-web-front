@@ -39,9 +39,15 @@ export default class CardQuestion extends PureComponent {
     }
   }
 
+  closeCommentBox() {
+    this.setState({
+      toggle: false
+    })
+  }
+
   onChange() {
     const { id } = this.props
-    this.props.onReadContent('POST_READ', id)
+    // this.props.onReadContent('POST_READ', id)
   }
 
   onClickCommentHandler() {
@@ -84,12 +90,12 @@ export default class CardQuestion extends PureComponent {
     return (
       <Link to={`/dashboard/questions/${id}`} className={wrapperLink}>
         <div key={id} className={wrapper}>
-          <div className={sectionImage}>
+          <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>
             <img src={user.image.smallUrl} alt="" />
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
-              <span className={textUserName}>{user.firstName}</span>
+              <span className={textUserName} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>{user.firstName}</span>
               {/* <span className={textPostTime}>{time}</span> */}
             </div>
             <TextPost
@@ -111,9 +117,24 @@ export default class CardQuestion extends PureComponent {
             </div>
             { this.state.toggle &&
               <div className={sectionContentComment}>
-                <InputComment postId={id} commentCreate={commentCreate} currentUser={currentUser} userPost={user} />
+                <InputComment
+                  postId={id}
+                  showUserInfo={showUserInfo}
+                  commentCreate={commentCreate}
+                  currentUser={currentUser}
+                  userPost={user}
+                  closeCommentBox={::this.closeCommentBox}
+                />
                 <ul className={sectionContentCommentList}>
-                  {comments && comments.map(comment => <ListComment key={comment.id} {...comment}>{comment.text}</ListComment>)}
+                  {comments && comments.map(comment =>
+                    <ListComment
+                      key={comment.id}
+                      showUserInfo={showUserInfo}
+                      {...comment}
+                    >
+                      {comment.text}
+                    </ListComment>
+                  )}
                 </ul>
               </div>
             }

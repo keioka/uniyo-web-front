@@ -11,17 +11,20 @@ import {
   imgUser,
   wrapper,
   content,
+  contentText,
 } from './style'
 
-const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount }) => {
+const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount, showUserInfo }) => {
   return (
     <li key={id} className={wrapper}>
-      <span className={boxImage}>
+      <span className={boxImage} onClick={(event) => { showUserInfo(user.id) }}>
         <img src={user.image.smallUrl} className={imgUser} />
       </span>
-      <span className={fontName}>{user.firstName}</span>
       <span className={content}>
-        <TextPost text={text} />
+        <span className={contentText}>
+          <span className={fontName} onClick={(event) => { showUserInfo(user.id) }}>{user.firstName}</span>
+          <TextPost text={text} />
+        </span>
         <ButtonDonut
           donutsCount={donutsCount}
           onClick={(event) => {   event.stopPropagation(); commentGiveDonuts({ commentId: id, amount: 1 })} }

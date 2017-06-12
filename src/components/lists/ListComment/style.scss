@@ -4,15 +4,17 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin: 10px 0px;
+  margin: 15px 0px;
+  padding-left: 10px;
 }
 
 .font-name {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 15px;
   font-size: 0.9rem;
   font-weight: $font-weight-exbold;
   color: $black;
+  cursor: pointer;
 }
 
 .box-image {
@@ -26,6 +28,7 @@
 .img-user {
   width: 35px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .content {
@@ -34,4 +37,10 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
+}
+
+.contentText {
+  word-break: break-all;
+  margin-right: 10px;
+  line-height: 1.3rem;
 }

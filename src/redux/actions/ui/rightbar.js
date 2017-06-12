@@ -14,9 +14,9 @@ export const showChannelUsers = (users) => ({
   users,
 })
 
-export const showHistoryDonut = (history) => ({
+export const showHistoryDonut = (tabNumber) => ({
   type: actionTypes.showHistoryDonut.request,
-  history,
+  tabNumber,
 })
 
 export const hideSidebarRight = () => ({

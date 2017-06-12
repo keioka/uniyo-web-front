@@ -12,6 +12,7 @@ const initialiState = {
   notifications: [],
   historyDonut: [],
   campusDonuts: [],
+  donutsHistoryTabNumber: 1,
 }
 
 export default (state = initialiState, action) => {
@@ -25,9 +26,11 @@ export default (state = initialiState, action) => {
     }
 
     case actionTypes.showHistoryDonut.request: {
+      const { tabNumber } = action
       return Object.assign({
         isOpen: true,
-        displayType: 'Donuts'
+        displayType: 'Donuts',
+        donutsHistoryTabNumber: tabNumber,
       })
     }
 
@@ -69,7 +72,6 @@ export default (state = initialiState, action) => {
     }
 
     case actionTypes.donutsCampusFetch.success: {
-      console.log('actionTypes.donutsCampusFetch.success')
       const { toUser } = action.result.data
       return Object.assign({
         isReceiveDonuts: true,

@@ -72,6 +72,17 @@
   font-size: 25px;
 }
 
+.btn--give--donuts {
+  position: fixed;
+  right: 14px;
+  bottom: 25px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
 .btn--donuts-history {
   position: fixed;
   right: 0;
@@ -279,6 +290,79 @@
 .historyDonut {
 
 }
+
+.donut--small--one {
+  position: absolute;
+  top: -40px;
+  right: 0px;
+  animation: spreadDonuts1 0.5s ease-in-out normal;
+}
+
+.donut--small--two {
+  position: absolute;
+  top: -20px;
+  right: 40px;
+  animation: spreadDonuts2 0.5s ease-in-out normal;
+}
+
+.donut--small--three {
+  position: relative;
+  top: 0px;
+  right: 20px;
+  animation: spreadDonuts3 0.5s ease-in-out normal;
+}
+
+$moveLeft: 0%;
+
+@keyframes spreadDonuts1 {
+  10%, {
+    transform: translate3d($moveLeft, 0px, 0px) scale(1) rotate(-0deg);
+    opacity: 1;
+  }
+
+  80%, {
+    opacity: 1;
+  }
+
+  100%, {
+    transform: translate3d($moveLeft, -240px, 0px) rotate(-2700deg);
+    opacity: 0;
+  }
+}
+
+@keyframes spreadDonuts2 {
+  0%, {
+    transform: translate3d(0px, 0px, 0px);
+    opacity: 1;
+  }
+
+  80%, {
+    opacity: 1;
+  }
+
+  100%, {
+    transform: translate3d(-160px, -160px, 0px) rotate(-2700deg);
+    opacity: 0;
+  }
+}
+
+@keyframes spreadDonuts3 {
+  0%, {
+    transform: translate3d(0px, 0px, 0px) rotate(-0deg);
+    opacity: 1;
+  }
+
+  80%, {
+    opacity: 1;
+  }
+
+  100%, {
+    transform: translate3d(-240px, 0px, 0px) rotate(-2700deg);
+    opacity: 0;
+  }
+}
+
+
 
 @media only screen and (min-width: 769px) {
   .wrapper {

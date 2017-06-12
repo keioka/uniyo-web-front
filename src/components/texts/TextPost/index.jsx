@@ -9,6 +9,7 @@ import {
 
 import {
   hashtag,
+  element,
 } from './style'
 
 const TYPES = {
@@ -19,8 +20,16 @@ const TYPES = {
 }
 
 const TextPost = ({ text, showUserInfo, currentPostType }) => {
+  let parsedText
 
-  let parsedText = ReactEmoji.emojify(text)
+  parsedText = text.replace(/&lt;/g, (match, i) => { return '<' })
+  parsedText = parsedText.replace(/&gt;/g, (match, i) => { return '>' })
+
+  parsedText = ReactEmoji.emojify(parsedText)
+
+  parsedText = reactStringReplace(parsedText, /&gt;/, (match, i) => {
+    return <span>s</span>
+  })
 
   parsedText = reactStringReplace(parsedText, /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g, (tag, i) => {
     let type
@@ -51,16 +60,9 @@ const TextPost = ({ text, showUserInfo, currentPostType }) => {
   })
 
 
-   parsedText = reactStringReplace(parsedText, /&lt;/g, (match, i) => {
-     return "<"
-   })
-
-   parsedText = reactStringReplace(parsedText, /&gt;/g, (match, i) => {
-     return ">"
-   })
 
   return (
-    <span>{parsedText}</span>
+    <span className={element}>{parsedText}</span>
   )
 }
 

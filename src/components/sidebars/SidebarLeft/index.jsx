@@ -15,6 +15,7 @@ import {
 } from '../../'
 
 import {
+  absolute,
   wrapper,
   section,
   sectionTag,
@@ -34,6 +35,7 @@ import {
   tagBtnClose,
   sectionTextAdd,
   sectionTagHotActive,
+  inner,
 } from './style'
 
 import Plus from './plus-active'
@@ -84,6 +86,10 @@ export default class SidebarLeft extends Component {
     }
   }
 
+  onChangeInputSearchTag() {
+
+  }
+
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
@@ -94,6 +100,15 @@ export default class SidebarLeft extends Component {
       notification.type === "POST_MENTION" ||
       notification.type === "NEW_COMMENT"
     )
+
+    const uniq = (array, param) => {
+      return array.filter((item, pos, array) => {
+        return array.map((mapItem) => mapItem[param]).indexOf(item[param]) === pos
+      })
+    }
+
+
+    const uniqueHashtagsCurrentUser = hashtagsCurrentUser && uniq(hashtagsCurrentUser, 'hashtag')
 
     const hashtagsNotification = unreadPostNotification.map(notification =>
       extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
@@ -143,9 +158,12 @@ export default class SidebarLeft extends Component {
         )
       }
 
-      const ComponentsHashtag = hashtagsCurrentUser &&
-      Array.from(new Set(hashtagsCurrentUser)).filter(hashtag =>
-        hashtag.hashtag.toLowerCase().includes(keywordForSort)).map((hashtag, index) => {
+      const ComponentsHashtag = uniqueHashtagsCurrentUser &&
+      uniqueHashtagsCurrentUser
+      .filter(hashtag =>
+        hashtag.hashtag.toLowerCase().includes(keywordForSort)
+      )
+      .map((hashtag, index) => {
           const classNames = []
           // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
@@ -230,9 +248,10 @@ export default class SidebarLeft extends Component {
                   className={inputAddTag}
                   ref={(ref) => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
+                  onKeyDown={event => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false })}}
                 />
               }
-              { hashtagsCurrentUser && ComponentsHashtag }
+              { uniqueHashtagsCurrentUser && ComponentsHashtag }
               {/* { keywordForSort === '' &&
               hashtagsCurrentUser &&
               hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
@@ -288,18 +307,22 @@ render() {
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   return (
-    <aside className={wrapper} >
-      <InputSearchTag
-        className={inputSearchTag}
-        onChange={event => this.setState({ keywordForSort: event.target.value })}
-      />
-      <ul className={section}>
-        <h3 className={classNameForTopSchool}>
-          <Link to="/dashboard">All in EDHECBUSINES</Link>
-        </h3>
-      </ul>
-      {this.navSideBar}
+  <div className={absolute}>
+    <aside className={wrapper}>
+      <div className={inner}>
+        <InputSearchTag
+          className={inputSearchTag}
+          onChange={event => this.setState({ keywordForSort: event.target.value })}
+        />
+        <ul className={section}>
+          <h3 className={classNameForTopSchool}>
+            <Link to="/dashboard">All in {localStorage['SCHOOL_NAME']}</Link>
+          </h3>
+        </ul>
+        {this.navSideBar}
+      </div>
     </aside>
+  </div>
   )
 }
 }

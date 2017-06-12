@@ -21,6 +21,10 @@ import {
   imageAnimationTwo,
   imageAnimationThree,
   btn,
+  btnGiveDonuts,
+  donutSmallOne,
+  donutSmallTwo,
+  donutSmallThree,
 } from './style'
 
 import {
@@ -28,6 +32,7 @@ import {
   SidebarRightNotification,
   SidebarRightUserInfo,
   SidebarRightChannelUsers,
+  Donut,
 } from '../../components'
 
 import uiAction from '../../redux/actions'
@@ -39,6 +44,7 @@ const mapStateToProps = state => ({
   notifications: state.api.notifications,
   formNotifications: state.form.notifications,
   users: state.api.users,
+  currentUser: state.api.auth.currentUser,
 })
 
 const {
@@ -77,6 +83,10 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SidebarRight extends Component {
 
+  state = {
+    isSpreadDonuts: false,
+  }
+
   display() {
     const {
       users,
@@ -92,6 +102,7 @@ export default class SidebarRight extends Component {
       userGiveDonuts,
       userSearch,
       hideSidebarRight,
+      currentUser,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -117,6 +128,8 @@ export default class SidebarRight extends Component {
           <SidebarRightChannelUsers
             channelUsers={channelUsers}
             hideSidebarRight={hideSidebarRight}
+            channelCreate={channelCreate}
+            allChannels={allChannels}
           />
         )
       }
@@ -135,7 +148,10 @@ export default class SidebarRight extends Component {
       case 'Donuts': {
         return (
           <SidebarRightHistoryDonuts
+            currentUser={currentUser}
             userSearch={userSearch}
+            showHistoryDonut={showHistoryDonut}
+            rightbar={rightbar}
             channelCreate={channelCreate}
             allChannels={allChannels}
             allUsers={allUsers}
@@ -180,6 +196,12 @@ export default class SidebarRight extends Component {
     )
   }
 
+  onClickSpreadDonuts() {
+    this.setState({
+      isSpreadDonuts: true,
+    })
+  }
+
   render() {
 
     const {
@@ -195,20 +217,34 @@ export default class SidebarRight extends Component {
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
     const { all: allChannels } = channels
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
-
+    const regexChannelPath = /dashboard\/channel/
+    const isChannel = regexChannelPath.test(this.props.location.pathname)
     return (
       <div>
         <aside className={wrapperClassNames.join(' ')}>
           {isOpen && <div className={close} onClick={() => hideSidebarRight()}></div>}
           {this.display()}
         </aside>
-        { !isOpen &&
-        <div className={btnDonutsHistory}>
-          <div className={btnDonutsHistoryInner}>
-            {this.generateDonuts()}
-            <button className={btn} onClick={() => showHistoryDonut()}>open</button>
+        { !isOpen && !isChannel &&
+          <div className={btnDonutsHistory}>
+            <div className={btnDonutsHistoryInner}>
+              {this.generateDonuts()}
+              <button className={btn} onClick={() => showHistoryDonut(1)}>open</button>
+            </div>
           </div>
-        </div>
+        }
+
+        { !isOpen && isChannel &&
+          <div className={btnGiveDonuts} onClick={::this.onClickSpreadDonuts}>
+            {this.state.isSpreadDonuts &&
+              <div>
+                <Donut size="small" className={donutSmallOne} />
+                <Donut size="small" className={donutSmallTwo} />
+                <Donut size="small" className={donutSmallThree} />
+              </div>
+            }
+            <Donut size="large" />
+          </div>
         }
      </div>
     )

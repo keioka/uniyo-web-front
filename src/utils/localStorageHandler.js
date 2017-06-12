@@ -5,6 +5,7 @@ const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN'
 const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN'
 const ACCESS_TOKEN_EXPIRATION_KEY = 'ACCESS_TOKEN_EXPIRATION'
 const USER_KEY = 'USER'
+const SCHOOL_NAME = 'SCHOOL_NAME'
 
 const localStorage = window.localStorage
 
@@ -51,6 +52,10 @@ export default class localStorageHandler {
 
   static get hasValidAccessTokens():Boolean {
     return !!this.accessTokenExpiration && !!this.refreshToken && !!this.accessToken
+  }
+
+  static set setSchoolName(value: string) {
+    localStorage[SCHOOL_NAME] = value
   }
 
   static set accessToken(value: string) {

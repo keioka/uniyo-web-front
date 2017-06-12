@@ -44,18 +44,18 @@ export default class SidebarRightHistoryDonuts extends Component {
   }
 
   render() {
-     const { donutsHistory, allUsers, userSearch, channelCreate, allChannels } = this.props
-     const classNameFirstTab = this.state.type === 0 ? headerNavActive : headerNav
-     const classNameSecondTab = this.state.type === 1 ? headerNavActive : headerNav
+     const { donutsHistory, allUsers, userSearch, channelCreate, allChannels, currentUser } = this.props
+     const classNamesFirstTab = this.props.rightbar.donutsHistoryTabNumber === 0 ? [headerNav, headerNavActive] : [headerNav]
+     const classNamesSecondTab = this.props.rightbar.donutsHistoryTabNumber === 1 ? [headerNav, headerNavActive] : [headerNav]
 
      return (
        <div className={wrapper} >
          <div className={header}>
-           <span className={classNameFirstTab} count={0} onClick={() => this.setState({ type: 0 })}>Donuts to give</span>
-           <span className={classNameSecondTab} count={0} onClick={() => this.setState({ type: 1 })}>Donuts receive</span>
+           <span className={classNamesFirstTab.join(' ')} data-count={currentUser.availableDonutsCount} onClick={() => this.props.showHistoryDonut(0)}>Donuts to give</span>
+           <span className={classNamesSecondTab.join(' ')} data-count={currentUser.receivedDonutsCount} onClick={() => this.props.showHistoryDonut(1)}>Donuts receive</span>
          </div>
 
-         {this.state.type === 0 ?
+         {this.props.rightbar.donutsHistoryTabNumber === 0 ?
            (<ul className={ul}>
              <div className={inputSearchWrapper}>
                <FaSearch />

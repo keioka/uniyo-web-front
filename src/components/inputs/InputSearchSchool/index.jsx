@@ -29,18 +29,20 @@ export default class InputSearchSchool extends Component {
   componentWillReceiveProps() {
     const { schoolsSearch, onSelectSchool, schools } = this.props
     const { data } = schools
-    const slicedList = []
-    var i,j,tempArray,chunk = 5;
-    for (i = 0, j = data.length; i < j; i += chunk) {
-      tempArray = array.slice(i,i+chunk);
-      slicedList.push(tempArray)
-    }
-    this.setState({
-      currentIndex: -1,
-      currentPage: 0,
-      source: data,
-      slicedList: slicedList
-    })
+    // const slicedList = []
+    // var i,j,tempArray,chunk = 5;
+    //
+    // for (i = 0, j = data.length; i < j; i += chunk) {
+    //   tempArray = array.slice(i,i+chunk);
+    //   slicedList.push(tempArray)
+    // }
+    //
+    // this.setState({
+    //   currentIndex: -1,
+    //   currentPage: 0,
+    //   source: data,
+    //   slicedList: slicedList
+    // })
   }
 
 
