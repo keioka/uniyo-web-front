@@ -23,8 +23,7 @@ import storage from '../../../utils/localStorageHandler'
 
 export function getClassNoteDownloadUrl(classNoteId) {
   const { accessToken } = storage
-  const path = `/class_notes/${classNoteId}/download`
-  const url = `https://api.uniyo.io/v1${path}?redirect=true&access_token=${accessToken}`
+  const url = `https://api.uniyo.io/v1/class_notes/${classNoteId}/download?redirect=true&access_token=${accessToken}`
   return url
 }
 
@@ -92,7 +91,7 @@ export default ({ id, fileName, fileSize, contentType }) => {
   const fileSizeFormatted = `${(fileSize / 1024 / 1024).toFixed(2)}MB`
   const className = classNames.join(" ")
   return (
-    <Link className={wrapper} to={getClassNoteDownloadUrl(id)}>
+    <a className={wrapper} href={getClassNoteDownloadUrl(id)} target="_blank">
       <div className={classNames}>
         <div className={icon}>{Icon}</div>
         <div className={info}>
@@ -100,6 +99,6 @@ export default ({ id, fileName, fileSize, contentType }) => {
           <p className={fontFileSize}>{fileSizeFormatted} - Click to download</p>
         </div>
       </div>
-    </Link>
+    </a>
   )
 }

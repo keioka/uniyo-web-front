@@ -38,9 +38,13 @@ export default class CardPost extends PureComponent  {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.comments) {
+      return false
+    }
+
     if (
       nextProps.commentsCount !== this.props.commentsCount ||
-      nextProps.comments.length !== this.props.length ||
+      nextProps.comments.length !== this.props.comments.length ||
       nextProps.donutsCount !== this.props.donutsCount ||
       nextState.toggle !== this.state.toggle
     ) {
@@ -144,7 +148,6 @@ export default class CardPost extends PureComponent  {
               <div className={sectionContentCommentForm}>
                 <InputComment
                   postId={id}
-                  showUserInfo={showUserInfo}
                   commentCreate={commentCreate}
                   currentUser={currentUser}
                   userPost={user}
@@ -155,6 +158,7 @@ export default class CardPost extends PureComponent  {
                 {comments && comments.map(comment =>
                   <ListComment
                     key={comment.id}
+                    showUserInfo={showUserInfo}
                     commentGiveDonuts={commentGiveDonuts}
                     {...comment}
                   >
