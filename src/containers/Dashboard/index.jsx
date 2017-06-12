@@ -89,6 +89,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   addDevice: actions.addDevice,
   donutsShake: uiActions.donutsShake,
   donutsThrow: uiActions.donutsThrow,
+  showHistoryDonut: uiActions.showHistoryDonut,
   contentReadCheckNotification: uiActions.contentReadCheckNotification,
 }, dispatch)
 
@@ -229,6 +230,7 @@ export default class DashBoard extends Component {
       uiStateHeader,
       donutsShake,
       donutsThrow,
+      showHistoryDonut,
     } = this.props
 
     const { currentUser } = auth
@@ -335,6 +337,7 @@ export default class DashBoard extends Component {
       commentGiveDonuts,
       donutsThrow,
       hashtagAdd,
+      showHistoryDonut,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
     }))
@@ -382,6 +385,7 @@ export default class DashBoard extends Component {
               donutsShake={donutsShake}
               isReceiveDonuts={isReceiveDonuts}
               isSpentDonuts={isSpentDonuts}
+              showHistoryDonut={showHistoryDonut}
               availableDonutsCount={currentUser.availableDonutsCount}
               receivedDonutsCount={currentUser.receivedDonutsCount}
             />

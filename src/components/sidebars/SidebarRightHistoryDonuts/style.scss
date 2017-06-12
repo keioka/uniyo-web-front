@@ -101,6 +101,14 @@
   cursor: pointer;
   display: inline-block;
 	border-radius: 2px;
+  height: 11px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.header__nav:after {
+  margin-left: 5px;
+  content: "(" attr(data-count) ")";
 }
 
 .header__nav--active {
