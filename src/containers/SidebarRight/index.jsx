@@ -44,6 +44,7 @@ const mapStateToProps = state => ({
   notifications: state.api.notifications,
   formNotifications: state.form.notifications,
   users: state.api.users,
+  currentUser: state.api.auth.currentUser,
 })
 
 const {
@@ -101,6 +102,7 @@ export default class SidebarRight extends Component {
       userGiveDonuts,
       userSearch,
       hideSidebarRight,
+      currentUser,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -144,7 +146,10 @@ export default class SidebarRight extends Component {
       case 'Donuts': {
         return (
           <SidebarRightHistoryDonuts
+            currentUser={currentUser}
             userSearch={userSearch}
+            showHistoryDonut={showHistoryDonut}
+            rightbar={rightbar}
             channelCreate={channelCreate}
             allChannels={allChannels}
             allUsers={allUsers}
@@ -222,7 +227,7 @@ export default class SidebarRight extends Component {
           <div className={btnDonutsHistory}>
             <div className={btnDonutsHistoryInner}>
               {this.generateDonuts()}
-              <button className={btn} onClick={() => showHistoryDonut()}>open</button>
+              <button className={btn} onClick={() => showHistoryDonut(1)}>open</button>
             </div>
           </div>
         }
