@@ -112,6 +112,34 @@ export default class InputPost extends Component {
         displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 40px; height: 40px; border-radius: 50%; margin-right: 15px;' src='${image}' /> ${name}</li>",
         insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
         searchKey: 'name',
+      }).atwho({
+        at: '#',
+        callbacks: {
+          remoteFilter(query, callback) {
+            const accessToken = localStorage.accessToken
+            if (query) {
+              $.ajax({
+                url: `https://api.uniyo.io/v1/hashtags/search?query=${query}&access_token=${accessToken}`,
+                type: 'GET',
+                dataType: 'json',
+                success(hashtags) {
+                // pull image
+                  const mappedData = hashtags.map(hashtag => ({
+                    hashtag,
+                  }))
+
+                  callback(mappedData)
+                },
+                error() {
+                  console.warn('Search is not working')
+                },
+              })
+            }
+          },
+        },
+        displayTpl: "<li style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'>${hashtag}</li>",
+        insertTpl: "<span onClick='void 0' data-hashtag='true'>#${hashtag}</span>",
+        searchKey: 'hashtag',
       })
 
       $('#input').on("inserted.atwho", function(event, flag, query) {
@@ -262,9 +290,7 @@ export default class InputPost extends Component {
       }
     })
 
-
     this._input.innerHTML = currentHashTag ? `#${currentHashTag} ` : ''
-    this._input.blur()
   }
 
   onStarClick(nextValue) {
