@@ -279,16 +279,16 @@ export default class SidebarLeft extends Component {
 
           <ul className={section}>
             <Link to='/dashboard/channels/new'>
-            <h4 className={sectionLabel}>
-              PRIVATE MESSAGES <Plus />
-            </h4>
-          </Link>
-          {allChannels && ComponentsChannel}
-          <Link to='/dashboard/channels/new'>
-          <h4 className={sectionTextAdd}>
-            <span>+ Start a new chat</span>
-          </h4>
-        </Link>
+              <h4 className={sectionLabel}>
+                PRIVATE MESSAGES <Plus />
+              </h4>
+            </Link>
+            {allChannels && ComponentsChannel}
+            <Link to='/dashboard/channels/new'>
+              <h4 className={sectionTextAdd}>
+                <span>+ Start a new chat</span>
+              </h4>
+            </Link>
         {/* { keywordForSort === '' &&
         allChannels &&
         allChannels.length > MAX_NUMBER_SHOW_ITEM &&
