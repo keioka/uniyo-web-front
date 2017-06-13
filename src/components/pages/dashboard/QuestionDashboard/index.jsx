@@ -178,12 +178,13 @@ export default class QuestionDashboard extends Component {
               <CardPost
                 key={answerBest.id}
                 {...answerBest}
-                comments={allComments}
+                comments={allComments.filter(comment => comment.postId === answerBest.id)}
                 currentUser={currentUser}
                 commentCreate={commentCreate}
                 commentsSearch={commentsSearch}
                 postGiveDonuts={postGiveDonuts}
                 commentGiveDonuts={commentGiveDonuts}
+                showUserInfo={showUserInfo}
               />
             }
           </div>
@@ -194,30 +195,36 @@ export default class QuestionDashboard extends Component {
             <CardPost
               key={answerRecent.id}
               {...answerRecent}
-              comments={allComments}
+              comments={allComments.filter(comment => comment.postId === answerRecent.id)}
               currentUser={currentUser}
               commentCreate={commentCreate}
               commentsSearch={commentsSearch}
               postGiveDonuts={postGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              showUserInfo={showUserInfo}
             />
           </div>
         }
         { answersOther.length > 0 &&
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>OTHER ANSWERS</h3>
-            {answersOther.map(answer => (
-              <CardPost
-                key={answer.id}
-                {...answer}
-                comments={allComments}
-                currentUser={currentUser}
-                commentCreate={commentCreate}
-                commentsSearch={commentsSearch}
-                postGiveDonuts={postGiveDonuts}
-                commentGiveDonuts={commentGiveDonuts}
-              />
-            ))}
+            {answersOther.map(answer => {
+              const comments = allComments.filter(comment => comment.postId === answer.id)
+              return (
+                <CardPost
+                  key={answer.id}
+                  {...answer}
+                  comments={comments}
+                  currentUser={currentUser}
+                  commentCreate={commentCreate}
+                  commentsSearch={commentsSearch}
+                  postGiveDonuts={postGiveDonuts}
+                  commentGiveDonuts={commentGiveDonuts}
+                  showUserInfo={showUserInfo}
+                />
+              )
+            })
+          }
           </div>
        }
        </div>
