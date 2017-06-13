@@ -270,10 +270,12 @@ export default class SidebarLeft extends Component {
             </h4>
           </ul>
 
-          <ul className={section}>
-            <h4 className={sectionLabel}>TRENDING TOPICS 👌</h4>
-            {hashtagsTrending && ComponentsTrendingHashtag}
-          </ul>
+          {hashtagsTrending &&
+            <ul className={section}>
+              <h4 className={sectionLabel}>TRENDING TOPICS 👌</h4>
+              {ComponentsTrendingHashtag}
+            </ul>
+          }
 
           <ul className={section}>
             <Link to='/dashboard/channels/new'>
