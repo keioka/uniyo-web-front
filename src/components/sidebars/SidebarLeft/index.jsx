@@ -270,23 +270,25 @@ export default class SidebarLeft extends Component {
             </h4>
           </ul>
 
-          <ul className={section}>
-            <h4 className={sectionLabel}>TRENDING TOPICS 👌</h4>
-            {hashtagsTrending && ComponentsTrendingHashtag}
-          </ul>
+          {hashtagsTrending &&
+            <ul className={section}>
+              <h4 className={sectionLabel}>TRENDING TOPICS 👌</h4>
+              {ComponentsTrendingHashtag}
+            </ul>
+          }
 
           <ul className={section}>
             <Link to='/dashboard/channels/new'>
-            <h4 className={sectionLabel}>
-              PRIVATE MESSAGES <Plus />
-            </h4>
-          </Link>
-          {allChannels && ComponentsChannel}
-          <Link to='/dashboard/channels/new'>
-          <h4 className={sectionTextAdd}>
-            <span>+ Start a new chat</span>
-          </h4>
-        </Link>
+              <h4 className={sectionLabel}>
+                PRIVATE MESSAGES <Plus />
+              </h4>
+            </Link>
+            {allChannels && ComponentsChannel}
+            <Link to='/dashboard/channels/new'>
+              <h4 className={sectionTextAdd}>
+                <span>+ Start a new chat</span>
+              </h4>
+            </Link>
         {/* { keywordForSort === '' &&
         allChannels &&
         allChannels.length > MAX_NUMBER_SHOW_ITEM &&

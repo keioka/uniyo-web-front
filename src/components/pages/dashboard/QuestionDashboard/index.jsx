@@ -10,6 +10,8 @@ import {
 } from '../../../index'
 
 import {
+  wrapper,
+  wrapperShrink,
   sectionQuestion,
   sectionImage,
   sectionContent,
@@ -106,6 +108,7 @@ export default class QuestionDashboard extends Component {
 
   render() {
     const {
+      rightbar,
       postCreate,
       answerCreate,
       commentsSearch,
@@ -121,7 +124,8 @@ export default class QuestionDashboard extends Component {
     } = this.props
 
     const { image, firstName } = currentUser
-
+    const { isOpen: isRightbarOpen } = rightbar
+    const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
     const { questionId } = this.props.params
     const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
     const answers = allPosts.filter(post => post.type === 'ANSWER' && post.questionId == questionId)
@@ -159,7 +163,7 @@ export default class QuestionDashboard extends Component {
 
 
     return (
-      <div ref={(div)=> this._dashboard = div}>
+      <div className={dashboardWrapperClassNames} ref={(div)=> this._dashboard = div}>
         { question && <ComponentSectionQuestion {...question} showUserInfo={showUserInfo} /> }
         <InputPost
           imgUrl={image && image.mediumUrl}

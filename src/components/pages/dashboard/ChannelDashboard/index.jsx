@@ -151,7 +151,6 @@ export default class ChannelDashboard extends Component {
     const allMessagesContainer = []
     // * if user is same and the message is created within 5 min, push it.
     let messagesChunk = []
-    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 
     messages.forEach((message, index) => {
       // * if user is same and the message is created within 5 min, push it.
@@ -190,7 +189,7 @@ export default class ChannelDashboard extends Component {
 
     const messageObj = {}
     const messagesContainerWithDate = allMessagesContainer.forEach(messageChunk => {
-      const date = moment(messageChunk[0].createdAt).format("MMM DD, YYYY")
+      const date = moment(messageChunk[0].createdAt).local().format("MMM DD, YYYY")
       if (messageObj[date]) {
         messageObj[date].push(messageChunk)
       } else {
