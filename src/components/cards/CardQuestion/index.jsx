@@ -106,7 +106,7 @@ export default class CardQuestion extends PureComponent {
             <div className={sectionContentFooter}>
               <div className={sectionFileDetail}></div>
               <div className={footerSectionBtns}>
-                <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answer</button>
+                <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>
                 <ButtonDonut
                   className={btnLike}
                   donutsCount={donutsCount}
