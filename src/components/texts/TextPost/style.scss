@@ -5,6 +5,10 @@
   text-decoration: none;
 }
 
+.hashtag:hover {
+  text-decoration: underline;
+}
+
 .hashtag:visited {
   color: $strongpink;
 }
