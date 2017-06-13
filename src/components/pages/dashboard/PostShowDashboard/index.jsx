@@ -46,7 +46,6 @@ export default class PostShowDashboard extends Component {
 
     const {
       postCreate,
-      comments,
       commentsSearch,
       commentCreate,
       showUserInfo,
@@ -143,6 +142,8 @@ export default class PostShowDashboard extends Component {
     const { all } = posts
     const post = posts.filter(post => post.id == params.postId)[0]
     const { image } = currentUser
+    const comments = post ? this.props.allComments.filter(comment => comment.postId === post.id) : []
+
     return (
       <div ref={(div)=> this._dashboard = div}>
         <InputPost

@@ -146,18 +146,14 @@ export default class ChannelDashboard extends Component {
   get messages() {
     const { allMessages, showUserInfo } = this.props
     const { channelId } = this.props.params
-
-    // All messages on channel
     const messages = allMessages.filter(message => message.channelId == channelId)
     const lastMessageIndex = messages.length - 1
-
     const allMessagesContainer = []
-
     // * if user is same and the message is created within 5 min, push it.
     let messagesChunk = []
+    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 
     messages.forEach((message, index) => {
-
       // * if user is same and the message is created within 5 min, push it.
       const length = messagesChunk.length - 1
       const lastMessageOfChunk = messagesChunk[length]
@@ -165,41 +161,31 @@ export default class ChannelDashboard extends Component {
       const isLastMessage = (messages.length - 1) === index
       const isSameUser = lastMessageOfChunk && message.user.id == lastMessageOfChunk.user.id
       const isInitialMessageOfChunk = messagesChunk.length === 0
-
       const isTimeOverFiveMinutes = messagesChunk[0] ? moment.utc(messagesChunk[0].createdAt).diff(moment.utc(message.createdAt), 'minutes') < -5 : false
+
       // TODO: Add time and refactoring
-      if (
-        isLastMessage &&
-        isSameUser
-      ) {
+      // console.log('-----------------------------')
+      // console.log('isLastMessage', isLastMessage)
+      // console.log('isInitialMessageOfChunk', isInitialMessageOfChunk)
+      // console.log('isTimeOverFiveMinutes', isTimeOverFiveMinutes)
+      // console.log('isSameUser', isSameUser)
+
+      if (isSameUser && !isTimeOverFiveMinutes) {
         messagesChunk.push(message)
-        allMessagesContainer.push(messagesChunk)
-      } else if (
-        !isInitialMessageOfChunk &&
-        isLastMessage &&
-        (!isSameUser || isTimeOverFiveMinutes)
-      ) {
-        allMessagesContainer.push(messagesChunk)
-        messagesChunk = []
-        messagesChunk.push(message)
-        allMessagesContainer.push(messagesChunk)
-      } else if (
-        !isInitialMessageOfChunk &&
-        (!isSameUser || isTimeOverFiveMinutes)
-      ) {
-        allMessagesContainer.push(messagesChunk)
-        messagesChunk = []
-        messagesChunk.push(message)
-      } else if (
-         isInitialMessageOfChunk ||
-         isSameUser
-      ) {
-         messagesChunk.push(message)
-      } else {
-        allMessagesContainer.push(messagesChunk)
-        messagesChunk = []
-        messagesChunk.push(message)
+      } else if (!isSameUser || isTimeOverFiveMinutes) {
+        if (isInitialMessageOfChunk) {
+          messagesChunk.push(message)
+        } else {
+          allMessagesContainer.push(messagesChunk)
+          messagesChunk = []
+          messagesChunk.push(message)
+        }
       }
+
+      if (isLastMessage) {
+        allMessagesContainer.push(messagesChunk)
+      }
+
     })
 
     const messageObj = {}
@@ -241,6 +227,7 @@ export default class ChannelDashboard extends Component {
 
   render() {
     const {
+      rightbar,
       showUserInfo,
       suggestionedUsers,
       userSearch,
@@ -254,6 +241,8 @@ export default class ChannelDashboard extends Component {
     const channel = allChannels.filter(channel => channel.id == channelId)[0]
     const messages = allMessages.filter(message => message.channelId == channelId)
     const { hashtags: hashtagsCurrentUser, image } = currentUser
+    const { isOpen: isRightbarOpen } = rightbar
+    const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
 
     let placeholder
     let channelUsers
@@ -264,7 +253,7 @@ export default class ChannelDashboard extends Component {
     }
 
     return (
-      <div className={page} ref={(div)=> this._dashboard = div}>
+      <div className={dashboardWrapperClassNames} ref={(div)=> this._dashboard = div}>
         <div className={header}>
           <div className={headerBar}>
             <div className={headerBarChannelInfo}>

@@ -37,19 +37,23 @@ const ListNotification = ({
       case 'POST_MENTION': {
         const { post } = notification
         browserHistory.push(`/dashboard/posts/${post.id}`)
+        break
       }
       case 'POST_HASHTAG': {
         const { post } = notification
         browserHistory.push(`/dashboard/posts/${post.id}`)
+        break
       }
       case 'NEW_COMMENT': {
         const { comment } = notification
         const { postId, user } = comment
         browserHistory.push(`/dashboard/posts/${postId}`)
+        break
       }
       case 'NEW_CHANNEL_MESSAGE': {
         const { channel } = notification
         browserHistory.push(`/dashboard/channels/${channel.id}`)
+        break
       }
     }
   }
