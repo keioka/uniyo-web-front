@@ -217,7 +217,7 @@ export default class SidebarRight extends Component {
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
     const { all: allChannels } = channels
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
-    const regexChannelPath = /dashboard\/channel\/[1-9]+/
+    const regexChannelPath = /dashboard\/channels\/[1-9]+/
     const isChannel = regexChannelPath.test(this.props.location.pathname)
     return (
       <div>
