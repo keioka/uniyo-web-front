@@ -33,6 +33,9 @@ class SidebarRightNotification extends Component {
       setReadNotificationIds,
       notificationSearch,
       hideSidebarRight,
+      currentUser,
+      showHistoryDonut,
+      showUserInfo,
     } = this.props
 
     const countNotification = allNotifications.filter(notification => !notification.isRead).length
@@ -57,9 +60,12 @@ class SidebarRightNotification extends Component {
               <ul className={ul}>
                 {newNotification.map(notification =>
                   <ListNotification
+                    currentUser={currentUser}
                     notification={notification}
                     notificationReadMark={notificationReadMark}
                     onVisiable={notificationReadMark}
+                    showHistoryDonut={showHistoryDonut}
+                    showUserInfo={showUserInfo}
                   />
                 )}
               </ul>
@@ -73,11 +79,14 @@ class SidebarRightNotification extends Component {
                   const isLastNotification = (index === (pastNotifications.length - 1))
                   return (
                     <ListNotification
+                      currentUser={currentUser}
                       notification={notification}
                       notificationReadMark={notificationReadMark}
                       onVisiable={notificationReadMark}
                       notificationSearch={notificationSearch}
                       isLastNotification={isLastNotification}
+                      showHistoryDonut={showHistoryDonut}
+                      showUserInfo={showUserInfo}
                     />
                   )
                 })}
