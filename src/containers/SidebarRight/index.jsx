@@ -99,6 +99,7 @@ export default class SidebarRight extends Component {
       notificationReadMark,
       donutsHistory,
       showHistoryDonut,
+      showUserInfo,
       userGiveDonuts,
       userSearch,
       hideSidebarRight,
@@ -137,7 +138,10 @@ export default class SidebarRight extends Component {
       case 'Notification': {
         return (
           <SidebarRightNotification
+            currentUser={currentUser}
             allNotifications={allNotifications}
+            showHistoryDonut={showHistoryDonut}
+            showUserInfo={showUserInfo}
             notificationSearch={notificationSearch}
             notificationReadMark={notificationReadMark}
             hideSidebarRight={hideSidebarRight}

@@ -128,7 +128,7 @@ export default class IndexDashboard extends Component {
       trendingPosts,
       posts,
     } = this.props
-    
+
     const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { hashtag, type } = location.query
     const { isOpen: isRightbarOpen } = rightbar
@@ -228,7 +228,7 @@ export default class IndexDashboard extends Component {
           currentHashTag={hashtag}
           currentPostType={currentPostType}
           userSearch={userSearch}
-          showUserInfo={showUserInfo}
+          onClickUserImage={() => showUserInfo(currentUser.id)}
         />
 
 
