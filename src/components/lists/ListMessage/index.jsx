@@ -21,11 +21,11 @@ const ListMessage = ({ messages, showUserInfo }) => {
   const time = moment.utc(message.createdAt).local().format("HH:mm A")
   return (
     <li key={id} className={wrapper}>
-      <div className={boxImage}>
+      <div className={boxImage} onClick={() => showUserInfo(user.id)}>
         <img src={user.image.smallUrl} className={imgUser} />
       </div>
       <div className={sectionContent}>
-        <span className={fontName}>{user.firstName} {user.lastName}</span>
+        <span className={fontName} onClick={() => showUserInfo(user.id)}>{user.firstName} {user.lastName}</span>
         <span className={fontTime}>{time}</span>
         {messages.map(message => <p className={paragaph}><TextPost text={message.text} showUserInfo={showUserInfo} /></p>)}
       </div>
