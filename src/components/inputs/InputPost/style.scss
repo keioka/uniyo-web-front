@@ -154,6 +154,10 @@ span[data-mention=true] {
   color: $strongpink;
 }
 
+span[data-hashtag=true] {
+  color: $lightpink;
+}
+
 .input--mirror {
   // padding: 3rem 5%;
   color: red;

@@ -4,12 +4,13 @@
   position: relative;
   display: flex;
   align-items: center;
+  border-radius: 20px;
+  background-color: $bluegray;
 }
 
 .input {
   width: 100%;
   display: inline-block;
-  background-color: $bluegray;
   font-family: $font-family;
   font-size: 1rem;
   border: none;
@@ -35,6 +36,10 @@ span[data-user-id] {
 }
 
 span[data-mention=true] {
+  color: $lightpink;
+}
+
+span[data-hashtag=true] {
   color: $lightpink;
 }
 
