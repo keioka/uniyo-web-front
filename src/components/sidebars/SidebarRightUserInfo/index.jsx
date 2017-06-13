@@ -19,6 +19,12 @@ import {
   btnMessage,
 } from './style'
 
+const uniq = (array, param) => {
+  return array.filter((item, pos, array) => {
+    return array.map((mapItem) => mapItem[param]).indexOf(item[param]) === pos
+  })
+}
+
 const userInfo = ({ user, channelCreate, channels, userGiveDonuts }) => {
 
   const onClickBtnMessage = () => {
@@ -36,6 +42,8 @@ const userInfo = ({ user, channelCreate, channels, userGiveDonuts }) => {
       channelCreate({ users: [user.id] })
     }
   }
+
+  const uniqueHashtagsCurrentUser = user.hashtags && uniq(user.hashtags, 'hashtag')
 
   return (
     <div className={wrapper} >
@@ -57,7 +65,7 @@ const userInfo = ({ user, channelCreate, channels, userGiveDonuts }) => {
 
       <div className={tags}>
         <ul className={tagsList}>
-          {user.hashtags && user.hashtags.map(hashtag => <li className={tagsItem}><Link to={`dashboard?hashtag=${hashtag.hashtag}`}>#{hashtag.hashtag}</Link></li>)}
+          {uniqueHashtagsCurrentUser && uniqueHashtagsCurrentUser.map(hashtag => <li className={tagsItem}><Link to={`dashboard?hashtag=${hashtag.hashtag}`}>#{hashtag.hashtag}</Link></li>)}
         </ul>
       </div>
     </div>
