@@ -156,6 +156,10 @@ $animation-duraion: 0.2s;
   font-weight: 900;
 }
 
+.text--user-name:hover {
+  text-decoration: underline;
+}
+
 .btn--comment {
   border: 1px solid #e1e1e1;
   display: flex;

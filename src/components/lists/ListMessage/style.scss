@@ -15,6 +15,11 @@
   font-size: 1rem;
   font-weight: $font-weight-normal;
   color: $black;
+  cursor: pointer;
+}
+
+.font-name:hover {
+  text-decoration: underline;
 }
 
 .font-time {

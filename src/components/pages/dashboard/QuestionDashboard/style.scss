@@ -109,6 +109,10 @@
   cursor: pointer;
 }
 
+.text--user-name:hover {
+  text-decoration: underline;
+}
+
 .btn--like {
   border: solid 1px #e1e1e1;
   display: flex;
