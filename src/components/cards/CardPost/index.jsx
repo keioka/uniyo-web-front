@@ -36,22 +36,22 @@ export default class CardPost extends PureComponent  {
   state = {
     toggle: false,
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (!this.props.comments) {
-      return false
-    }
-
-    if (
-      nextProps.commentsCount !== this.props.commentsCount ||
-      nextProps.comments.length !== this.props.comments.length ||
-      nextProps.donutsCount !== this.props.donutsCount ||
-      nextState.toggle !== this.state.toggle
-    ) {
-      return true
-    }
-    return false
-  }
+  //
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (!this.props.comments) {
+  //     return false
+  //   }
+  //
+  //   if (
+  //     nextProps.commentsCount !== this.props.commentsCount ||
+  //     nextProps.comments.length !== this.props.comments.length ||
+  //     nextProps.donutsCount !== this.props.donutsCount ||
+  //     nextState.toggle !== this.state.toggle
+  //   ) {
+  //     return true
+  //   }
+  //   return false
+  // }
 
   onChange() {
     const { id } = this.props
