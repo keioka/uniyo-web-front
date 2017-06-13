@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { browserHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import moment from 'moment'
 import VisibilitySensor from 'react-visibility-sensor'
 import {
@@ -10,7 +10,37 @@ import {
   imgUser,
   unread,
   read,
+  textUserName,
+  textHashtag,
 } from './style'
+
+import { postValue } from '../../../utils'
+const { extractHashtagFromText } = postValue
+
+const generateMesssagHashtag = (type) => {
+  switch (type) {
+    case 'POST': {
+      return 'made a new publication'
+    }
+    case 'REVIEW': {
+      return 'asked a question '
+    }
+    case 'QUESTION': {
+      return 'made a new review'
+    }
+    case 'CLASS_NOTE': {
+      return 'uploaded a new document'
+    }
+  }
+}
+
+const postTypes = {
+  'POST': 'publication',
+  'REVIEW': 'review',
+  'QUESTION': 'question',
+  'CLASS_NOTE': 'document',
+  'ANSWER': 'answer',
+}
 
 const ListNotification = ({
   notification,
@@ -18,6 +48,9 @@ const ListNotification = ({
   onVisiable,
   notificationSearch,
   isLastNotification,
+  currentUser,
+  showHistoryDonut,
+  showUserInfo,
 }) => {
 
   const { id, type, isRead, createdAt } = notification
@@ -45,14 +78,19 @@ const ListNotification = ({
         break
       }
       case 'NEW_COMMENT': {
-        const { comment } = notification
+        const { comment, post } = notification
         const { postId, user } = comment
-        browserHistory.push(`/dashboard/posts/${postId}`)
+        browserHistory.push(`/dashboard/posts/${post.id}`)
         break
       }
       case 'NEW_CHANNEL_MESSAGE': {
         const { channel } = notification
         browserHistory.push(`/dashboard/channels/${channel.id}`)
+        break
+      }
+
+      case 'WEEKLY_RECEIVED_DONUTS_COUNT': {
+        showHistoryDonut(1)
         break
       }
     }
@@ -61,12 +99,11 @@ const ListNotification = ({
   switch (type) {
     case 'POST_MENTION': {
       const { post } = notification
-      const { user } = post
+      const { type, user } = post
+      const postType = postTypes[type]
       component = (
         <span>
-          <span>
-            @{user.firstName} mentioned you on the post
-          </span>
+          <span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> mentioned you in {postType}
         </span>
       )
       userImageUrl = user.image.smallUrl
@@ -75,26 +112,47 @@ const ListNotification = ({
 
     case 'POST_HASHTAG': {
       const { post } = notification
-      const { user } = post
+      const { type, user } = post
       userImageUrl = user ? user.image.smallUrl : ''
-      component = (<span><span>@{user.firstName}</span> posted new one</span>)
+      const postType = postTypes[type]
+      const hashtags = extractHashtagFromText(post.text)
+      component = (
+        <span>
+          <span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>
+            @{user.firstName}
+          </span>
+          {generateMesssagHashtag(type)} about &nbsp;
+          <span>{hashtags.map(hashtag =>
+            <span className={textHashtag} onClick={(event) => { event.preventDefault(); event.stopPropagation(); browserHistory.push(`/dashboard?hashtag=${hashtag.replace(/#/, '')}`)}}>{hashtag}</span>
+          )}</span>
+        </span>)
       break
     }
 
     case 'NEW_COMMENT': {
-      const { comment } = notification
+      const { comment, post } = notification
       const { postId, user } = comment
+      const { type } = post
+      const postType = postTypes[type]
       userImageUrl = user ? user.image.smallUrl : ''
-      component = (<span><span>@{user.firstName}</span> commented on your post</span>)
+      component = (<span><span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> commented on your {postType}</span>)
       break
     }
 
     case 'NEW_CHANNEL_MESSAGE': {
       const user = notification.channel.users[0]
       userImageUrl = user ? user.image.smallUrl : ''
-      component = (<span>new messages in your private chat with <span>@{user.firstName}</span></span>)
+      component = (<span><span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> sent a new message</span>)
       break
     }
+
+    case 'WEEKLY_RECEIVED_DONUTS_COUNT': {
+      const { donutsCount } = notification
+      userImageUrl = currentUser.image.mediumUrl
+      component = (<span>You got {donutsCount} donuts lastweek!</span>)
+      break
+    }
+
   }
 
   const classNames = [wrapper]
@@ -121,7 +179,6 @@ const ListNotification = ({
           {moment.utc(createdAt).local().format("HH:mm A")}
         </span>
       </li>
-
     </VisibilitySensor>
   )
 }

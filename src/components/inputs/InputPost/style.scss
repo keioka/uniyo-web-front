@@ -8,7 +8,7 @@
   z-index: 10;
 }
 
-.wrapper__image-box {
+.wrapper--image-box {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -16,10 +16,11 @@
   padding: 20px 0px 20px 30px;
 }
 
-.wrapper__image-box img {
+.wrapper--image-box img {
   width: 45px;
   height: 45px;
   border-radius: 100%;
+  cursor: pointer;
 }
 
 .input {

@@ -376,10 +376,10 @@ export default class InputPost extends Component {
   }
 
   render() {
-    const { imgUrl, hashtag, currentHashTag } = this.props
+    const { imgUrl, hashtag, currentHashTag, onClickUserImage } = this.props
     return (
       <span className={wrapper}>
-        <span className={wrapperImageBox}>
+        <span className={wrapperImageBox} onClick={() => onClickUserImage()}>
           <img src={imgUrl || 'loading'} />
         </span>
         {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}

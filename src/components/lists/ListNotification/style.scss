@@ -25,6 +25,22 @@
   border-radius: 20px;
 }
 
+.text--user-name {
+  color: $strongpink;
+}
+
+.text--user-name:hover {
+  text-decoration: underline;
+}
+
+.text--hashtag {
+  color: $strongpink;
+}
+
+.text--hashtag:hover {
+  text-decoration: underline;
+}
+
 .box--img {
   display: inline-block;
   width: 60px;
