@@ -68,41 +68,40 @@ export default class Signin extends Component {
     const selectedSchool = schools.length > 0 && schools[0]
 
     return (
-
-        <div className={layoutUserInfo}>
-          <div className={header}>
-            <nav className={nav}>
-              <ul className={ul}>
-                <li className={active}>sign in</li>
-                <li>
-                  {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>sign up</Link> : <Link to="/signup">sign up</Link>}
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div className={content}>
-            <h2 className={title}>Here we go! 😜</h2>
-            <InputTextTransparent
-              className={input}
-              onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
-              placeholder="Email"
-            />
-
-            <InputTextTransparent
-              type="password"
-              className={input}
-              onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
-              placeholder="Password"
-            />
-            <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign in</Button>
-            <span className={text}>You are signing in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.</span>
-          </div>
-
-          <div className={layoutSelectSchoolFotter}>
-            <div className={layoutSelectSchoolFotterLeft}></div>
-            <div className={layoutSelectSchoolFotterRight}></div>
-          </div>
+      <div className={layoutUserInfo}>
+        <div className={header}>
+          <nav className={nav}>
+            <ul className={ul}>
+              <li className={active}>sign in</li>
+              <li>
+                {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>sign up</Link> : <Link to="/signup">sign up</Link>}
+              </li>
+            </ul>
+          </nav>
         </div>
+        <div className={content}>
+          <h2 className={title}>Here we go! 😜</h2>
+          <InputTextTransparent
+            className={input}
+            onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
+            placeholder="Email"
+          />
+
+          <InputTextTransparent
+            type="password"
+            className={input}
+            onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
+            placeholder="Password"
+          />
+          <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign in</Button>
+          <span className={text}>You are signing in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.</span>
+        </div>
+
+        <div className={layoutSelectSchoolFotter}>
+          <div className={layoutSelectSchoolFotterLeft}></div>
+          <div className={layoutSelectSchoolFotterRight}></div>
+        </div>
+      </div>
     )
   }
 }
