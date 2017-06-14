@@ -3,7 +3,12 @@ import { browserHistory, Link } from 'react-router'
 
 import {
   postValue,
+  decorator,
 } from '../../../utils'
+
+const {
+  usersWithoutCurrentUser,
+} = decorator
 
 const {
   extractHashtagFromText,
@@ -93,7 +98,14 @@ export default class SidebarLeft extends Component {
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
-    const { allChannels, hashtagsCurrentUser, hashtagsTrending, hashtagDelete, unreadNotification } = this.props
+    const {
+      allChannels,
+      hashtagsCurrentUser,
+      hashtagsTrending,
+      hashtagDelete,
+      unreadNotification,
+      currentUser,
+    } = this.props
 
     const unreadPostNotification = unreadNotification.filter(notification =>
       notification.type === "POST_HASHTAG" ||
@@ -150,7 +162,7 @@ export default class SidebarLeft extends Component {
                 </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
               }
               <span className={userNames}>
-                <span>{users.map(user => user.name.split(' ')[0]).join(', ')}</span>
+                <span>{usersWithoutCurrentUser(users, currentUser).map(user => user.name.split(' ')[0]).join(', ')}</span>
                 {amountNewMessage > 0 && <span className={iconNumberNewMessage}>{amountNewMessage}</span>}
               </span>
             </li>
@@ -244,7 +256,7 @@ export default class SidebarLeft extends Component {
               { this.state.isShowInputAddTag &&
                 <input
                   type="text"
-                  placeholder="Add a new topic..."
+                  placeholder="Follow a new hashtag..."
                   className={inputAddTag}
                   ref={(ref) => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
@@ -262,12 +274,12 @@ export default class SidebarLeft extends Component {
               {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
             </button>
           } */}
-          <h4
+          {/* <h4
             className={sectionTextAdd}
             onClick={::this.onClickBtnAddHashTag}
             >
               <span>+ Add a new hashtag</span>
-            </h4>
+            </h4> */}
           </ul>
 
           {hashtagsTrending &&

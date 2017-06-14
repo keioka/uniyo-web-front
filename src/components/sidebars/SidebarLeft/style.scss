@@ -100,7 +100,7 @@ $left-padding: 16px;
 }
 
 .section__tag--hot--active:hover {
-  background-color: $strongpink;
+  background-color: $strongpink !important;
 }
 
 
@@ -111,6 +111,10 @@ $left-padding: 16px;
 .section__tag--hot:before {
   content: '🏫';
   margin-right: 10px;
+}
+
+.section__tag--hot:hover {
+  background: #fdedf2;
 }
 
 .section__tag--hot a {
