@@ -84,6 +84,10 @@
   margin-bottom: 4px;
 }
 
+.tags__item:hover {
+  text-decoration: underline;
+}
+
 .tags__item a {
   text-decoration: none;
   font-size: 20px;
@@ -97,6 +101,10 @@
   text-overflow: ellipsis;
   display: inline-block;
 
+}
+
+.tags__item a:hover {
+  text-decoration: underline;
 }
 
 .btn--message {
