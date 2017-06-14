@@ -154,19 +154,19 @@ export default class SidebarLeft extends Component {
           className={className}
           key={channel.id}
           to={`/dashboard/channels/${channel.id}`}
-          >
-            <li className={sectionTag}>
-              {channel.users.length > 2 ?
-                (<span data-amount-users={channel.users.length} className={iconChannel}>
-                  {channel.users.length - 1}
-                </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
-              }
-              <span className={userNames}>
-                <span>{usersWithoutCurrentUser(users, currentUser).map(user => user.name.split(' ')[0]).join(', ')}</span>
-                {amountNewMessage > 0 && <span className={iconNumberNewMessage}>{amountNewMessage}</span>}
-              </span>
-            </li>
-          </Link>
+        >
+          <li className={sectionTag}>
+            {channel.users.length > 2 ?
+              (<span data-amount-users={channel.users.length} className={iconChannel}>
+                {channel.users.length - 1}
+               </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
+            }
+            <span className={userNames}>
+              <span>{usersWithoutCurrentUser(users, currentUser).map(user => user.firstName).join(', ')}</span>
+              {amountNewMessage > 0 && <span className={iconNumberNewMessage}>{amountNewMessage}</span>}
+            </span>
+          </li>
+        </Link>
         )
       }
 
