@@ -207,7 +207,6 @@ export default class SidebarRight extends Component {
   }
 
   render() {
-
     const {
       channelCreate,
       channels,
