@@ -23,8 +23,8 @@
 }
 
 .section--messages-chunk {
-  margin: 20px 0px 34px;
   position: relative;
+  margin-top: 40px;
 }
 
 .section--messages-chunk__header {
@@ -177,5 +177,4 @@
   justify-content: flex-end;
   flex-direction: column;
   height: 100%;
-  padding: 20px 0px;
 }
