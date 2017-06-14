@@ -4,7 +4,6 @@
   padding: 20px 80px;
   border-radius: 12px;
   border: none;
-  height: 60px;
   font-size: 1rem;
   font-weight: $font-weight-bold;
   outline: none;
@@ -16,7 +15,11 @@
   border: 2px solid $purple;
   transition: background-color 0.5s ease;
   // transition: color 0.1s ease;
-  color: $darkgray;
+  font-size: 25px;
+  font-weight: 500;
+  width: 350px;
+  color: #383838;
+  text-transform: capitalize;
 }
 
 .primary:hover {
