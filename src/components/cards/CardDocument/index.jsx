@@ -82,6 +82,7 @@ export default class CardDocument extends PureComponent {
       commentsSearch,
       comments,
       commentCreate,
+      commentGiveDonuts,
       showUserInfo,
       currentUser,
       currentPostType,
@@ -140,6 +141,7 @@ export default class CardDocument extends PureComponent {
                     <ListComment
                       key={comment.id}
                       showUserInfo={showUserInfo}
+                      commentGiveDonuts={commentGiveDonuts}
                       {...comment}
                     >
                       {comment.text}
