@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import {
   InputSearchSchool,
   InputTextTransparent,
@@ -9,11 +9,18 @@ import {
 import {
   layoutSelectSchool,
   layoutUserInfo,
-  layoutSelectSchoolHeader,
-  layoutSelectSchoolContent,
-  layoutSelectSchoolTitle,
+  header,
+  title,
+  content,
   layoutSelectSchoolFotter,
+  layoutSelectSchoolFotterLeft,
+  layoutSelectSchoolFotterRight,
   input,
+  btn,
+  text,
+  nav,
+  ul,
+  active,
 } from './style'
 
 export default class Signin extends Component {
@@ -61,13 +68,20 @@ export default class Signin extends Component {
     const selectedSchool = schools.length > 0 && schools[0]
 
     return (
-      <div>
-        <div className={layoutUserInfo}>
-          <div className={layoutSelectSchoolHeader}>
-            <h2 className={layoutSelectSchoolTitle}>{isDemo ? "Demo" : selectedSchool.name}? Great, here we go!😜</h2>
-          </div>
-          <div className={layoutSelectSchoolContent}>
 
+        <div className={layoutUserInfo}>
+          <div className={header}>
+            <nav className={nav}>
+              <ul className={ul}>
+                <li className={active}>sign in</li>
+                <li>
+                  {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>sign up</Link> : <Link to="/signup">sign up</Link>}
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div className={content}>
+            <h2 className={title}>Here we go! 😜</h2>
             <InputTextTransparent
               className={input}
               onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
@@ -80,12 +94,15 @@ export default class Signin extends Component {
               onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
               placeholder="Password"
             />
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign in</Button>
+            <span className={text}>You are signing in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.</span>
           </div>
+
           <div className={layoutSelectSchoolFotter}>
-            <Button onClick={::this.onSubmit} type="primary">Sign in</Button>
+            <div className={layoutSelectSchoolFotterLeft}></div>
+            <div className={layoutSelectSchoolFotterRight}></div>
           </div>
         </div>
-      </div>
     )
   }
 }

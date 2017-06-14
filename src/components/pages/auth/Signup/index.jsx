@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { browserHistory, Link } from 'react-router'
 
 import {
   InputSearchSchool,
@@ -9,11 +10,21 @@ import {
 import {
   layoutSelectSchool,
   layoutUserInfo,
-  layoutSelectSchoolHeader,
-  layoutSelectSchoolContent,
-  layoutSelectSchoolTitle,
+  box,
+  boxNames,
+  btn,
+  header,
+  nav,
+  ul,
+  text,
+  active,
+  content,
+  title,
   layoutSelectSchoolFotter,
+  layoutSelectSchoolFotterLeft,
+  layoutSelectSchoolFotterRight,
   input,
+  inputName,
 } from './style'
 
 export default class Signup extends Component {
@@ -65,34 +76,59 @@ export default class Signup extends Component {
     const selectedSchool = schools.length > 0 && schools[0]
     return (
       <div className={layoutUserInfo}>
-        <h1>{isDemo ? 'Demo' : selectedSchool.name}? Great, here we go!</h1>
-        <InputTextTransparent
-          className={input}
-          onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
-          placeholder="First Name"
-        />
-
-        <InputTextTransparent
-          className={input}
-          onChange={event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })}
-          placeholder="Last Name"
-        />
-
-        <InputTextTransparent
-          className={input}
-          onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
-          placeholder="Email"
-        />
-
-        <InputTextTransparent
-          type="password"
-          className={input}
-          onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
-          placeholder="Password"
-        />
-        <div className={layoutSelectSchoolFotter}>
-          <Button onClick={::this.onSubmit} type="primary">Sign Up</Button>
+        <div className={header}>
+          <nav className={nav}>
+            <ul className={ul}>
+              <li>
+                {selectedSchool ?
+                  <Link to={`/schools/${selectedSchool.slug}/signin`}>sign in</Link> :
+                  <Link to="/signup">sign up</Link>
+                }
+              </li>
+              <li className={active}>sign up</li>
+            </ul>
+          </nav>
         </div>
+        <div className={content}>
+          <h2 className={title}>Here we go! 😜</h2>
+          <div className={boxNames}>
+            <InputTextTransparent
+              className={inputName}
+              onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
+              placeholder="First Name"
+            />
+
+            <InputTextTransparent
+              className={inputName}
+              onChange={event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })}
+              placeholder="Last Name"
+            />
+
+          </div>
+
+          <InputTextTransparent
+            className={input}
+            onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
+            placeholder="name@email.com"
+          />
+
+          <InputTextTransparent
+            type="password"
+            className={input}
+            onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
+            placeholder="Password"
+          />
+          <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign Up</Button>
+          <div className={box}>
+            <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b>UniYo terms</b> and our <b>privacy policy</b>.</span>
+          </div>
+        </div>
+
+        <div className={layoutSelectSchoolFotter}>
+          <div className={layoutSelectSchoolFotterLeft}></div>
+          <div className={layoutSelectSchoolFotterRight}></div>
+        </div>
+
       </div>
     )
   }
