@@ -36,12 +36,12 @@
 
 .box-image {
   display: flex;
-  width: 4%;
   min-width: 40px;
   overflow: hidden;
   margin-right: 15px;
   justify-content: flex-end;
   align-items: flex-end;
+  cursor: pointer;
 }
 
 .img-user {
