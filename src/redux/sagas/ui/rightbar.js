@@ -1,10 +1,12 @@
 import { put, take, select, takeLatest, call } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import uiActionTypes from '../../actionTypes'
 import { actionTypes } from 'uniyo-redux'
 import sagas from '../'
 
 const getUsers = state => state.api.users
 const getTokens = state => state.api.auth.token
+const getDonutsCampus = state => state.ui.rightbar.campusDonuts
 
 function* showUserInfo({ userId }) {
 
@@ -37,10 +39,24 @@ function* showChannelUsers({ users }) {
   }
 }
 
+function* donutsCampusShiftAsync() {
+  yield call(delay, 3000)
+  const campusDonuts = yield select(getDonutsCampus)
+  if (campusDonuts.length > 0) {
+    yield put({ type: uiActionTypes.donutsCampusShift.success })
+  } else {
+    yield put({ type: uiActionTypes.donutsCampusShift.error })
+  }
+}
+
 export function* watchShowChannelUsers() {
   yield takeLatest(uiActionTypes.showChannelUsers.request, showChannelUsers)
 }
 
 export function* watchShowUserInfo() {
   yield takeLatest(uiActionTypes.showUserInfo.request, showUserInfo)
+}
+
+export function* watchDonutsShift() {
+  yield takeLatest(uiActionTypes.donutsCampusShift.request, donutsCampusShiftAsync)
 }
