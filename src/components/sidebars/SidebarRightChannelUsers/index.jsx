@@ -11,6 +11,7 @@ import {
   header,
   headerNav,
   headerNavActive,
+  main,
   ul,
   inputSearch,
   inputSearchWrapper,
@@ -43,8 +44,8 @@ class SidebarRightChannelUsers extends Component {
         <div className={header}>
           <h3>All user in this channel</h3>
         </div>
-        <div className={ul}>
-          <div className={inputSearchWrapper}>
+        <div className={main}>
+          {/* <div className={inputSearchWrapper}>
             <FaSearch />
             <input
               type="text"
@@ -60,8 +61,8 @@ class SidebarRightChannelUsers extends Component {
                 <span className={listUserLeftTitle}>Add Friend</span>
               </div>
             </div>
-          </div>
-          <ul>
+          </div> */}
+          <ul className={ul}>
             {this.usersDonutsToGive}
           </ul>
         </div>

@@ -34,7 +34,7 @@ export default class ButtonDonuts extends PureComponent {
         data-count={donutsCount}
         onClick={::this.onClick}
       >
-        <Donut size="xs" />
+        <Donut size="xs" count={donutsCount} />
       </button>
     )
   }

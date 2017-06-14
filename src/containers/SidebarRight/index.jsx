@@ -55,6 +55,7 @@ const {
   hideNotification,
   hideHistoryDonut,
   setReadNotificationIds,
+  donutsCampusShift,
 } = uiAction
 
 const {
@@ -78,6 +79,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   setReadNotificationIds,
   userGiveDonuts,
   userSearch,
+  donutsCampusShift,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -177,14 +179,15 @@ export default class SidebarRight extends Component {
       notificationSearch,
       rightbar,
     } = this.props
+
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
+    this.props.donutsCampusShift()
 
     // const userImages = campusDonuts && campusDonuts.length > 0 && [...new Set(donutsHistory.map(user => {
     //   return user.image.mediumUrl
     // }))].slice(0, 1)
 
     const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
-
     return (
       <div>
       {campusDonuts && campusDonuts.length > 0 && campusDonuts.slice(0, 1).map((user, index) => {
@@ -207,7 +210,6 @@ export default class SidebarRight extends Component {
   }
 
   render() {
-
     const {
       channelCreate,
       channels,
@@ -217,7 +219,6 @@ export default class SidebarRight extends Component {
       notificationSearch,
       rightbar,
     } = this.props
-
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
     const { all: allChannels } = channels
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]

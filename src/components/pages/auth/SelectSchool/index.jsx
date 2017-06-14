@@ -14,6 +14,8 @@ import {
   layoutSelectSchoolContent,
   layoutSelectSchoolTitle,
   layoutSelectSchoolFotter,
+  layoutSelectSchoolFotterLeft,
+  layoutSelectSchoolFotterRight,
   input,
 } from './style'
 
@@ -46,6 +48,8 @@ export default class SelectSchool extends Component {
           />
         </div>
         <div className={layoutSelectSchoolFotter}>
+          <div className={layoutSelectSchoolFotterLeft}></div>
+          <div className={layoutSelectSchoolFotterRight}></div>
         </div>
       </div>
     )

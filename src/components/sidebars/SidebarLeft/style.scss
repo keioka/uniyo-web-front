@@ -96,6 +96,7 @@ $left-padding: 16px;
 }
 
 .section__tag--hot--active {
+  color: white;
   background-color: $strongpink;
 }
 
@@ -104,8 +105,8 @@ $left-padding: 16px;
 }
 
 
-.section__tag--hot--active a {
-  color: white;
+.section__tag--hot--active a h3 {
+  color: white !important;
 }
 
 .section__tag--hot:before {
@@ -229,6 +230,10 @@ $left-padding: 16px;
   width: 78%;
   border-radius: 4px;
   border: none;
+}
+
+.input--add-tag::placeholder {
+  color: #DDDDDD;
 }
 
 .tag__btn--close {

@@ -89,7 +89,6 @@ export default class ChannelNewDashboard extends Component {
       currentUser,
       allMessages,
       allChannels,
-      messageSearch,
       messageCreate,
     } = this.props
 

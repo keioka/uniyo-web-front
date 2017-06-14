@@ -64,7 +64,7 @@
   border: 3px solid white;
   outline: none;
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
   z-index: 400;
   cursor: pointer;
   padding-bottom: 15px;
@@ -101,8 +101,8 @@
   flex-direction: column;
   align-items: center;
   padding: 10px 40px;
-  height: 200px;
   width: 100%;
+  height: 160px;
 }
 
 .image {
@@ -111,62 +111,29 @@
 }
 
 .image--animation--one {
-  animation: floattop1 3s ease-in-out infinite;
+  animation: floattop1 1s ease-in-out forwards;
 }
 
 .image--animation--two {
-  animation: floattop2 3s ease-in-out infinite;
+  animation: floattop2 3s ease-in-out forwards;
 }
 
 .image--animation--three {
-  animation: floattop3 3s ease-in-out infinite;
+  animation: floattop3 3s ease-in-out forwards;
 }
 
 @keyframes floattop1 {
   0%, {
-    transform: translate3d(8px, 90px, 0px) scale(0) rotate(-0deg);
+    transform: translate3d(8px, 60px, 0px) scale(1);
     opacity: 1;
-  }
-
-  10%, {
-    transform: translate3d(8px, 40px, 0px) scale(0.4) rotate(0deg);
-    opacity: 1;
-  }
-
-  20%, {
-    transform: translate3d(8px, 40px, 0px) scale(1.6) rotate(0deg);
-  }
-
-  30%, {
-    transform: translate3d(8px, 40px, 0px) scale(0.4) rotate(0deg);
-  }
-
-  40%, {
-    transform: translate3d(8px, 40px, 0px) scale(0.6) rotate(0deg);
   }
 
   50%, {
-    transform: translate3d(8px, 20px, 0px) scale(0.4) rotate(0deg);
-  }
-
-  60%, {
-    transform: translate3d(8px, 10px, 0px) scale(0.6) rotate(0deg);
-  }
-
-  70%, {
-    transform: translate3d(8px, 0px, 0px) scale(0.4) rotate(0deg);
-  }
-
-  80%, {
-    transform: translate3d(8px, 0px, 0px) scale(0.6) rotate(0deg);
-  }
-
-  90%, {
-    transform: translate3d(8px, -100px, 0px) scale(0) rotate(0deg);
+    transform: translate3d(8px, 40px, 0px) scale(1.5);
   }
 
   100%, {
-    transform: translate3d(8px, -440px, 0px) rotate(0deg);
+    transform: translate3d(8px, 40px, 0px) scale(0);
     opacity: 0;
   }
 }

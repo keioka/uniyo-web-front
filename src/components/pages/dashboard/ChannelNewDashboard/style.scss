@@ -21,7 +21,7 @@
 }
 
 .content {
-  padding: 15%;
+  padding: 128px 207px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -31,7 +31,9 @@
 }
 
 .header--title {
-  @include h2;
+  color: #222222;
+  font-size: 40px;
+	font-weight: bold;
   margin-bottom: 20px;
 }
 

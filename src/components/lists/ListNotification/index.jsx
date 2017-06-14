@@ -119,7 +119,7 @@ const ListNotification = ({
       component = (
         <span>
           <span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>
-            @{user.firstName}
+            @{user.firstName} &nbsp;
           </span>
           {generateMesssagHashtag(type)} about &nbsp;
           <span>{hashtags.map(hashtag =>
