@@ -56,7 +56,6 @@ function subscribe(socket) {
       let data = JSON.parse(response.data)
       const { type } = data
       data = converter.snakeToCamelCase(data)
-      console.log(type)
       switch (type) {
         case 'SOCKET_READY': {
           emit({ type: 'WEBSOCKET_READY', response })
@@ -219,13 +218,12 @@ function* eventWebSocket() {
         case 'USER_RECEIVED_DONUT': {
           const { fromUser, toUser } = payload.data
           const currentUserId = yield select(state => state.api.auth.currentUser.id)
-          console.log('toUser', toUser.id)
-          console.log('currentUserId', currentUserId)
           if (toUser.id === currentUserId) {
             action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { fromUser } } }
+            yield put({ type: uiActionTypes.donutsCampusFetch.success, result: { data: { user: fromUser } } })
           } else {
-            console.log('donutsCampusFetch')
-            action = { type: uiActionTypes.donutsCampusFetch.success, result: { data: { toUser } } }
+            action = { type: actionTypes.otherUserReceivedDonutsFetch.success, result: { data: { toUser } } }
+            yield put({ type: uiActionTypes.donutsCampusFetch.success, result: { data: { user: toUser } } })
           }
           break
         }

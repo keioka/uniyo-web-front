@@ -22,3 +22,7 @@ export const showHistoryDonut = (tabNumber) => ({
 export const hideSidebarRight = () => ({
   type: actionTypes.hideSidebarRight.request,
 })
+
+export const donutsCampusShift = () => ({
+  type: actionTypes.donutsCampusShift.request,
+})

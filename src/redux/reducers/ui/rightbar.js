@@ -72,10 +72,19 @@ export default (state = initialiState, action) => {
     }
 
     case actionTypes.donutsCampusFetch.success: {
-      const { toUser } = action.result.data
+      const { user } = action.result.data
       return Object.assign({
         isReceiveDonuts: true,
-        campusDonuts: [...state.campusDonuts, toUser],
+        campusDonuts: [...state.campusDonuts, user],
+      })
+    }
+
+    case actionTypes.donutsCampusShift.success: {
+      let nextCampusDonuts = [...state.campusDonuts]
+      nextCampusDonuts.shift()
+
+      return Object.assign({
+        campusDonuts: nextCampusDonuts,
       })
     }
 
