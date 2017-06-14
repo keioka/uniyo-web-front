@@ -363,6 +363,7 @@ export default class DashBoard extends Component {
           unreadNotification={unreadNotification}
           isMainDashboard={isMainDashboard}
           selectedHashtag={this.props.location.query.hashtag}
+          currentUser={currentUser}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>

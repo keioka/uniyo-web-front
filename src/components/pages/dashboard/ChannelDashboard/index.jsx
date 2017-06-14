@@ -56,6 +56,7 @@ export default class ChannelDashboard extends Component {
       })
     }, 1000)
     document.body.scrollTop = document.body.scrollHeight + 14000
+    window.scrollTo(0, 14000)
   }
 
   componentWillReceiveProps(nextProps) {
