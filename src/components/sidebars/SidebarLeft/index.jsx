@@ -329,9 +329,11 @@ render() {
           onChange={event => this.setState({ keywordForSort: event.target.value })}
         />
         <ul className={section}>
-          <h3 className={classNameForTopSchool}>
-            <Link to="/dashboard">All in {localStorage['SCHOOL_NAME']}</Link>
-          </h3>
+          <Link to="/dashboard">
+            <h3 className={classNameForTopSchool}>
+              All in {localStorage['SCHOOL_NAME']}
+            </h3>
+          </Link>
         </ul>
         {this.navSideBar}
       </div>
