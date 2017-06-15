@@ -1,15 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uniyo | The front page of your campus</title>
+  <!-- Google -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta name="description" content="Uniyo is what's happening right now on your campus">
+  <meta name="keywords" content="Campus, University, Messaging, Students, HECMontreal, McGill, Stanford, Harvard, HEC, Udem">
+  <link rel="shortcut icon" href="/public/assets/images/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="manifest" href="/public/assets/manifest.json">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
   <link rel="stylesheet" href="/public/normalize.css">
+  <link rel="stylesheet" href="/public/home.css">
   <link rel="stylesheet" href="/public/style.css">
+
+  <!-- Facebook -->
+  <meta property="og:url"           content="https://uniyo.io" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="Uniyo - The front page of your campus" />
+  <meta property="og:description"   content="Uniyo turns campuses into inclusive and fun environments to empower students ✊. It's a simple and intuitive platform, where you can share anything that matters with the rest of your campus." />
+  <meta property="og:image"         content="https://uniyo.io/public/assets/images/social/facebook_share.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
   <title>Document</title>
 </head>
 <body>
+  <script>
+   (function(t,a,l,k,u,s,e){if(!t[u]){t[u]=function(){(t[u].q=t[u].q||[]).push(arguments)},t[u].l=1*new Date();s=a.createElement(l),e=a.getElementsByTagName(l)[0];s.async=1;s.src=k;e.parentNode.insertBefore(s,e)}})(window,document,'script','//www.talkus.io/plugin.beta.js','talkus');
+ </script>
+
+ <div id="fb-root"></div>
+ <script>(function(d, s, id) {
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) return;
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=663645030440369";
+   fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+ </script>
   <div id="content"></div>
   <script src="/public/app.bundle.js"></script>
 </body>

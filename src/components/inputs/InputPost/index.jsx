@@ -307,22 +307,22 @@ export default class InputPost extends Component {
 
     switch (currentPostType) {
       case 'ALL': {
-        placeholder = currentHashTag ? `#${currentHashTag} Feed the news with hashtags` : '#Yo Feed the news with hasthags…'
+        placeholder = currentHashTag ? `What's happening about #${currentHashTag}?` : "What's happening on campus?"
         break
       }
 
       case 'REVIEW': {
-        placeholder = currentHashTag ? `#${currentHashTag} is the best class ever!` : '#CLASS001 is the best class ever!'
+        placeholder = currentHashTag ? `What's your opinion on #${currentHashTag}?` : 'Share reviews about anything on campus'
         break
       }
 
       case 'QUESTION': {
-        placeholder = currentHashTag ? `#${currentHashTag} Can we use a calculator during the exam?` : '#CLASS001 Can we use a calculator during the exam?'
+        placeholder = currentHashTag ? `Ask your questions about #${currentHashTag}` : 'Ask questions, get answers'
         break
       }
 
       case 'CLASS_NOTE': {
-        placeholder = currentHashTag ? `#${currentHashTag} This is a nice summary of chapter 4` : '#CLASS001 This is a nice summary of chapter 4'
+        placeholder = currentHashTag ? `Share documents about #${currentHashTag}` : 'Share documents to get tons of donuts!'
         break
       }
 
