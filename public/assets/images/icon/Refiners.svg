@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="23px" viewBox="0 0 20 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>02_3d</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="2.46731505%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#DC450D" offset="0%"></stop>
+            <stop stop-color="#EF4E12" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="65.894514%" y1="65.5675424%" x2="35.6878326%" y2="37.7726243%" id="linearGradient-2">
+            <stop stop-color="#EE4C10" offset="0%"></stop>
+            <stop stop-color="#FE5A1D" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="36.3596753%" x2="53.7203726%" y2="74.781631%" id="linearGradient-3">
+            <stop stop-color="#000000" stop-opacity="0.347486413" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="51.8563004%" y1="62.376237%" x2="26.0251602%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#D3E0E7" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02_3d" fill-rule="nonzero">
+            <g id="Page-1">
+                <g id="02_3d">
+                    <polygon id="Combined-Shape" fill="#FE5A1D" points="10 0 19.9631241 5.75221239 19.9631241 17.2566372 10 23.0088496 0.0368759292 17.2566372 0.0368759292 5.75221239"></polygon>
+                    <polygon id="Polygon-3-Copy-2" fill="url(#linearGradient-1)" transform="translate(5.018438, 14.380531) scale(-1, 1) rotate(-180.000000) translate(-5.018438, -14.380531) " points="10 5.75221239 10.0000003 17.2619467 0.0368759292 23.0088496 0.0368759292 11.5044248"></polygon>
+                    <polygon id="Polygon-3-Copy-2" fill="url(#linearGradient-2)" transform="translate(10.000000, 5.752212) scale(-1, 1) rotate(-180.000000) translate(-10.000000, -5.752212) " points="10.0000003 0 19.9631241 5.75221239 10 11.5044248 0.0368759292 5.75221239"></polygon>
+                    <g id="Group" transform="translate(3.982301, 4.690265)">
+                        <polygon id="Path-166" fill="url(#linearGradient-3)" points="9.06733965 8.48494538 6.01769912 10.2697646 6.9946073 14.2818377 10.0987797 12.5239388"></polygon>
+                        <polygon id="Combined-Shape" fill="#FFFFFF" points="5.98219163 10.2409046 5.98219163 6.79693737 9.18000407 5.07730772 5.98219163 3.23324201 2.84684974 4.9683164 2.83950618 11.9277833 0.0344149459 10.2743428 0.0344149459 3.35200612 1.27912404 2.6898614 5.98219163 0.0147492626 11.9734431 3.41678934 11.9474489 6.73381681 8.98761805 8.45209067 12.2001329 10.2282619 9.10918257 11.9913404"></polygon>
+                        <polygon id="Combined-Shape" fill="url(#linearGradient-4)" points="5.98219163 10.2409046 8.98761805 8.45209067 12.2001329 10.2282619 9.10918257 11.9913404"></polygon>
+                        <polygon id="Combined-Shape" fill-opacity="0.217787591" fill="#D3E0E7" points="9.18000407 5.07730772 5.98219163 3.23324201 2.84684974 4.9683164 0.0344149459 3.35200612 5.98219163 0.0147492626 11.9734431 3.41678934"></polygon>
+                        <polygon id="Combined-Shape" fill="#D3E0E7" points="2.84684974 4.9683164 2.83950618 11.9277833 0.0344149459 10.2743428 0.0344149459 3.35200612"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

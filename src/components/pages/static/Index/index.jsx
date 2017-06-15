@@ -34,97 +34,235 @@ export default class Index extends Component {
 
   static propTypes = {}
 
-  render() {
+  componentDidMount() {
+    window.talkus('init', 'mAuzzo8t2j9Bih5qy');
+    const anchorLinks = document.querySelectorAll('a[href*="#"]')
+    anchorLinks.forEach((ele) => {
+      ele.addEventListener('click', function onClick(event) {
+        const elementYTop = document.getElementById(this.hash.match(/\w+/)).offsetTop
+        event.preventDefault();
+        var duration = 500;
+        var startingY = window.pageYOffset
+        var diff = elementYTop - startingY
+        var start
+
+        window.requestAnimationFrame(function step(timestamp) {
+          if (!start) start = timestamp
+          var time = timestamp - start
+          var percent = Math.min(time / duration, 1)
+          window.scrollTo(0, startingY + diff * percent)
+          if (time < duration) {
+            window.requestAnimationFrame(step)
+          }
+        })
+      })
+    })
+  }
+
+  componentWillUnmount() {
+    window.talkus('hide')
+  }
+
+  onClick(event){
+    event.preventDefault()
+    window.talkus('open')
+  }
+
+  showDownloadBtn() {
+    let btnText = ""
+    if (navigator.userAgent.match(/Android/i)){
+      btnText = 'Android app is coming soon'
+    } else if (
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/iPad/i) ||
+      navigator.userAgent.match(/iPod/i)
+    ) {
+      btnText = 'iOS app is coming soon'
+    } else {
+      btnText = 'App is coming soon'
+    }
+
     return (
-      <div>
-        <div id="product" className={sectionTop}>
-          <header className={header}>
-            <div className={headerSectionLogo}>
-              <Logo />
-            </div>
-            <div className={headerSectionNav}>
-              <nav className={nav}>
-                <ul className={navUl}>
-                  {/* <li>download</li> */}
-                  <li><a href="#product">product</a></li>
-                  <li><a href="#pricing">pricing</a></li>
-                  <li><Link to="/signin">signin</Link></li>
-                  <li><Link to="/signup">signup</Link></li>
-                </ul>
-              </nav>
-            </div>
-          </header>
-          <div className={sectionTopContent}>
-            <h3 className={title}>Turn your campus into a playground.</h3>
-            <h5 className={subTitle}>Playing together is better than competing against each other.</h5>
-            <div className={main}>
-              <Button type='primary' className={btn}>Join your campus</Button>
-              <img src={imgProductPath} className={imgProduct} />
-            </div>
-          </div>
-        </div>
-        <div id="pricing" className={sectionPricing}>
-          <div className={sectionPricingContent}>
-            <h3 className={title}>Uniyo is 100% free for students</h3>
-            <h5 className={subTitle}>We offer a seemless tool for students organisations to reach the whole campus and get students engaged.</h5>
-            <div className={sectionPricingContentMain}>
-              <div className={blockPrice}>
-                <h5>Students</h5>
-                <ul>
-                  <li>help</li>
-                  <li>be helped</li>
-                  <li>give donuts</li>
-                  <li>receive donuts</li>
-                </ul>
-                <h3>Free</h3>
-              </div>
-              <div className={blockPrice}>
-                <h5>Student Organisation</h5>
-                <ul>
-                  <li>Annocement</li>
-                </ul>
-                <h3>$29/month</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <footer id="pricing" className={footer}>
-          <div className={footerColumn}>
-            <ul>
-              <li>Facebook</li>
-              <li>Twitter</li>
-              <li>Medium</li>
-              <li>Youtube</li>
-            </ul>
-          </div>
-
-          <div className={footerColumn}>
-            <ul>
-              <li>Jobs</li>
-              <li>Blog</li>
-              <li>Press</li>
-              <li>About</li>
-            </ul>
-          </div>
-
-          <div className={footerColumn}>
-            <ul>
-              <li>Terms of Service</li>
-              <li>Legacy</li>
-              <li>Privacy</li>
-              <li>FAQ</li>
-            </ul>
-          </div>
-
-          <div className={footerColumn}>
-            <ul>
-              <li>Download desktop app (comming soon)</li>
-              <li>Download mobile app (comming soon)</li>
-            </ul>
-          </div>
-        </footer>
-        <div className={footerLabel}>Accelerated by in San Francisco</div>
+      <div className="home-btn-download home-btn">
+        {btnText}
       </div>
     )
+  }
+
+  render() {
+   return (
+     <div className="home">
+       <div className="home--top">
+         <header className="home-header">
+           <img src="/public/assets/images/home/logo.svg" alt=""/>
+           <nav className="home-header-nav">
+             <a href="#download" className="home-header-link">Download</a>
+             <a href="#pricing" className="home-header-link">Pricing</a>
+             <Link to="/signin" className="home-header-link">Log in</Link>
+             <Link to="/signup" className="home-header-link home-signup">Sign up</Link>
+           </nav>
+         </header>
+         <img src="/public/assets/images/home/Donnut.svg" alt="" className="home--top-donnut-mobile"/>
+         <h1 className="home-title">The front page of your campus</h1>
+         <h3 className="home-subtitle">Uniyo turns campuses into inclusive and fun environments to empower the student community. It’s free and all students can join.</h3>
+         <h3 className="home-subtitle-mobile">Uniyo is what’s happening on your campus, right now.</h3>
+         <Link to="/signup" className="home-btn home-btn-join-campus">Join your campus</Link>
+         <img src="/public/assets/images/home/Home_illustration.png" srcset="/public/assets/images/home/Home_illustration@2x.png 500w, /public/assets/images/home/Home_illustration@3x.png 1000w" className="home-img-screenshot" alt=""/>
+         <img src="/public/assets/images/home/donuts_left.svg" className="home-img-donuts-left" alt=""/>
+         <img src="/public/assets/images/home/donuts_right.svg" className="home-img-donuts-right" alt=""/>
+         {this.showDownloadBtn()}
+       </div>
+       <div id="download" className="home-mid-section home--desktop">
+         <div className="home--desktop-left">
+           <h2 className="home-section-title">Uniyo for Mac 👩‍💻</h2>
+           <h4 className="home-section-subtitle">Get the most of the Uniyo experience and don’t miss anything about your campus.</h4>
+           <span className="home-btn-icon">
+             <span className="unable">
+               <img src="/public/assets/images/home/mac_app_download.svg" alt="" />
+             </span>
+           </span>
+         </div>
+         <div className="home--desktop-right">
+           <img src="/public/assets/images/home/Home_DesktopApp.png" alt="" className="home--desktop-right__image" />
+         </div>
+       </div>
+       <div id="downloadapp" className="home-mid-section home--mobile">
+         <div className="home--mobile-left">
+           <img src="/public/assets/images/home/Home_iOS.png" alt="" className="home-img--iphone" />
+           <img src="/public/assets/images/home/Home_Android.png" alt="" className="home-img--android" />
+         </div>
+         <div className="home--mobile-right">
+           <h2 className="home-section-title">Your campus everywhere 🤳</h2>
+           <h4 className="home-section-subtitle">Download your mobile app, stay in sync and make the most of your campus network.</h4>
+           <div className="home-box-icons">
+             <span className="home-btn-icon">
+               <span className="unable">
+                 <img src="/public/assets/images/home/app_download.svg" alt="" className="app-badge" />
+               </span>
+             </span>
+             <span className="home-btn-icon">
+               <span className="unable">
+                 <img src="/public/assets/images/home/google-play-badge.png" alt="" className="app-badge" />
+               </span>
+             </span>
+           </div>
+         </div>
+       </div>
+       <div id="pricing" className="home-mid-section home--pricing">
+         <div className="home--pricing-header">
+           <h2 className="home-section-title">Uniyo is 100% free for students</h2>
+           <h4 className="home-section-subtitle">We offer a seamless tool for students organizations to reach the entire campus and get students engaged. </h4>
+         </div>
+         <div className="home-section-card">
+           <div className="home-card-price">
+             <span className="home-card-price__emoji">😝</span>
+             <table>
+               <thead>
+                 <tr>
+                   <th>students</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td><span className="border"></span></td>
+                 </tr>
+                 <tr>
+                   <td>Meet your campus</td>
+                 </tr>
+                 <tr>
+                   <td>Be part of your campus life</td>
+                 </tr>
+                 <tr>
+                   <td>Get answers to your questions</td>
+                 </tr>
+                 <tr>
+                   <td>Eat donuts</td>
+                 </tr>
+               </tbody>
+             </table>
+             <span className="home-font-price">Free</span>
+             <Link to="/signup/select_school" className="home-btn">Sign up</Link>
+           </div>
+
+           <div className="home-card-price">
+             <span className="home-card-price__emoji">🏈</span>
+             <table>
+               <thead>
+                 <tr>
+                   <th>STUDENT ORGANIZATIONS</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td><span className="border"></span></td>
+                 </tr>
+                 <tr>
+                   <td>Admin access</td>
+                 </tr>
+                 <tr>
+                   <td>VERIFY ACADEMIC EMAIL</td>
+                 </tr>
+                 <tr>
+                   <td>Get students engaged</td>
+                 </tr>
+                 <tr>
+                   <td>Reach 100% of your campus</td>
+                 </tr>
+               </tbody>
+             </table>
+             <span className="home-font-price">
+               <span>$25</span>
+               <span className="home-font-label">/MONTH</span>
+             </span>
+             <span className="home-btn" onClick={::this.onClick}>More Info</span>
+           </div>
+         </div>
+       </div>
+       <div className="home-footer-sitemap">
+         <div className="home-footer-sitemap__nav">
+           <h5>Popcorn  🍿</h5>
+           <ul>
+             <li><a href="https://www.facebook.com/uniyo.io">Facebook</a></li>
+             <li><a href="https://www.linkedin.com/company-beta/11042866/">Linkedin</a></li>
+             <li><a href="https://medium.com/uniyo">Medium</a></li>
+             <li><a href="https://twitter.com/uniyo_io">Twitter</a></li>
+           </ul>
+         </div>
+
+         <div className="home-footer-sitemap__nav">
+           <h5>Chocolate  🍫</h5>
+           <ul>
+             <li><a href="https://uniyo.welcomekit.co/">Jobs</a></li>
+             <li><a href="https://medium.com/uniyo">Blog</a></li>
+             <li><a href="https://medium.com/uniyo">Press</a></li>
+             <li><a href="https://medium.com/uniyo">About</a></li>
+             <li><a href="#pricing">Pricing</a></li>
+           </ul>
+         </div>
+
+         <div className="home-footer-sitemap__nav">
+           <h5>Cookies 🍪</h5>
+           <ul>
+             <li><a href="https://uniyo.io/terms">Terms of service</a></li>
+             <li><a href="https://uniyo.io/privacy">Privacy policy</a></li>
+             <li><a href="https://medium.com/uniyo">FAQ</a></li>
+             <li><Link onClick={::this.onClick}>Talk to our team</Link></li>
+           </ul>
+         </div>
+
+         <div className="home-footer-sitemap__nav">
+           <h5>Candies  🍬</h5>
+           <ul>
+             <li><a href="#download">Download desktop app</a></li>
+             <li><a href="#downloadapp">Download mobile app</a></li>
+           </ul>
+         </div>
+
+       </div>
+       <div className="home-footer">
+         <p>Accelerated by <a href="http://www.therefiners.co/"><img src="/public/assets/images/icon/Refiners.svg" align="middle" alt="The Refiners"/></a> in San Francisco</p>
+       </div>
+     </div>
+   )
   }
 }
