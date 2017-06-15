@@ -49,7 +49,7 @@ export default class Signup extends Component {
 
     componentDidMount() {
       const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
-      if (!isDemo && this.props.schools.data.filter(school => school.slag === this.props.params.schoolSlug).length === 0) {
+      if (!isDemo && this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug).length === 0) {
         this.props.schoolInfo({
           id: this.props.params.schoolSlug,
         })
@@ -58,8 +58,8 @@ export default class Signup extends Component {
 
   onSubmit() {
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
-    const schools = this.props.schools.data.filter(school => school.slag === this.props.params.schoolSlug)
-    const selectedSchool = schools.length > 0 && schools[0]
+    const schools = this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug)
+    const selectedSchool = schools.length > 0 ? schools[0] : null
     if (!isDemo && !selectedSchool) {
       browserHistory.push(`/signup`)
     }
