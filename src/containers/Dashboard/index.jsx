@@ -140,7 +140,6 @@ export default class DashBoard extends Component {
     const { currentHashTag, currentPostType } = this.state
     const { hashtag, type = 'all' } = this.props.location.query
     const { postsSearch } = this.props
-
     // If query string is changed, get new posts.
     this.setState({
       currentHashTag: hashtag,
