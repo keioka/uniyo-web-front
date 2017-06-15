@@ -80,7 +80,7 @@ export default class Signin extends Component {
           </nav>
         </div>
         <div className={content}>
-          <h2 className={title}>Here we go! 😜</h2>
+          <h2 className={title}>Welcome back! 😜</h2>
           <InputTextTransparent
             className={input}
             onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
@@ -94,7 +94,7 @@ export default class Signin extends Component {
             placeholder="Password"
           />
         <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
-          <span className={text}>You are signing in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.</span>
+          <span className={text}>You are loging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Forgot your password? Click this link.</span>
         </div>
 
         <div className={layoutSelectSchoolFotter}>
