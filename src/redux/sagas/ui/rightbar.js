@@ -42,7 +42,7 @@ function* showChannelUsers({ users }) {
 function* donutsCampusShiftAsync() {
   yield call(delay, 500)
   const campusDonuts = yield select(getDonutsCampus)
-  if (campusDonuts.length > 0) {
+  if (campusDonuts && campusDonuts.length > 0) {
     yield put({ type: uiActionTypes.donutsCampusShift.success })
   } else {
     yield put({ type: uiActionTypes.donutsCampusShift.error })
