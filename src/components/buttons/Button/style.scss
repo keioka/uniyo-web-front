@@ -1,7 +1,7 @@
 @import "../../../styles/main";
 
 .element {
-  padding: 20px 80px;
+  padding: 15px 80px;
   border-radius: 12px;
   border: none;
   font-size: 1rem;
@@ -14,18 +14,18 @@
   background-color: white;
   border: 2px solid $purple;
   transition: background-color 0.5s ease;
-  // transition: color 0.1s ease;
+  transition: color 0.2s ease;
   font-size: 25px;
   font-weight: 500;
-  width: 350px;
+  width: 300px;
   color: #383838;
   text-transform: capitalize;
 }
 
 .primary:hover {
-  background-color: $purple;
+  background-color: #FFF;
   border: 2px solid $purple;
-  color: $darkgray;
+  color: #383838;
 }
 
 .danger {
