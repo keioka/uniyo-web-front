@@ -25,7 +25,7 @@ const ListDonutsReceive = ({ id, fromUser, time }) => {
       </span>
       <div className={boxInfo}>
         <div className={boxInfoLeft}>
-          <span className={fontName}><b>{fromUser.firstName} {fromUser.lastName}</b> sent to you</span>
+          <span className={fontName}><b>{fromUser.firstName} {fromUser.lastName}</b> sent you a donut!</span>
           <span className={fontTime}>{moment.utc(time).local().format("HH:mm A")}</span>
         </div>
         <div className={boxInfoRight}>

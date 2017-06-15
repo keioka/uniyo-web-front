@@ -72,7 +72,7 @@ export default class Signin extends Component {
         <div className={header}>
           <nav className={nav}>
             <ul className={ul}>
-              <li className={active}>sign in</li>
+              <li className={active}>log in</li>
               <li>
                 {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>sign up</Link> : <Link to="/signup">sign up</Link>}
               </li>
@@ -80,7 +80,7 @@ export default class Signin extends Component {
           </nav>
         </div>
         <div className={content}>
-          <h2 className={title}>Here we go! 😜</h2>
+          <h2 className={title}>Welcome back! 😜</h2>
           <InputTextTransparent
             className={input}
             onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
@@ -93,8 +93,8 @@ export default class Signin extends Component {
             onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
             placeholder="Password"
           />
-          <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign in</Button>
-          <span className={text}>You are signing in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.</span>
+        <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
+          <span className={text}>You are loging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Forgot your password? Click this link.</span>
         </div>
 
         <div className={layoutSelectSchoolFotter}>
