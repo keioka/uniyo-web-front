@@ -9,6 +9,8 @@ import {
   fontName,
   imgUser,
   wrapper,
+  spanChannelInfo,
+  fontUserNames,
 } from './style'
 
 const ListNewChatUser = ({ user, onClick }) => {
@@ -18,7 +20,12 @@ const ListNewChatUser = ({ user, onClick }) => {
       <span className={boxImage}>
         <img src={image.smallUrl} className={imgUser} />
       </span>
-      <span className={fontName}>{name}</span>
+      <span className={spanChannelInfo}>
+        <span className={fontName}>
+          <span className={fontUserNames}>{user.name}</span>
+        </span>
+        <p></p>
+      </span>
     </li>
   )
   // TODO: what if long comment
