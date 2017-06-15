@@ -59,6 +59,10 @@ export default class ChannelDashboard extends Component {
     window.scrollTo(0, 14000)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', ::this.onScrollHandler)
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch } = this.props
