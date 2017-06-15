@@ -220,7 +220,7 @@ function* eventWebSocket() {
           const currentUserId = yield select(state => state.api.auth.currentUser.id)
           if (toUser.id === currentUserId) {
             action = { type: actionTypes.userReceivedDonutsFetch.success, result: { data: { fromUser } } }
-            yield put({ type: uiActionTypes.donutsCampusFetch.success, result: { data: { user: fromUser } } })
+            yield put({ type: uiActionTypes.donutsCampusFetch.success, result: { data: { user: toUser } } })
           } else {
             action = { type: actionTypes.otherUserReceivedDonutsFetch.success, result: { data: { toUser } } }
             yield put({ type: uiActionTypes.donutsCampusFetch.success, result: { data: { user: toUser } } })
