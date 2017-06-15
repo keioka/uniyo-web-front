@@ -123,7 +123,7 @@ export default class ChannelNewDashboard extends Component {
             <div className={section}>
               <h4 className={sectionTitle}>Recent Conversation</h4>
               <ul className={sectionUl}>
-                {allChannels && allChannels.map(channel => <ListRecentConversation channel={channel} />)}
+                {allChannels && allChannels.map(channel => <ListRecentConversation channel={channel} currentUser={currentUser} />)}
               </ul>
             </div>
           }
