@@ -62,10 +62,12 @@ export default class ChannelNewDashboard extends Component {
     if (event.target.value !== '') {
       userSearch({ query: event.target.value })
       this.setState({
+        query: event.target.value,
         isShowRecentConversation: false,
       })
     } else if (event.target.value == '') {
       this.setState({
+        query: '',
         isShowRecentConversation: true,
       })
     }
@@ -79,6 +81,34 @@ export default class ChannelNewDashboard extends Component {
       this.props.channelCreate(params)
     }
     // TODO: add alert
+  }
+
+  get channels() {
+    const {
+      showUserInfo,
+      suggestionedUsers,
+      userSearch,
+      currentUser,
+      allMessages,
+      allChannels,
+      messageCreate,
+    } = this.props
+
+    const query = new RegExp(this.state.query, "g")
+    const a = this.state.query ? allChannels.filter(channel => channel.users.map(user => user.name).includes(name => query.test(name))) : allChannels
+
+    const isChannelUser = (channel) => { console.log('channel', channel); return channel.users.includes(user => { alert('user', user.name); return query.test(user.name) }) }
+    console.log(this.state.query, query, allChannels.filter(channel => isChannelUser))
+
+    return a.map(channel =>
+      <ListRecentConversation channel={channel} currentUser={currentUser} />
+    )
+  }
+
+  get suggestionedUsers() {
+    const { suggestionedUsers } = this.props
+    const query = new RegExp(this.state.query, "y")
+    return suggestionedUsers.filter(user => query.test(user.name)).map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
   render() {
@@ -119,18 +149,17 @@ export default class ChannelNewDashboard extends Component {
                }
             </div>
           </div>
-          { this.state.isShowRecentConversation &&
-            <div className={section}>
-              <h4 className={sectionTitle}>Recent Conversation</h4>
-              <ul className={sectionUl}>
-                {allChannels && allChannels.map(channel => <ListRecentConversation channel={channel} currentUser={currentUser} />)}
-              </ul>
-            </div>
-          }
+
+          <div className={section}>
+            <h4 className={sectionTitle}>Recent Conversation</h4>
+            <ul className={sectionUl}>
+              {this.channels}
+            </ul>
+          </div>
           <div className={section}>
             <h4 className={sectionTitle}>Campus Directory</h4>
             <ul className={sectionUl}>
-              {suggestionedUsers && suggestionedUsers.map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)}
+              {this.suggestionedUsers}
             </ul>
           </div>
         </div>
