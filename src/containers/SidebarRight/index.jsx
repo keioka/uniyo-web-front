@@ -219,18 +219,21 @@ export default class SidebarRight extends Component {
       notificationSearch,
       rightbar,
     } = this.props
+
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
     const { all: allChannels } = channels
     const wrapperClassNames = isOpen ? [wrapper, sidebarOpen] : [wrapper, sidebarClose]
     const regexChannelPath = /dashboard\/channels\/[1-9]+/
+    const regexChannelNewPath = /dashboard\/channels\/new/
     const isChannel = regexChannelPath.test(this.props.location.pathname)
+    const isChannelNew = regexChannelNewPath.test(this.props.location.pathname)
     return (
       <div>
         <aside className={wrapperClassNames.join(' ')}>
           {isOpen && <div className={close} onClick={() => hideSidebarRight()}></div>}
           {this.display()}
         </aside>
-        { !isOpen && !isChannel &&
+        { !isOpen && !isChannel && !isChannelNew &&
           <div className={btnDonutsHistory}>
             <div className={btnDonutsHistoryInner}>
               {this.generateDonuts()}
