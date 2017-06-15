@@ -5,13 +5,13 @@
   flex-flow: column;
   align-items: center;
   height: 100vh;
-  background-color: $orange;
+  background-color: #fffcd4;
 }
 
 .layout--select-school__header {
   display: flex;
   align-items: center;
-  height: 20%;
+  height: 50%;
 }
 
 .layout--select-school__fotter {
@@ -35,8 +35,9 @@
 }
 
 .layout--select-school__title {
-  @include h1;
-  color: $darkgray;
+  font-size: 40px;
+  font-weight: 900;
+  color: #404040;
 }
 
 .layout--select-school__content {
