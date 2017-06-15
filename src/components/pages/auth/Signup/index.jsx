@@ -125,8 +125,8 @@ export default class Signup extends Component {
         </div>
 
         <div className={layoutSelectSchoolFotter}>
-          <div className={layoutSelectSchoolFotterLeft}></div>
-          <div className={layoutSelectSchoolFotterRight}></div>
+          <img src="/public/assets/images/auth/donuts_left.svg" alt=""/>
+          <img src="/public/assets/images/auth/donuts_right.svg" alt=""/>
         </div>
 
       </div>

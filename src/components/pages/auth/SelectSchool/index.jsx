@@ -39,7 +39,7 @@ export default class SelectSchool extends Component {
     return (
       <div className={layoutSelectSchool}>
         <div className={layoutSelectSchoolHeader}>
-          <h2 className={layoutSelectSchoolTitle}>Yo. What is your campus?</h2>
+          <h2 className={layoutSelectSchoolTitle}>What is your campus?</h2>
         </div>
         <div className={layoutSelectSchoolContent}>
           <InputSearchSchool
@@ -48,8 +48,8 @@ export default class SelectSchool extends Component {
           />
         </div>
         <div className={layoutSelectSchoolFotter}>
-          <div className={layoutSelectSchoolFotterLeft}></div>
-          <div className={layoutSelectSchoolFotterRight}></div>
+          <img src="/public/assets/images/auth/donuts_left.svg" alt=""/>
+          <img src="/public/assets/images/auth/donuts_right.svg" alt=""/>
         </div>
       </div>
     )
