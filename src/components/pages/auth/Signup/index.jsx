@@ -81,7 +81,7 @@ export default class Signup extends Component {
             <ul className={ul}>
               <li>
                 {selectedSchool ?
-                  <Link to={`/schools/${selectedSchool.slug}/signin`}>sign in</Link> :
+                  <Link to={`/schools/${selectedSchool.slug}/signin`}>Log in</Link> :
                   <Link to="/signup">sign up</Link>
                 }
               </li>
