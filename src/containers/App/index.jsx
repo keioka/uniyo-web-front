@@ -1,5 +1,4 @@
 /* @flow */
-
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -12,7 +11,6 @@ import {
   app,
 } from './style'
 
-
 const mapStateToProps = state => ({
   auth: state.api.auth,
 })
@@ -23,7 +21,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class App extends Component {
-
   constructor() {
     super()
     this.state = {
@@ -33,7 +30,6 @@ export default class App extends Component {
 
   componentWillMount() {
     // TODO: If token is still valid and launch application
-
     const { isLogin, fetching } = this.props.auth
 
     if (
@@ -57,6 +53,7 @@ export default class App extends Component {
 
   componentDidMount() {
     const { location } = this.props
+
     const regex = /dashboard/
     if (authService.isTokenExist && !regex.test(location.pathname) ) {
       browserHistory.push('/dashboard')
@@ -66,7 +63,6 @@ export default class App extends Component {
   componentWillReceiveProps() {
     // If user just logined or signup
     const { isLogin, fetching } = this.props.auth
-
     if (
       !authService.initialized &&
       authService.isTokenExist &&
