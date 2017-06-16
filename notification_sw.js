@@ -1,17 +1,17 @@
 
-var notificationHandler = (function(){
+var notificationHandler = (function() {
 
-  function showNotification(notification){
+  function showNotification(notification) {
     var title = ""
     var notificationOptions = {
       body: notification.message,
-      icon: '/assets/img/uniyo.png'
+      icon: 'public/assets/images/uniyo.png'
     }
 
     return self.registration.showNotification(notification.title, notificationOptions);
   }
 
-  function push(e){
+  function push(e) {
     if (e.data) {
       var n = e.data.json();
       return showNotification(n);
