@@ -2,6 +2,15 @@ var path = require('path');
 var webpack = require('webpack');
 var webpackBaseConfig = require('./webpack/config.base.js');
 
+var webpackTestConfig = webpackBaseConfig.module.rules.push({
+  test: /\.(scss)$/,
+  loaders: [
+    'style-loader',
+    'css-loader?sourceMap&modules&camelCase&importLoaders=1&localIdentName=[folder]--[local]--[hash:base64:5]',
+    'sass-loader'
+  ]
+});
+
 module.exports = function (config) {
   config.set({
     browsers: ['Chrome'], // run test on Chrome
@@ -11,8 +20,8 @@ module.exports = function (config) {
       'webpack/test.bundle.js', // use test.files.js which requires all test files.
     ],
     preprocessors: {
-      'webpack/test.bundle.js': ['webpack', 'sourcemap', 'coverage'], // test files should be preprocessed by webpack.
-      'src/**/*.js': ['webpack', 'sourcemap', 'coverage'], // all target of test files should be preprocessed by webpack.
+      'webpack/test.bundle.js': ['webpack', 'coverage'], // test files should be preprocessed by webpack.
+      'src/**/*.js': ['webpack', 'coverage'], // all target of test files should be preprocessed by webpack.
     },
     plugins: [
       'karma-webpack',
