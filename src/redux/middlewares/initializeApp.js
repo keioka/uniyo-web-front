@@ -18,6 +18,10 @@ export const initializeApp = store => next => action => {
     const userId = JSON.parse(storage.user).id
     const { accessToken } = storage
 
+    if (window.analytics) {
+      window.analytics.identify(userId)
+    }
+
     store.dispatch(actions.currentUser({
       userId,
       accessToken,

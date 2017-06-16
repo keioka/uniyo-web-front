@@ -29,6 +29,14 @@ import {
   PostTopDashboard,
 } from './components'
 
+browserHistory.listen(function (location) {
+  if (window.analytics) {
+    window.analytics.page()
+  } else {
+    console.warn("Analytics is not enabled");
+  }
+});
+
 export default () => (
   <Provider store={store}>
   <Router history={browserHistory}>
