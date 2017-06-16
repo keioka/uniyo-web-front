@@ -37,9 +37,8 @@ export default class InputSearchSchool extends Component {
     const { schoolsSearch, onSelectSchool, schools } = this.props
     const { currentIndex } = this.state
     const dataLength = schools.data.length
-
+    const index = (currentIndex >= -1 && currentIndex < dataLength - 1) ? currentIndex + 1 : currentIndex
     switch (event.key) {
-      const index = (currentIndex >= -1 && currentIndex < dataLength - 1) ? currentIndex + 1 : currentIndex
       case 'DOWN': {
         this.setState({
           currentIndex: index,

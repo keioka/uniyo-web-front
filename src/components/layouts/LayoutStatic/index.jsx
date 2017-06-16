@@ -4,8 +4,14 @@ import {
   layout
 } from './style'
 
-export default ({ children }) => (
+const LayoutStatic = ({ children }) => (
   <div className={layout} >
     {children}
   </div>
 )
+
+LayoutStatic.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+export default LayoutStatic
