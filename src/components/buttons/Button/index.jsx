@@ -7,10 +7,9 @@ import {
   option,
 } from './style'
 
-export default (props) => {
-  const buttonType = props.type
-  let classNames = [element, props.className]
-  switch (buttonType) {
+const Button = ({ className, type, children }) => {
+  let classNames = [element, className]
+  switch (type) {
     case 'primary': {
       classNames.push(primary)
       break
@@ -29,6 +28,8 @@ export default (props) => {
   }
 
   return (
-    <button {...props} className={classNames.join(' ')}>{props.children}</button>
+    <button className={classNames.join(' ')}>{children}</button>
   )
 }
+
+export default Button
