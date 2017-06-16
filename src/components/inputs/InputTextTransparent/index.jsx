@@ -18,7 +18,11 @@ const InputTextTransparent = (props, { className, type }) => {
 
 InputTextTransparent.propTypes = {
   className: PropTypes.string,
-  type: PropTypes..oneOf(['password', 'text']),
+  type: PropTypes.oneOf(['password', 'text']),
+}
+
+InputTextTransparent.defaultProps = {
+  type: 'password',
 }
 
 export default InputTextTransparent

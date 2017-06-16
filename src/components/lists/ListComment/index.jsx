@@ -17,8 +17,8 @@ import {
 const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount, showUserInfo }) => {
   return (
     <li key={id} className={wrapper}>
-      <span className={boxImage} onClick={(event) => { showUserInfo(user.id) }}>
-        <img src={user.image.smallUrl} className={imgUser} />
+      <span className={boxImage} onClick={() => { showUserInfo(user.id) }}>
+        <img src={user.image.smallUrl} className={imgUser} alt={user.name} />
       </span>
       <span className={content}>
         <span className={contentText}>
@@ -27,12 +27,21 @@ const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount, showUserI
         </span>
         <ButtonDonut
           donutsCount={donutsCount}
-          onClick={() => commentGiveDonuts({ commentId: id, amount: 1 }) }
+          onClick={() => commentGiveDonuts({ commentId: id, amount: 1 })}
         />
       </span>
     </li>
   )
   // TODO: what if long comment
+}
+
+ListComment.propTypes = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
+  commentGiveDonuts: PropTypes.func.isRequired,
+  donutsCount: PropTypes.number.isRequired,
+  showUserInfo: PropTypes.func.isRequired,
 }
 
 export default ListComment

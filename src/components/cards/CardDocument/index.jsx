@@ -79,7 +79,6 @@ export default class CardDocument extends PureComponent {
       fileSize,
       contentType,
       allComments,
-      commentsSearch,
       comments,
       commentCreate,
       commentGiveDonuts,

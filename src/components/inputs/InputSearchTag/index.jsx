@@ -7,8 +7,8 @@ import {
   element,
 } from './style'
 
-const InputSearchTag = (props, { className }) => {
-  const classNames = `${wrapper} ${className}`
+const InputSearchTag = (props) => {
+  const classNames = `${wrapper} ${props.className}`
   return (
     <div className={classNames}>
       <IconSearch />

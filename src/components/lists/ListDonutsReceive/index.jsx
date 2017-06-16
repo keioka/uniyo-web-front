@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
 import {
-  TextPost,
   DonutPlusOne,
 } from '../../'
 
@@ -35,6 +34,12 @@ const ListDonutsReceive = ({ id, fromUser, time }) => {
     </li>
   )
   // TODO: what if long comment
+}
+
+ListDonutsReceive.propTypes = {
+  id: PropTypes.number.isRequired,
+  user: PropTypes.object.isRequired,
+  time: PropTypes.string.isRequired,
 }
 
 export default ListDonutsReceive

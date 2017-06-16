@@ -1,3 +1,4 @@
+/* @flow */
 import React, { PropTypes } from 'react'
 import {
   wrapper,
@@ -23,7 +24,7 @@ const getClassNoteDownloadUrl = (classNoteId:number) => {
 }
 
 const ButtonFile = ({ id, fileName, fileSize, contentType }) => {
-  let classNames: Array<string> = [button]
+  let classNames:Array<string> = [button]
   let Icon
   switch (contentType) {
 
