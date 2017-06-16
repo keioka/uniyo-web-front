@@ -37,5 +37,5 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("notificationclick", function(event) {
-  clients.openWindow("/dashboard/notifications/");
+  clients.openWindow("/dashboard")
 }, false);
