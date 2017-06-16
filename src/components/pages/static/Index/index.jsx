@@ -104,7 +104,7 @@ export default class Index extends Component {
          </header>
          <img src="/public/assets/images/home/Donnut.svg" alt="" className="home--top-donnut-mobile"/>
          <h1 className="home-title">The front page of your campus</h1>
-         <h3 className="home-subtitle">Uniyo turns campuses into inclusive and fun environments to empower the student community. It’s free and all students can join.</h3>
+         <h3 className="home-subtitle">Uniyo is a powerful messaging app to reach your entire campus.</h3>
          <h3 className="home-subtitle-mobile">Uniyo is what’s happening on your campus, right now.</h3>
          <Link to="/signup" className="home-btn home-btn-join-campus">Join your campus</Link>
          <img src="/public/assets/images/home/Home_illustration.png" srcset="/public/assets/images/home/Home_illustration@2x.png 500w, /public/assets/images/home/Home_illustration@3x.png 1000w" className="home-img-screenshot" alt=""/>

@@ -95,7 +95,7 @@ export default class Signin extends Component {
             placeholder="Password"
           />
         <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
-          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Forgot your password? Click on this link.</span>
+          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.<br/>Forgot your password? Click on this link.</span>
         </div>
 
         <div className={layoutSelectSchoolFotter}>
