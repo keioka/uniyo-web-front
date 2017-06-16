@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component, PropTypes } from 'react'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
@@ -27,34 +28,23 @@ import {
   btnFileDelete,
 } from './style'
 
-function placeCaretAtEnd(el) {
-    el.focus()
-    if (typeof window.getSelection != "undefined"
-            && typeof document.createRange != "undefined") {
-        var range = document.createRange()
-        range.selectNodeContents(el)
-        range.collapse(false)
-        var sel = window.getSelection()
-        sel.removeAllRanges()
-        sel.addRange(range)
-    } else if (typeof document.body.createTextRange != "undefined") {
-        var textRange = document.body.createTextRange()
-        textRange.moveToElementText(el)
-        textRange.collapse(false)
-        textRange.select()
-    }
-}
+import { inputHandler } from '../../../utils'
+const { placeCaretAtEnd } = inputHandler
 
 export default class InputPost extends Component {
 
   static propTypes = {
+    suggestionedUsers: PropTypes.array,
+    currentPostType: PropTypes.string,
+    currentHashTag: PropTypes.string,
+    placeholder: PropTypes.string,
+    imgUrl: PropTypes.string,
+    hashtag: PropTypes.string,
+    onClickUserImage: PropTypes.func.isRequired,
     onPostSubmit: PropTypes.func.isRequired,
   }
 
   state = {
-    postionSuggestionCurrent: -1,
-    // later feature
-    isOpenSuggestion: false,
     form: {
       rating: 5,
       file: null,
@@ -78,8 +68,6 @@ export default class InputPost extends Component {
   }
 
   componentDidMount() {
-    const { hashtag } = this.props
-    const self = this
     // TODO: Move this or connect to redux
     if (!this.props.suggestionedUsers) {
       $('#input').atwho({
@@ -150,15 +138,11 @@ export default class InputPost extends Component {
   }
 
   componentWillReceiveProps() {
-    const { hashtag } = this.props
-    const self = this
-
     if (
       this.props.suggestionedUsers &&
       this.props.suggestionedUsers.length > 0
     ) {
       const users = this.props.suggestionedUsers
-
       const mappedData = users.map(user => ({
         id: user.id,
         name: user.name,
@@ -173,21 +157,12 @@ export default class InputPost extends Component {
         searchKey: 'name',
       })
 
-      const self = this
-
       $('#input').on("inserted.atwho", function(event, flag, query) {
         event.preventDefault()
         event.stopPropagation()
         return false
       })
     }
-  }
-
-
-  onChange(editorState) {
-    this.setState({
-      editorState,
-    })
   }
 
   onDropFile(event) {
@@ -205,7 +180,7 @@ export default class InputPost extends Component {
   onPaste(event) {
   }
 
-  onFocus() {
+  onFocus(event) {
     const { currentHashTag } = this.props
     this._input.innerHTML === '' && currentHashTag ? this._input.innerHTML = `#${currentHashTag} ` : ''
     placeCaretAtEnd(this._input)
@@ -224,10 +199,12 @@ export default class InputPost extends Component {
   onSubmit() {
     const { currentPostType, currentHashTag } = this.props
     const text = postTranspiler(this._input)
-
+    const submit = (data) => {
+      this.props.onPostSubmit(data)
+    }
     switch (currentPostType) {
       case 'ALL': {
-        this.props.onPostSubmit({
+        submit({
           postType: 'POST',
           text,
         })
@@ -235,7 +212,7 @@ export default class InputPost extends Component {
       }
 
       case 'REVIEW': {
-        this.props.onPostSubmit({
+        submit({
           postType: currentPostType,
           text,
           rating: this.state.form.rating,
@@ -244,7 +221,7 @@ export default class InputPost extends Component {
       }
 
       case 'QUESTION': {
-        this.props.onPostSubmit({
+        submit({
           postType: currentPostType,
           text,
         })
@@ -252,7 +229,7 @@ export default class InputPost extends Component {
       }
 
       case 'CLASS_NOTE': {
-        this.props.onPostSubmit({
+        submit({
           postType: currentPostType,
           text,
           classNote: this.state.form.file,
@@ -262,7 +239,7 @@ export default class InputPost extends Component {
 
       case 'ANSWER': {
         const { questionId } = this.props
-        this.props.onPostSubmit({
+        submit({
           text,
           questionId,
         })
@@ -271,7 +248,7 @@ export default class InputPost extends Component {
 
       case 'MESSAGE': {
         const { channelId } = this.props
-        this.props.onPostSubmit({
+        submit({
           text,
           channelId,
         })
@@ -386,10 +363,10 @@ export default class InputPost extends Component {
         <div className={inputWrapper}>
           <div
             id="input"
-            placeholder={this.props.placeholder || this.placeholder}
-            ref={(input) => { this._input = input }}
             className={input}
             contentEditable
+            placeholder={this.props.placeholder || this.placeholder}
+            ref={(input) => { this._input = input }}
             onChange={event => event.preventDefault()}
             onFocus={::this.onFocus}
             onCopy={::this.onCopy}

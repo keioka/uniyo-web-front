@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react'
+/* @flow */
+import React, { PropTypes } from 'react'
 
 import {
-  inputText
+  inputText,
 } from './style'
 
-export default (props) => {
-  const classNames = `${inputText} ${props.className}`
-  const type = props.type === "password" ? "password" : "text"
+const InputTextTransparent = (props, { className, type }) => {
+  const classNames = `${inputText} ${className}`
   return (
     <input
       type={type}
@@ -15,3 +15,10 @@ export default (props) => {
     />
   )
 }
+
+InputTextTransparent.propTypes = {
+  className: PropTypes.string,
+  type: PropTypes..oneOf(['password', 'text']),
+}
+
+export default InputTextTransparent

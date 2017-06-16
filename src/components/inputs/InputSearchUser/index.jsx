@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component, PropTypes } from 'react'
 
 import {
@@ -14,6 +15,10 @@ const InputSearchUser = (props, { className }) => {
       className={classNames}
     />
   )
+}
+
+InputSearchUser.propTypes = {
+  className: PropTypes.string,
 }
 
 export default InputSearchUser
