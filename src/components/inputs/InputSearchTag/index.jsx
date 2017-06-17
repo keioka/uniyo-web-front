@@ -1,12 +1,11 @@
+/* @flow */
 import React, { Component, PropTypes } from 'react'
-import FaSearch from 'react-icons/lib/fa/search'
+import IconSearch from './search-icon'
 
 import {
   wrapper,
   element,
 } from './style'
-
-import IconSearch from './search-icon'
 
 const InputSearchTag = (props) => {
   const classNames = `${wrapper} ${props.className}`

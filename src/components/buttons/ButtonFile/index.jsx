@@ -1,11 +1,8 @@
+/* @flow */
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
 import {
   wrapper,
   button,
-  buttonPrimary,
-  buttonDanger,
-  buttonOption,
   icon,
   info,
   fontFileName,
@@ -21,15 +18,13 @@ import Img from './svg/img'
 import Other from './svg/other'
 import storage from '../../../utils/localStorageHandler'
 
-export function getClassNoteDownloadUrl(classNoteId) {
+const getClassNoteDownloadUrl = (classNoteId:number) => {
   const { accessToken } = storage
-  const url = `https://api.uniyo.io/v1/class_notes/${classNoteId}/download?redirect=true&access_token=${accessToken}`
-  return url
+  return `https://api.uniyo.io/v1/class_notes/${classNoteId}/download?redirect=true&access_token=${accessToken}`
 }
 
-
-export default ({ id, fileName, fileSize, contentType }) => {
-  let classNames = [button]
+const ButtonFile = ({ id, fileName, fileSize, contentType }) => {
+  let classNames:Array<string> = [button]
   let Icon
   switch (contentType) {
 
@@ -88,8 +83,8 @@ export default ({ id, fileName, fileSize, contentType }) => {
       break
     }
   }
-  const fileSizeFormatted = `${(fileSize / 1024 / 1024).toFixed(2)}MB`
-  const className = classNames.join(" ")
+  const fileSizeFormatted:string = `${(fileSize / 1024 / 1024).toFixed(2)}MB`
+  const className:string = classNames.join(" ")
   return (
     <a className={wrapper} href={getClassNoteDownloadUrl(id)} target="_blank">
       <div className={classNames}>
@@ -102,3 +97,5 @@ export default ({ id, fileName, fileSize, contentType }) => {
     </a>
   )
 }
+
+export default ButtonFile

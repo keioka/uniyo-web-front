@@ -58,7 +58,6 @@ export default class Signin extends Component {
     }
     const { logIn } = this.props
     const { email, password } = this.state.form
-    console.log(selectedSchool)
     const schoolId = isDemo ? 1 : selectedSchool.id
     logIn({ username: email, password, schoolId })
   }
@@ -95,7 +94,7 @@ export default class Signin extends Component {
             placeholder="Password"
           />
         <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
-          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Forgot your password? Click on this link.</span>
+          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.<br/>Forgot your password? <b><Link to={`/schools/${selectedSchool.slug}/reset_password`}>Click on this link</Link></b>.</span>
         </div>
 
         <div className={layoutSelectSchoolFotter}>

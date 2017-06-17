@@ -42,7 +42,7 @@ export async function syncSubscription() {
   }
 
   try {
-    const serviceWorkerRegistration = await navigator.serviceWorker.register("./public/notification_sw.js")
+    const serviceWorkerRegistration = await navigator.serviceWorker.register("/notification_sw.js")
     const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
 
     // If the browser doesn't support payloads, the subscription object won't contain keys.

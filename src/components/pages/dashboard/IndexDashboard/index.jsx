@@ -56,6 +56,10 @@ export default class IndexDashboard extends Component {
     window.addEventListener('scroll', ::this.onScrollHandler)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', ::this.onScrollHandler)
+  }
+
   onScrollHandler(event) {
     const dashboard = this._dashboard
     const { posts } = this.props

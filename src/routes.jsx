@@ -13,6 +13,7 @@ import {
   Index,
   Signin,
   Signup,
+  ResetPassword,
   SelectSchool,
   Profile,
   FAQ,
@@ -28,6 +29,14 @@ import {
   PostShowDashboard,
   PostTopDashboard,
 } from './components'
+
+browserHistory.listen(function (location) {
+  if (window.analytics) {
+    window.analytics.page()
+  } else {
+    console.warn("Analytics is not enabled");
+  }
+});
 
 export default () => (
   <Provider store={store}>
@@ -50,7 +59,7 @@ export default () => (
         <Route path="/schools/:schoolSlug/signin" component={Signin} />
         <Route path="/schools/:schoolSlug/signup" component={Signup} />
         <Route path="/schools/:schoolSlug/email_verified" />
-        <Route path="/schools/:schoolSlug/reset_password" />
+        <Route path="/schools/:schoolSlug/reset_password" component={ResetPassword} />
         <Route path="/schools/:schoolSlug/reset_password/:token" />
       </Route>
 

@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component, PropTypes } from 'react'
 
 import {
@@ -7,10 +8,9 @@ import {
   option,
 } from './style'
 
-export default (props) => {
-  const buttonType = props.type
-  let classNames = [element, props.className]
-  switch (buttonType) {
+const Button = ({ className, type, children, onClick }) => {
+  let classNames = [element, className]
+  switch (type) {
     case 'primary': {
       classNames.push(primary)
       break
@@ -29,6 +29,8 @@ export default (props) => {
   }
 
   return (
-    <button {...props} className={classNames.join(' ')}>{props.children}</button>
+    <button className={classNames.join(' ')} onClick={onClick}>{children}</button>
   )
 }
+
+export default Button

@@ -44,7 +44,20 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
   return path
 }
 
-class ListHashtag extends Component {
+export default class ListHashtag extends Component {
+
+  static propTypes = {
+    className: PropTypes.string.isRequired,
+    hashtag: PropTypes.string.isRequired,
+    hashtagType: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    showBtnDelete: PropTypes.bool.isRequired,
+    hashtagDelete: PropTypes.func.isRequired,
+    isSelected: PropTypes.bool.isRequired,
+    isIncludeNewPost: PropTypes.bool.isRequired,
+    amountMention: PropTypes.number.isRequired,
+  }
+
   render() {
     const {
       className,
@@ -57,22 +70,21 @@ class ListHashtag extends Component {
       isIncludeNewPost,
       amountMention,
     } = this.props
-    const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
 
+    const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
+    const classNameHashtag = isIncludeNewPost ? tagBold : tagRegular
     return (
       <Link
         key={hashCode(hashtag)}
         to={dashboardPathGenarator({ hashtag })}
       >
         <li className={wrapperClassNames}>
-
           <span className={tag}>
-            {isIncludeNewPost ?
-              (<span className={tagBold}>#{hashtag} { amountMention && <span className={iconNumberMention}>{amountMention}</span> }</span>) :
-              <span className={tagRegular}>#{hashtag} { amountMention && <span className={iconNumberMention}>{amountMention}</span> }</span>
-            }
+            <span className={classNameHashtag}>
+              #{hashtag}
+              { amountMention && <span className={iconNumberMention}>{amountMention}</span> }
+            </span>
           </span>
-
           { showBtnDelete &&
             <span
               className={btnClose}
@@ -90,5 +102,3 @@ class ListHashtag extends Component {
     )
   }
 }
-
-export default ListHashtag
