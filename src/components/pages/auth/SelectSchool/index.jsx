@@ -39,7 +39,7 @@ export default class SelectSchool extends Component {
     return (
       <div className={layoutSelectSchool}>
         <div className={layoutSelectSchoolHeader}>
-          <h2 className={layoutSelectSchoolTitle}>What is your campus?</h2>
+          <h2 className={layoutSelectSchoolTitle}>Which school do you go to?</h2>
         </div>
         <div className={layoutSelectSchoolContent}>
           <InputSearchSchool
