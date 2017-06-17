@@ -8,7 +8,7 @@ import {
   option,
 } from './style'
 
-const Button = ({ className, type, children }) => {
+const Button = ({ className, type, children, onClick }) => {
   let classNames = [element, className]
   switch (type) {
     case 'primary': {
@@ -29,7 +29,7 @@ const Button = ({ className, type, children }) => {
   }
 
   return (
-    <button className={classNames.join(' ')}>{children}</button>
+    <button className={classNames.join(' ')} onClick={onClick}>{children}</button>
   )
 }
 

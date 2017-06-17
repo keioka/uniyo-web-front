@@ -69,6 +69,7 @@ export default class InputSearchSchool extends Component {
     const { data } = schools
     return (
       <div className={containerSearchSchool}>
+        search
         <InputTextTransparent
           onChange={event => schoolsSearch(event.target.value)}
           placeholder="Type your school name"

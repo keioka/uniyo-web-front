@@ -42,6 +42,7 @@ const {
   postGiveDonutsSaga,
   userGiveDonutsSaga,
   addDeviceSaga,
+  resetPasswordSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -81,7 +82,7 @@ export default function* rootSaga() {
     fork(postGiveDonutsSaga),
     fork(userGiveDonutsSaga),
     fork(addDeviceSaga),
-
+    fork(resetPasswordSaga),
     /*
       saga form UI
     */

@@ -5,11 +5,11 @@ import {
   inputText,
 } from './style'
 
-const InputTextTransparent = (props, { className, type }) => {
-  const classNames = `${inputText} ${className}`
+const InputTextTransparent = (props) => {
+  const classNames = `${inputText} ${props.className}`
   return (
     <input
-      type={type}
+      type={props.type}
       {...props}
       className={classNames}
     />
@@ -22,7 +22,7 @@ InputTextTransparent.propTypes = {
 }
 
 InputTextTransparent.defaultProps = {
-  type: 'password',
+  type: 'text',
 }
 
 export default InputTextTransparent

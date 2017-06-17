@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   schoolInfo: actions.schoolInfo,
   logIn: actions.logIn,
   userCreate: actions.userCreate,
+  resetPassword: actions.resetPassword,
   hashtagAdd: actions.hashtagAdd,
   userPictureUpdate: actions.userPictureUpdate,
   authClearError: actions.authClearError,
@@ -41,6 +42,7 @@ export default class Auth extends Component {
     hashtagAdd: PropTypes.func.isRequired,
     userPictureUpdate: PropTypes.func.isRequired,
     authClearError: PropTypes.func.isRequired,
+    resetPassword: PropTypes.func.isRequired,
   }
 
   renderError() {
@@ -79,6 +81,8 @@ export default class Auth extends Component {
       userCreate,
       hashtagAdd,
       userPictureUpdate,
+      resetPassword,
+      isResetSuccess,
     } = this.props
 
     const childComponents = React.Children.map(children, child => React.cloneElement(child, {
@@ -90,6 +94,8 @@ export default class Auth extends Component {
       userCreate,
       hashtagAdd,
       userPictureUpdate,
+      resetPassword,
+      isResetSuccess,
     }))
 
     return (

@@ -13,6 +13,7 @@ import {
   Index,
   Signin,
   Signup,
+  ResetPassword,
   SelectSchool,
   Profile,
   FAQ,
@@ -58,7 +59,7 @@ export default () => (
         <Route path="/schools/:schoolSlug/signin" component={Signin} />
         <Route path="/schools/:schoolSlug/signup" component={Signup} />
         <Route path="/schools/:schoolSlug/email_verified" />
-        <Route path="/schools/:schoolSlug/reset_password" />
+        <Route path="/schools/:schoolSlug/reset_password" component={ResetPassword} />
         <Route path="/schools/:schoolSlug/reset_password/:token" />
       </Route>
 
