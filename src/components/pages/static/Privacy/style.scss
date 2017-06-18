@@ -1,0 +1,34 @@
+.page {
+  display: flex;
+  align-items: center;
+  padding: 6rem 0px;
+  flex-direction: column;
+}
+
+.emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+
+.container {
+  background: #ececec;
+  height: auto;
+  width: 60%;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.container p {
+  margin: 2rem 0px;
+}
+
+.container ul {
+  padding: 10px;
+}
+
+.container ul li {
+  margin: 0px 40px;
+}
