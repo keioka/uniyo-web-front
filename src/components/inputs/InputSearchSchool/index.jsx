@@ -5,11 +5,15 @@ import {
   InputTextTransparent,
 } from '../../'
 
+import IconSearch from './search-icon'
+
 import {
   containerSearchSchool,
   itemSchoolActive,
   listSchool,
+  listWrapper,
   itemSchool,
+  inputSearch,
 } from './style'
 
 const DOWN = "ArrowDown"
@@ -37,24 +41,30 @@ export default class InputSearchSchool extends Component {
     const { schoolsSearch, onSelectSchool, schools } = this.props
     const { currentIndex } = this.state
     const dataLength = schools.data.length
-    const index = (currentIndex >= -1 && currentIndex < dataLength - 1) ? currentIndex + 1 : currentIndex
     switch (event.key) {
-      case 'DOWN': {
+      case DOWN: {
+        const index = (currentIndex >= -1 && currentIndex < dataLength - 1) ? currentIndex + 1 : currentIndex
         this.setState({
           currentIndex: index,
         })
+        if (currentIndex > 5) {
+          this._schoolList.scrollTop += 35
+        }
         break
       }
 
-      case 'UP': {
+      case UP: {
         const index = (currentIndex > -1 && currentIndex <= dataLength - 1) ? currentIndex - 1 : currentIndex
         this.setState({
           currentIndex: index,
         })
+        if (currentIndex > 5) {
+          this._schoolList.scrollTop -= 35
+        }
         break
       }
 
-      case 'ENTER': {
+      case ENTER: {
         const { currentIndex } = this.state
         const { onSelectSchool, schools } = this.props
         const selectedSchool = schools.data[currentIndex]
@@ -73,23 +83,28 @@ export default class InputSearchSchool extends Component {
           onChange={event => schoolsSearch(event.target.value)}
           placeholder="Type your school name"
           onKeyDown={event => ::this.onKeyDown(event)}
+          className={inputSearch}
+          type="search"
         />
+
         {data.length > 0 &&
-          <ul className={listSchool} >
-            {data.length > 0 && data.map((school, index) => {
-              const classNames = index === this.state.currentIndex ? `${itemSchool} ${itemSchoolActive}` : itemSchool
-              return (
-                <li
-                  key={school.id}
-                  className={classNames}
-                  onClick={() => onSelectSchool(school)}
-                >
-                  {school.name}
-                </li>
-                )
-              },
-            )}
-          </ul>
+          <div className={listWrapper}>
+            <ul className={listSchool} ref={element => this._schoolList = element}>
+              {data.length > 0 && data.map((school, index) => {
+                const classNames = index === this.state.currentIndex ? `${itemSchool} ${itemSchoolActive}` : itemSchool
+                return (
+                  <li
+                    key={school.id}
+                    className={classNames}
+                    onClick={() => onSelectSchool(school)}
+                  >
+                    <span>{school.name}</span>
+                  </li>
+                  )
+                },
+              )}
+            </ul>
+          </div>
         }
       </div>
     )
