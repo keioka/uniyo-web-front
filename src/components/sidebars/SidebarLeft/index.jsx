@@ -173,7 +173,7 @@ export default class SidebarLeft extends Component {
       const ComponentsHashtag = uniqueHashtagsCurrentUser &&
       uniqueHashtagsCurrentUser
       .filter(hashtag =>
-        hashtag.hashtag.toLowerCase().includes(keywordForSort)
+        hashtag.hashtag.includes(keywordForSort)
       )
       .map((hashtag, index) => {
           const classNames = []
@@ -216,7 +216,7 @@ export default class SidebarLeft extends Component {
         }, {})
 
         const ComponentsChannel = allChannels &&
-        allChannels.filter(channel => channel.users[0].name.toLowerCase().includes(keywordForSort))
+        allChannels.filter(channel => channel.users[0].name.includes(keywordForSort))
         .map((channel, index) => {
           let classNames = []
           // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
