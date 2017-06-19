@@ -32,19 +32,29 @@ export default class SidebarRightHistoryDonuts extends Component {
   }
 
   get usersDonutsToGive() {
-    const { allUsers, userSearch, channelCreate, allChannels } = this.props
+    const { allUsers, userSearch, channelCreate, allChannels, userGiveDonuts } = this.props
     const filteredUsers = allUsers && this.state.userSearchQuery !== '' ? allUsers.filter(user => user.name.toLowerCase().includes(this.state.userSearchQuery)) : allUsers
     return filteredUsers.map(user =>
       <ListUserDonutGive
         {...user}
         channelCreate={channelCreate}
         channels={allChannels}
+        userGiveDonuts={userGiveDonuts}
       />
     )
   }
 
   render() {
-     const { donutsHistory, allUsers, userSearch, channelCreate, allChannels, currentUser } = this.props
+     const {
+       donutsHistory,
+       allUsers,
+       userSearch,
+       channelCreate,
+       allChannels,
+       currentUser,
+       userGiveDonuts,
+     } = this.props
+
      const classNamesFirstTab = this.props.rightbar.donutsHistoryTabNumber === 0 ? [headerNav, headerNavActive] : [headerNav]
      const classNamesSecondTab = this.props.rightbar.donutsHistoryTabNumber === 1 ? [headerNav, headerNavActive] : [headerNav]
 
@@ -74,13 +84,13 @@ export default class SidebarRightHistoryDonuts extends Component {
                    <span className={listUserInviteLeftSubtitle}>With a donut</span>
                  </div>
                </div>
-               <span className={listUserInviteRight}><ButtonDonut donutsCount={0}/></span>
+               <span className={listUserInviteRight}><ButtonDonut donutsCount={0} /></span>
              </div>
              {this.usersDonutsToGive}
 
            </ul>) :
            (<ul className={ul}>
-             {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history} />)}
+             {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history}  />)}
            </ul>)
           }
        </div>
