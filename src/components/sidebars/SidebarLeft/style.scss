@@ -145,6 +145,8 @@ $left-padding: 16px;
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 160px;
+  display: flex;
+  align-items: center;
 }
 
 .icon--channel {
@@ -181,12 +183,14 @@ $left-padding: 16px;
 .icon--number--new-message {
   background: $red;
   color: white;
-  width: 8px;
-  height: 8px;
+  width: 20px;
+  height: 20px;
   font-size: 12px;
-  padding: 4px 7px;
   border-radius: 50%;
   margin-left: 5px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
 }
 
 .input--search-tag {
