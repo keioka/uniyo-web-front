@@ -1,5 +1,17 @@
 @import "../../../styles/main";
 
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 400px;
+}
+
+.wrapper svg {
+  transform: scale(1.8);
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 .input-text {
   font-family: $font-family;
   width: 100%;
@@ -9,6 +21,10 @@
   font-size: 1.5rem;
   outline: none;
   text-align: center;
+}
+
+.input-text--left {
+  text-align: left;
 }
 
 .input-text::placeholder {
