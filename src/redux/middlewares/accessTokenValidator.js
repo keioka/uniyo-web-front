@@ -2,15 +2,18 @@ import { actionTypes } from 'uniyo-redux'
 import { actions } from 'uniyo-redux'
 import { storage } from '../../utils'
 import { browserHistory } from 'react-router'
+
 export const accessTokenValidator = store => next => action => {
 
   if (!localStorage) {
     console.warn("Local Storage is not available")
   }
 
+  const { type } = action
+
   if (
-    action.type === actionTypes.logIn.request ||
-    action.type === actionTypes.userCreate.request
+    type === actionTypes.logIn.request ||
+    type === actionTypes.userCreate.request
   ) {
     const { schoolId } = action
     const schools = store.getState().api.schools.data
@@ -20,50 +23,40 @@ export const accessTokenValidator = store => next => action => {
       const school = schools.filter(school => schoolId === school.id)[0]
       if (school) {
         storage.setSchoolName = school.name
-      } else {
-
       }
     }
   }
 
   if (
-    action.type === actionTypes.commentsSearch.request ||
-    action.type === actionTypes.postsSearch.request ||
-    action.type === actionTypes.postCreate.request ||
-    action.type === actionTypes.commentCreate.request ||
-    action.type === actionTypes.userSearch.request ||
-    action.type === actionTypes.hashtagAdd.request ||
-    action.type === actionTypes.postInfo.request ||
-    action.type === actionTypes.answerSearch.request ||
-    action.type === actionTypes.answerCreate.request ||
-    action.type === actionTypes.messageSearch.request ||
-    action.type === actionTypes.messageCreate.request ||
-    action.type === actionTypes.channelCreate.request ||
-    action.type === actionTypes.notificationReadMark.request ||
-    action.type === actionTypes.hashtagDelete.request ||
-    action.type === actionTypes.postsTrendingSearch.request ||
-    action.type === actionTypes.postsRelevantSearch.request ||
-    action.type === actionTypes.postGiveDonuts.request ||
-    action.type === actionTypes.commentGiveDonuts.request ||
-    action.type === actionTypes.userGiveDonuts.request ||
-    action.type === actionTypes.notificationSearch.request ||
-    action.type === actionTypes.addDevice.request
+    type === actionTypes.commentsSearch.request ||
+    type === actionTypes.postsSearch.request ||
+    type === actionTypes.postCreate.request ||
+    type === actionTypes.commentCreate.request ||
+    type === actionTypes.userSearch.request ||
+    type === actionTypes.hashtagAdd.request ||
+    type === actionTypes.postInfo.request ||
+    type === actionTypes.answerSearch.request ||
+    type === actionTypes.answerCreate.request ||
+    type === actionTypes.messageSearch.request ||
+    type === actionTypes.messageCreate.request ||
+    type === actionTypes.channelCreate.request ||
+    type === actionTypes.notificationReadMark.request ||
+    type === actionTypes.hashtagDelete.request ||
+    type === actionTypes.postsTrendingSearch.request ||
+    type === actionTypes.postsRelevantSearch.request ||
+    type === actionTypes.postGiveDonuts.request ||
+    type === actionTypes.commentGiveDonuts.request ||
+    type === actionTypes.userGiveDonuts.request ||
+    type === actionTypes.notificationSearch.request ||
+    type === actionTypes.addDevice.request
   ) {
     action.accessToken = storage.accessToken
   }
 
   if (
-    action.type === actionTypes.userCreate.success ||
-    action.type === actionTypes.logIn.success ||
-    action.type === actionTypes.tokenRefresh.success
-  ) {
-
-  }
-
-  if (
-    action.type === actionTypes.userCreate.success ||
-    action.type === actionTypes.logIn.success ||
-    action.type === actionTypes.tokenRefresh.success
+    type === actionTypes.userCreate.success ||
+    type === actionTypes.logIn.success ||
+    type === actionTypes.tokenRefresh.success
   ) {
 
     const setTokens = new Promise((resolve, reject) => {
