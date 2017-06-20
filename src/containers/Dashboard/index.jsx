@@ -280,15 +280,15 @@ export default class DashBoard extends Component {
       [start] filter feature
      *************************************** */
 
-    let sortedPosts = [...allPosts, ...trendingPosts, ...relevantPosts]
+    let sortedPosts = allPosts
 
     // TODO: sort by createdAt
 
     if (hashtag) {
       sortedPosts = sortedPosts.filter(post => {
-        const hashtag:String = `#${this.props.location.query.hashtag}`
+        const hashtag:String = `#${this.props.location.query.hashtag.toLowerCase()}`
         const matched:Array = post.text.match(regexTag) || []
-        return matched.includes(hashtag)
+        return matched.map(hashtag => hashtag.toLowerCase()).includes(hashtag)
       })
     }
 
@@ -379,9 +379,9 @@ export default class DashBoard extends Component {
               { this.state.isOpenSettingMenu &&
                 <div className={panelSetting}>
                   <ul>
-                    <li><Link to="/profile_settings">Profile Setting</Link></li>
-                    <li></li>
                     <li onClick={() => this.props.signout()}>Logout</li>
+                    <li></li>
+                    <li></li>
                   </ul>
                 </div>
               }
@@ -435,7 +435,7 @@ export default class DashBoard extends Component {
           <span
             className={textEnableNotification}
             onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
-          >
+            >
             enable desktop notifications.
           </span>
           <button
