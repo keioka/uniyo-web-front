@@ -89,6 +89,12 @@ const ListNotification = ({
         break
       }
 
+      case 'NEW_ANSWER': {
+        const { post } = notification
+        browserHistory.push(`/dashboard/questions/${post.id}`)
+        break
+      }
+
       case 'WEEKLY_RECEIVED_DONUTS_COUNT': {
         showHistoryDonut(1)
         break
@@ -126,6 +132,21 @@ const ListNotification = ({
             <span className={textHashtag} onClick={(event) => { event.preventDefault(); event.stopPropagation(); browserHistory.push(`/dashboard?hashtag=${hashtag.replace(/#/, '')}`)}}>{hashtag}</span>
           )}</span>
         </span>)
+      break
+    }
+
+    case 'NEW_ANSWER': {
+      const { post, answer } = notification
+      const { user } = answer
+      userImageUrl = user.image.smallUrl
+      component = (
+        <span>
+          <span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>
+            @{user.firstName} &nbsp;
+          </span>
+           answered your question
+        </span>
+      )
       break
     }
 
