@@ -3,11 +3,8 @@ import { actions } from 'uniyo-redux'
 import { storage } from '../../utils'
 import { browserHistory } from 'react-router'
 import { put } from 'redux-saga/effects'
-export const initializeApp = store => next => action => {
 
-  if (!localStorage) {
-    console.warn("Local Storage is not available")
-  }
+export const initializeApp = store => next => action => {
 
   // fetch current user info to auth reducer
   if (
@@ -24,6 +21,15 @@ export const initializeApp = store => next => action => {
 
     store.dispatch(actions.currentUser({
       userId,
+      accessToken,
+    }))
+
+    store.dispatch(actions.postsTrendingSearch({
+      accessToken,
+    }))
+
+    store.dispatch(actions.postsRelevantSearch({
+      limit: 5,
       accessToken,
     }))
 
