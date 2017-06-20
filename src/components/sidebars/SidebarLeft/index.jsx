@@ -17,6 +17,7 @@ const {
 import {
   InputSearchTag,
   ListHashtag,
+  ListChannel,
 } from '../../'
 
 import {
@@ -74,7 +75,6 @@ export default class SidebarLeft extends Component {
     this.setState({
       isShowInputAddTag: !this.state.isShowInputAddTag
     })
-    this._inputAddTag.focus()
   }
 
   onSubmitAddTag(event) {
@@ -149,29 +149,6 @@ export default class SidebarLeft extends Component {
       return allMentions
     }, {}) : {}
 
-    const ListChannel = ({ className, channel, amountNewMessage }) => {
-      const users = channel.users.length === 1 ? channel.users : channel.users.slice(0, channel.users.length - 1)
-      return (
-        <Link
-          className={className}
-          key={channel.id}
-          to={`/dashboard/channels/${channel.id}`}
-        >
-          <li className={sectionTag}>
-            {channel.users.length > 2 ?
-              (<span data-amount-users={channel.users.length} className={iconChannel}>
-                {channel.users.length - 1}
-               </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
-            }
-            <span className={userNames}>
-              <span>{usersWithoutCurrentUser(users, currentUser).map(user => user.firstName).join(', ')}</span>
-              {amountNewMessage > 0 && <span className={iconNumberNewMessage}>{amountNewMessage}</span>}
-            </span>
-          </li>
-        </Link>
-        )
-      }
-
       const ComponentsHashtag = uniqueHashtagsCurrentUser &&
       uniqueHashtagsCurrentUser
       .filter(hashtag =>
@@ -229,6 +206,7 @@ export default class SidebarLeft extends Component {
             <ListChannel
               className={classNames.join(' ')}
               channel={channel}
+              currentUser={currentUser}
               amountNewMessage={amountNewMessage}
             />
           )
