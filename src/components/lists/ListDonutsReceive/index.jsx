@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import moment from 'moment'
 
 import {
@@ -17,15 +17,16 @@ import {
 } from './style'
 
 const ListDonutsReceive = ({ id, fromUser, time }) => {
+  const { firstName, lastName, name, image } = fromUser
   return (
     <li key={id} className={wrapper}>
       <span className={boxImage}>
-        <img src={fromUser.image.smallUrl} className={imgUser} />
+        <img src={image.smallUrl} className={imgUser} alt={name} />
       </span>
       <div className={boxInfo}>
         <div className={boxInfoLeft}>
-          <span className={fontName}><b>{fromUser.firstName} {fromUser.lastName}</b> sent you a donut!</span>
-          <span className={fontTime}>{moment.utc(time).local().format("HH:mm A")}</span>
+          <span className={fontName}><b>{firstName} {lastName}</b> sent you a donut!</span>
+          <span className={fontTime}>{moment.utc(time).local().format('HH:mm A')}</span>
         </div>
         <div className={boxInfoRight}>
           <DonutPlusOne />
@@ -38,7 +39,7 @@ const ListDonutsReceive = ({ id, fromUser, time }) => {
 
 ListDonutsReceive.propTypes = {
   id: PropTypes.number.isRequired,
-  user: PropTypes.object.isRequired,
+  fromUser: PropTypes.object.isRequired,
   time: PropTypes.string.isRequired,
 }
 
