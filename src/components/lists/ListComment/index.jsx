@@ -15,19 +15,22 @@ import {
 } from './style'
 
 const ListComment = ({ id, user, text, commentGiveDonuts, donutsCount, showUserInfo }) => {
+  const { name, firstName, image } = user
+  const onClickButtonDonut = () => commentGiveDonuts({ commentId: id, amount: 1 })
+  const onClickUserInfo = () => showUserInfo(user.id)
   return (
     <li key={id} className={wrapper}>
-      <span className={boxImage} onClick={() => { showUserInfo(user.id) }}>
-        <img src={user.image.smallUrl} className={imgUser} alt={user.name} />
+      <span className={boxImage} onClick={onClickUserInfo}>
+        <img src={image.smallUrl} className={imgUser} alt={name} />
       </span>
       <span className={content}>
         <span className={contentText}>
-          <span className={fontName} onClick={(event) => { showUserInfo(user.id) }}>{user.firstName}</span>
+          <span className={fontName} onClick={onClickUserInfo}>{firstName}</span>
           <TextPost text={text} />
         </span>
         <ButtonDonut
           donutsCount={donutsCount}
-          onClick={() => commentGiveDonuts({ commentId: id, amount: 1 })}
+          onClick={onClickButtonDonut}
         />
       </span>
     </li>
