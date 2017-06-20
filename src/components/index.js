@@ -112,6 +112,7 @@ export BarTag from './common/BarTag'
   list
 */
 
+export ListChannel from './lists/ListChannel'
 export ListUserDonutGive from './lists/ListUserDonutGive'
 export ListComment from './lists/ListComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
