@@ -43,6 +43,7 @@ export PostTopDashboard from './pages/dashboard/PostTopDashboard'
 export LayoutStatic from './layouts/LayoutStatic'
 export LayoutAuth from './layouts/LayoutAuth'
 export LayoutDashboard from './layouts/LayoutDashboard'
+export LayoutInit from './layouts/LayoutInit'
 
 /*
   button

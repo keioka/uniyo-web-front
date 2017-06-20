@@ -11,6 +11,10 @@ import {
   app,
 } from './style'
 
+import {
+  LayoutInit,
+} from '../../components'
+
 const mapStateToProps = state => ({
   auth: state.api.auth,
 })
@@ -21,11 +25,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      refreshIntervalId: null,
-    }
+
+  state = {
+    refreshIntervalId: null,
   }
 
   componentWillMount() {
@@ -92,7 +94,7 @@ export default class App extends Component {
   render() {
     return (
       <div id="app" className={app}>
-        {this.props.children}
+        {this.props.auth.refreshingToken ? <LayoutInit /> : this.props.children}
       </div>
     )
   }
