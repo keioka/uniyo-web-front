@@ -27,6 +27,10 @@
   margin-right: 10px;
 }
 
+.box--donuts__row:hover {
+  text-decoration: underline;
+}
+
 .receive-donuts--active {
   animation: zoom 0.3s cubic-bezier(.36,.07,.19,.97);
   transform: translate3d(0, 0, 0);
@@ -114,6 +118,7 @@
 
 .spent-donuts--active {
   -webkit-animation: throw 0.5s linear normal;
+  z-index: 300;
   animation: throw 0.5s linear normal;
 }
 

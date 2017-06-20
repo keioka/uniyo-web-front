@@ -149,7 +149,7 @@ const ListNotification = ({
     case 'WEEKLY_RECEIVED_DONUTS_COUNT': {
       const { donutsCount } = notification
       userImageUrl = currentUser.image.mediumUrl
-      component = (<span>You got {donutsCount} donuts lastweek!</span>)
+      component = (<span>You received {donutsCount} donuts last week!</span>)
       break
     }
 

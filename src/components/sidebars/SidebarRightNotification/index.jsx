@@ -20,10 +20,8 @@ import {
 
 class SidebarRightNotification extends Component {
 
-
   // onClick => read
   // window scroll => read
-
   // isRead false and is same channel and show latest time and
 
   render() {
@@ -91,7 +89,6 @@ class SidebarRightNotification extends Component {
                   )
                 })}
               </ul>
-
             </div>
           }
         </div>

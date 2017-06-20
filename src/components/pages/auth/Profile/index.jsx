@@ -20,6 +20,9 @@ import {
   layoutFos,
   layoutClasses,
   layoutProfilePicture,
+  layoutSelectSchoolFotter,
+  layoutSelectSchoolFotterLeft,
+  layoutSelectSchoolFotterRight,
   header,
   title,
   tag,
@@ -50,24 +53,21 @@ export default class Profile extends Component {
 
   static propTypes = {
     schoolsSearch: PropTypes.func.isRequired,
-    schools: PropTypes.isRequired
+    schools: PropTypes.isRequired,
   }
 
-  constructor() {
-    super()
-    this.state = {
-      isWebcamOpen: false,
-      screenshot: null,
-      pageIndex: 0,
-      form: {
-        tagsFos: [],
-        tagsClass: [],
-        profileImage: {
-          imageFile: null,
-          cropInfo: {},
-        },
+  state = {
+    isWebcamOpen: false,
+    screenshot: null,
+    pageIndex: 0,
+    form: {
+      tagsFos: [],
+      tagsClass: [],
+      profileImage: {
+        imageFile: null,
+        cropInfo: {},
       },
-    }
+    },
   }
 
   onKeyDownFOSHandler(event) {
@@ -122,11 +122,11 @@ export default class Profile extends Component {
       this.state.pageIndex === 0 &&
       this.state.form.tagsFos
     ) {
-      hashtagAdd({ hashtags: this.state.form.tagsFos, tagType: 'FIELD_OF_STUDY', accessToken: localStorage['ACCESS_TOKEN'] })
+      hashtagAdd({ hashtags: this.state.form.tagsFos, tagType: 'FIELD_OF_STUDY'})
     }
 
     if (this.state.pageIndex === 1) {
-      hashtagAdd({ hashtags: this.state.form.tagsClass, tagType: 'COURSE', accessToken: localStorage['ACCESS_TOKEN']})
+      hashtagAdd({ hashtags: this.state.form.tagsClass, tagType: 'COURSE'})
     }
 
     if (this.state.pageIndex === 2) {
@@ -168,20 +168,21 @@ export default class Profile extends Component {
   onClickActivateWebcamHandler(event) {
     event.stopPropagation()
     this.setState({
-      isWebcamOpen: !this.state.isWebcamOpen
+      isWebcamOpen: !this.state.isWebcamOpen,
     })
   }
 
   onClickTakePhotoHandler(event) {
     event.stopPropagation()
     const screenshot = this.refs.webcam.getScreenshot()
+    console.log(screenshot)
     this.setState({
       form: {
         ...this.state.form,
         profileImage: {
           ...this.state.form.profileImage,
           imageFile: {
-            ...this.state.form.profileImage.imageFile,
+            imageFile: screenshot,
             preview: screenshot,
           }
         }
@@ -210,11 +211,16 @@ export default class Profile extends Component {
         <div className={bottom}>
           <Button onClick={::this.onNext} type="primary">Next</Button>
           <div className={bottomPageNav}>
+            <span className={linkback} onClick={::this.onBack}>Back</span>
             <span className={bulletActive}></span>
             <span className={bulletNonActive}></span>
             <span className={bulletNonActive}></span>
+            <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
-          <span className={linkback} onClick={::this.onBack}>Back</span>
+        </div>
+        <div className={layoutSelectSchoolFotter}>
+          <img src="/public/assets/images/auth/donuts_left.svg" alt=""/>
+          <img src="/public/assets/images/auth/donuts_right.svg" alt=""/>
         </div>
       </div>
     )
@@ -240,11 +246,16 @@ export default class Profile extends Component {
         <div className={bottom}>
           <Button onClick={::this.onNext} type="primary">Next</Button>
           <div className={bottomPageNav}>
+            <span className={linkback} onClick={::this.onBack}>Back</span>
             <span className={bulletActive}></span>
             <span className={bulletActive}></span>
             <span className={bulletNonActive}></span>
+            <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
-          <span className={linkback} onClick={::this.onBack}>Back</span>
+        </div>
+        <div className={layoutSelectSchoolFotter}>
+          <img src="/public/assets/images/auth/donuts_left.svg" alt=""/>
+          <img src="/public/assets/images/auth/donuts_right.svg" alt=""/>
         </div>
       </div>
     )
@@ -324,7 +335,7 @@ export default class Profile extends Component {
             maxSize={MAX_SIZE}
             accept={MIME_TYPE}
           >
-            <div className={dropZone}>
+            <div>
               <div className="">
                 <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
               </div>
@@ -332,11 +343,11 @@ export default class Profile extends Component {
           </Dropzone>
           <ul className={contentSelect}>
             <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li>
-            <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li>
+            {/* <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li> */}
           </ul>
           { this.state.isWebcamOpen &&
             <div className={modalWebcam} onClick={(event) => ::this.onClickActivateWebcamHandler(event)}>
-              { this.state.screenshot ? <img src={this.state.screenshot} /> : <Webcam ref='webcam'/>  }
+              { this.state.screenshot ? <img src={this.state.screenshot} /> : <Webcam ref='webcam' screenshotFormat="image/jpeg" />  }
               <button className={buttonWebcam} onClick={(event) => ::this.onClickTakePhotoHandler(event)}>Take a shot</button>
             </div>
           }
@@ -344,12 +355,18 @@ export default class Profile extends Component {
         <div className={bottom}>
           <Button onClick={::this.onNext} type="primary">Submit</Button>
           <div className={bottomPageNav}>
+            <span className={linkback} onClick={::this.onBack}>Back</span>
             <span className={bulletActive}></span>
             <span className={bulletActive}></span>
             <span className={bulletActive}></span>
+            <span className={linkback}><Link to="/dashboard">Done</Link></span>
           </div>
-          <span className={linkback} onClick={::this.onBack}>Back</span>
-        </div>
+      </div>
+      <div className={layoutSelectSchoolFotter}>
+        <img src="/public/assets/images/auth/donuts_left.svg" alt=""/>
+        <img src="/public/assets/images/auth/donuts_right.svg" alt=""/>
+      </div>
+
       </div>
     )
   }

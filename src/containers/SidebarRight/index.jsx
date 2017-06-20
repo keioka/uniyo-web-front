@@ -156,6 +156,7 @@ export default class SidebarRight extends Component {
           <SidebarRightHistoryDonuts
             currentUser={currentUser}
             userSearch={userSearch}
+            userGiveDonuts={userGiveDonuts}
             showHistoryDonut={showHistoryDonut}
             rightbar={rightbar}
             channelCreate={channelCreate}
