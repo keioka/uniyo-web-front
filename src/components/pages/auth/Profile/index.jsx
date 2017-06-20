@@ -343,7 +343,7 @@ export default class Profile extends Component {
           </Dropzone>
           <ul className={contentSelect}>
             <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li>
-            <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li>
+            {/* <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li> */}
           </ul>
           { this.state.isWebcamOpen &&
             <div className={modalWebcam} onClick={(event) => ::this.onClickActivateWebcamHandler(event)}>
