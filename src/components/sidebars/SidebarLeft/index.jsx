@@ -74,6 +74,7 @@ export default class SidebarLeft extends Component {
     this.setState({
       isShowInputAddTag: !this.state.isShowInputAddTag
     })
+    this._inputAddTag.focus()
   }
 
   onSubmitAddTag(event) {
@@ -105,6 +106,7 @@ export default class SidebarLeft extends Component {
       hashtagDelete,
       unreadNotification,
       currentUser,
+      selectedHashtag,
     } = this.props
 
     const unreadPostNotification = unreadNotification.filter(notification =>
@@ -173,16 +175,16 @@ export default class SidebarLeft extends Component {
       const ComponentsHashtag = uniqueHashtagsCurrentUser &&
       uniqueHashtagsCurrentUser
       .filter(hashtag =>
-        hashtag.hashtag.toLowerCase().includes(keywordForSort)
+        hashtag.hashtag.includes(keywordForSort)
       )
       .map((hashtag, index) => {
           const classNames = []
           // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
-          const isSelected = this.props.selectedHashtag === hashtag.hashtag
+          const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
           classNames.join(' ')
-          const isIncludeNewPost = flattenHashtags.includes(hashtag.hashtag)
+          const isIncludeNewPost = flattenHashtags.map(hashtag => hashtag.toLowerCase()).includes(hashtag.hashtag)
           const amountMention = mentionHashtagList[hashtag.hashtag]
 
           return (
@@ -216,7 +218,7 @@ export default class SidebarLeft extends Component {
         }, {})
 
         const ComponentsChannel = allChannels &&
-        allChannels.filter(channel => channel.users[0].name.toLowerCase().includes(keywordForSort))
+        allChannels.filter(channel => channel.users[0].name.includes(keywordForSort))
         .map((channel, index) => {
           let classNames = []
           // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {

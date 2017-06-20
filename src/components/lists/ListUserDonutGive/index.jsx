@@ -21,7 +21,7 @@ import {
 } from './style'
 
 
-const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, receivedDonutsCount }) => {
+const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, userGiveDonuts, receivedDonutsCount }) => {
 
   const onClickBtnMessage = () => {
     const filteredChannel = channels.filter(channel => {
@@ -40,6 +40,8 @@ const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, r
     }
   }
 
+  console.log(userGiveDonuts)
+
 
   return (
     <li key={userId} className={wrapper}>
@@ -52,7 +54,7 @@ const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, r
           <span className={fontLink} onClick={() => onClickBtnMessage()}>send message</span>
         </div>
         <div className={boxInfoRight}>
-          <ButtonDonut donutsCount={receivedDonutsCount} />
+          <ButtonDonut donutsCount={receivedDonutsCount} onClick={() => userGiveDonuts({ userId, amount: 1 })} />
         </div>
       </div>
     </li>

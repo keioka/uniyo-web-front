@@ -19,9 +19,10 @@ export default (state = initialiState, action) => {
 
   switch (action.type) {
     case actionTypes.showNotification.request: {
+      const request = !state.isOpen
       return Object.assign({
-        isOpen: true,
-        displayType: 'Notification'
+        isOpen: request,
+        displayType: state.isOpen ? '' : 'Notification',
       })
     }
 
@@ -73,9 +74,10 @@ export default (state = initialiState, action) => {
 
     case actionTypes.donutsCampusFetch.success: {
       const { user } = action.result.data
+      const { campusDonuts = [] } = state
       return Object.assign({
         isReceiveDonuts: true,
-        campusDonuts: [...state.campusDonuts, user],
+        campusDonuts: [...campusDonuts, user],
       })
     }
 

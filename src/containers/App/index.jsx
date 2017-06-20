@@ -54,8 +54,12 @@ export default class App extends Component {
   componentDidMount() {
     const { location } = this.props
 
-    const regex = /dashboard/
-    if (authService.isTokenExist && !regex.test(location.pathname) ) {
+    const regexDashboard = /dashboard/
+    if (
+      authService.isTokenExist &&
+      !regexDashboard.test(location.pathname) &&
+      location.pathname !== '/profile_settings'
+    ) {
       browserHistory.push('/dashboard')
     }
   }

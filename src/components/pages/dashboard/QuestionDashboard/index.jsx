@@ -153,10 +153,11 @@ export default class QuestionDashboard extends Component {
     }
 
     const allAnswers = [...answers]
-    const answerRecent = allAnswers && allAnswers.shift()
     const count = Math.max(...allAnswers.map(answer => answer.donutsCount))
     const answerBest = allAnswers.filter((answer, index) => answer.donutsCount !== 0 && answer.donutsCount === count)[0]
-    const answersOther = answerBest ? allAnswers.filter(answer => answer.id !== answerBest.id) : allAnswers
+    const answersWithoutBest = answerBest ? allAnswers.filter(answer => answer.id != answerBest.id) : allAnswers
+    const answerRecent = answersWithoutBest && answersWithoutBest.shift()
+    const answersOther = answerBest ? answersWithoutBest.filter(answer => answer.id !== answerBest.id) : allAnswers
 
     const textPlaceHolder = question ? `Help @${question.user.firstName} to find the best answer` : 'Help other students to find the best answer'
     // TODO: Avoid Mutation
