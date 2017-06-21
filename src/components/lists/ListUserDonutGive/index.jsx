@@ -3,6 +3,14 @@ import moment from 'moment'
 import { browserHistory } from 'react-router'
 
 import {
+  decorator,
+} from '../../../utils'
+
+const {
+  usersWithoutCurrentUser,
+} = decorator
+
+import {
   TextPost,
   DonutPlusOne,
   ButtonDonut,
@@ -21,14 +29,15 @@ import {
 } from './style'
 
 
-const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, userGiveDonuts, receivedDonutsCount }) => {
+const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, userGiveDonuts, receivedDonutsCount, currentUser }) => {
 
   const onClickBtnMessage = () => {
     const filteredChannel = channels.filter(channel => {
+      const users = usersWithoutCurrentUser(channel.users, currentUser)
       // check if current user has channel with the other user
       // check channel is not group because it is supposed to be 1 to 1 chat
       // check if the other user id is included. [0] is the other user and [1] is current user
-      return channel.users.length === 2 && channel.users[0].id == userId
+      return users.length === 1 && users[0].id == userId
     })
 
     const channel = filteredChannel[0]
@@ -39,9 +48,6 @@ const ListUserDonutGive = ({ id: userId, name, image, channels, channelCreate, u
       channelCreate({ users: [userId] })
     }
   }
-
-  console.log(userGiveDonuts)
-
 
   return (
     <li key={userId} className={wrapper}>
