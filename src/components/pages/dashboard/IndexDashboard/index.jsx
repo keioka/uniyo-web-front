@@ -231,7 +231,6 @@ export default class IndexDashboard extends Component {
             <h3 className={sectionCardsTitle}>HOT 🔥</h3>
             {trendingPosts.map(post => {
               const comments = this.props.allComments.filter(comment => comment.postId === post.id)
-              console.log(comments)
               return cardFactory({
                 post,
                 commentsSearch,
