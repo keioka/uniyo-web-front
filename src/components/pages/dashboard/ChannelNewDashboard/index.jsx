@@ -97,8 +97,7 @@ export default class ChannelNewDashboard extends Component {
     const query = new RegExp(this.state.query, "g")
     const a = this.state.query ? allChannels.filter(channel => channel.users.map(user => user.name).includes(name => query.test(name))) : allChannels
 
-    const isChannelUser = (channel) => { console.log('channel', channel); return channel.users.includes(user => { alert('user', user.name); return query.test(user.name) }) }
-    console.log(this.state.query, query, allChannels.filter(channel => isChannelUser))
+    const isChannelUser = (channel) => { return channel.users.includes(user => { alert('user', user.name); return query.test(user.name) }) }
 
     return a.map(channel =>
       <ListRecentConversation channel={channel} currentUser={currentUser} />
@@ -139,31 +138,33 @@ export default class ChannelNewDashboard extends Component {
             </div>
             <div className={headerSectionSelectedUser}>
               {this.state.selectedUsers &&
-               this.state.selectedUsers.map((user, index) =>
-                 <span
-                   className={tagUser}
-                   onClick={() => ::this.onDeleteSelectedUser(index)}
-                 >
-                   { user.name }
-                 </span>)
-               }
+                this.state.selectedUsers.map((user, index) =>
+                <span
+                  className={tagUser}
+                  onClick={() => ::this.onDeleteSelectedUser(index)}
+                  >
+                    {user.name}
+                  </span>)
+                }
+              </div>
             </div>
-          </div>
-
-          <div className={section}>
-            <h4 className={sectionTitle}>Recent Conversation</h4>
-            <ul className={sectionUl}>
-              {this.channels}
-            </ul>
-          </div>
-          <div className={section}>
-            <h4 className={sectionTitle}>Campus Directory</h4>
-            <ul className={sectionUl}>
-              {this.suggestionedUsers}
-            </ul>
+            {this.state.isShowRecentConversation &&
+              <div className={section}>
+                <h4 className={sectionTitle}>Recent Conversation</h4>
+                <ul className={sectionUl}>
+                  {this.channels}
+                </ul>
+              </div>
+            }
+            {this.state.query !== '' &&
+              <div className={section}>
+                <ul className={sectionUl}>
+                  {this.suggestionedUsers}
+                </ul>
+              </div>
+            }
           </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
-}
