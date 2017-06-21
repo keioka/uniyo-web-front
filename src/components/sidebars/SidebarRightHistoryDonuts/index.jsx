@@ -32,7 +32,7 @@ export default class SidebarRightHistoryDonuts extends Component {
   }
 
   get usersDonutsToGive() {
-    const { allUsers, userSearch, channelCreate, allChannels, userGiveDonuts } = this.props
+    const { allUsers, userSearch, channelCreate, allChannels, userGiveDonuts, currentUser } = this.props
     const filteredUsers = allUsers && this.state.userSearchQuery !== '' ? allUsers.filter(user => user.name.toLowerCase().includes(this.state.userSearchQuery)) : allUsers
     return filteredUsers.map(user =>
       <ListUserDonutGive
@@ -40,6 +40,7 @@ export default class SidebarRightHistoryDonuts extends Component {
         channelCreate={channelCreate}
         channels={allChannels}
         userGiveDonuts={userGiveDonuts}
+        currentUser={currentUser}
       />
     )
   }
