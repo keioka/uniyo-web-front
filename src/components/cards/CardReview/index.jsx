@@ -54,7 +54,7 @@ export default class CardReview extends PureComponent {
   onClickCommentHandler() {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0) {
-      commentsSearch({ postId: id })
+      commentsSearch({ postId: id, limit: commentsCount })
     }
 
     this.setState({

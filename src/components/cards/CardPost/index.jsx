@@ -61,7 +61,7 @@ export default class CardPost extends PureComponent  {
   onClickComment(event) {
     const { commentsSearch, commentsCount, id } = this.props
     if (commentsCount > 0 && !this.state.toggle) {
-      commentsSearch({ postId: id })
+      commentsSearch({ postId: id, limit: commentsCount })
     }
 
     this.setState({
