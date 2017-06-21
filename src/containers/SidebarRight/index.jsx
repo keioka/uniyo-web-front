@@ -182,7 +182,10 @@ export default class SidebarRight extends Component {
     } = this.props
 
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
-    this.props.donutsCampusShift()
+
+  //  if(campusDonuts.length > 0) {
+  //     this.props.donutsCampusShift()
+  //   }
 
     // const userImages = campusDonuts && campusDonuts.length > 0 && [...new Set(donutsHistory.map(user => {
     //   return user.image.mediumUrl
@@ -191,11 +194,14 @@ export default class SidebarRight extends Component {
     const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
     return (
       <div>
-      {campusDonuts && campusDonuts.length > 0 && campusDonuts.slice(0, 1).map((user, index) => {
-        const animationClass = animationClasses[index]
+      {campusDonuts && campusDonuts.length > 0 && campusDonuts.map((user, index) => {
+        const style = {
+          'transition-delay': `${index}s`,
+        }
+        const animationClass = imageAnimationOne
         const classNames = [image, animationClass].join(' ')
         return (
-          <div className={classNames} data-image-id={index+1}>
+          <div className={classNames} style={style} data-image-id={index+1}>
             <img src={user.image.mediumUrl} alt="" />
           </div>
         )

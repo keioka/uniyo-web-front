@@ -76,6 +76,7 @@ export default (state = initialiState, action) => {
       const { user } = action.result.data
       const { campusDonuts = [] } = state
       return Object.assign({
+        ...state,
         isReceiveDonuts: true,
         campusDonuts: [...campusDonuts, user],
       })
