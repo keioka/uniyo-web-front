@@ -196,6 +196,15 @@ export default class InputPost extends Component {
     window.scrollTo(0, window.scrollY)
   }
 
+  onChange(event) {
+    // const search = "#"
+    // const searchRegex = /\#\w+/
+    // $("div:contains('"+search+"')").each(function () {
+    //   var regex = new RegExp(searchRegex ,'gi');
+    //   $(this).html($(this).text().replace(searchRegex, "<span class='red'>"+search+"</span>"));
+    // })
+  }
+
   onSubmit() {
     const { currentPostType, currentHashTag } = this.props
     const text = postTranspiler(this._input)
@@ -367,7 +376,7 @@ export default class InputPost extends Component {
             contentEditable
             placeholder={this.props.placeholder || this.placeholder}
             ref={(input) => { this._input = input }}
-            onChange={event => event.preventDefault()}
+            onChange={::this.onChange}
             onFocus={::this.onFocus}
             onCopy={::this.onCopy}
             onKeyDown={::this.onKeyDown}
