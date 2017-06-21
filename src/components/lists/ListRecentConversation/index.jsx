@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { decorator } from '../../../utils'
+
 const { usersWithoutCurrentUser } = decorator
 
 import {
@@ -47,21 +48,20 @@ const ListRecentConversation = ({ channel, currentUser }) => {
   }
 
   return (
-  <Link to={`/dashboard/channels/${id}`} className={fontLink}>
-    <li key={id} className={wrapper}>
-      <span className={boxImage}>
-        {userImage()}
-      </span>
-      <span className={spanChannelInfo}>
-        <span className={fontName} data-users-count={users.length}>
-          <span className={fontUserNames}>{users.map(user => user.name).join(', ')}</span>
+    <Link to={`/dashboard/channels/${id}`} className={fontLink}>
+      <li key={id} className={wrapper}>
+        <span className={boxImage}>
+          {userImage()}
         </span>
-        <p>{description === null || description === "undefined" ? 'No Description' : description}</p>
-      </span>
-    </li>
-  </Link>
+        <span className={spanChannelInfo}>
+          <span className={fontName} data-users-count={users.length}>
+            <span className={fontUserNames}>{users.map(user => user.name).join(', ')}</span>
+          </span>
+          <p>{description === null || description === "undefined" ? null : description}</p>
+        </span>
+      </li>
+    </Link>
   )
-  // TODO: what if long comment
 }
 
 export default ListRecentConversation
