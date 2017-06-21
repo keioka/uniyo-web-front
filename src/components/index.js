@@ -43,6 +43,7 @@ export PostTopDashboard from './pages/dashboard/PostTopDashboard'
 export LayoutStatic from './layouts/LayoutStatic'
 export LayoutAuth from './layouts/LayoutAuth'
 export LayoutDashboard from './layouts/LayoutDashboard'
+export LayoutInit from './layouts/LayoutInit'
 
 /*
   button
@@ -111,6 +112,7 @@ export BarTag from './common/BarTag'
   list
 */
 
+export ListChannel from './lists/ListChannel'
 export ListUserDonutGive from './lists/ListUserDonutGive'
 export ListComment from './lists/ListComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'

@@ -282,9 +282,9 @@ export default class DashBoard extends Component {
 
     let sortedPosts = allPosts
 
-    // TODO: sort by createdAt
-
     if (hashtag) {
+      // combine all trendingPosts relevantPosts allPosts and filter them
+      sortedPosts = [ ...trendingPosts, ...relevantPosts, ...sortedPosts ]
       sortedPosts = sortedPosts.filter(post => {
         const hashtag:String = `#${this.props.location.query.hashtag.toLowerCase()}`
         const matched:Array = post.text.match(regexTag) || []

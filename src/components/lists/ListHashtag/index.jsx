@@ -50,12 +50,19 @@ export default class ListHashtag extends Component {
     className: PropTypes.string.isRequired,
     hashtag: PropTypes.string.isRequired,
     hashtagType: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
     showBtnDelete: PropTypes.bool.isRequired,
     hashtagDelete: PropTypes.func.isRequired,
     isSelected: PropTypes.bool.isRequired,
     isIncludeNewPost: PropTypes.bool.isRequired,
-    amountMention: PropTypes.number.isRequired,
+    amountMention: PropTypes.number,
+  }
+
+  static defaultProps = {
+    className: '',
+    hashtag: '',
+    hashtagType: '',
+    isSelected: false,
+    isIncludeNewPost: false,
   }
 
   render() {
@@ -63,7 +70,6 @@ export default class ListHashtag extends Component {
       className,
       hashtag,
       hashtagType,
-      type,
       showBtnDelete,
       hashtagDelete,
       isSelected,
@@ -73,10 +79,19 @@ export default class ListHashtag extends Component {
 
     const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
     const classNameHashtag = isIncludeNewPost ? tagBold : tagRegular
+
+    const onClickBtnHashtagDelete = (event) => {
+      event.stopPropagation()
+      event.preventDefault()
+      hashtagDelete({ hashtag, hashtagType })
+    }
+
+    const link = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
+
     return (
       <Link
         key={hashCode(hashtag)}
-        to={dashboardPathGenarator({ hashtag })}
+        to={link}
       >
         <li className={wrapperClassNames}>
           <span className={tag}>
@@ -88,11 +103,7 @@ export default class ListHashtag extends Component {
           { showBtnDelete &&
             <span
               className={btnClose}
-              onClick={(event) => {
-                event.stopPropagation()
-                event.preventDefault()
-                hashtagDelete({ hashtag, hashtagType })
-              }}
+              onClick={onClickBtnHashtagDelete}
             >
               <Close />
             </span>

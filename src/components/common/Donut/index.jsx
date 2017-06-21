@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import {
+  xl,
   lg,
   med,
   sm,
@@ -30,6 +31,9 @@ export default class Donut extends Component {
     let ComponentDonut
 
     switch (size) {
+      case 'xl':
+      classNames.push(xl)
+      break
       case 'large':
       classNames.push(lg)
       break

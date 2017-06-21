@@ -1,0 +1,78 @@
+@import "../../../styles/main";
+
+$left-padding: 18px;
+
+.icon--channel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #969696;
+  border-radius: 4px;
+  color: white;
+  margin-right: 5px;
+  font-size: 0.6rem;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+}
+
+.icon--channel--online-status {
+  margin-right: 5px;
+  padding: 1px 2px 3px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon--online {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #5fe36f;
+}
+
+.icon--number--new-message {
+  background: $red;
+  color: white;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  margin-left: 5px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+.section__tag {
+  color: #868686;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding-left: $left-padding;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 196px;
+  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+  margin: 2px 0px;
+}
+
+.section__tag:hover {
+  background-color: white;
+}
+
+.font--user-names {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 160px;
+  display: flex;
+  align-items: center;
+}

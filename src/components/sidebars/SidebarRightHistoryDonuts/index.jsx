@@ -32,7 +32,7 @@ export default class SidebarRightHistoryDonuts extends Component {
   }
 
   get usersDonutsToGive() {
-    const { allUsers, userSearch, channelCreate, allChannels, userGiveDonuts } = this.props
+    const { allUsers, userSearch, channelCreate, allChannels, userGiveDonuts, currentUser } = this.props
     const filteredUsers = allUsers && this.state.userSearchQuery !== '' ? allUsers.filter(user => user.name.toLowerCase().includes(this.state.userSearchQuery)) : allUsers
     return filteredUsers.map(user =>
       <ListUserDonutGive
@@ -40,60 +40,63 @@ export default class SidebarRightHistoryDonuts extends Component {
         channelCreate={channelCreate}
         channels={allChannels}
         userGiveDonuts={userGiveDonuts}
+        currentUser={currentUser}
       />
     )
   }
 
   render() {
-     const {
-       donutsHistory,
-       allUsers,
-       userSearch,
-       channelCreate,
-       allChannels,
-       currentUser,
-       userGiveDonuts,
-     } = this.props
+    const {
+      donutsHistory,
+      allUsers,
+      userSearch,
+      channelCreate,
+      allChannels,
+      currentUser,
+      userGiveDonuts,
+    } = this.props
 
-     const classNamesFirstTab = this.props.rightbar.donutsHistoryTabNumber === 0 ? [headerNav, headerNavActive] : [headerNav]
-     const classNamesSecondTab = this.props.rightbar.donutsHistoryTabNumber === 1 ? [headerNav, headerNavActive] : [headerNav]
+    const classNamesFirstTab = this.props.rightbar.donutsHistoryTabNumber === 0 ? [headerNav, headerNavActive] : [headerNav]
+    const classNamesSecondTab = this.props.rightbar.donutsHistoryTabNumber === 1 ? [headerNav, headerNavActive] : [headerNav]
+    const onClickNavDonuts = tabNumber => this.props.showHistoryDonut(tabNumber)
+    const onChangeSearchCampus = (event) => { this.setState({ userSearchQuery: event.target.value }); userSearch({ query: event.target.value }) }
 
-     return (
-       <div className={wrapper} >
-         <div className={header}>
-           <span className={classNamesFirstTab.join(' ')} data-count={currentUser.availableDonutsCount} onClick={() => this.props.showHistoryDonut(0)}>Donuts to give</span>
-           <span className={classNamesSecondTab.join(' ')} data-count={currentUser.receivedDonutsCount} onClick={() => this.props.showHistoryDonut(1)}>Donuts received</span>
-         </div>
+    return (
+      <div className={wrapper} >
+        <div className={header}>
+          <span className={classNamesFirstTab.join(' ')} data-count={currentUser.availableDonutsCount} onClick={() => onClickNavDonuts(0)}>Donuts to give</span>
+          <span className={classNamesSecondTab.join(' ')} data-count={currentUser.receivedDonutsCount} onClick={() => onClickNavDonuts(1)}>Donuts received</span>
+        </div>
 
-         {this.props.rightbar.donutsHistoryTabNumber === 0 ?
-           (<ul className={ul}>
-             <div className={inputSearchWrapper}>
-               <FaSearch />
-               <input
-                 type="text"
-                 className={inputSearch}
-                 placeholder="Search in your campus"
-                 onChange={event => { this.setState({ userSearchQuery: event.target.value }); userSearch({ query: event.target.value }) }}
-               />
-             </div>
-             <div className={listUserInvite}>
-               <div className={listUserInviteLeft}>
-                 <div className={listUserInviteLeftImg}></div>
-                 <div className={listUserInviteLeftText}>
-                   <span className={listUserInviteLeftTitle}>Invite Friend</span>
-                   <span className={listUserInviteLeftSubtitle}>With a donut</span>
-                 </div>
-               </div>
-               <span className={listUserInviteRight}><ButtonDonut donutsCount={0} /></span>
-             </div>
-             {this.usersDonutsToGive}
+        {this.props.rightbar.donutsHistoryTabNumber === 0 ?
+          (<ul className={ul}>
+            <div className={inputSearchWrapper}>
+              <FaSearch />
+              <input
+                type="text"
+                className={inputSearch}
+                placeholder="Search in your campus"
+                onChange={onChangeSearchCampus}
+              />
+            </div>
+            <div className={listUserInvite}>
+              <div className={listUserInviteLeft}>
+                <div className={listUserInviteLeftImg}></div>
+                <div className={listUserInviteLeftText}>
+                  <span className={listUserInviteLeftTitle}>Invite Friend</span>
+                  <span className={listUserInviteLeftSubtitle}>With a donut</span>
+                </div>
+              </div>
+              <span className={listUserInviteRight}><ButtonDonut donutsCount={0} /></span>
+            </div>
+            {this.usersDonutsToGive}
 
-           </ul>) :
-           (<ul className={ul}>
-             {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history}  />)}
-           </ul>)
-          }
-       </div>
-     )
+          </ul>) :
+          (<ul className={ul}>
+            {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history}  />)}
+          </ul>)
+        }
+      </div>
+    )
   }
 }

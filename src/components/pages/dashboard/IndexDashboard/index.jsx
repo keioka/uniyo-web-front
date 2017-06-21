@@ -38,21 +38,11 @@ export default class IndexDashboard extends Component {
     posts: [],
   }
 
-  constructor() {
-    super()
-    this.state = {
-      isLoadingMorePost: false
-    }
+  state = {
+    isLoadingMorePost: false
   }
 
   componentDidMount() {
-    const {
-      postsTrendingSearch,
-      postsRelevantSearch,
-    } = this.props
-
-    postsTrendingSearch({})
-    postsRelevantSearch({ limit: 5 })
     window.addEventListener('scroll', ::this.onScrollHandler)
   }
 
