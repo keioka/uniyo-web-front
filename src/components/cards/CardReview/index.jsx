@@ -34,11 +34,8 @@ import Star from './star.svg'
 
 export default class CardReview extends PureComponent {
 
-  constructor() {
-    super()
-    this.state = {
-      toggle: false,
-    }
+  state = {
+    toggle: false,
   }
 
   onChange() {
@@ -89,7 +86,7 @@ export default class CardReview extends PureComponent {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
-      <div className={wrapper}>
+      <div key={id} className={wrapper}>
         <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
         </div>

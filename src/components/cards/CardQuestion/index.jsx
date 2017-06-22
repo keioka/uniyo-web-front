@@ -89,7 +89,7 @@ export default class CardQuestion extends PureComponent {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
-      <Link to={`/dashboard/questions/${id}`} className={wrapperLink}>
+      <Link to={`/dashboard/questions/${id}`} className={wrapperLink} key={id}>
         <div key={id} className={wrapper}>
           <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>
             <img src={user.image.smallUrl} alt="" />

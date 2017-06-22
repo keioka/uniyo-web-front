@@ -50,6 +50,22 @@ export default class IndexDashboard extends Component {
     window.removeEventListener('scroll', ::this.onScrollHandler)
   }
 
+  shouldUpdateComponent(nextProps) {
+    // const {
+    //   currentUser,
+    //   location,
+    //   suggestionedUsers,
+    //   onClearCurrentTypeHandler,
+    //   currentPostType,
+    //   currentHashTag,
+    //   rightbar,
+    //   relevantPosts,
+    //   trendingPosts,
+    //   posts,
+    // } = this.props
+    return shallowCompare(this, nextProps, nextState);
+  }
+
   onScrollHandler(event) {
     const dashboard = this._dashboard
     const { posts } = this.props

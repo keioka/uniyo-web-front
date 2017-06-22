@@ -27,10 +27,11 @@ import {
 class SidebarRightChannelUsers extends Component {
 
   get usersDonutsToGive() {
-    const { channelUsers, channelCreate, allChannels } = this.props
+    const { channelUsers, channelCreate, allChannels, userGiveDonuts } = this.props
     return channelUsers.map(user =>
       <ListUserDonutGive
         {...user}
+        userGiveDonuts={userGiveDonuts}
         channelCreate={channelCreate}
         channels={allChannels}
       />

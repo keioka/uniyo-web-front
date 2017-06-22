@@ -117,7 +117,8 @@ export default class SidebarRight extends Component {
       case 'UserInfo': {
         return (
           <SidebarRightUserInfo
-            user={userInfo}
+            allUsers={allUsers}
+            userId={userInfo.id}
             channels={allChannels}
             channelCreate={channelCreate}
             userGiveDonuts={userGiveDonuts}
@@ -131,6 +132,7 @@ export default class SidebarRight extends Component {
           <SidebarRightChannelUsers
             channelUsers={channelUsers}
             hideSidebarRight={hideSidebarRight}
+            userGiveDonuts={userGiveDonuts}
             channelCreate={channelCreate}
             allChannels={allChannels}
           />
@@ -196,7 +198,7 @@ export default class SidebarRight extends Component {
       <div>
       {campusDonuts && campusDonuts.length > 0 && campusDonuts.map((user, index) => {
         const style = {
-          'transition-delay': `${index}s`,
+          transitionDelay: `${1}s`,
         }
         const animationClass = imageAnimationOne
         const classNames = [image, animationClass].join(' ')

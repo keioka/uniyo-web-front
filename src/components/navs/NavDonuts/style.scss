@@ -118,17 +118,49 @@
 
 .spent-donuts--active {
   -webkit-animation: throw 0.5s linear normal;
-  z-index: 300;
+  z-index: 3000;
   animation: throw 0.5s linear normal;
+  will-change: transform;
 }
 
 /* Generated with Bounce.js. Edit at https://goo.gl/98oJ5n */
 
 @-webkit-keyframes throw {
-  from {
-    transform: translate3d(0px, 0px, 0px);
+  0% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px) scale(1);
   }
-  to { transform: translate3d(-200px, 200px, 0px); }
+  10% {
+    transform: translate3d(-10px, 20px, 0px) scale(3);
+  }
+  20% {
+    transform: translate3d(-20px, 40px, 0px) scale(1.5);
+  }
+  30% {
+    transform: translate3d(-30px, 60px, 0px) scale(1);
+  }
+  40% {
+    transform: translate3d(-40px, 80px, 0px) scale(0.6);
+  }
+  50% {
+    transform: translate3d(-40px, 100px, 0px) scale(0.5);
+  }
+  60% {
+    transform: translate3d(-40px, 120px, 0px) scale(0.4);
+  }
+  70% {
+    transform: translate3d(-30px, 140px, 0px) scale(0.3);
+  }
+  80% {
+    transform: translate3d(-20px, 160px, 0px) scale(0.2);
+  }
+  90% {
+    transform: translate3d(-10px, 180px, 0px) scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0px, 200px, 200px);
+  }
 }
 
 @keyframes throw {
