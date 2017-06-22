@@ -94,6 +94,7 @@ export default class CardDocument extends PureComponent {
 
     return (
       <VisibilitySensor
+        key={id}
         onChange={::this.onChange}
       >
         <div key={id} className={wrapper}>

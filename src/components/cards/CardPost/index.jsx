@@ -109,6 +109,7 @@ export default class CardPost extends PureComponent  {
     return (
       <VisibilitySensor
         onChange={::this.onChange}
+        key={id}
         >
           <div key={id} className={wrapper}>
             <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
