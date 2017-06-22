@@ -198,7 +198,7 @@ export default class SidebarRight extends Component {
       <div>
       {campusDonuts && campusDonuts.length > 0 && campusDonuts.map((user, index) => {
         const style = {
-          'transition-delay': `${index}s`,
+          transitionDelay: `${1}s`,
         }
         const animationClass = imageAnimationOne
         const classNames = [image, animationClass].join(' ')
