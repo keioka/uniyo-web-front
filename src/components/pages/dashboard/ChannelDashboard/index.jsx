@@ -31,18 +31,23 @@ import {
 
 export default class ChannelDashboard extends Component {
 
-  static defaultProps = {
-  }
-
   state = {
     isLazyLoading: false,
   }
 
   componentDidMount() {
-    const { messageSearch, params } = this.props
+    const {
+      messageSearch,
+      params,
+    } = this.props
     const { channelId } = params
+
+    this.markNotificationRead()
     const timeNow = moment.utc(new Date()).format()
-    window.addEventListener('scroll', ::this.onScrollHandler)
+
+    if (this._dashboard) {
+      window.addEventListener('scroll', ::this.onScrollHandler)
+    }
     // check if channelId is found from current user's channel reducer 'all'.
 
     // TODO: This is patch
@@ -55,8 +60,8 @@ export default class ChannelDashboard extends Component {
         around: timeNow,
       })
     }, 1000)
-    document.body.scrollTop = document.body.scrollHeight + 14000
-    window.scrollTo(0, 14000)
+
+    window.scrollTo(14000, 14000)
   }
 
   componentWillUnmount() {
@@ -64,6 +69,8 @@ export default class ChannelDashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps')
+    this.markNotificationRead()
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch } = this.props
       const { channelId } = nextProps.params
@@ -74,12 +81,32 @@ export default class ChannelDashboard extends Component {
         channelId,
         around: timeNow,
       })
+      window.scrollTo(14000, 14000)
     }
+
     const { allMessages, showUserInfo } = this.props
 
     // when new message is coming through websocket
     if (allMessages.length !== nextProps.allMessages.length) {
-      document.body.scrollTop = document.body.scrollHeight + 2000
+    }
+  }
+
+  markNotificationRead() {
+    console.log('markNotificationRead')
+    const {
+      messageSearch,
+      params,
+      contentReadCheckNotification,
+      unReadChannelIds = [],
+    } = this.props
+
+    const { channelId } = params
+    const ids = unReadChannelIds.filter(idsObject => idsObject.channelId === parseInt(channelId))
+    console.log('ids', ids)
+    console.log('unReadChannelIds', unReadChannelIds)
+    console.log(ids.length > 0)
+    if (ids.length > 0) {
+      contentReadCheckNotification({ contentType: 'MESSAGE_READ', ids })
     }
   }
 
