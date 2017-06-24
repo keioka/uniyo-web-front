@@ -63,6 +63,7 @@ export default class SidebarLeft extends Component {
       nextProps.selectedHashtag !== this.props.selectedHashtag ||
       nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
       nextProps.isMainDashboard !== this.props.isMainDashboard ||
+      nextProps.locationParams !== this.props.locationParams ||
       nextState !== this.state
     ) {
       return true
@@ -105,6 +106,7 @@ export default class SidebarLeft extends Component {
       selectedHashtag,
       unReadChannelIds,
       contentReadCheckNotification,
+      locationParams,
     } = this.props
 
     const unreadPostNotification = unreadNotification.filter(notification =>
@@ -150,7 +152,7 @@ export default class SidebarLeft extends Component {
       const ComponentsHashtag = uniqueHashtagsCurrentUser &&
       uniqueHashtagsCurrentUser
       .filter(hashtag =>
-        hashtag.hashtag.includes(keywordForSort)
+        hashtag.hashtag.toLowerCase().includes(keywordForSort.toLowerCase())
       )
       .map((hashtag, index) => {
           const classNames = []
@@ -192,19 +194,27 @@ export default class SidebarLeft extends Component {
           return allNotifications
         }, {})
 
-        const ComponentsChannel = allChannels &&
-        allChannels.filter(channel => channel.users[0].name.includes(keywordForSort))
+        const regexChannelPath = /\/dashboard\/channels\/[1-9]/
+        const isChannel = regexChannelPath.test(window.location.href)
+
+        const ComponentsChannel = allChannels && allChannels.filter(channel => channel.users.some(user => user.name.includes(keywordForSort)))
         .map((channel, index) => {
           let classNames = []
           // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
+          let selectedChannelId
+          if (isChannel && this.props.locationParams) {
+            selectedChannelId = this.props.locationParams.channelId
+          }
+          const isSelected = (selectedChannelId && parseInt(channel.id) === parseInt(selectedChannelId))
           const amountNewMessage = messageNotification[channel.id]
           return (
             <ListChannel
               className={classNames.join(' ')}
               channel={channel}
               currentUser={currentUser}
+              isSelected={isSelected}
               unReadChannelIds={unReadChannelIds}
               contentReadCheckNotification={contentReadCheckNotification}
               amountNewMessage={amountNewMessage}
