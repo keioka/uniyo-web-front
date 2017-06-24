@@ -69,7 +69,6 @@ export default class ChannelDashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps')
     this.markNotificationRead()
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch } = this.props
