@@ -9,6 +9,7 @@ import {
   iconChannelOnlineStatus,
   fontUserNames,
   sectionTagMain,
+  sectionTagActive,
 } from './style'
 
 import {
@@ -19,9 +20,10 @@ const {
   usersWithoutCurrentUser,
 } = decorator
 
-const ListChannel = ({ className, channel, amountNewMessage, currentUser, contentReadCheckNotification, unReadChannelIds }) => {
+const ListChannel = ({ className, channel, amountNewMessage, currentUser, contentReadCheckNotification, unReadChannelIds, isSelected }) => {
   const name = usersWithoutCurrentUser(channel.users, currentUser).map(user => user.firstName).join(', ')
   const ids = unReadChannelIds.filter((idsObject) => idsObject.channelId === channel.id)
+  const liClassNames = isSelected ? [sectionTag, sectionTagActive] : [sectionTag]
   return (
     <Link
       className={className}
@@ -29,7 +31,7 @@ const ListChannel = ({ className, channel, amountNewMessage, currentUser, conten
       to={`/dashboard/channels/${channel.id}`}
       onClick={() => contentReadCheckNotification({ contentType: 'MESSAGE_READ', ids })}
     >
-      <li className={sectionTag}>
+      <li className={liClassNames.join(' ')}>
         {channel.users.length > 2 ?
           (<span data-amount-users={channel.users.length} className={iconChannel}>
             {channel.users.length - 1}
