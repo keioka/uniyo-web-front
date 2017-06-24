@@ -65,14 +65,28 @@ $left-padding: 18px;
   margin: 2px 0px;
 }
 
+.section__tag--active {
+  background-color: $strongpink;
+  color: white;
+}
+
+.section__tag--active:hover {
+  background-color: $strongpink !important;
+  color: white !important;
+}
+
 .section__tag:hover {
   background-color: white;
 }
 
-.font--user-names {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 160px;
+.section__tag--main {
+  width: 100%;
   display: flex;
   align-items: center;
+}
+
+.font--user-names {
+  max-width: 140px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

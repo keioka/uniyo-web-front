@@ -13,6 +13,7 @@ import {
 } from './style'
 
 export default class NavDonuts extends Component {
+
   render() {
     const {
       availableDonutsCount,
@@ -25,14 +26,14 @@ export default class NavDonuts extends Component {
 
     const donutsReceiveClassName = isReceiveDonuts ? receiveDonutsActive : null
     const donutsSpendClassName = isSpentDonuts ? spentDonutsActive : null
-
-    if (isReceiveDonuts) {
-      setTimeout(() => donutsShake(), 1000)
-    }
-
-    if (isSpentDonuts) {
-
-    }
+    //
+    // if (isReceiveDonuts) {
+    //   setTimeout(() => donutsShake(), 1000)
+    // }
+    //
+    // if (isSpentDonuts) {
+    //
+    // }
 
     return (
       <div className={boxDonuts}>

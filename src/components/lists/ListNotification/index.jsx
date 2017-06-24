@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link, browserHistory } from 'react-router'
 import moment from 'moment'
 import VisibilitySensor from 'react-visibility-sensor'
+
 import {
   wrapper,
   box,
@@ -14,8 +15,9 @@ import {
   textHashtag,
 } from './style'
 
-import { postValue } from '../../../utils'
+import { postValue, decorator } from '../../../utils'
 const { extractHashtagFromText } = postValue
+const { usersWithoutCurrentUser } = decorator
 
 const generateMesssagHashtag = (type) => {
   switch (type) {
@@ -129,7 +131,7 @@ const ListNotification = ({
           </span>
           {generateMesssagHashtag(type)} about &nbsp;
           <span>{hashtags.map(hashtag =>
-            <span className={textHashtag} onClick={(event) => { event.preventDefault(); event.stopPropagation(); browserHistory.push(`/dashboard?hashtag=${hashtag.replace(/#/, '')}`)}}>{hashtag}</span>
+            <span className={textHashtag} onClick={(event) => { event.preventDefault(); event.stopPropagation(); browserHistory.push(`/dashboard?hashtag=${hashtag.replace(/#/, '')}`)}}>{hashtag} &nbsp;</span>
           )}</span>
         </span>)
       break
@@ -161,7 +163,7 @@ const ListNotification = ({
     }
 
     case 'NEW_CHANNEL_MESSAGE': {
-      const user = notification.channel.users[0]
+      const user = usersWithoutCurrentUser(notification.channel.users, currentUser)[0]
       userImageUrl = user ? user.image.smallUrl : ''
       component = (<span><span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> sent a new message</span>)
       break

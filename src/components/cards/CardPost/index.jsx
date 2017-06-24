@@ -36,7 +36,7 @@ export default class CardPost extends PureComponent  {
   state = {
     toggle: false,
   }
-  //
+
   // shouldComponentUpdate(nextProps, nextState) {
   //   if (!this.props.comments) {
   //     return false
@@ -55,7 +55,7 @@ export default class CardPost extends PureComponent  {
 
   onChange() {
     const { id } = this.props
-    // this.props.onReadContent('POST_READ', id)
+    this.props.onReadContent('POST_READ', id)
   }
 
   onClickComment(event) {

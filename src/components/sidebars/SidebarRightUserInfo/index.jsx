@@ -6,6 +6,14 @@ import {
 } from '../../'
 
 import {
+  decorator,
+} from '../../../utils'
+
+const {
+  usersWithoutCurrentUser,
+} = decorator
+
+import {
   wrapper,
   boxImg,
   imageProfile,
@@ -27,21 +35,24 @@ const uniq = (array, param) => {
 
 export default class SidebarRightUserInfo extends Component {
   render() {
-    const { allUsers, channelCreate, channels, userGiveDonuts, userId } = this.props
+    const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser } = this.props
     const user = allUsers.filter(user => user.id === userId)[0]
+
     const onClickBtnMessage = () => {
       const filteredChannel = channels.filter(channel => {
+        const users = usersWithoutCurrentUser(channel.users, currentUser)
         // check if current user has channel with the other user
         // check channel is not group because it is supposed to be 1 to 1 chat
         // check if the other user id is included. [0] is the other user and [1] is current user
-        return channel.users.length === 2 && channel.users[0].id == user.id
+        return users.length === 1 && users[0].id == userId
       })
+
       const channel = filteredChannel[0]
 
       if (channel) {
         browserHistory.push(`/dashboard/channels/${channel.id}`)
       } else {
-        channelCreate({ users: [user.id] })
+        channelCreate({ users: [userId] })
       }
     }
 

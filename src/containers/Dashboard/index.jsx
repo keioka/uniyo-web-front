@@ -184,7 +184,12 @@ export default class DashBoard extends Component {
 
   onReadContent(contentType, id) {
     const { contentReadCheckNotification } = this.props
-    contentReadCheckNotification({ contentType, id })
+    if (contentType === 'POST_READ') {
+      const ids = this.props.notifications.unReadPostIds.filter((idsObject) => idsObject.postId === id)
+      if (ids.length > 0) {
+        contentReadCheckNotification({ contentType, ids })
+      }
+    }
   }
 
   onClearCurrentTypeHandler() {
@@ -234,6 +239,7 @@ export default class DashBoard extends Component {
       donutsThrow,
       showHistoryDonut,
       signout,
+      contentReadCheckNotification,
     } = this.props
 
     const { currentUser } = auth
@@ -244,7 +250,7 @@ export default class DashBoard extends Component {
     const { all: allChannels } = channels
     const { all: allAnswers } = answers
     const { all: allMessages } = messages
-    const { all: allNotifications } = notifications
+    const { all: allNotifications, unReadChannelIds } = notifications
     const { isReceiveDonuts, isSpentDonuts } = uiStateHeader
 
     const { currentHashTag, currentPostType } = this.state
@@ -342,6 +348,9 @@ export default class DashBoard extends Component {
       hashtagAdd,
       showHistoryDonut,
       signout,
+      notifications,
+      unReadChannelIds,
+      contentReadCheckNotification,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
     }))
@@ -362,6 +371,9 @@ export default class DashBoard extends Component {
           unreadNotification={unreadNotification}
           isMainDashboard={isMainDashboard}
           selectedHashtag={this.props.location.query.hashtag}
+          locationParams={this.props.params}
+          contentReadCheckNotification={contentReadCheckNotification}
+          unReadChannelIds={unReadChannelIds}
           currentUser={currentUser}
           type={type}
         />

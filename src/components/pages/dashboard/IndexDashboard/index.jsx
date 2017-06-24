@@ -11,7 +11,7 @@ import {
   BarTag,
 } from '../../../index'
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group' // ES6
 
 import {
   wrapper,
@@ -43,7 +43,9 @@ export default class IndexDashboard extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', ::this.onScrollHandler)
+    if (this._dashboard) {
+      window.addEventListener('scroll', ::this.onScrollHandler)
+    }
   }
 
   componentWillUnmount() {
@@ -63,7 +65,7 @@ export default class IndexDashboard extends Component {
     //   trendingPosts,
     //   posts,
     // } = this.props
-    return shallowCompare(this, nextProps, nextState);
+    return shallowCompare(this, nextProps, nextState)
   }
 
   onScrollHandler(event) {
@@ -101,7 +103,15 @@ export default class IndexDashboard extends Component {
     }
   }
 
-  componentWillReceiveProps(prevProps, nextProps) {
+  componentWillReceiveProps(nextProps) {
+    const { currentHashTag, currentPostType } = this.props
+    if (
+      currentHashTag !== nextProps.currentHashTag ||
+      currentPostType !== nextProps.currentPostType
+    ) {
+      window.scrollTo(0, 0)
+    }
+
     this.setState({
       isLoadingMorePost: false,
     })
