@@ -371,6 +371,7 @@ export default class DashBoard extends Component {
           unreadNotification={unreadNotification}
           isMainDashboard={isMainDashboard}
           selectedHashtag={this.props.location.query.hashtag}
+          locationParams={this.props.params}
           contentReadCheckNotification={contentReadCheckNotification}
           unReadChannelIds={unReadChannelIds}
           currentUser={currentUser}

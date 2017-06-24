@@ -121,6 +121,7 @@ export default class SidebarRight extends Component {
             userId={userInfo.id}
             channels={allChannels}
             channelCreate={channelCreate}
+            currentUser={currentUser}
             userGiveDonuts={userGiveDonuts}
             hideSidebarRight={hideSidebarRight}
           />
