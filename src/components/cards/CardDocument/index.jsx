@@ -57,7 +57,7 @@ export default class CardDocument extends PureComponent {
 
   onChange() {
     const { id } = this.props
-    // this.props.onReadContent('POST_READ', id)
+    this.props.onReadContent('POST_READ', id)
   }
 
   onClickDonutsHandler() {

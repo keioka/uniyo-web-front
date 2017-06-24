@@ -47,7 +47,7 @@ export default class CardQuestion extends PureComponent {
 
   onChange() {
     const { id } = this.props
-    // this.props.onReadContent('POST_READ', id)
+    this.props.onReadContent('POST_READ', id)
   }
 
   onClickCommentHandler() {
@@ -89,60 +89,65 @@ export default class CardQuestion extends PureComponent {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
-      <Link to={`/dashboard/questions/${id}`} className={wrapperLink} key={id}>
-        <div key={id} className={wrapper}>
-          <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>
-            <img src={user.image.smallUrl} alt="" />
-          </div>
-          <div className={sectionContent}>
-            <div className={sectionContentHeader}>
-              <span className={textUserName} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>{user.firstName}</span>
-              {/* <span className={textPostTime}>{time}</span> */}
+      <VisibilitySensor
+        onChange={::this.onChange}
+        key={id}
+      >
+        <Link to={`/dashboard/questions/${id}`} className={wrapperLink} key={id}>
+          <div key={id} className={wrapper}>
+            <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>
+              <img src={user.image.smallUrl} alt="" />
             </div>
-            <TextPost
-              text={text}
-              showUserInfo={showUserInfo}
-              currentPostType={currentPostType}
-            />
-            <div className={sectionContentFooter}>
-              <div className={sectionFileDetail}></div>
-              <div className={footerSectionBtns}>
-                <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>
-                <ButtonDonut
-                  className={btnLike}
-                  donutsCount={donutsCount}
-                  donutsThrow={donutsThrow}
-                  onClick={::this.onClickDonutsHandler}
-                />
+            <div className={sectionContent}>
+              <div className={sectionContentHeader}>
+                <span className={textUserName} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>{user.firstName}</span>
+                {/* <span className={textPostTime}>{time}</span> */}
+              </div>
+              <TextPost
+                text={text}
+                showUserInfo={showUserInfo}
+                currentPostType={currentPostType}
+              />
+              <div className={sectionContentFooter}>
+                <div className={sectionFileDetail}></div>
+                <div className={footerSectionBtns}>
+                  <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>
+                  <ButtonDonut
+                    className={btnLike}
+                    donutsCount={donutsCount}
+                    donutsThrow={donutsThrow}
+                    onClick={::this.onClickDonutsHandler}
+                  />
+                </div>
+              </div>
+              { this.state.toggle &&
+                <div className={sectionContentComment}>
+                  <InputComment
+                    postId={id}
+                    showUserInfo={showUserInfo}
+                    commentCreate={commentCreate}
+                    currentUser={currentUser}
+                    userPost={user}
+                    closeCommentBox={::this.closeCommentBox}
+                  />
+                  <ul className={sectionContentCommentList}>
+                    {comments && comments.map(comment =>
+                      <ListComment
+                        key={comment.id}
+                        showUserInfo={showUserInfo}
+                        commentGiveDonuts={commentGiveDonuts}
+                        {...comment}
+                        >
+                          {comment.text}
+                        </ListComment>
+                      )}
+                    </ul>
+                  </div>
+                }
               </div>
             </div>
-            { this.state.toggle &&
-              <div className={sectionContentComment}>
-                <InputComment
-                  postId={id}
-                  showUserInfo={showUserInfo}
-                  commentCreate={commentCreate}
-                  currentUser={currentUser}
-                  userPost={user}
-                  closeCommentBox={::this.closeCommentBox}
-                />
-                <ul className={sectionContentCommentList}>
-                  {comments && comments.map(comment =>
-                    <ListComment
-                      key={comment.id}
-                      showUserInfo={showUserInfo}
-                      commentGiveDonuts={commentGiveDonuts}
-                      {...comment}
-                    >
-                      {comment.text}
-                    </ListComment>
-                  )}
-                </ul>
-              </div>
-            }
-          </div>
-        </div>
-      </Link>
-    )
+          </Link>
+        </VisibilitySensor>
+      )
+    }
   }
-}

@@ -39,8 +39,10 @@ export default class CardReview extends PureComponent {
   }
 
   onChange() {
-
+    const { id } = this.props
+    this.props.onReadContent('POST_READ', id)
   }
+
 
   closeCommentBox() {
     this.setState({
@@ -86,6 +88,10 @@ export default class CardReview extends PureComponent {
     const time = moment.utc(createdAt).format("HH:mm A")
 
     return (
+    <VisibilitySensor
+      onChange={::this.onChange}
+      key={id}
+    >
       <div key={id} className={wrapper}>
         <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
           <img src={user.image.smallUrl} alt="" />
@@ -136,6 +142,7 @@ export default class CardReview extends PureComponent {
           }
         </div>
       </div>
+    </VisibilitySensor>
     )
   }
 }
