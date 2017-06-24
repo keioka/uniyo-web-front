@@ -92,10 +92,6 @@ export default class SidebarLeft extends Component {
     }
   }
 
-  onChangeInputSearchTag() {
-
-  }
-
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
@@ -107,6 +103,8 @@ export default class SidebarLeft extends Component {
       unreadNotification,
       currentUser,
       selectedHashtag,
+      unReadChannelIds,
+      contentReadCheckNotification,
     } = this.props
 
     const unreadPostNotification = unreadNotification.filter(notification =>
@@ -128,7 +126,7 @@ export default class SidebarLeft extends Component {
       extractHashtagFromText(notification.post.text).map(tag => tag.match(/\w+/) && tag.match(/\w+/)[0])
     )
 
-    const flattenHashtags = Array.prototype.concat.apply([], hashtagsNotification)
+    const flattenHashtagsNotification = Array.prototype.concat.apply([], hashtagsNotification)
 
     const unreadMentionNotification = unreadNotification.filter(notification =>
       notification.type === "POST_MENTION"
@@ -161,7 +159,7 @@ export default class SidebarLeft extends Component {
           // }
           const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
           classNames.join(' ')
-          const isIncludeNewPost = flattenHashtags.map(hashtag => hashtag.toLowerCase()).includes(hashtag.hashtag)
+          const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
           const amountMention = mentionHashtagList[hashtag.hashtag]
 
           return (
@@ -207,6 +205,8 @@ export default class SidebarLeft extends Component {
               className={classNames.join(' ')}
               channel={channel}
               currentUser={currentUser}
+              unReadChannelIds={unReadChannelIds}
+              contentReadCheckNotification={contentReadCheckNotification}
               amountNewMessage={amountNewMessage}
             />
           )
