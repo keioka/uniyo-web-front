@@ -9,13 +9,14 @@ var baseConfig = {
   context: pathSource,
   entry: {
     app: [
-      './index.jsx',
+      './index.jsx'
     ]
   },
   output: {
     filename: '[name].bundle.js',
     path: pathPublic,
-    publicPath: '/public/'
+    publicPath: '/public/',
+    sourceMapFilename: '[name].js.map'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss', '.svg']
