@@ -83,6 +83,13 @@
   width: 3px;
   background: $pink;
 }
+
+.text--city-name {
+  color: #9c9c9c;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
 //
 // .item--school--active::before {
 //   content: '';
