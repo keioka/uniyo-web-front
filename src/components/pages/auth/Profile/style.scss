@@ -4,11 +4,11 @@
   min-height:100%;
 }
 
-.profileImage {
+.profile-image {
   width: 200px;
 }
 
-.boxProfileImage {
+.box--profile-image {
   width: 200px;
 }
 
@@ -25,14 +25,14 @@
   flex-flow: column;
   align-items: center;
   min-height: 100vh;
-  background: $purple;
+  background: #dbffe3;
 }
 
 .layout--profile-picture {
   display: flex;
   flex-flow: column;
   align-items: center;
-  min-height: max-content;
+  min-height: 100vh;
   background: $whiteblue;
 }
 
@@ -93,9 +93,8 @@
   line-height: 14px;
   background-color: white;
   padding: 10px 10px;
-  border-radius: 4px;
-  border-bottom: 2px solid lightgray;
-  color: gray;
+  border-radius: 15px;
+  color: #FFAC00;
   cursor: pointer;
   margin: 5px 10px;
 }
@@ -109,7 +108,7 @@
   content: "x";
   font-size: 12px;
   margin-left: 10px;
-  color: gray;
+  color: #FFAC00;
   vertical-align: middle;
 }
 
@@ -137,11 +136,15 @@
   color: #383838;
   margin: 10px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bullet--non-active, .bullet--active {
   margin: 0px 15px;
-  font-size: 20px;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .bullet--non-active:before {
@@ -159,6 +162,12 @@
 .linkback {
   color: #383838;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.linkback a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .modal--webcam {
