@@ -108,8 +108,25 @@
   content: "x";
   font-size: 12px;
   margin-left: 10px;
-  color: #FFAC00;
   vertical-align: middle;
+}
+
+.tag--orange {
+  @extend .tag;
+  color: #FFAC00;
+}
+
+.tag--orange:after {
+  color: #FFAC00;
+}
+
+.tag--green {
+  @extend .tag;
+  color: #4aa55e;
+}
+
+.tag--green:after {
+  color: green;
 }
 
 .layout--select-school__fotter {

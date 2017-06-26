@@ -25,7 +25,8 @@ import {
   layoutSelectSchoolFotterRight,
   header,
   title,
-  tag,
+  tagOrange,
+  tagGreen,
   content,
   contentSelect,
   contentSelectOptions,
@@ -175,7 +176,6 @@ export default class Profile extends Component {
   onClickTakePhotoHandler(event) {
     event.stopPropagation()
     const screenshot = this.refs.webcam.getScreenshot()
-    console.log(screenshot)
     this.setState({
       form: {
         ...this.state.form,
@@ -205,7 +205,7 @@ export default class Profile extends Component {
             placeholder="Type your field of study"
           />
           <ul className={contentTags}>
-            {this.state.form.tagsFos && this.state.form.tagsFos.map(tagFos => <li key={tagFos} className={tag} onClick={event => ::this.onDeleteFosTag(tagFos)}>{tagFos}</li>)}
+            {this.state.form.tagsFos && this.state.form.tagsFos.map(tagFos => <li key={tagFos} className={tagOrange} onClick={event => ::this.onDeleteFosTag(tagFos)}>{tagFos}</li>)}
           </ul>
         </div>
         <div className={bottom}>
@@ -239,7 +239,8 @@ export default class Profile extends Component {
             placeholder="Type your classes"
           />
           <ul className={contentTags}>
-            {this.state.form.tagsClass && this.state.form.tagsClass.map(tagClass => <li key={tagClass} className={tag} onClick={() => ::this.onDeleteClassTag(tagClass)}>{tagClass}</li>)}
+            {this.state.form.tagsClass
+             && this.state.form.tagsClass.map(tagClass => <li key={tagClass} className={tagGreen} onClick={() => ::this.onDeleteClassTag(tagClass)}>{tagClass}</li>)}
           </ul>
         </div>
 
