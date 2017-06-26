@@ -14,6 +14,7 @@ import {
   listWrapper,
   itemSchool,
   inputSearch,
+  textCityName,
 } from './style'
 
 const DOWN = "ArrowDown"
@@ -99,6 +100,7 @@ export default class InputSearchSchool extends Component {
                     onClick={() => onSelectSchool(school)}
                   >
                     <span>{school.name}</span>
+                    <span className={textCityName}>{school.cityName.toLowerCase()}</span>
                   </li>
                   )
                 },

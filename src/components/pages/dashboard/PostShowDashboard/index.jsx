@@ -62,6 +62,7 @@ export default class PostShowDashboard extends Component {
       postInfo,
       userGiveDonuts,
       commentGiveDonuts,
+      onReadContent,
     } = this.props
 
     const cardFactory = ({
@@ -72,6 +73,7 @@ export default class PostShowDashboard extends Component {
       currentUser,
       userGiveDonuts,
       commentGiveDonuts,
+      onReadContent,
     }) => {
 
       switch(post.type) {
@@ -88,6 +90,7 @@ export default class PostShowDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['docs']:
@@ -103,6 +106,7 @@ export default class PostShowDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['reviews']:
@@ -118,6 +122,7 @@ export default class PostShowDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              onReadContent={onReadContent}
             />
           )
         case TYPES['questions']:
@@ -133,6 +138,7 @@ export default class PostShowDashboard extends Component {
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
+              onReadContent={onReadContent}
             />
           )
       }
@@ -163,6 +169,7 @@ export default class PostShowDashboard extends Component {
             currentUser,
             userGiveDonuts,
             commentGiveDonuts,
+            onReadContent,
           })
         }
         </div>
