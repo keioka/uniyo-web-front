@@ -73,7 +73,9 @@ export default class Signup extends Component {
   render() {
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
     const schools = this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug)
-    const selectedSchool = schools.length > 0 && schools[0]
+    const selectedSchool = schools.length > 0 ? schools[0] : null
+    const isSelectedSchool = this.props.params.schoolSlug === 'demo' || !!selectedSchool
+
     return (
       <div className={layoutUserInfo}>
         <div className={header}>
@@ -82,7 +84,7 @@ export default class Signup extends Component {
               <li>
                 {selectedSchool ?
                   <Link to={`/schools/${selectedSchool.slug}/signin`}>Log in</Link> :
-                  <Link to="/signup">sign up</Link>
+                  <Link to={`/signin`}>Log in</Link>
                 }
               </li>
               <li className={active}>sign up</li>
