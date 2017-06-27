@@ -120,7 +120,7 @@ export default class Signup extends Component {
           />
           <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign Up</Button>
           <div className={box}>
-            <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b>UniYo terms</b> and our <b>privacy policy</b>.</span>
+            <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b><Link to="/terms">Uniyo terms</Link></b> and our <b><Link to="/privacy">privacy policy</Link></b>.</span>
           </div>
         </div>
 
