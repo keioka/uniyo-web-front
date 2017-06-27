@@ -61,14 +61,10 @@
   align-items: center;
   text-transform: uppercase;
 }
-
-.item--school span {
-  padding: 20px 15px;
-}
-
-.item--school:hover {
-  color: $pink;
-}
+//
+// .item--school:hover {
+//   color: $pink;
+// }
 
 .item--school::before {
   content: '';
@@ -76,28 +72,37 @@
   width: 3px;
   background: white;
 }
+//
+// .item--school:hover::before {
+//   content: '';
+//   height: 35px;
+//   width: 3px;
+//   background: $pink;
+// }
 
-.item--school:hover::before {
+.text--school-name, .text--city-name {
+  display: inline-block;
+  padding: 20px 20px;
+}
+
+.text--school-name {
+  width: 80%;
+}
+
+.text--city-name {
+  width: 20%;
+  color: #9c9c9c;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.item--school--active::before {
   content: '';
   height: 35px;
   width: 3px;
   background: $pink;
 }
 
-.text--city-name {
-  color: #9c9c9c;
-  font-size: 12px;
-  text-transform: capitalize;
+.item--school--active {
+  color: $pink;
 }
-
-//
-// .item--school--active::before {
-//   content: '';
-//   height: 20px;
-//   width: 3px;
-//   background: $pink;
-// }
-//
-// .item--school--active {
-//   color: $pink;
-// }

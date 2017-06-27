@@ -7,7 +7,6 @@ import Cropper from 'cropperjs'
 import '../../../../styles/vendor/cropperjs.css'
 
 import IconPlus from './plus-active.svg'
-import Spinner from './spinner.svg'
 
 import {
   InputSearchSchool,
