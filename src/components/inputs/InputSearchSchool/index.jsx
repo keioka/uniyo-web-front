@@ -14,6 +14,7 @@ import {
   listWrapper,
   itemSchool,
   inputSearch,
+  textSchoolName,
   textCityName,
 } from './style'
 
@@ -42,25 +43,38 @@ export default class InputSearchSchool extends Component {
     const { schoolsSearch, onSelectSchool, schools } = this.props
     const { currentIndex } = this.state
     const dataLength = schools.data.length
+
     switch (event.key) {
       case DOWN: {
         const index = (currentIndex >= -1 && currentIndex < dataLength - 1) ? currentIndex + 1 : currentIndex
+
+        const elementTop = this._schoolList.children[index].getBoundingClientRect().top
+        const listTop = this._schoolList.getBoundingClientRect().top
+
         this.setState({
           currentIndex: index,
         })
-        if (currentIndex > 5) {
-          this._schoolList.scrollTop += 35
+
+        if (elementTop > listTop) {
+          this._schoolList.scrollTop += 50
         }
+        console.log(elementTop, listTop)
+
         break
       }
 
       case UP: {
+
         const index = (currentIndex > -1 && currentIndex <= dataLength - 1) ? currentIndex - 1 : currentIndex
+
+        const elementTop = this._schoolList.children[index].getBoundingClientRect().top
+        const listTop = this._schoolList.getBoundingClientRect().top
+
         this.setState({
           currentIndex: index,
         })
-        if (currentIndex > 5) {
-          this._schoolList.scrollTop -= 35
+        if (elementTop > listTop) {
+          this._schoolList.scrollTop -= 50
         }
         break
       }
@@ -73,6 +87,12 @@ export default class InputSearchSchool extends Component {
         break
       }
     }
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      currentIndex: -1,
+    })
   }
 
   render() {
@@ -99,7 +119,7 @@ export default class InputSearchSchool extends Component {
                     className={classNames}
                     onClick={() => onSelectSchool(school)}
                   >
-                    <span>{school.name}</span>
+                    <span className={textSchoolName}>{school.name}</span>
                     <span className={textCityName}>{school.cityName.toLowerCase()}</span>
                   </li>
                   )
