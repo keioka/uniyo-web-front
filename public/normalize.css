@@ -11,7 +11,7 @@
 
 * {
   padding: 0;
-  margin: 0; 
+  margin: 0;
 }
 
 html {
@@ -429,4 +429,14 @@ template {
 
 [hidden] {
   display: none;
+}
+
+.cropper-crop-box {
+  width: 260px;
+  height: 260px;
+}
+
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50%;
 }
