@@ -266,6 +266,10 @@
   cursor: pointer;
 }
 
+.home-footer-sitemap__nav li a:hover {
+  text-decoration: underline;
+}
+
 .home-illu {
   height: auto;
   position: fixed;
