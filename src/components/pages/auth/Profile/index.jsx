@@ -6,7 +6,9 @@ import Webcam from 'react-webcam'
 import Cropper from 'cropperjs'
 import '../../../../styles/vendor/cropperjs.css'
 
-import Picture from './picture.svg'
+import IconPlus from './plus-active.svg'
+import Spinner from './spinner.svg'
+
 import {
   InputSearchSchool,
   InputTextTransparent,
@@ -24,6 +26,8 @@ import {
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
   header,
+  square,
+  spin,
   title,
   tagOrange,
   tagGreen,
@@ -48,6 +52,8 @@ import {
   progressBar,
   progressShadow,
   modalProgressIconPicture,
+  boxInput,
+  iconPlus,
 } from './style'
 
 export default class Profile extends Component {
@@ -88,6 +94,35 @@ export default class Profile extends Component {
     }
   }
 
+  onClickBtnAddFos() {
+    const value = this._inputFOS.value
+    this.setState({
+      form: { ...this.state.form,
+        tagsFos: [...this.state.form.tagsFos, value],
+      },
+    })
+    this._inputFOS.value = ''
+  }
+
+  onClickBtnAddClass() {
+    const value = this._inputClass.value
+    this.setState({
+      form: { ...this.state.form,
+        tagsFos: [...this.state.form.tagsFos, value],
+      },
+    })
+    this._inputClass.value = ''
+  }
+
+  onClickBtnAddClass() {
+    const value = this._inputClass.value
+    this.setState({
+      form: { ...this.state.form,
+        tagsClass: [...this.state.form.tagsClass, value],
+      },
+    })
+    this._inputClass.value = ''
+  }
 
   onKeyDownClassesHandler(event) {
     if (event.key === 'Enter') {
@@ -123,11 +158,11 @@ export default class Profile extends Component {
       this.state.pageIndex === 0 &&
       this.state.form.tagsFos
     ) {
-      hashtagAdd({ hashtags: this.state.form.tagsFos, tagType: 'FIELD_OF_STUDY'})
+      hashtagAdd({ hashtags: this.state.form.tagsFos, tagType: 'FIELD_OF_STUDY' })
     }
 
     if (this.state.pageIndex === 1) {
-      hashtagAdd({ hashtags: this.state.form.tagsClass, tagType: 'COURSE'})
+      hashtagAdd({ hashtags: this.state.form.tagsClass, tagType: 'COURSE' })
     }
 
     if (this.state.pageIndex === 2) {
@@ -193,17 +228,22 @@ export default class Profile extends Component {
   }
 
   get renderFirstPage() {
+
     return (
       <div className={layoutFos}>
         <div className={header}>
           <h2 className={title}>What do you study?</h2>
         </div>
         <div className={content}>
-          <InputTextTransparent
-            className={input}
-            onKeyDown={::this.onKeyDownFOSHandler}
-            placeholder="Type your field of study"
-          />
+          <div className={boxInput}>
+            <InputTextTransparent
+              className={input}
+              refTo={(ref) => this._inputFOS = ref}
+              onKeyDown={::this.onKeyDownFOSHandler}
+              placeholder="Type your field of study"
+            />
+            <IconPlus onClick={::this.onClickBtnAddFos} className={iconPlus} />
+          </div>
           <ul className={contentTags}>
             {this.state.form.tagsFos && this.state.form.tagsFos.map(tagFos => <li key={tagFos} className={tagOrange} onClick={event => ::this.onDeleteFosTag(tagFos)}>{tagFos}</li>)}
           </ul>
@@ -233,11 +273,15 @@ export default class Profile extends Component {
           <h2 className={title}>What are your courses?</h2>
         </div>
         <div className={content}>
-          <InputTextTransparent
-            className={input}
-            onKeyDown={::this.onKeyDownClassesHandler}
-            placeholder="Type your classes"
-          />
+          <div className={boxInput}>
+            <InputTextTransparent
+              className={input}
+              onKeyDown={::this.onKeyDownClassesHandler}
+              refTo={(ref) => this._inputClass = ref}
+              placeholder="Type your classes"
+            />
+            <IconPlus onClick={::this.onClickBtnAddClass} className={iconPlus} />
+          </div>
           <ul className={contentTags}>
             {this.state.form.tagsClass
              && this.state.form.tagsClass.map(tagClass => <li key={tagClass} className={tagGreen} onClick={() => ::this.onDeleteClassTag(tagClass)}>{tagClass}</li>)}
@@ -310,14 +354,10 @@ export default class Profile extends Component {
       <div className={layoutProfilePicture}>
         { this.props.auth.isUploadingPicture &&
           <div className={modalProgress}>
-            <Picture className={modalProgressIconPicture} />
-              <h1>Uploading Image</h1>
-                <div className={progress}>
-                <div className={progressBar}>
-                  <div className={progressShadow}>
-                  </div>
-                </div>
-              </div>
+            <div className={square}>
+              <div className={spin}></div>
+            </div>
+            <h1>Uploading Image</h1>
           </div>
         }
         <div className={header}>
@@ -343,7 +383,7 @@ export default class Profile extends Component {
             </div>
           </Dropzone>
           <ul className={contentSelect}>
-            <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li>
+            {/* <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li> */}
             {/* <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li> */}
           </ul>
           { this.state.isWebcamOpen &&

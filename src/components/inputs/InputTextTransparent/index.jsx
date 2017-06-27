@@ -18,6 +18,7 @@ const InputTextTransparent = (props) => {
       <input
         {...props}
         type={type}
+        ref={props.refTo}
         className={classNamesInput}
       />
     </div>

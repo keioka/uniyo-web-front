@@ -187,6 +187,11 @@
   text-decoration: none;
 }
 
+.box--input {
+  display: flex;
+  align-items: center;
+}
+
 .modal--webcam {
   display: flex;
   flex-direction: column;
@@ -209,7 +214,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
+  z-index: 200;
   top: 0;
   left: 0;
   width: 100%;
@@ -227,7 +233,6 @@
   outline: none;
   cursor: cell;
 }
-
 
 .modal--progress h1 {
   text-align: center;
@@ -247,9 +252,8 @@
   }
 }
 
-
 .modal--progress__icon--picture {
-  width: 30px;
+  transform: scale(4);
 }
 
 .modal--progress__icon--picture path {
@@ -259,11 +263,34 @@
   animation-iteration-count: infinite;
 }
 
+.icon--plus {
+  width: 20px;
+  height: 20px;
+  fill: gray;
+  cursor: pointer;
+}
 
+.square {
+  border:0;
+  width:80px;
+  padding:0px;
+}
 
+.spin {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  border:dashed 5px white;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
 
-$progress-width: 24em;
-$progress-height: .25em;
+@-webkit-keyframes spin {
+  from   {  -webkit-transform: rotate(0deg); }
+  to   {  -webkit-transform: rotate(360deg); }
+}
 
 /* COLORS */
 
@@ -284,23 +311,6 @@ $color-red: #ff2d55;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-
-.progress {
-  background-color: $color-progress-bg;
-  height: $progress-height;
-  position: relative;
-  width: $progress-width;
-}
-
-.progress-bar {
-  animation-duration: 3s;
-  animation-name: width;
-  background-image: linear-gradient(to right, $color-green, $color-turquoise, $color-blue, $color-light-blue, $color-purple, $color-red);
-  background-size: $progress-width $progress-height;
-  height: 100%;
-  position: relative;
 }
 
 /* ANIMATIONS */
