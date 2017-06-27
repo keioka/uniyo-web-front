@@ -72,13 +72,13 @@
   width: 3px;
   background: white;
 }
-//
-// .item--school:hover::before {
-//   content: '';
-//   height: 35px;
-//   width: 3px;
-//   background: $pink;
-// }
+
+.item--school:hover::before {
+  content: '';
+  height: 35px;
+  width: 3px;
+  background: $pink;
+}
 
 .text--school-name, .text--city-name {
   display: inline-block;
