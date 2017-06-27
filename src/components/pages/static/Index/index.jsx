@@ -181,7 +181,7 @@ export default class Index extends Component {
                </tbody>
              </table>
              <span className="home-font-price">Free</span>
-             <Link to="/signup/select_school" className="home-btn">Sign up</Link>
+             <Link to="/signup" className="home-btn">Sign up</Link>
            </div>
 
            <div className="home-card-price">
