@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 import Dropzone from 'react-dropzone'
 import Webcam from 'react-webcam'
-
 import Cropper from 'cropperjs'
 import '../../../../styles/vendor/cropperjs.css'
 
 import IconPlus from './plus-active.svg'
+import IconCross from './cross.svg'
+import { storage } from '../../../../utils'
 
 import {
   InputSearchSchool,
@@ -24,6 +25,7 @@ import {
   layoutSelectSchoolFotter,
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
+  bottomPageNavBullets,
   header,
   square,
   spin,
@@ -53,6 +55,8 @@ import {
   modalProgressIconPicture,
   boxInput,
   iconPlus,
+  iconPlusActive,
+  tagBoxIcon,
 } from './style'
 
 export default class Profile extends Component {
@@ -69,6 +73,8 @@ export default class Profile extends Component {
     form: {
       tagsFos: [],
       tagsClass: [],
+      isInputFosActive: false,
+      isInputClassActive: false,
       profileImage: {
         imageFile: null,
         cropInfo: {},
@@ -76,61 +82,71 @@ export default class Profile extends Component {
     },
   }
 
-  onKeyDownFOSHandler(event) {
-    if (event.key === 'Enter') {
-      const value = event.target.value
-      event.target.value = ''
-
-      const isExsist = Array.prototype.includes(this.state.form.tagsFos, value)
-
-      if (isExsist) return
-
-      this.setState({
-        form: { ...this.state.form,
-          tagsFos: [...this.state.form.tagsFos, value],
-        },
-      })
+  componentDidMount() {
+    if (!storage.hasValidAccessTokens) {
+      browserHistory.push('/')
     }
   }
 
   onClickBtnAddFos() {
     const value = this._inputFOS.value
+    const regex = /^\s*$/
+
+    if (regex.test(value)) return
+
     this.setState({
-      form: { ...this.state.form,
+      form: {
+        ...this.state.form,
         tagsFos: [...this.state.form.tagsFos, value],
       },
     })
+
     this._inputFOS.value = ''
   }
 
   onClickBtnAddClass() {
     const value = this._inputClass.value
-    this.setState({
-      form: { ...this.state.form,
-        tagsFos: [...this.state.form.tagsFos, value],
-      },
-    })
-    this._inputClass.value = ''
-  }
+    const regex = /^\s*$/
 
-  onClickBtnAddClass() {
-    const value = this._inputClass.value
+    if (regex.test(value)) return
+
     this.setState({
-      form: { ...this.state.form,
+      form: {
+        ...this.state.form,
         tagsClass: [...this.state.form.tagsClass, value],
       },
     })
     this._inputClass.value = ''
   }
 
-  onKeyDownClassesHandler(event) {
+  onKeyDownFOSHandler(event) {
     if (event.key === 'Enter') {
+      const regex = /^\s*$/
       const value = event.target.value
-      event.target.value = ''
 
       const isExsist = Array.prototype.includes(this.state.form.tagsFos, value)
 
-      if (isExsist) return
+      if (isExsist || regex.test(value)) return
+      this._inputFOS.value = ''
+
+      this.setState({
+        form: {
+          ...this.state.form,
+          tagsFos: [...this.state.form.tagsFos, value],
+        },
+      })
+    }
+  }
+
+  onKeyDownClassesHandler(event) {
+    if (event.key === 'Enter') {
+      const regex = /^\s*$/
+      const value = event.target.value
+
+      const isExsist = Array.prototype.includes(this.state.form.tagsFos, value)
+
+      if (isExsist || regex.test(value)) return
+      this._inputClass.value = ''
 
       this.setState({
         form: {
@@ -185,6 +201,7 @@ export default class Profile extends Component {
     const updatedTagsFos = tagsFos.filter(tag => tag !== tagFos)
     this.setState({
       form: {
+        ...this.state.form,
         tagsFos: updatedTagsFos,
       },
     })
@@ -195,6 +212,7 @@ export default class Profile extends Component {
     const updatedTagsClass = tagsClass.filter(tag => tag !== tagClass)
     this.setState({
       form: {
+        ...this.state.form,
         tagsClass: updatedTagsClass,
       },
     })
@@ -227,7 +245,7 @@ export default class Profile extends Component {
   }
 
   get renderFirstPage() {
-
+    const isTextFieldActive = this.state.isInputFosActive
     return (
       <div className={layoutFos}>
         <div className={header}>
@@ -238,22 +256,33 @@ export default class Profile extends Component {
             <InputTextTransparent
               className={input}
               refTo={(ref) => this._inputFOS = ref}
+              onChange={event => this.setState({ isInputFosActive: event.target.value === '' }) }
               onKeyDown={::this.onKeyDownFOSHandler}
               placeholder="Type your field of study"
             />
-            <IconPlus onClick={::this.onClickBtnAddFos} className={iconPlus} />
+            <IconPlus onClick={::this.onClickBtnAddFos} className={isTextFieldActive ? iconPlus : iconPlusActive} />
           </div>
           <ul className={contentTags}>
-            {this.state.form.tagsFos && this.state.form.tagsFos.map(tagFos => <li key={tagFos} className={tagOrange} onClick={event => ::this.onDeleteFosTag(tagFos)}>{tagFos}</li>)}
+            {this.state.form.tagsFos && this.state.form.tagsFos.map(tagFos =>
+              <li
+                key={tagFos}
+                className={tagOrange}
+                onClick={event => ::this.onDeleteFosTag(tagFos)}
+              >
+               {tagFos}
+               <span className={tagBoxIcon}><IconCross /></span>
+              </li>)}
           </ul>
         </div>
         <div className={bottom}>
-          <Button onClick={::this.onNext} type="primary">Next</Button>
+          <Button onClick={::this.onNext} type="primary">Continue</Button>
           <div className={bottomPageNav}>
             <span className={linkback} onClick={::this.onBack}>Back</span>
-            <span className={bulletActive}></span>
-            <span className={bulletNonActive}></span>
-            <span className={bulletNonActive}></span>
+            <span className={bottomPageNavBullets}>
+              <span className={bulletActive}></span>
+              <span className={bulletNonActive}></span>
+              <span className={bulletNonActive}></span>
+            </span>
             <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
         </div>
@@ -283,17 +312,27 @@ export default class Profile extends Component {
           </div>
           <ul className={contentTags}>
             {this.state.form.tagsClass
-             && this.state.form.tagsClass.map(tagClass => <li key={tagClass} className={tagGreen} onClick={() => ::this.onDeleteClassTag(tagClass)}>{tagClass}</li>)}
+             && this.state.form.tagsClass.map(tagClass =>
+               <li
+                 key={tagClass}
+                 className={tagGreen}
+                 onClick={() => ::this.onDeleteClassTag(tagClass)}
+               >
+                {tagClass}
+                <span className={tagBoxIcon}><IconCross /></span>
+               </li>)}
           </ul>
         </div>
 
         <div className={bottom}>
-          <Button onClick={::this.onNext} type="primary">Next</Button>
+          <Button onClick={::this.onNext} type="primary">Continue</Button>
           <div className={bottomPageNav}>
             <span className={linkback} onClick={::this.onBack}>Back</span>
-            <span className={bulletActive}></span>
-            <span className={bulletActive}></span>
-            <span className={bulletNonActive}></span>
+            <span className={bottomPageNavBullets}>
+              <span className={bulletActive}></span>
+              <span className={bulletActive}></span>
+              <span className={bulletNonActive}></span>
+            </span>
             <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
         </div>
@@ -310,7 +349,7 @@ export default class Profile extends Component {
     const file = files.filter(f => f)[0]
     this.setState({
       form: {
-        ...this.form,
+        ...this.state.form,
         profileImage: {
           imageFile: file,
         },
@@ -324,8 +363,10 @@ export default class Profile extends Component {
     if (this._profileImage) {
       const cropedImage = new Cropper(this._profileImage, {
         aspectRatio: 1,
-        crop: ::this.onCropHandle
-      })
+        crop: ::this.onCropHandle,
+        minCanvasWidth: 0,
+        minCanvasHeight: 0,
+      }).setCanvasData({ width: 360, height: 360 })
     }
   }
 
@@ -363,24 +404,24 @@ export default class Profile extends Component {
           <h2 className={title}>Last step. Your profile picture! 😙</h2>
         </div>
         <div className={content}>
-          {this.state.form.profileImage.imageFile &&
+          {this.state.form.profileImage && this.state.form.profileImage.imageFile ?
             <div className={boxProfileImage}>
               <img className={profileImage} alt={this.state.form.profileImage.imageFile.name} ref={(img) => { this._profileImage = img }} src={this.state.form.profileImage.imageFile.preview} />
-            </div>
-          }
-          <Dropzone
-            className={dropZone}
-            onDrop={::this.onDropHandle}
-            multiple={false}
-            maxSize={MAX_SIZE}
-            accept={MIME_TYPE}
-          >
-            <div>
-              <div className="">
-                <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
+            </div> :
+            <Dropzone
+              className={dropZone}
+              onDrop={::this.onDropHandle}
+              multiple={false}
+              maxSize={MAX_SIZE}
+              accept={MIME_TYPE}
+            >
+              <div>
+                <div>
+                  <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
+                </div>
               </div>
-            </div>
-          </Dropzone>
+            </Dropzone>
+          }
           <ul className={contentSelect}>
             {/* <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li> */}
             {/* <li className={contentSelectOptions}><Button type="option" onClick={(event) => ::this.onClickActivateWebcamHandler(event)} >Active your webcam</Button></li> */}
@@ -393,13 +434,16 @@ export default class Profile extends Component {
           }
         </div>
         <div className={bottom}>
+          {this.props.auth.error && this.props.auth.error.code === 'ApiErrorResponse.InvalidAccessTokenError' && <h3>Please login again.</h3>}
           <Button onClick={::this.onNext} type="primary">Submit</Button>
           <div className={bottomPageNav}>
             <span className={linkback} onClick={::this.onBack}>Back</span>
-            <span className={bulletActive}></span>
-            <span className={bulletActive}></span>
-            <span className={bulletActive}></span>
-            <span className={linkback}><Link to="/dashboard">Done</Link></span>
+            <span className={bottomPageNavBullets}>
+              <span className={bulletActive}></span>
+              <span className={bulletActive}></span>
+              <span className={bulletActive}></span>
+            </span>
+            <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
       </div>
       <div className={layoutSelectSchoolFotter}>
