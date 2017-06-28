@@ -23,7 +23,7 @@
   flex-flow: column;
   align-items: center;
   height: 100vh;
-  background: $orange;
+  background: #fff1cf;
 }
 
 .layout--classes {
@@ -100,9 +100,6 @@
 
 }
 
-.bottomPageNavBullets {
-  margin: 0px 60px;
-}
 
 .tag {
   display: inline-flex;
@@ -181,11 +178,19 @@
 
 .bottom__page--nav {
   color: #383838;
-  margin: 15px 0px;
+  margin: 5px 0px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bottom__page--nav--bullets {
+  margin: 10px 50px;
+}
+
+.bottom__page--nav--bullets svg {
+  margin: 0px 5px;
 }
 
 .bullet--non-active, .bullet--active {

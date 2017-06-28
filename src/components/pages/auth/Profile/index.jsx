@@ -8,6 +8,8 @@ import '../../../../styles/vendor/cropperjs.css'
 import IconPlus from './plus-active.svg'
 import IconCross from './cross.svg'
 import { storage } from '../../../../utils'
+import IconBullet from './bullet.svg'
+import IconBulletActive from './bullet-active.svg'
 
 import {
   InputSearchSchool,
@@ -258,7 +260,7 @@ export default class Profile extends Component {
               refTo={(ref) => this._inputFOS = ref}
               onChange={event => this.setState({ isInputFosActive: event.target.value === '' }) }
               onKeyDown={::this.onKeyDownFOSHandler}
-              placeholder="Type your field of study"
+              placeholder="Coputer Science"
             />
             <IconPlus onClick={::this.onClickBtnAddFos} className={isTextFieldActive ? iconPlus : iconPlusActive} />
           </div>
@@ -279,9 +281,9 @@ export default class Profile extends Component {
           <div className={bottomPageNav}>
             <span className={linkback} onClick={::this.onBack}>Back</span>
             <span className={bottomPageNavBullets}>
-              <span className={bulletActive}></span>
-              <span className={bulletNonActive}></span>
-              <span className={bulletNonActive}></span>
+              <IconBulletActive />
+              <IconBullet />
+              <IconBullet />
             </span>
             <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
@@ -306,7 +308,7 @@ export default class Profile extends Component {
               className={input}
               onKeyDown={::this.onKeyDownClassesHandler}
               refTo={(ref) => this._inputClass = ref}
-              placeholder="Type your classes"
+              placeholder="CLASS001"
             />
             <IconPlus onClick={::this.onClickBtnAddClass} className={iconPlus} />
           </div>
@@ -329,9 +331,9 @@ export default class Profile extends Component {
           <div className={bottomPageNav}>
             <span className={linkback} onClick={::this.onBack}>Back</span>
             <span className={bottomPageNavBullets}>
-              <span className={bulletActive}></span>
-              <span className={bulletActive}></span>
-              <span className={bulletNonActive}></span>
+              <IconBulletActive />
+              <IconBulletActive />
+              <IconBullet />
             </span>
             <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
@@ -366,7 +368,7 @@ export default class Profile extends Component {
         crop: ::this.onCropHandle,
         minCanvasWidth: 0,
         minCanvasHeight: 0,
-      }).setCanvasData({ width: 360, height: 360 })
+      })
     }
   }
 
@@ -435,13 +437,13 @@ export default class Profile extends Component {
         </div>
         <div className={bottom}>
           {this.props.auth.error && this.props.auth.error.code === 'ApiErrorResponse.InvalidAccessTokenError' && <h3>Please login again.</h3>}
-          <Button onClick={::this.onNext} type="primary">Submit</Button>
+          <Button onClick={::this.onNext} type="primary">Get Started</Button>
           <div className={bottomPageNav}>
             <span className={linkback} onClick={::this.onBack}>Back</span>
             <span className={bottomPageNavBullets}>
-              <span className={bulletActive}></span>
-              <span className={bulletActive}></span>
-              <span className={bulletActive}></span>
+              <IconBulletActive />
+              <IconBulletActive />
+              <IconBulletActive />
             </span>
             <span className={linkback} onClick={::this.onNext}>Next</span>
           </div>
