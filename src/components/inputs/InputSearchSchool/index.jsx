@@ -43,12 +43,13 @@ export default class InputSearchSchool extends Component {
     const { schoolsSearch, onSelectSchool, schools } = this.props
     const { currentIndex } = this.state
     const dataLength = schools.data.length
+    if (dataLength === 0) return
 
     switch (event.key) {
       case DOWN: {
         const index = (currentIndex >= -1 && currentIndex < dataLength - 1) ? currentIndex + 1 : currentIndex
-
-        const elementTop = this._schoolList.children[index].getBoundingClientRect().top
+        const currentElement = this._schoolList.children[index]
+        const elementTop = currentElement ? currentElement.getBoundingClientRect().top : 0
         const listTop = this._schoolList.getBoundingClientRect().top
 
         this.setState({
@@ -58,7 +59,6 @@ export default class InputSearchSchool extends Component {
         if (elementTop > listTop) {
           this._schoolList.scrollTop += 50
         }
-        console.log(elementTop, listTop)
 
         break
       }
@@ -66,8 +66,9 @@ export default class InputSearchSchool extends Component {
       case UP: {
 
         const index = (currentIndex > -1 && currentIndex <= dataLength - 1) ? currentIndex - 1 : currentIndex
+        const currentElement = this._schoolList.children[index]
 
-        const elementTop = this._schoolList.children[index].getBoundingClientRect().top
+        const elementTop = currentElement ? currentElement.getBoundingClientRect().top : 0
         const listTop = this._schoolList.getBoundingClientRect().top
 
         this.setState({

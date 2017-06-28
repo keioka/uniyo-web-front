@@ -73,7 +73,9 @@ export default class Signup extends Component {
   render() {
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
     const schools = this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug)
-    const selectedSchool = schools.length > 0 && schools[0]
+    const selectedSchool = schools.length > 0 ? schools[0] : null
+    const isSelectedSchool = this.props.params.schoolSlug === 'demo' || !!selectedSchool
+
     return (
       <div className={layoutUserInfo}>
         <div className={header}>
@@ -82,7 +84,7 @@ export default class Signup extends Component {
               <li>
                 {selectedSchool ?
                   <Link to={`/schools/${selectedSchool.slug}/signin`}>Log in</Link> :
-                  <Link to="/signup">sign up</Link>
+                  <Link to={`/signin`}>Log in</Link>
                 }
               </li>
               <li className={active}>sign up</li>
@@ -120,7 +122,7 @@ export default class Signup extends Component {
           />
           <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign Up</Button>
           <div className={box}>
-            <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b>UniYo terms</b> and our <b>privacy policy</b>.</span>
+            <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b><Link to="/terms">Uniyo terms</Link></b> and our <b><Link to="/privacy">privacy policy</Link></b>.</span>
           </div>
         </div>
 
