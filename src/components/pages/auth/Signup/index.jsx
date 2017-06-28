@@ -34,27 +34,24 @@ export default class Signup extends Component {
     schools: PropTypes.isRequired
   }
 
-  constructor() {
-    super()
-    this.state = {
-      pageIndex: 0,
-      form: {
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-      },
-    }
+  state = {
+    pageIndex: 0,
+    form: {
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+    },
   }
 
-    componentDidMount() {
-      const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
-      if (!isDemo && this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug).length === 0) {
-        this.props.schoolInfo({
-          id: this.props.params.schoolSlug,
-        })
-      }
+  componentDidMount() {
+    const isDemo = this.props.params.schoolSlug === 'demo'
+    if (!isDemo && this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug).length === 0) {
+      this.props.schoolInfo({
+        id: this.props.params.schoolSlug,
+      })
     }
+  }
 
   onSubmit() {
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
@@ -73,8 +70,7 @@ export default class Signup extends Component {
   render() {
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
     const schools = this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug)
-    const selectedSchool = schools.length > 0 ? schools[0] : null
-    const isSelectedSchool = this.props.params.schoolSlug === 'demo' || !!selectedSchool
+    const selectedSchool = schools.length > 0 && schools[0]
 
     return (
       <div className={layoutUserInfo}>
@@ -84,7 +80,7 @@ export default class Signup extends Component {
               <li>
                 {selectedSchool ?
                   <Link to={`/schools/${selectedSchool.slug}/signin`}>Log in</Link> :
-                  <Link to={`/signin`}>Log in</Link>
+                  <Link to={`/schools/demo/signin`}>Log in</Link>
                 }
               </li>
               <li className={active}>sign up</li>
