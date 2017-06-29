@@ -1,0 +1,170 @@
+@import "../../../styles/main";
+
+.container {
+  display: flex;
+  flex: 1 100%;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.box--input {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  color: #404040;
+  list-style: none;
+  min-height: 40px;
+  text-align: left;
+  border-bottom: 1px solid #EFEFEF;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 5px 0px;
+}
+//
+// .item:hover {
+//   color: $pink;
+// }
+
+.item::before {
+  content: '';
+  height: 25px;
+  width: 3px;
+  background: white;
+}
+
+.item:hover::before {
+  content: '';
+  height: 35px;
+  width: 3px;
+  background: $pink;
+}
+
+.text--school-name, .text--city-name {
+  display: inline-block;
+  padding: 20px 20px;
+}
+
+.icon--plus {
+  width: 19px;
+  height: 19px;
+  fill: #404040;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.icon--plus--active {
+  width: 19px;
+  height: 19px;
+  fill: #404040;
+  cursor: pointer;
+}
+
+.list--ul {
+  margin-top: 20px;
+  border-radius: 8px;
+  background-color: white;
+  width: 420px;
+  max-height: 315px;
+  overflow-y: scroll;
+  box-shadow: 0px 2px 4px #D9D9D9;
+  position: relative;
+}
+
+.list--wrapper {
+  position: absolute;
+  top: 30px;
+  width: 370px;
+}
+//
+// .list--wrapper::before {
+//   content: '';
+//   display: block;
+//   width: 0;
+//   height: 0;
+//   position: absolute;
+//   border-bottom: 15px solid #FFF;
+//   border-left: 10px solid transparent;
+//   border-right: 10px solid transparent;
+//   left: 20px;
+//   top: 7px;
+//   filter: drop-shadow(0px 2px 4px #D9D9D9);
+// }
+
+.input--search {
+  width: 320px !important;
+}
+
+.input--search:focus {
+  background: white;
+  padding: 10px 10px;
+  width: 320px;
+  box-sizing: border-box;
+}
+
+.item {
+  color: #404040;
+  list-style: none;
+  min-height: 40px;
+  text-align: left;
+  border-bottom: 1px solid #EFEFEF;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+//
+// .item:hover {
+//   color: $pink;
+// }
+
+.item::before {
+  content: '';
+  height: 25px;
+  width: 3px;
+  background: white;
+}
+
+.item:hover {
+  color: $pink;
+}
+
+.item:hover::before {
+  content: '';
+  height: 35px;
+  width: 3px;
+  background: $pink;
+}
+
+.text--school-name, .text--city-name {
+  display: inline-block;
+  padding: 20px 20px;
+}
+
+.text--school-name {
+  width: 80%;
+}
+
+.text--city-name {
+  width: 20%;
+  color: #9c9c9c;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.item--active::before {
+  content: '';
+  height: 35px;
+  width: 3px;
+  background: $pink;
+}
+
+.item--active {
+  color: $pink;
+}
