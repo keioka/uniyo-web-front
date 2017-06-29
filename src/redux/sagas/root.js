@@ -44,6 +44,7 @@ const {
   userGiveDonutsSaga,
   addDeviceSaga,
   resetPasswordSaga,
+  newPasswordUpdateSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -85,6 +86,7 @@ export default function* rootSaga() {
     fork(addDeviceSaga),
     fork(resetPasswordSaga),
     fork(hashtagSearchSaga),
+    fork(newPasswordUpdateSaga),
     /*
       saga form UI
     */
