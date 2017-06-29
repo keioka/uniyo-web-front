@@ -24,6 +24,7 @@
   align-items: center;
   height: 100vh;
   background: #fff1cf;
+  justify-content: space-between;
 }
 
 .layout--classes {
@@ -32,6 +33,7 @@
   align-items: center;
   height: 100vh;
   background: #dbffe3;
+  justify-content: space-between;
 }
 
 .layout--profile-picture {
@@ -41,6 +43,7 @@
   min-height: 100vh;
   height: 100vh;
   background: $whiteblue;
+  justify-content: space-between;
 }
 
 .header {
@@ -161,7 +164,7 @@
   align-items: flex-end;
   justify-content: space-between;
   width: 100%;
-  height: 25%;
+  height: 15%;
 }
 
 .layout--select-school__fotter__right {
@@ -186,7 +189,7 @@
 }
 
 .bottom__page--nav--bullets {
-  margin: 10px 50px;
+  margin: 10px 30px;
 }
 
 .bottom__page--nav--bullets svg {
@@ -215,6 +218,12 @@
   color: #383838;
   cursor: pointer;
   font-weight: bold;
+  padding: 10px;
+}
+
+.linkback:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
 .linkback a {
@@ -299,16 +308,16 @@
 }
 
 .icon--plus {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   fill: #404040;
   opacity: 0.7;
   cursor: pointer;
 }
 
 .icon--plus--active {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   fill: #404040;
   cursor: pointer;
 }
