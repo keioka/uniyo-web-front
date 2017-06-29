@@ -30,14 +30,11 @@ export default class Signin extends Component {
     schools: PropTypes.isRequired,
   }
 
-  constructor() {
-    super()
-    this.state = {
-      form: {
-        email: '',
-        password: '',
-      },
-    }
+  state = {
+    form: {
+      email: '',
+      password: '',
+    },
   }
 
   componentDidMount() {
@@ -94,7 +91,7 @@ export default class Signin extends Component {
             placeholder="Password"
           />
         <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
-          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.<br/>Forgot your password? <b><Link to={`/schools/${selectedSchool.slug}/reset_password`}>Click on this link</Link></b>.</span>
+          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.<br/>Forgot your password? <b><Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/reset_password`}>Click on this link</Link></b>.</span>
         </div>
 
         <div className={layoutSelectSchoolFotter}>

@@ -38,7 +38,6 @@ export default class ResetPassword extends Component {
   }
 
   componentDidMount() {
-    console.log('resetPassword')
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
     if (!isDemo && this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug).length === 0) {
       this.props.schoolInfo({
@@ -89,7 +88,6 @@ export default class ResetPassword extends Component {
           />
           <Button onClick={::this.onSubmit} type="primary" className={btn}>Send</Button>
           <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
-          <div>{auth.isResetSuccess && <span>We sent an email to you</span>}</div>
         </div>
 
         <div className={layoutSelectSchoolFotter}>
