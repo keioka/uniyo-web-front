@@ -26,6 +26,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   logIn: actions.logIn,
   userCreate: actions.userCreate,
   resetPassword: actions.resetPassword,
+  newPasswordUpdate: actions.newPasswordUpdate,
   hashtagSearch: actions.hashtagSearch,
   hashtagAdd: actions.hashtagAdd,
   userPictureUpdate: actions.userPictureUpdate,
@@ -54,6 +55,10 @@ export default class Auth extends Component {
     let message
     if (auth.isResetSuccess) {
       message = 'Sent email to you. Please check your email'
+    }
+
+    if (auth.isUpdateNewPasswordSuccess) {
+      message = 'Now you have password!'
     }
 
     return (
@@ -87,6 +92,12 @@ export default class Auth extends Component {
       errorMessage = auth.error.response.data.error.message
     }
 
+    if (
+      auth.error.response.data.error.code === 'ResetPasswordError.InvalidToken'
+    ) {
+      errorMessage = 'Token is expired or invalid. Please send another reset password request'
+    }
+
     return (
       // TODO: Should change div to interactive elements. - Kei
       <div className={error} onClick={this.props.authClearError}>
@@ -110,6 +121,7 @@ export default class Auth extends Component {
       isResetSuccess,
       hashtags,
       hashtagSearch,
+      newPasswordUpdate,
     } = this.props
 
     const childComponents = React.Children.map(children, child => React.cloneElement(child, {
@@ -125,6 +137,7 @@ export default class Auth extends Component {
       isResetSuccess,
       hashtags,
       hashtagSearch,
+      newPasswordUpdate,
     }))
 
     return (
