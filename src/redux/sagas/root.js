@@ -25,6 +25,7 @@ const {
   hashtagTrendingSearchSaga,
   postInfoSaga,
   hashtagDeleteSaga,
+  hashtagSearchSaga,
   answerSearchSaga,
   answerCreateSaga,
   notificationSearchSaga,
@@ -83,6 +84,7 @@ export default function* rootSaga() {
     fork(userGiveDonutsSaga),
     fork(addDeviceSaga),
     fork(resetPasswordSaga),
+    fork(hashtagSearchSaga),
     /*
       saga form UI
     */

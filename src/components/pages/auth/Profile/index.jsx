@@ -12,8 +12,8 @@ import IconBullet from './bullet.svg'
 import IconBulletActive from './bullet-active.svg'
 
 import {
-  InputSearchSchool,
   InputTextTransparent,
+  InputHashtag,
   Button,
 } from '../../../index'
 
@@ -69,14 +69,14 @@ export default class Profile extends Component {
   }
 
   state = {
+    isInputFosActive: false,
+    isInputClassActive: false,
     isWebcamOpen: false,
     screenshot: null,
     pageIndex: 0,
     form: {
       tagsFos: [],
       tagsClass: [],
-      isInputFosActive: false,
-      isInputClassActive: false,
       profileImage: {
         imageFile: null,
         cropInfo: {},
@@ -112,51 +112,40 @@ export default class Profile extends Component {
 
     if (regex.test(value)) return
 
+    this._inputClass.value = ''
+
     this.setState({
       form: {
         ...this.state.form,
         tagsClass: [...this.state.form.tagsClass, value],
       },
     })
-    this._inputClass.value = ''
   }
 
-  onKeyDownFOSHandler(event) {
-    if (event.key === 'Enter') {
-      const regex = /^\s*$/
-      const value = event.target.value
+  addFOSTag(value) {
+    const regex = /^\s*$/
+    const isExsist = Array.prototype.includes(this.state.form.tagsFos, value)
+    if (isExsist || regex.test(value)) return
 
-      const isExsist = Array.prototype.includes(this.state.form.tagsFos, value)
-
-      if (isExsist || regex.test(value)) return
-      this._inputFOS.value = ''
-
-      this.setState({
-        form: {
-          ...this.state.form,
-          tagsFos: [...this.state.form.tagsFos, value],
-        },
-      })
-    }
+    this.setState({
+      form: {
+        ...this.state.form,
+        tagsFos: [...this.state.form.tagsFos, value],
+      },
+    })
   }
 
-  onKeyDownClassesHandler(event) {
-    if (event.key === 'Enter') {
-      const regex = /^\s*$/
-      const value = event.target.value
+  addClassTag(value) {
+    const regex = /^\s*$/
+    const isExsist = Array.prototype.includes(this.state.form.tagsClass, value)
+    if (isExsist || regex.test(value)) return
 
-      const isExsist = Array.prototype.includes(this.state.form.tagsFos, value)
-
-      if (isExsist || regex.test(value)) return
-      this._inputClass.value = ''
-
-      this.setState({
-        form: {
-          ...this.state.form,
-          tagsClass: [...this.state.form.tagsClass, value],
-        },
-      })
-    }
+    this.setState({
+      form: {
+        ...this.state.form,
+        tagsClass: [...this.state.form.tagsClass, value],
+      },
+    })
   }
 
   onBack() {
@@ -247,7 +236,8 @@ export default class Profile extends Component {
   }
 
   get renderFirstPage() {
-    const isTextFieldActive = this.state.isInputFosActive
+    const { hashtags, hashtagSearch } = this.props
+    const { all: allHashtag } = hashtags
     return (
       <div className={layoutFos}>
         <div className={header}>
@@ -255,14 +245,12 @@ export default class Profile extends Component {
         </div>
         <div className={content}>
           <div className={boxInput}>
-            <InputTextTransparent
-              className={input}
-              refTo={(ref) => this._inputFOS = ref}
-              onChange={event => this.setState({ isInputFosActive: event.target.value === '' }) }
-              onKeyDown={::this.onKeyDownFOSHandler}
-              placeholder="Coputer Science"
+            <InputHashtag
+              onAdd={::this.addFOSTag}
+              hashtags={allHashtag}
+              hashtagSearch={hashtagSearch}
+              placeholder={'Computer Science'}
             />
-            <IconPlus onClick={::this.onClickBtnAddFos} className={isTextFieldActive ? iconPlus : iconPlusActive} />
           </div>
           <ul className={contentTags}>
             {this.state.form.tagsFos && this.state.form.tagsFos.map(tagFos =>
@@ -273,7 +261,8 @@ export default class Profile extends Component {
               >
                {tagFos}
                <span className={tagBoxIcon}><IconCross /></span>
-              </li>)}
+              </li>)
+            }
           </ul>
         </div>
         <div className={bottom}>
@@ -297,6 +286,8 @@ export default class Profile extends Component {
   }
 
   get renderSecondPage() {
+    const { hashtags, hashtagSearch } = this.props
+    const { all: allHashtag } = hashtags
     return (
       <div className={layoutClasses}>
         <div className={header}>
@@ -304,13 +295,12 @@ export default class Profile extends Component {
         </div>
         <div className={content}>
           <div className={boxInput}>
-            <InputTextTransparent
-              className={input}
-              onKeyDown={::this.onKeyDownClassesHandler}
-              refTo={(ref) => this._inputClass = ref}
-              placeholder="CLASS001"
+            <InputHashtag
+              onAdd={::this.addClassTag}
+              hashtags={allHashtag}
+              hashtagSearch={hashtagSearch}
+              placeholder={'CLASS001'}
             />
-            <IconPlus onClick={::this.onClickBtnAddClass} className={iconPlus} />
           </div>
           <ul className={contentTags}>
             {this.state.form.tagsClass
@@ -346,7 +336,6 @@ export default class Profile extends Component {
     )
   }
 
-
   onDropHandle(files) {
     const file = files.filter(f => f)[0]
     this.setState({
@@ -362,12 +351,16 @@ export default class Profile extends Component {
   }
 
   startCropping() {
-    if (this._profileImage) {
-      const cropedImage = new Cropper(this._profileImage, {
+    const image = this._profileImage
+    if (image) {
+      const cropedImage = new Cropper(image, {
         aspectRatio: 1,
         crop: ::this.onCropHandle,
         minCanvasWidth: 0,
         minCanvasHeight: 0,
+        ready: function () {
+          this.cropper("setCropBoxData", { width: "100", height: "50" })
+        }
       })
     }
   }

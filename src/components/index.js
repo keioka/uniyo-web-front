@@ -75,6 +75,7 @@ export CardFake from './cards/CardFake'
   input
 */
 
+export InputHashtag from './inputs/InputHashtag'
 export InputSearchSchool from './inputs/InputSearchSchool'
 export InputSearchTag from './inputs/InputSearchTag'
 export InputTextTransparent from './inputs/InputTextTransparent'

@@ -48,7 +48,8 @@ export const accessTokenValidator = store => next => action => {
     type === actionTypes.commentGiveDonuts.request ||
     type === actionTypes.userGiveDonuts.request ||
     type === actionTypes.notificationSearch.request ||
-    type === actionTypes.addDevice.request
+    type === actionTypes.addDevice.request ||
+    type === actionTypes.hashtagSearch.request
   ) {
     action.accessToken = storage.accessToken
   }
