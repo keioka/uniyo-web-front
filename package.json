@@ -7,9 +7,23 @@
     "test": "karma start",
     "test-watch": "karma start --auto-watch",
     "lint": "./node_modules/.bin/eslint",
-    "dev": "webpack-dev-server --inline --hot --config ./webpack/config.dev.js",
-    "build": "webpack -p --progress --config ./webpack/config.prd.js",
+    "dev": "better-npm-run dev",
+    "build": "better-npm-run build",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
+  },
+  "betterScripts": {
+    "build": {
+      "command": "webpack --progress --config ./webpack/config.prd.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "dev": {
+      "command": "webpack-dev-server --inline --hot --config ./webpack/config.dev.js",
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -50,6 +64,7 @@
     "react-visibility-sensor": "^3.9.0",
     "react-webcam": "0.0.14",
     "redux": "^3.6.0",
+    "redux-raven-middleware": "^1.2.0",
     "redux-saga": "^0.14.6",
     "rx": "^4.1.0",
     "uniyo-redux": "git+https://c44ed71924d2577ef2909b0afa2a3d335d387f78:x-oauth-basic@github.com/uniyo/uniyo-redux.git#dev-basic"
@@ -70,6 +85,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-runtime": "^6.23.0",
     "bdd-lazy-var": "^1.2.1",
+    "better-npm-run": "0.0.15",
     "chai": "^3.5.0",
     "css-loader": "^0.28.0",
     "enzyme": "^2.8.0",
@@ -101,6 +117,7 @@
     "postcss-simple-vars": "^3.1.0",
     "react-addons-test-utils": "^15.5.1",
     "react-hot-loader": "^3.0.0-beta.5",
+    "react-test-renderer": "^15.6.1",
     "redux-devtools-extension": "^2.13.0",
     "redux-saga-devtools": "^0.1.1",
     "sass-loader": "^6.0.3",
@@ -109,6 +126,6 @@
     "svg-react-loader": "^0.3.7",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.3",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
   }
 }
