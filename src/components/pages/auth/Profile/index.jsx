@@ -356,11 +356,8 @@ export default class Profile extends Component {
       const cropedImage = new Cropper(image, {
         aspectRatio: 1,
         crop: ::this.onCropHandle,
-        minCanvasWidth: 0,
-        minCanvasHeight: 0,
-        ready: function () {
-          this.cropper("setCropBoxData", { width: "100", height: "50" })
-        }
+        minCanvasWidth: 260,
+        minCanvasHeight: 260,
       })
     }
   }
