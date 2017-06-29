@@ -71,10 +71,10 @@ export default class ResetPassword extends Component {
           <nav className={nav}>
             <ul className={ul}>
               <li>
-                {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>Log in</Link> : <Link to="/signup">Log in</Link>}
+                <Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/signin`}>Log in</Link>
               </li>
               <li>
-                {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>sign up</Link> : <Link to="/signup">sign up</Link>}
+                <Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/signup`}>sign up</Link>
               </li>
             </ul>
           </nav>
