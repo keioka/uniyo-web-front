@@ -431,12 +431,16 @@ template {
   display: none;
 }
 
-.cropper-crop-box {
-  width: 260px;
-  height: 260px;
-}
+/*.cropper-crop-box, .cropper-canvas {
+  width: 260px !important;
+  height: 260px !important;
+}*/
 
 .cropper-view-box,
 .cropper-face {
   border-radius: 50%;
 }
+
+/*.cropper-canvas img {
+  display: none !important;
+}*/
