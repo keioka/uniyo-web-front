@@ -10,8 +10,10 @@ import {
   layoutSelectSchool,
   layoutUserInfo,
   header,
-  title,
   content,
+  contentTitle,
+  contentMain,
+  contentFooter,
   layoutSelectSchoolFotter,
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
@@ -20,6 +22,7 @@ import {
   text,
   nav,
   ul,
+  box,
   active,
 } from './style'
 
@@ -77,21 +80,27 @@ export default class Signin extends Component {
           </nav>
         </div>
         <div className={content}>
-          <h2 className={title}>Welcome back! 😜</h2>
-          <InputTextTransparent
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
-            placeholder="Email"
-          />
+          <h2 className={contentTitle}>Welcome back! 😜</h2>
+          <div className={contentMain}>
+            <InputTextTransparent
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
+              placeholder="Email"
+            />
 
-          <InputTextTransparent
-            type="password"
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
-            placeholder="Password"
-          />
-        <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
-          <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.<br/>Forgot your password? <b><Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/reset_password`}>Click on this link</Link></b>.</span>
+            <InputTextTransparent
+              type="password"
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
+              placeholder="Password"
+            />
+          </div>
+          <div className={contentFooter}>
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Log in</Button>
+            <div className={box}>
+              <span className={text}>You are logging in to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>.<br/>Forgot your password? <b><Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/reset_password`}>Click on this link</Link></b>.</span>
+            </div>
+          </div>
         </div>
 
         <div className={layoutSelectSchoolFotter}>
