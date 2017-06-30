@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
 
+import { Link } from 'react-router'
+
 import {
   LayoutAuth,
 } from '../../components'
@@ -12,6 +14,8 @@ import {
 import {
   error,
   success,
+  link,
+  message,
 } from './style'
 
 const mapStateToProps = state => ({
@@ -58,7 +62,7 @@ export default class Auth extends Component {
     }
 
     if (auth.isUpdateNewPasswordSuccess) {
-      message = 'Now you have password!'
+      message = 'Now you have new password!'
     }
 
     return (
@@ -82,14 +86,32 @@ export default class Auth extends Component {
     }
 
     if (auth.error.response.data.error === 'invalid_grant') {
-      errorMessage = 'Please check your email address or password'
+      const { schoolSlug } = this.props.params
+      errorMessage = (
+        <span>
+          <span className={message}>Check your email and password or &nbsp;</span>
+          <Link to={schoolSlug ? `/schools/${schoolSlug}/signup` : 'signup' } className={link}>Try to sign up</Link>
+        </span>
+      )
     }
 
     if (
-      auth.error.response.data.error.code === 'CreateNewUserError.InvalidUserInfo' ||
-      auth.error.response.data.error.code === 'CreateNewUserError.EmailAlreadyExists'
+      auth.error.response.data.error.code === 'CreateNewUserError.InvalidUserInfo'
     ) {
       errorMessage = auth.error.response.data.error.message
+    }
+
+    if (
+      auth.error.response.data.error.code === 'CreateNewUserError.EmailAlreadyExists'
+    ) {
+
+      const { schoolSlug } = this.props.params
+      errorMessage = (
+        <span>
+          <span className={message}>Hey! Someone already signed up with this email. &nbsp;</span>
+          <Link to={schoolSlug ? `/schools/${schoolSlug}/signin` : 'signin' } className={link}>Log in page</Link>
+        </span>
+      )
     }
 
     if (
