@@ -1,8 +1,8 @@
 npm run build
 ZIP=-9 tar -zcvf package.tar.gz index.html public
-scp ./package.tar.gz ubuntu@54.208.126.174:~
+scp ./package.tar.gz ubuntu@frontend.uniyo.io:~
 
-ssh ubuntu@54.208.126.174 << EOF
+ssh ubuntu@frontend.uniyo.io << EOF
   cd /srv/www/
   sudo mkdir uniyo_new_deploy
   cd uniyo_new_deploy
