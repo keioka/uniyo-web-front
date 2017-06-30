@@ -45,6 +45,7 @@ const {
   addDeviceSaga,
   resetPasswordSaga,
   newPasswordUpdateSaga,
+  userPictureUpdateRefreshSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -87,6 +88,7 @@ export default function* rootSaga() {
     fork(resetPasswordSaga),
     fork(hashtagSearchSaga),
     fork(newPasswordUpdateSaga),
+    fork(userPictureUpdateRefreshSaga),
     /*
       saga form UI
     */
