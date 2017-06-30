@@ -12,6 +12,9 @@ import {
   header,
   title,
   content,
+  contentTitle,
+  contentMain,
+  contentFooter,
   layoutSelectSchoolFotter,
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
@@ -81,21 +84,25 @@ export default class NewPassword extends Component {
           </nav>
         </div>
         <div className={content}>
-          <h2 className={title}>Pick a new password 🙈</h2>
-          <InputTextTransparent
-            type="password"
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
-            placeholder="Your new password"
-          />
-          <InputTextTransparent
-            type="password"
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, passwordConfirmation: event.target.value } })}
-            placeholder="Reset your Password"
-          />
-          <Button onClick={::this.onSubmit} type="primary" className={btn}>Send</Button>
-          <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
+          <h2 className={contentTitle}>Pick a new password 🙈</h2>
+          <div className={contentMain}>
+            <InputTextTransparent
+              type="password"
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
+              placeholder="Your new password"
+            />
+            <InputTextTransparent
+              type="password"
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, passwordConfirmation: event.target.value } })}
+              placeholder="Reset your Password"
+            />
+          </div>
+          <div className={contentFooter}>
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Send</Button>
+            <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
+          </div>
         </div>
 
         <div className={layoutSelectSchoolFotter}>
