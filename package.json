@@ -117,7 +117,6 @@
     "postcss-simple-vars": "^3.1.0",
     "react-addons-test-utils": "^15.5.1",
     "react-hot-loader": "^3.0.0-beta.5",
-    "react-test-renderer": "^15.6.1",
     "redux-devtools-extension": "^2.13.0",
     "redux-saga-devtools": "^0.1.1",
     "sass-loader": "^6.0.3",
