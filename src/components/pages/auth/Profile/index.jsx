@@ -151,6 +151,13 @@ export default class Profile extends Component {
   onBack() {
     if (this.state.pageIndex === 0) return
     this.setState({
+      form: {
+        ...this.state.form,
+        profileImage: {
+          imageFile: null,
+          cropInfo: {},
+        },
+      },
       pageIndex: this.state.pageIndex - 1
     })
   }
@@ -352,13 +359,25 @@ export default class Profile extends Component {
 
   startCropping() {
     const image = this._profileImage
+    let cropedImage
     if (image) {
-      const cropedImage = new Cropper(image, {
+      cropedImage = new Cropper(image, {
+        dragMode: 'move',
         aspectRatio: 1,
         crop: ::this.onCropHandle,
-        minCanvasWidth: 260,
-        minCanvasHeight: 260,
+        width: 260,
+        height: 260,
+        cropBoxMovable: false,
+        cropBoxResizable: false,
+        ready: function () {
+          var canvas = document.createElement('canvas');
+          var context = canvas.getContext('2d');
+          cropedImage.setCanvasData({ width: 260, height: 260 })
+          console.log(canvas)
+          console.log(context)
+        }
       })
+      cropedImage.scale(2)
     }
   }
 

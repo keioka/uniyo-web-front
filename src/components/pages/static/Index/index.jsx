@@ -234,7 +234,7 @@ export default class Index extends Component {
            <ul>
              <li><a href="https://uniyo.welcomekit.co/">Jobs</a></li>
              <li><a href="https://medium.com/uniyo">Blog</a></li>
-             <li><a href="https://medium.com/uniyo">Press</a></li>
+             <li><a href="https://www.dropbox.com/sh/958ztm8az3fsui9/AAB0OlJ1xDxQ80Ls1Lj-k9-3a?dl=0">Press kit</a></li>
              <li><a href="https://medium.com/uniyo">About</a></li>
              <li><a href="#pricing">Pricing</a></li>
            </ul>

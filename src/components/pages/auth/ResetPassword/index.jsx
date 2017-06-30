@@ -12,6 +12,9 @@ import {
   header,
   title,
   content,
+  contentTitle,
+  contentMain,
+  contentFooter,
   layoutSelectSchoolFotter,
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
@@ -71,23 +74,27 @@ export default class ResetPassword extends Component {
           <nav className={nav}>
             <ul className={ul}>
               <li>
-                {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>Log in</Link> : <Link to="/signup">Log in</Link>}
+                <Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/signin`}>Log in</Link>
               </li>
               <li>
-                {selectedSchool ? <Link to={`/schools/${selectedSchool.slug}/signup`}>sign up</Link> : <Link to="/signup">sign up</Link>}
+                <Link to={`/schools/${selectedSchool.slug ? selectedSchool.slug : 'demo'}/signup`}>sign up</Link>
               </li>
             </ul>
           </nav>
         </div>
         <div className={content}>
-          <h2 className={title}>We'll send you a magic link 🎩</h2>
-          <InputTextTransparent
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
-            placeholder="Email"
-          />
-          <Button onClick={::this.onSubmit} type="primary" className={btn}>Send</Button>
-          <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
+          <h2 className={contentTitle}>We'll send you a magic link 🎩</h2>
+          <div className={contentMain}>
+            <InputTextTransparent
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
+              placeholder="Email"
+            />
+          </div>
+          <div className={contentFooter}>
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Send</Button>
+            <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
+          </div>
         </div>
 
         <div className={layoutSelectSchoolFotter}>

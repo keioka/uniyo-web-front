@@ -19,7 +19,9 @@ import {
   text,
   active,
   content,
-  title,
+  contentTitle,
+  contentMain,
+  contentFooter,
   layoutSelectSchoolFotter,
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
@@ -88,37 +90,41 @@ export default class Signup extends Component {
           </nav>
         </div>
         <div className={content}>
-          <h2 className={title}>Here we go! 😜</h2>
-          <div className={boxNames}>
+          <h2 className={contentTitle}>Here we go! 😜</h2>
+          <div className={contentMain}>
+            <div className={boxNames}>
+              <InputTextTransparent
+                className={inputName}
+                onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
+                placeholder="First Name"
+              />
+
+              <InputTextTransparent
+                className={inputName}
+                onChange={event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })}
+                placeholder="Last Name"
+              />
+
+            </div>
+
             <InputTextTransparent
-              className={inputName}
-              onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
-              placeholder="First Name"
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
+              placeholder="name@email.com"
             />
 
             <InputTextTransparent
-              className={inputName}
-              onChange={event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })}
-              placeholder="Last Name"
+              type="password"
+              className={input}
+              onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
+              placeholder="Password"
             />
-
           </div>
-
-          <InputTextTransparent
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
-            placeholder="name@email.com"
-          />
-
-          <InputTextTransparent
-            type="password"
-            className={input}
-            onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
-            placeholder="Password"
-          />
-          <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign Up</Button>
-          <div className={box}>
-            <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b><Link to="/terms">Uniyo terms</Link></b> and our <b><Link to="/privacy">privacy policy</Link></b>.</span>
+          <div className={contentFooter}>
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Sign Up</Button>
+            <div className={box}>
+              <span className={text}>You are signing up to <b><Link to="/signin">{isDemo ? "Demo" : selectedSchool.name}</Link></b>. Before joining, read the <b><Link to="/terms">Uniyo terms</Link></b> and our <b><Link to="/privacy">privacy policy</Link></b>.</span>
+            </div>
           </div>
         </div>
 

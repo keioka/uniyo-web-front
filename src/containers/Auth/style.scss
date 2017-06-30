@@ -5,11 +5,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 25px;
   top: 0;
   left: 0;
   width: 100%;
-  background: $orange;
+  background: $pink;
+  color: white;
+  font-weight: bold;
 }
 
 .success {
@@ -17,9 +19,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 25px;
   top: 0;
   left: 0;
   width: 100%;
-  background: $blue;
+  background: #31c77e;
+  color: white;
+  font-weight: bold;
+}
+
+.link {
+  color: white;
+}
+
+.message {
 }

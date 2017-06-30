@@ -55,7 +55,6 @@ export default class App extends Component {
 
   componentDidMount() {
     const { location } = this.props
-
     const regexDashboard = /dashboard/
     if (
       authService.isTokenExist &&
