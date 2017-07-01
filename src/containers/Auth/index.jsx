@@ -89,7 +89,7 @@ export default class Auth extends Component {
       const { schoolSlug } = this.props.params
       errorMessage = (
         <span>
-          <span className={message}>Check your email and password or &nbsp;</span>
+          <span className={message}>Check your email and password or </span>
           <Link to={schoolSlug ? `/schools/${schoolSlug}/signup` : 'signup' } className={link}>Try to sign up</Link>
         </span>
       )
@@ -108,7 +108,7 @@ export default class Auth extends Component {
       const { schoolSlug } = this.props.params
       errorMessage = (
         <span>
-          <span className={message}>Hey! Someone already signed up with this email. &nbsp;</span>
+          <span className={message}>Hey! Someone already signed up with this email. </span>
           <Link to={schoolSlug ? `/schools/${schoolSlug}/signin` : 'signin' } className={link}>Log in page</Link>
         </span>
       )
