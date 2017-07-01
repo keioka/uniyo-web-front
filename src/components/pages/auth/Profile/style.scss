@@ -337,6 +337,69 @@
   -webkit-animation-timing-function: linear;
 }
 
+// Range Slider
+$range-width: 100% !default;
+
+$range-handle-color: $pink !default;
+$range-handle-color-hover: $strongpink !default;
+$range-handle-size: 20px !default;
+
+$range-track-color: #d7dcdf !default;
+$range-track-height: 10px !default;
+
+.box--input-range {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: $range-track-height;
+  border-radius: 5px;
+  background: $range-track-color;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  // Range Handle
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+
+    &:hover {
+      background: $range-handle-color-hover;
+    }
+  }
+
+  &:active::-webkit-slider-thumb {
+    background: $range-handle-color-hover;
+  }
+
+  &::-moz-range-thumb {
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border: 0;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+
+    &:hover {
+      background: $range-handle-color-hover;
+    }
+  }
+
+  &:active::-moz-range-thumb {
+    background: $range-handle-color-hover;
+  }
+}
+
 @-webkit-keyframes spin {
   from   {  -webkit-transform: rotate(0deg); }
   to   {  -webkit-transform: rotate(360deg); }
