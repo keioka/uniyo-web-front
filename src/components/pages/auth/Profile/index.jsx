@@ -198,17 +198,19 @@ export default class Profile extends Component {
     }
 
     if (this.state.pageIndex === 2) {
-      const imageSize = this._img.getBoundingClientRect()
-      const cropSize = this._avatorEditor.getCroppingRect()
-      console.log(imageSize)
-      const cropSizeRecalculated = calcRect(imageSize, cropSize)
-      const image = Object.assign({}, {
-        ...this.state.form.profileImage,
-        cropInfo: cropSizeRecalculated,
-        accessToken: localStorage['ACCESS_TOKEN'],
-      })
-      userPictureUpdate(image)
-      return
+      if (this._img) {
+        const imageSize = this._img.getBoundingClientRect()
+        const cropSize = this._avatorEditor.getCroppingRect()
+        const cropSizeRecalculated = calcRect(imageSize, cropSize)
+        const image = Object.assign({}, {
+          ...this.state.form.profileImage,
+          cropInfo: cropSizeRecalculated,
+          accessToken: localStorage['ACCESS_TOKEN'],
+        })
+        userPictureUpdate(image)
+      } else {
+        browserHistory.push('/dashboard')
+      }
     }
 
     this.setState({
