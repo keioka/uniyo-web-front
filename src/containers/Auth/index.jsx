@@ -89,8 +89,8 @@ export default class Auth extends Component {
       const { schoolSlug } = this.props.params
       errorMessage = (
         <span>
-          <span className={message}>Check your email and password or </span>
-          <Link to={schoolSlug ? `/schools/${schoolSlug}/signup` : 'signup' } className={link}>Try to sign up</Link>
+          <span className={message}>👀&nbsp; Check your email and password or </span>
+          <Link to={schoolSlug ? `/schools/${schoolSlug}/signup` : 'signup' } className={link}>try to sign up</Link>
         </span>
       )
     }
@@ -98,7 +98,21 @@ export default class Auth extends Component {
     if (
       auth.error.response.data.error.code === 'CreateNewUserError.InvalidUserInfo'
     ) {
-      errorMessage = auth.error.response.data.error.message
+      if (auth.error.response.data.error.message === 'Invalid first name') {
+        errorMessage = 'Even a cat knows his first name\xa0 🙀'
+      }
+
+      if (auth.error.response.data.error.message === 'Invalid last name') {
+        errorMessage = '🙏 \xa0Please, your last name??'
+      }
+
+      if (auth.error.response.data.error.message === 'Invalid email format.') {
+        errorMessage = '👀 \xa0Your email looks super weird'
+      }
+
+      if (auth.error.response.data.error.message === 'Password cannot be empty') {
+        errorMessage = '🙈 \xa0Type a new password'
+      }
     }
 
     if (
@@ -108,7 +122,7 @@ export default class Auth extends Component {
       const { schoolSlug } = this.props.params
       errorMessage = (
         <span>
-          <span className={message}>Hey! Someone already signed up with this email. </span>
+          <span className={message}>👋&nbsp; Hey! Someone already signed up with this email. </span>
           <Link to={schoolSlug ? `/schools/${schoolSlug}/signin` : 'signin' } className={link}>Log in page</Link>
         </span>
       )
