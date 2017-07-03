@@ -104,6 +104,7 @@ export default class Profile extends Component {
     const self = this
     this.state.reader.addEventListener("load", function () {
       self.setState({
+        ...this.state,
         imagePreview: self.state.reader.result
       })
     }, false)
@@ -203,7 +204,7 @@ export default class Profile extends Component {
         const cropSize = this._avatorEditor.getCroppingRect()
         const cropSizeRecalculated = calcRect(imageSize, cropSize)
         const image = Object.assign({}, {
-          ...this.state.form.profileImage,
+          imageFile: this.state.form.profileImage.imageFile,
           cropInfo: cropSizeRecalculated,
           accessToken: localStorage['ACCESS_TOKEN'],
         })

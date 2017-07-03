@@ -9,13 +9,24 @@
     "lint": "./node_modules/.bin/eslint",
     "dev": "better-npm-run dev",
     "build": "better-npm-run build",
+    "build:stg": "better-npm-run build:stg",
+    "server": "better-npm-run server",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "betterScripts": {
+    "server": {
+      "command": "node server.js"
+    },
     "build": {
       "command": "webpack --progress --config ./webpack/config.prd.js",
       "env": {
         "NODE_ENV": "production"
+      }
+    },
+    "build:stg": {
+      "command": "webpack --progress --config ./webpack/config.stg.js",
+      "env": {
+        "NODE_ENV": "staging"
       }
     },
     "dev": {
