@@ -1,4 +1,4 @@
-const base64UrlEncodedApplicationServerKey = "BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts"
+const base64UrlEncodedApplicationServerKey = __STG__ ? 'BOyrRA5otpkiB4pm4ZX6ev1JravtZmH8V2W_CewV9Yv_gxSEKV6ESiaDK1Ni32BAEpXssIVLhm4_UAQIZZ25wYg' : 'BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts'
 const browserSupportsNotifications = ("Notification" in window && "serviceWorker" in navigator)
 
 const base64UrlToUint8Array = (base64UrlData) => {
