@@ -1,4 +1,4 @@
-npm run build
+npm run build:stg
 ZIP=-9 tar -zcvf staging-package.tar.gz index.html public
 scp ./staging-package.tar.gz ubuntu@frontend.uniyo.io:~
 
