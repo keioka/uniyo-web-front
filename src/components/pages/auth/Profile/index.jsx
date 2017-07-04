@@ -95,19 +95,32 @@ export default class Profile extends Component {
     },
   }
 
+  get classTagFromStringParams() {
+    return this.props.location.query.class ? this.props.location.query.class.split(',') : []
+  }
+
   componentDidMount() {
     if (!storage.hasValidAccessTokens) {
       browserHistory.push('/')
     }
 
-    this.state.reader = new FileReader()
     const self = this
-    this.state.reader.addEventListener("load", function () {
-      self.setState({
-        ...this.state,
-        imagePreview: self.state.reader.result
-      })
-    }, false)
+
+    this.setState({
+      ...this.state,
+      reader: new FileReader(),
+      form: {
+        ...this.state.form,
+        tagsClass: this.classTagFromStringParams,
+      }
+    }, () => {
+      this.state.reader.addEventListener("load", function () {
+        self.setState({
+          ...this.state,
+          imagePreview: self.state.reader.result
+        })
+      }, false)
+    })
   }
 
   onClickBtnAddFos() {
