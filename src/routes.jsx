@@ -15,6 +15,7 @@ import {
   Signup,
   ResetPassword,
   NewPassword,
+  EmailVerified,
   SelectSchool,
   Profile,
   FAQ,
@@ -59,7 +60,7 @@ export default () => (
       <Route path="/schools/:schoolSlug" component={Auth}>
         <Route path="/schools/:schoolSlug/signin" component={Signin} />
         <Route path="/schools/:schoolSlug/signup" component={Signup} />
-        <Route path="/schools/:schoolSlug/email_verified" />
+        <Route path="/schools/:schoolSlug/email_verified" component={EmailVerified} />
         <Route path="/schools/:schoolSlug/reset_password" component={ResetPassword} />
         <Route path="/schools/:schoolSlug/reset_password/:token" component={NewPassword} />
       </Route>
@@ -69,7 +70,6 @@ export default () => (
         <Route path="/dashboard/channels/new" component={ChannelNewDashboard} />
         <Route path="/dashboard/channels/:channelId" component={ChannelDashboard} />
         <Route path="/dashboard/questions/:questionId" component={QuestionDashboard} />
-        <Route path="/dashboard/notifications" />
         <Route path="/dashboard/posts/top" component={PostTopDashboard} />
         <Route path="/dashboard/posts/:postId" component={PostShowDashboard} />
       </Route>
