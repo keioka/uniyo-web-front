@@ -1,17 +1,17 @@
 const base64UrlEncodedApplicationServerKey = __STG__ ? 'BOyrRA5otpkiB4pm4ZX6ev1JravtZmH8V2W_CewV9Yv_gxSEKV6ESiaDK1Ni32BAEpXssIVLhm4_UAQIZZ25wYg' : 'BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts'
 
-const isBrowserSupportsNotifications = (window && "Notification" in window && "serviceWorker" in navigator)
-let window
+const isBrowserSupportsNotifications = (window && ("Notification" in window || "serviceWorker" in navigator))
+let browser
 let Notification
 
 if (isBrowserSupportsNotifications && "Notification" in window) {
-  window = window
+  browser = window
 } else if (isBrowserSupportsNotifications && 'safari' in window) {
-  window = window.safari
+  browser = window.safari
 }
 
-if (window) {
-  Notification = window.Notification || window.pushNotification
+if (browser) {
+  Notification = browser.Notification || browser.pushNotification
 }
 
 const base64UrlToUint8Array = (base64UrlData) => {
