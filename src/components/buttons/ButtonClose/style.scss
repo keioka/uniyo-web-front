@@ -1,0 +1,22 @@
+.element {
+  margin-left: 15px;
+  margin-right: -12px;
+  fill: white;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.element svg {
+  fill: white;
+  height: 8px;
+  width: 8px;
+  vertical-align: initial;
+  cursor: pointer;
+}
