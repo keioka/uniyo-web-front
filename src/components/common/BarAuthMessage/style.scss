@@ -9,7 +9,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: $pink;
   color: white;
   font-weight: bold;
+}
+
+.success {
+  background: #31c77e;
+}
+
+.error {
+  background: $pink;
 }

@@ -7,6 +7,8 @@ import {
 
 import {
   element,
+  error,
+  success,
   btn,
 } from './style'
 
@@ -18,16 +20,21 @@ const BarAuthMessage = ({
   onClick,
   children,
 }) => {
-
+  const colorBar = type === 'error' ? error : success
+  const classNameBar = `${element} ${colorBar}`
   return (
     <div
-      className={element}
+      className={classNameBar}
       onClick={onClick}
     >
      {children}
      <ButtonClose onClick={onClick} />
    </div>
   )
+}
+
+BarAuthMessage.defaultProps = {
+  type: 'success'
 }
 
 export default BarAuthMessage
