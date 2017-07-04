@@ -4,11 +4,12 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
-
+import uiActions from '../../redux/actions'
 import { Link } from 'react-router'
 
 import {
   LayoutAuth,
+  BarAuthMessage,
 } from '../../components'
 
 import {
@@ -22,6 +23,7 @@ const mapStateToProps = state => ({
   schools: state.api.schools,
   auth: state.api.auth,
   hashtags: state.api.hashtags,
+  formProfile: state.form.profile,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -35,6 +37,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   hashtagAdd: actions.hashtagAdd,
   userPictureUpdate: actions.userPictureUpdate,
   authClearError: actions.authClearError,
+  setUploadedImageTooLarge: uiActions.setUploadedImageTooLarge,
+  clearUploadedImageTooLarge: uiActions.clearUploadedImageTooLarge,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -58,11 +62,11 @@ export default class Auth extends Component {
     const { auth, authClearError } = this.props
     let message
     if (auth.isResetSuccess) {
-      message = 'Sent email to you. Please check your email'
+      message = 'Sent email to you. Please check your email 😄'
     }
 
     if (auth.isUpdateNewPasswordSuccess) {
-      message = 'Now you have new password!'
+      message = 'Now you have new password! 😋'
     }
 
     return (
@@ -77,12 +81,30 @@ export default class Auth extends Component {
   }
 
   renderError() {
-    const { auth } = this.props
+
+    const { auth, formProfile, clearUploadedImageTooLarge } = this.props
 
     let errorMessage = 'Error'
+    if (formProfile.isUploadedImageTooLarge) {
+      return (
+        // TODO: Should change div to interactive elements. - Kei
+        <BarAuthMessage onClick={clearUploadedImageTooLarge}>
+          🙉&nbsp; Maximum image size is 5MB
+        </BarAuthMessage>
+      )
+
+    }
 
     if (!auth.error || typeof auth.error.response === 'undefined') {
       return null
+    }
+
+    if (auth.error.response.data.error === 'invalid_request') {
+      errorMessage = (
+        <span>
+          <span className={message}>🙈&nbsp; Type email and password</span>
+        </span>
+      )
     }
 
     if (auth.error.response.data.error === 'invalid_grant') {
@@ -99,19 +121,19 @@ export default class Auth extends Component {
       auth.error.response.data.error.code === 'CreateNewUserError.InvalidUserInfo'
     ) {
       if (auth.error.response.data.error.message === 'Invalid first name') {
-        errorMessage = 'Even a cat knows his first name\xa0 🙀'
+        errorMessage = 'Even a cat knows his first name\xa0🙀'
       }
 
       if (auth.error.response.data.error.message === 'Invalid last name') {
-        errorMessage = '🙏 \xa0Please, your last name??'
+        errorMessage = '🙏\xa0 Please, your last name??'
       }
 
       if (auth.error.response.data.error.message === 'Invalid email format.') {
-        errorMessage = '👀 \xa0Your email looks super weird'
+        errorMessage = '👀\xa0 Your email looks super weird'
       }
 
       if (auth.error.response.data.error.message === 'Password cannot be empty') {
-        errorMessage = '🙈 \xa0Type a new password'
+        errorMessage = '🙈\xa0 Type a password'
       }
     }
 
@@ -136,9 +158,9 @@ export default class Auth extends Component {
 
     return (
       // TODO: Should change div to interactive elements. - Kei
-      <div className={error} onClick={this.props.authClearError}>
+      <BarAuthMessage onClick={this.props.authClearError}>
         {errorMessage}
-      </div>
+      </BarAuthMessage>
     )
   }
 
@@ -158,6 +180,7 @@ export default class Auth extends Component {
       hashtags,
       hashtagSearch,
       newPasswordUpdate,
+      setUploadedImageTooLarge,
     } = this.props
 
     const childComponents = React.Children.map(children, child => React.cloneElement(child, {
@@ -174,6 +197,7 @@ export default class Auth extends Component {
       hashtags,
       hashtagSearch,
       newPasswordUpdate,
+      setUploadedImageTooLarge,
     }))
 
     return (
