@@ -14,7 +14,13 @@ export const redirectHandler = store => next => action => {
   }
 
   if (action.type === actionTypes.userCreate.success) {
-    browserHistory.push('/profile_settings')
+    const { query } = browserHistory.getCurrentLocation()
+    if(query.class) {
+      browserHistory.push(`/profile_settings?class=${query.class}`)
+    } else {
+      browserHistory.push('/profile_settings')
+    }
+
   }
 
   if (action.type === actionTypes.logIn.success) {
