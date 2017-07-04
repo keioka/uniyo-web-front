@@ -368,7 +368,10 @@ export default class Profile extends Component {
     )
   }
 
-  onDropHandle(files) {
+  onDrop(files, rejectedFiles) {
+    if (rejectedFiles.length > 0) {
+      this.props.setUploadedImageTooLarge()
+    }
     const file = files.filter(f => f)[0]
     this.setState({
       form: {
@@ -424,7 +427,7 @@ export default class Profile extends Component {
            </div> :
            <Dropzone
              className={dropZone}
-             onDrop={::this.onDropHandle}
+             onDrop={::this.onDrop}
              multiple={false}
              maxSize={MAX_SIZE}
              accept={MIME_TYPE}
