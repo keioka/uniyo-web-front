@@ -70,7 +70,7 @@ class SidebarRightNotification extends Component {
 
               {newNotification.length > 0 && <div className={hr}></div>}
 
-              <h3 className={ulTitle}>Past Notification 👵🏻</h3>
+              <h3 className={ulTitle}>Past Notifications 👵🏻</h3>
 
               <ul className={[ul, ulPastNotification].join(' ')}>
                 {pastNotifications.map((notification, index) => {
