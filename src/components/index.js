@@ -53,6 +53,7 @@ export LayoutInit from './layouts/LayoutInit'
 export Button from './buttons/Button'
 export ButtonFile from './buttons/ButtonFile'
 export ButtonDonut from './buttons/ButtonDonut'
+export ButtonClose from './buttons/ButtonClose'
 
 /*
   nav
@@ -108,7 +109,7 @@ export TextMention from './texts/TextMention'
 export Donut from './common/Donut'
 export DonutPlusOne from './common/DonutPlusOne'
 export BarTag from './common/BarTag'
-
+export BarAuthMessage from './common/BarAuthMessage'
 
 /*
   list
