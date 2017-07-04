@@ -121,7 +121,7 @@ export default class InputSearchSchool extends Component {
                     onClick={() => onSelectSchool(school)}
                   >
                     <span className={textSchoolName}>{school.name}</span>
-                    <span className={textCityName}>{school.cityName.toLowerCase()}</span>
+                    <span className={textCityName}>{school.cityName && school.cityName.toLowerCase()}</span>
                   </li>
                   )
                 },
