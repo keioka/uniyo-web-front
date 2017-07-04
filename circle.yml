@@ -3,3 +3,7 @@ deployment:
     branch: master
     commands:
       - ./deploy.sh
+  staging:
+    branch: staging
+    commands:
+      - ./deploy-staging.sh
