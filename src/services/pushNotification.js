@@ -1,5 +1,18 @@
 const base64UrlEncodedApplicationServerKey = __STG__ ? 'BOyrRA5otpkiB4pm4ZX6ev1JravtZmH8V2W_CewV9Yv_gxSEKV6ESiaDK1Ni32BAEpXssIVLhm4_UAQIZZ25wYg' : 'BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts'
-const browserSupportsNotifications = ("Notification" in window && "serviceWorker" in navigator)
+
+const isBrowserSupportsNotifications = (window && "Notification" in window && "serviceWorker" in navigator)
+let window
+let Notification
+
+if (isBrowserSupportsNotifications && "Notification" in window) {
+  window = window
+} else if (isBrowserSupportsNotifications && 'safari' in window) {
+  window = window.safari
+}
+
+if (window) {
+  Notification = window.Notification || window.pushNotification
+}
 
 const base64UrlToUint8Array = (base64UrlData) => {
   const padding = '='.repeat((4 - base64UrlData.length % 4) % 4)
@@ -14,13 +27,13 @@ const base64UrlToUint8Array = (base64UrlData) => {
   return buffer
 }
 
-export const permissionStatus = Notification.permission
+export const permissionStatus = isBrowserSupportsNotifications && Notification.permission
 
 let addDeviceAction
 
 export async function subscribe(addDevice) {
   addDeviceAction = addDevice
-  if (browserSupportsNotifications && Notification.permission === "granted") {
+  if (Notification && isBrowserSupportsNotifications && Notification.permission === "granted") {
     await syncSubscription()
   }
 }

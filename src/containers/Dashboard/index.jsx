@@ -153,7 +153,9 @@ export default class DashBoard extends Component {
     postsSearch(params)
 
     const { addDevice } = this.props
-    pushNotification.subscribe(addDevice)
+    if (window) {
+      pushNotification.subscribe(addDevice)
+    }
   }
 
   componentWillReceiveProps(prevProps, nextProps) {
