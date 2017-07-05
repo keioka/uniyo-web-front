@@ -72,9 +72,9 @@ export default class Auth extends Component {
     return (
       <div>
         { message &&
-          <div className={success} onClick={authClearError}>
+          <BarAuthMessage onClick={authClearError}>
             {message}
-          </div>
+          </BarAuthMessage>
         }
       </div>
     )
@@ -88,7 +88,7 @@ export default class Auth extends Component {
     if (formProfile.isUploadedImageTooLarge) {
       return (
         // TODO: Should change div to interactive elements. - Kei
-        <BarAuthMessage onClick={clearUploadedImageTooLarge}>
+        <BarAuthMessage type="error" onClick={clearUploadedImageTooLarge}>
           🙉&nbsp; Maximum image size is 5MB
         </BarAuthMessage>
       )
@@ -158,7 +158,7 @@ export default class Auth extends Component {
 
     return (
       // TODO: Should change div to interactive elements. - Kei
-      <BarAuthMessage onClick={this.props.authClearError}>
+      <BarAuthMessage type="error" onClick={this.props.authClearError}>
         {errorMessage}
       </BarAuthMessage>
     )
