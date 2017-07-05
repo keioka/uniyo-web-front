@@ -178,6 +178,9 @@ export default class InputPost extends Component {
   }
 
   onPaste(event) {
+    event.preventDefault()
+    const content = (event.originalEvent || event).clipboardData.getData('text/plain')
+    document.execCommand('insertText', false, content)
   }
 
   onFocus(event) {

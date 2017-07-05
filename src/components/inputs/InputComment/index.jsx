@@ -98,6 +98,12 @@ export default class InputComment extends Component {
     })
   }
 
+  onPaste(event) {
+    event.preventDefault()
+    const content = (event.originalEvent || event).clipboardData.getData('text/plain')
+    document.execCommand('insertText', false, content)
+  }
+
   render() {
     const { postId, className, commentCreate, currentUser, userPost } = this.props
     const classNames = `${input} ${className}`
@@ -109,6 +115,7 @@ export default class InputComment extends Component {
         <div
           ref={ref => this._inputComment = ref}
           contentEditable
+          onPaste={onPaste}
           placeholder={userPost.firstName}
           className={input}
           type="text"
