@@ -8,6 +8,7 @@ import {
 
 import {
   element,
+  elementInner,
 } from './style'
 
 type Props = {
@@ -44,11 +45,15 @@ export default class ButtonDonuts extends PureComponent {
     return (
       <button
         className={classNames}
-        data-role="give-donuts"
-        data-count={donutsCount}
         onClick={::this.onClick}
       >
-        <Donut size="xs" count={donutsCount} />
+        <span
+          className={elementInner}
+          data-role="give-donuts"
+          data-count={donutsCount}
+        >
+          <Donut size="xs" count={donutsCount} />
+        </span>
       </button>
     )
   }
