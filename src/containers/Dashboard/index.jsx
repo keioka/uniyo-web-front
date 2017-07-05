@@ -393,7 +393,7 @@ export default class DashBoard extends Component {
               { this.state.isOpenSettingMenu &&
                 <div className={panelSetting}>
                   <ul>
-                    <Link to={'/profile_settings'}><li>Edit Profile</li></Link>
+                    <Link to={'/profile_settings'}><li>Edit profile</li></Link>
                     <li onClick={() => this.props.signout()}>Logout</li>
                   </ul>
                 </div>
