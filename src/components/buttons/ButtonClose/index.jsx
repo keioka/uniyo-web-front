@@ -14,7 +14,7 @@ const ButtonClose = ({
 }) => {
 
   return (
-    <span className={`${element} ${className}`}><Cross /></span>
+    <span className={`${element} ${className}`} onClick={onClick}><Cross /></span>
   )
 }
 
