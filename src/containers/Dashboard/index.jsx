@@ -17,6 +17,7 @@ import {
 import {
   LayoutDashboard,
   SidebarLeft,
+  ButtonClose,
   NavPostType,
   Donut,
   NavChannel,
@@ -451,12 +452,10 @@ export default class DashBoard extends Component {
             >
             enable desktop notifications.
           </span>
-          <button
+          <ButtonClose
             className={barPushNotificationButtonClose}
             onClick={() => this.setState({ isOpenNotificationBar: false })}
-          >
-            X
-          </button>
+          />
         </div>
         }
         { this.renderContent }
