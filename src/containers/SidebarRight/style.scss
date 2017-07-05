@@ -51,12 +51,15 @@
   bottom: 0px;
 }
 
+.wrapper--btn {
+  width: 200px;
+  height: 20px;
+}
+
 .btn {
   background: #ffc7d7;;
   border: none;
   padding: 7px 20px 10px 20px;
-  display: flex;
-  justify-content: center;
   border-radius: 10px;
   width: 171.8px;
 	height: 51px;
@@ -72,6 +75,11 @@
   padding-bottom: 15px;
   font-weight: bold;
   font-size: 25px;
+}
+
+.btn__inner {
+  display: flex;
+  justify-content: center;
 }
 
 .btn--give--donuts {
