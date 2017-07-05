@@ -73,8 +73,11 @@ export default class IndexDashboard extends Component {
     const { posts } = this.props
     const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
-    const currentHeight = event.target.body.scrollTop + window.screen.availHeight
-
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+    // console.log(scrollTop)
+    // console.log(event.target.body.pageYOffset)
+    const currentHeight = scrollTop + window.screen.availHeight
+    //
     // console.log("---------------------------")
     // console.log(scrollHeight, currentHeight)
     // console.log(scrollHeight < currentHeight)
