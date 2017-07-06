@@ -150,7 +150,7 @@ export default class CardPost extends PureComponent  {
                       <InputComment
                         postId={id}
                         commentCreate={commentCreate}
-                        currentUser={currentUser}
+                        imageCurrentUser={currentUser.image.smallUrl}
                         userPost={user}
                         closeCommentBox={::this.closeCommentBox}
                       />

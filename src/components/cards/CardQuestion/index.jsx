@@ -126,7 +126,7 @@ export default class CardQuestion extends PureComponent {
                     postId={id}
                     showUserInfo={showUserInfo}
                     commentCreate={commentCreate}
-                    currentUser={currentUser}
+                    imageCurrentUser={currentUser.image.smallUrl}
                     userPost={user}
                     closeCommentBox={::this.closeCommentBox}
                   />
