@@ -91,7 +91,6 @@ export default class ChannelDashboard extends Component {
   }
 
   markNotificationRead() {
-    console.log('markNotificationRead')
     const {
       messageSearch,
       params,
@@ -101,9 +100,6 @@ export default class ChannelDashboard extends Component {
 
     const { channelId } = params
     const ids = unReadChannelIds.filter(idsObject => idsObject.channelId === parseInt(channelId))
-    console.log('ids', ids)
-    console.log('unReadChannelIds', unReadChannelIds)
-    console.log(ids.length > 0)
     if (ids.length > 0) {
       contentReadCheckNotification({ contentType: 'MESSAGE_READ', ids })
     }
@@ -309,6 +305,7 @@ export default class ChannelDashboard extends Component {
             channelId={channelId}
             userSearch={userSearch}
             showUserInfo={showUserInfo}
+            currentUserId={currentUser.id}
           />
         </div>
       </div>

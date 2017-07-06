@@ -17,6 +17,7 @@ import {
 import {
   LayoutDashboard,
   SidebarLeft,
+  ButtonClose,
   NavPostType,
   Donut,
   NavChannel,
@@ -361,6 +362,8 @@ export default class DashBoard extends Component {
     const isMainDashboard = this.props.location.pathname === "/dashboard"
     const regexQuestionDashboard = /\/dashboard\/questions/
     const isQuestionDashboard = regexQuestionDashboard.test(this.props.location.pathname)
+    const onClickShowCurrentUserInfo = () => showUserInfo(currentUser.id)
+    const onClickSignout = () => this.props.signout()
 
     return (
       <div className={container}>
@@ -393,8 +396,8 @@ export default class DashBoard extends Component {
               { this.state.isOpenSettingMenu &&
                 <div className={panelSetting}>
                   <ul>
-                    <Link to={'/profile_settings'}><li>Edit profile</li></Link>
-                    <li onClick={() => this.props.signout()}>Logout</li>
+                    <li onClick={onClickShowCurrentUserInfo}>Profile</li>
+                    <li onClick={onClickSignout}>Logout</li>
                   </ul>
                 </div>
               }
@@ -451,12 +454,10 @@ export default class DashBoard extends Component {
             >
             enable desktop notifications.
           </span>
-          <button
+          <ButtonClose
             className={barPushNotificationButtonClose}
             onClick={() => this.setState({ isOpenNotificationBar: false })}
-          >
-            X
-          </button>
+          />
         </div>
         }
         { this.renderContent }

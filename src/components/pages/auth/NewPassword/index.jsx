@@ -100,7 +100,7 @@ export default class NewPassword extends Component {
             />
           </div>
           <div className={contentFooter}>
-            <Button onClick={::this.onSubmit} type="primary" className={btn}>Send</Button>
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Renew password</Button>
             <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
           </div>
         </div>

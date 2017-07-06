@@ -8,6 +8,7 @@ import { Link } from 'react-router'
 
 import {
   wrapper,
+  wrapperBtn,
   sidebarOpen,
   sidebarClose,
   userInfo,
@@ -21,6 +22,7 @@ import {
   imageAnimationTwo,
   imageAnimationThree,
   btn,
+  btnInner,
   btnGiveDonuts,
   donutSmallOne,
   donutSmallTwo,
@@ -247,7 +249,11 @@ export default class SidebarRight extends Component {
           <div className={btnDonutsHistory}>
             <div className={btnDonutsHistoryInner}>
               {this.generateDonuts()}
-              <button className={btn} onClick={() => showHistoryDonut(1)}>open</button>
+              <div className={wrapperBtn}>
+                <button className={btn} onClick={() => showHistoryDonut(1)}>
+                  <span className={btnInner}>open</span>
+                </button>
+              </div>
             </div>
           </div>
         }
