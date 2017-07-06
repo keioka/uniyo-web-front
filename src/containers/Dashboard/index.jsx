@@ -447,7 +447,7 @@ export default class DashBoard extends Component {
         {this.state.isOpenNotificationBar && pushNotification.permissionStatus === "default" &&
         <div className={barPushNotification}>
           <Donut size="sm" />
-          UniYo needs your permission to &nbsp;
+          Uniyo needs your permission to&nbsp;
           <span
             className={textEnableNotification}
             onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
