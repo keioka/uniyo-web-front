@@ -83,7 +83,25 @@ export default class ChannelNewDashboard extends Component {
     // TODO: add alert
   }
 
+  get suggestionedUsers() {
+    const { suggestionedUsers } = this.props
+    const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
+    return suggestionedUsers
+    .filter(user => query.test(user.name.toLowerCase()))
+    .map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)
+  }
+
   get channels() {
+    const {
+      currentUser,
+      allChannels,
+    } = this.props
+    return allChannels.map(channel =>
+      <ListRecentConversation channel={channel} currentUser={currentUser} />
+    )
+  }
+
+  get filteredChannels() {
     const {
       showUserInfo,
       suggestionedUsers,
@@ -94,20 +112,15 @@ export default class ChannelNewDashboard extends Component {
       messageCreate,
     } = this.props
 
-    const query = new RegExp(this.state.query, "g")
-    const a = this.state.query ? allChannels.filter(channel => channel.users.map(user => user.name).includes(name => query.test(name))) : allChannels
-
-    const isChannelUser = (channel) => { return channel.users.includes(user => { alert('user', user.name); return query.test(user.name) }) }
-
-    return a.map(channel =>
+    const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
+    const matchUserName = name => query.test(name.toLowerCase())
+    const filterUsers = channel => channel.users.map(user => user.name).some(matchUserName)
+    const channels = this.state.query ? allChannels.filter(filterUsers) : []
+    console.log(channels)
+    const isChannelUser = (channel) => channel.users.includes(user => { alert('user', user.name); return query.test(user.name) })
+    return channels.map(channel =>
       <ListRecentConversation channel={channel} currentUser={currentUser} />
     )
-  }
-
-  get suggestionedUsers() {
-    const { suggestionedUsers } = this.props
-    const query = new RegExp(this.state.query, "y")
-    return suggestionedUsers.filter(user => query.test(user.name)).map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
   render() {
@@ -159,6 +172,7 @@ export default class ChannelNewDashboard extends Component {
             {this.state.query !== '' &&
               <div className={section}>
                 <ul className={sectionUl}>
+                  {this.filteredChannels}
                   {this.suggestionedUsers}
                 </ul>
               </div>
