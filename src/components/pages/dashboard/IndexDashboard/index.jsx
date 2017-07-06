@@ -77,11 +77,6 @@ export default class IndexDashboard extends Component {
     // console.log(scrollTop)
     // console.log(event.target.body.pageYOffset)
     const currentHeight = scrollTop + window.screen.availHeight
-    //
-    // console.log("---------------------------")
-    // console.log(scrollHeight, currentHeight)
-    // console.log(scrollHeight < currentHeight)
-    // console.log("---------------------------")
 
     if (
       scrollHeight < currentHeight &&
