@@ -116,7 +116,6 @@ export default class ChannelNewDashboard extends Component {
     const matchUserName = name => query.test(name.toLowerCase())
     const filterUsers = channel => channel.users.map(user => user.name).some(matchUserName)
     const channels = this.state.query ? allChannels.filter(filterUsers) : []
-    console.log(channels)
     const isChannelUser = (channel) => channel.users.includes(user => { alert('user', user.name); return query.test(user.name) })
     return channels.map(channel =>
       <ListRecentConversation channel={channel} currentUser={currentUser} />
