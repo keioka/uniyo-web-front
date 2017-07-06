@@ -364,11 +364,16 @@ export default class InputPost extends Component {
     return BoxOptional
   }
 
+  onClickUserImage() {
+    const { showUserInfo, currentUserId } = this.props
+    showUserInfo(currentUserId)
+  }
+
   render() {
-    const { imgUrl, hashtag, currentHashTag, onClickUserImage } = this.props
+    const { imgUrl, hashtag, currentHashTag } = this.props
     return (
       <span className={wrapper}>
-        <span className={wrapperImageBox} onClick={() => onClickUserImage()}>
+        <span className={wrapperImageBox} onClick={::this.onClickUserImage}>
           <img src={imgUrl || 'loading'} />
         </span>
         {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}

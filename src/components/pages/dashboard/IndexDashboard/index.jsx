@@ -251,7 +251,8 @@ export default class IndexDashboard extends Component {
           currentHashTag={hashtag}
           currentPostType={currentPostType}
           userSearch={userSearch}
-          onClickUserImage={() => showUserInfo(currentUser.id)}
+          currentUserId={currentUser.id}
+          showUserInfo={showUserInfo}
         />
 
 
