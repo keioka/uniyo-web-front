@@ -48,6 +48,10 @@ $animation-duraion: 0.2s;
   }
 }
 
+.icon--open-menu {
+  cursor: pointer;
+}
+
 .wrapper--link {
   text-decoration: none;
   color: inherit;
@@ -70,23 +74,33 @@ $animation-duraion: 0.2s;
 }
 
 .section--content__header {
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-}
-
-.section--content__footer {
-  display: flex;
-  flex-direction: row;
+  justify-content: space-between;
 }
 
 .section--content__comment {
-  transition: opacity 0.5s ease;
   margin-top: 15px;
 }
 
-.section--content__comment__form {
+.section--content__comment--close {
+  height: 0;
+  overflow: hidden;
+  transform: scaleY(0);
+  transform-origin:  top;
+  transition: transform 0.3s ease-out;
 }
+
+.section--content__comment--open {
+  height: auto;
+  transform: scaleY(1);
+  transform-origin:  top;
+  transition: transform 0.3s ease-out;
+}
+
+.section--content__comment__form {}
 
 .section--content__comment__list {
   margin-top: 25px;
@@ -158,6 +172,17 @@ $animation-duraion: 0.2s;
 
 .text--user-name:hover {
   text-decoration: underline;
+}
+
+.panel--menu {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  z-index: 1;
+}
+
+.panel--menu--active {
+  opacity: 1;
 }
 
 .btn--comment {

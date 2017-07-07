@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import moment from 'moment'
 import VisibilitySensor from 'react-visibility-sensor'
+import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 
 import {
   TextPost,
@@ -8,6 +9,7 @@ import {
   ButtonDonut,
   ListComment,
   InputComment,
+  PanelDropDownMenu,
 } from '../../'
 
 import {
@@ -28,6 +30,8 @@ import {
   show,
   starReview,
   iconStar,
+  panelMenu,
+  iconOpenMenu,
 } from '../style'
 
 import Star from './star.svg'
@@ -36,6 +40,7 @@ export default class CardReview extends PureComponent {
 
   state = {
     toggle: false,
+    isDisplayDropDown: false,
   }
 
   onChange() {
@@ -66,6 +71,23 @@ export default class CardReview extends PureComponent {
     postGiveDonuts({ postId: id, amount: 1 })
   }
 
+  get menuItems () {
+    const { id, user, currentUserId } = this.props
+    const isCurrentUserPost = user.id === currentUserId
+    const menu = isCurrentUserPost ? [{
+      title: 'Delete',
+      action: () => { this.props.postDelete({ postId: id }) },
+    }, {
+      title: 'Share',
+      action: () => { alert('share')},
+    }] : [{
+      title: 'Share',
+      action: () => { alert('share')},
+    }]
+
+    return menu
+  }
+
   render() {
     const {
       id,
@@ -79,13 +101,18 @@ export default class CardReview extends PureComponent {
       commentsSearch,
       comments,
       commentCreate,
+      commentDelete,
       commentGiveDonuts,
       rating,
-      currentUser,
+      imageCurrentUser,
+      currentUserId,
       currentPostType,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
+    const onClickKeyboardArrow = () => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown }) }
+    const onClickUser = () => showUserInfo(user.id)
+    const closePanel = () => { this.setState({ isDisplayDropDown: false }) }
 
     return (
     <VisibilitySensor
@@ -93,14 +120,24 @@ export default class CardReview extends PureComponent {
       key={id}
     >
       <div key={id} className={wrapper}>
-        <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
+        <div className={sectionImage} onClick={onClickUser}>
           <img src={user.image.smallUrl} alt="" />
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
-            <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
-            {/* <span className={textPostTime}>{time}</span> */}
-            <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
+            <div>
+              <span className={textUserName} onClick={onClickUser}>{user.firstName}</span>
+              {/* <span className={textPostTime}>{time}</span> */}
+              <span className={starReview} data-reviews={rating}><Star className={iconStar}/></span>
+            </div>
+            <span className={iconOpenMenu} onClick={() => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown }) }}><MdKeyboardArrowDown /></span>
+            { this.state.isDisplayDropDown &&
+              <PanelDropDownMenu
+                className={panelMenu}
+                items={this.menuItems}
+                isDisplay={this.state.isDisplayDropDown}
+                closePanel={closePanel}
+              /> }
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFooter}>
@@ -122,7 +159,7 @@ export default class CardReview extends PureComponent {
                 postId={id}
                 showUserInfo={showUserInfo}
                 commentCreate={commentCreate}
-                imageCurrentUser={currentUser.image.smallUrl}
+                imageCurrentUser={imageCurrentUser}
                 userPost={user}
                 closeCommentBox={::this.closeCommentBox}
               />
@@ -131,7 +168,9 @@ export default class CardReview extends PureComponent {
                   <ListComment
                     key={comment.id}
                     showUserInfo={showUserInfo}
+                    commentDelete={commentDelete}
                     commentGiveDonuts={commentGiveDonuts}
+                    isOwnComment={comment.user.id === currentUserId}
                     {...comment}
                   >
                     {comment.text}
