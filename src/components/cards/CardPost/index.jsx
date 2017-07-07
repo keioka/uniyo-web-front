@@ -171,15 +171,15 @@ export default class CardPost extends PureComponent  {
                     className={btnComment}
                     data-count={commentsCount}
                     onClick={::this.onClickComment}
-                    >
-                      comments
-                    </button>
-                    <ButtonDonut
-                      className={btnLike}
-                      donutsCount={donutsCount}
-                      onClick={::this.onClickDonuts}
-                      donutsThrow={donutsThrow}
-                    />
+                   >
+                     comments
+                   </button>
+                   <ButtonDonut
+                     className={btnLike}
+                     donutsCount={donutsCount}
+                     onClick={::this.onClickDonuts}
+                     donutsThrow={donutsThrow}
+                   />
                   </div>
                 </div>
                 {/* { this.state.toggle && */}
