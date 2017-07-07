@@ -2,6 +2,7 @@ import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 import VisibilitySensor from 'react-visibility-sensor'
+import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 
 import {
   TextPost,
@@ -9,6 +10,7 @@ import {
   ListComment,
   InputComment,
   ButtonDonut,
+  PanelDropDownMenu,
 } from '../../'
 
 import {
@@ -20,6 +22,8 @@ import {
   sectionContentFooter,
   sectionContentUserName,
   sectionContentComment,
+  sectionContentCommentOpen,
+  sectionContentCommentClose,
   sectionContentCommentForm,
   sectionContentCommentList,
   textUserName,
@@ -29,12 +33,15 @@ import {
   show,
   footerSectionBtns,
   sectionFileDetail,
+  iconOpenMenu,
+  panelMenu,
 } from '../style'
 
 export default class CardPost extends PureComponent  {
 
   state = {
     toggle: false,
+    isDisplayDropDown: false,
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -80,6 +87,26 @@ export default class CardPost extends PureComponent  {
     })
   }
 
+  get menuItems() {
+    const { user, currentUserId, id } = this.props
+    const isCurrentUserPost = user.id === currentUserId
+    const menu = isCurrentUserPost ? [{
+      title: 'Delete',
+      type: 'function',
+      action: () => { this.props.postDelete({ postId: id }) },
+    }, {
+      title: 'Share',
+      type: 'function',
+      action: () => { alert('share')},
+    }] : [{
+      title: 'Share',
+      type: 'function',
+      action: () => { alert('share')},
+    }]
+
+    return menu
+  }
+
   render() {
     const {
       id,
@@ -89,12 +116,14 @@ export default class CardPost extends PureComponent  {
       commentsCount,
       donutsCount,
       currentUserLiked,
+      imageCurrentUser,
       createdAt,
       commentsSearch,
       commentCreate,
+      commentDelete,
       comments,
       showUserInfo,
-      currentUser,
+      currentUserId,
       postGiveDonuts,
       userGiveDonuts,
       commentGiveDonuts,
@@ -105,13 +134,14 @@ export default class CardPost extends PureComponent  {
     let sectionComemntClassNames = sectionContentComment
     if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
+    const closePanel = () => { this.setState({ isDisplayDropDown: false }) }
 
     return (
       <VisibilitySensor
-        onChange={::this.onChange}
         key={id}
+        onChange={::this.onChange}
         >
-          <div key={id} className={wrapper}>
+          <div className={wrapper}>
             <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
               <img src={user.image.smallUrl} alt="" />
             </div>
@@ -119,6 +149,14 @@ export default class CardPost extends PureComponent  {
               <div className={sectionContentHeader}>
                 <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
                 {/* <span className={textPostTime}>{time}</span> */}
+                <span className={iconOpenMenu} onClick={() => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown })}}><MdKeyboardArrowDown /></span>
+                { this.state.isDisplayDropDown &&
+                  <PanelDropDownMenu
+                    className={panelMenu}
+                    closePanel={closePanel}
+                    items={this.menuItems}
+                    isDisplay={this.state.isDisplayDropDown}
+                  /> }
               </div>
               <TextPost
                 text={text}
@@ -144,13 +182,13 @@ export default class CardPost extends PureComponent  {
                     />
                   </div>
                 </div>
-                { this.state.toggle &&
-                  <div className={sectionContentComment}>
+                {/* { this.state.toggle && */}
+                  <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}` }>
                     <div className={sectionContentCommentForm}>
                       <InputComment
                         postId={id}
                         commentCreate={commentCreate}
-                        imageCurrentUser={currentUser.image.smallUrl}
+                        imageCurrentUser={imageCurrentUser}
                         userPost={user}
                         closeCommentBox={::this.closeCommentBox}
                       />
@@ -160,15 +198,17 @@ export default class CardPost extends PureComponent  {
                         <ListComment
                           key={comment.id}
                           showUserInfo={showUserInfo}
+                          commentDelete={commentDelete}
                           commentGiveDonuts={commentGiveDonuts}
+　　　　　　　　　　　　　　　 isOwnComment={comment.user.id === currentUserId}
                           {...comment}
-                          >
-                            {comment.text}
-                          </ListComment>
-                        )}
+                        >
+                          {comment.text}
+                        </ListComment>
+                      )}
                       </ul>
                     </div>
-                  }
+                  {/* } */}
                 </div>
               </div>
             </VisibilitySensor>
