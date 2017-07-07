@@ -140,23 +140,23 @@ export default class CardPost extends PureComponent  {
       <VisibilitySensor
         key={id}
         onChange={::this.onChange}
-        >
-          <div className={wrapper}>
-            <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
-              <img src={user.image.smallUrl} alt="" />
-            </div>
-            <div className={sectionContent}>
-              <div className={sectionContentHeader}>
-                <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
-                {/* <span className={textPostTime}>{time}</span> */}
-                <span className={iconOpenMenu} onClick={() => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown })}}><MdKeyboardArrowDown /></span>
+      >
+        <div className={wrapper}>
+          <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
+            <img src={user.image.smallUrl} alt="" />
+          </div>
+          <div className={sectionContent}>
+            <div className={sectionContentHeader}>
+              <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
+              {/* <span className={textPostTime}>{time}</span> */}
+              <span className={iconOpenMenu} onClick={() => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown })}}><MdKeyboardArrowDown /></span>
                 { this.state.isDisplayDropDown &&
-                  <PanelDropDownMenu
-                    className={panelMenu}
-                    closePanel={closePanel}
-                    items={this.menuItems}
-                    isDisplay={this.state.isDisplayDropDown}
-                  /> }
+                <PanelDropDownMenu
+                  className={panelMenu}
+                  closePanel={closePanel}
+                  items={this.menuItems}
+                  isDisplay={this.state.isDisplayDropDown}
+                /> }
               </div>
               <TextPost
                 text={text}
@@ -171,15 +171,15 @@ export default class CardPost extends PureComponent  {
                     className={btnComment}
                     data-count={commentsCount}
                     onClick={::this.onClickComment}
-                    >
-                      comments
-                    </button>
-                    <ButtonDonut
-                      className={btnLike}
-                      donutsCount={donutsCount}
-                      onClick={::this.onClickDonuts}
-                      donutsThrow={donutsThrow}
-                    />
+                   >
+                     comments
+                   </button>
+                   <ButtonDonut
+                     className={btnLike}
+                     donutsCount={donutsCount}
+                     onClick={::this.onClickDonuts}
+                     donutsThrow={donutsThrow}
+                   />
                   </div>
                 </div>
                 {/* { this.state.toggle && */}

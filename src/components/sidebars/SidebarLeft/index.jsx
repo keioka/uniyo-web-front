@@ -311,15 +311,15 @@ render() {
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   return (
-  <div className={absolute}>
-    <aside className={wrapper}>
-      <div className={inner}>
-        <InputSearchTag
-          className={inputSearchTag}
-          onChange={event => this.setState({ keywordForSort: event.target.value })}
-        />
-        <ul className={section}>
-          <Link to="/dashboard">
+    <div className={absolute}>
+      <aside className={wrapper}>
+        <div className={inner}>
+          <InputSearchTag
+            className={inputSearchTag}
+            onChange={event => this.setState({ keywordForSort: event.target.value })}
+          />
+          <ul className={section}>
+            <Link to="/dashboard">
             <h3 className={classNameForTopSchool}>
               All in {localStorage['SCHOOL_NAME']}
             </h3>
@@ -329,6 +329,6 @@ render() {
       </div>
     </aside>
   </div>
-  )
+)
 }
 }
