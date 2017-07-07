@@ -48,11 +48,13 @@ export default class PostShowDashboard extends Component {
       postCreate,
       commentsSearch,
       commentCreate,
+      commentDelete,
       showUserInfo,
       suggestionedUsers,
       userSearch,
       currentUser,
       allComments,
+      postDelete,
       postGiveDonuts,
       postsTrendingSearch,
       postsRelevantSearch,
@@ -67,6 +69,8 @@ export default class PostShowDashboard extends Component {
 
     const cardFactory = ({
       post,
+      postDelete,
+      commentDelete,
       commentsSearch,
       comments,
       showUserInfo,
@@ -82,15 +86,18 @@ export default class PostShowDashboard extends Component {
             <CardPost
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              currentUserId={currentUser.id}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
+              commentDelete={commentDelete}
               comments={comments}
               commentCreate={commentCreate}
               postGiveDonuts={postGiveDonuts}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               onReadContent={onReadContent}
+              postDelete={postDelete}
             />
           )
         case TYPES['docs']:
@@ -98,8 +105,10 @@ export default class PostShowDashboard extends Component {
             <CardDocument
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              currentUserId={currentUser.id}
               showUserInfo={showUserInfo}
+              commentDelete={commentDelete}
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
@@ -114,8 +123,10 @@ export default class PostShowDashboard extends Component {
             <CardReview
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              currentUserId={currentUser.id}
               showUserInfo={showUserInfo}
+              commentDelete={commentDelete}
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
@@ -123,6 +134,7 @@ export default class PostShowDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               onReadContent={onReadContent}
+              postDelete={postDelete}
             />
           )
         case TYPES['questions']:
@@ -130,7 +142,8 @@ export default class PostShowDashboard extends Component {
             <CardQuestion
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              currentUserId={currentUser.id}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -139,6 +152,7 @@ export default class PostShowDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               onReadContent={onReadContent}
+              postDelete={postDelete}
             />
           )
       }
@@ -162,8 +176,10 @@ export default class PostShowDashboard extends Component {
         <div className={sectionCards}>
         { post && cardFactory({
             post,
+            postDelete,
             commentsSearch,
             commentCreate,
+            commentDelete,
             comments,
             showUserInfo,
             currentUser,
