@@ -116,6 +116,7 @@ export default class PostShowDashboard extends Component {
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               onReadContent={onReadContent}
+              postDelete={postDelete}
             />
           )
         case TYPES['reviews']:
