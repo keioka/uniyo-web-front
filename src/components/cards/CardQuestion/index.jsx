@@ -2,6 +2,7 @@ import React, { PureComponent , PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 import VisibilitySensor from 'react-visibility-sensor'
+import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 
 import {
   TextPost,
@@ -9,6 +10,7 @@ import {
   ListComment,
   ButtonDonut,
   InputComment,
+  PanelDropDownMenu,
 } from '../../'
 
 import {
@@ -28,15 +30,15 @@ import {
   btnLike,
   btnComment,
   show,
+  iconOpenMenu,
+  panelMenu,
 } from '../style'
 
 export default class CardQuestion extends PureComponent {
 
-  constructor() {
-    super()
-    this.state = {
-      toggle: false,
-    }
+  state = {
+    toggle: false,
+    isDisplayDropDown: false,
   }
 
   closeCommentBox() {
@@ -66,6 +68,23 @@ export default class CardQuestion extends PureComponent {
     postGiveDonuts({ postId: id, amount: 1 })
   }
 
+  get menuItems () {
+    const { user, currentUserId, id } = this.props
+    const isCurrentUserPost = user.id === currentUserId
+    const menu = isCurrentUserPost ? [{
+      title: 'Delete',
+      action: (event) => { event.preventDefault(); this.props.postDelete({ postId: id }) },
+    }, {
+      title: 'Share',
+      action: () => { alert('share')},
+    }] : [{
+      title: 'Share',
+      action: () => { alert('share')},
+    }]
+
+   return menu
+  }
+
   render() {
     const {
       id,
@@ -79,14 +98,17 @@ export default class CardQuestion extends PureComponent {
       allComments,
       commentsSearch,
       comments,
+      commentDelete,
       commentCreate,
       commentGiveDonuts,
       showUserInfo,
-      currentUser,
+      currentUserId,
       currentPostType,
+      imageCurrentUser,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
+    const closePanel = () => { this.setState({ isDisplayDropDown: false }) }
 
     return (
       <VisibilitySensor
@@ -95,13 +117,21 @@ export default class CardQuestion extends PureComponent {
       >
         <Link to={`/dashboard/questions/${id}`} className={wrapperLink} key={id}>
           <div key={id} className={wrapper}>
-            <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>
+            <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id) }}>
               <img src={user.image.smallUrl} alt="" />
             </div>
             <div className={sectionContent}>
               <div className={sectionContentHeader}>
-                <span className={textUserName} onClick={(event) => { event.preventDefault(); showUserInfo(user.id)}}>{user.firstName}</span>
+                <span className={textUserName} onClick={(event) => { event.preventDefault(); showUserInfo(user.id) }}>{user.firstName}</span>
                 {/* <span className={textPostTime}>{time}</span> */}
+                <span className={iconOpenMenu} onClick={(event) => { event.preventDefault(); this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown }) }}><MdKeyboardArrowDown /></span>
+                { this.state.isDisplayDropDown &&
+                  <PanelDropDownMenu
+                    className={panelMenu}
+                    closePanel={closePanel}
+                    items={this.menuItems}
+                    isDisplay={this.state.isDisplayDropDown}
+                  /> }
               </div>
               <TextPost
                 text={text}
@@ -126,7 +156,7 @@ export default class CardQuestion extends PureComponent {
                     postId={id}
                     showUserInfo={showUserInfo}
                     commentCreate={commentCreate}
-                    imageCurrentUser={currentUser.image.smallUrl}
+                    imageCurrentUser={imageCurrentUser}
                     userPost={user}
                     closeCommentBox={::this.closeCommentBox}
                   />
@@ -135,12 +165,14 @@ export default class CardQuestion extends PureComponent {
                       <ListComment
                         key={comment.id}
                         showUserInfo={showUserInfo}
+                        commentDelete={commentDelete}
                         commentGiveDonuts={commentGiveDonuts}
+                        isOwnComment={comment.user.id === currentUserId}
                         {...comment}
-                        >
-                          {comment.text}
-                        </ListComment>
-                      )}
+                      >
+                        {comment.text}
+                      </ListComment>
+                    )}
                     </ul>
                   </div>
                 }

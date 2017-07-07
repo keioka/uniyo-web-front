@@ -2,6 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router'
 import VisibilitySensor from 'react-visibility-sensor'
+import { MdKeyboardArrowDown } from 'react-icons/lib/md'
 
 import {
   TextPost,
@@ -10,6 +11,7 @@ import {
   ButtonDonut,
   ListComment,
   InputComment,
+  PanelDropDownMenu,
 } from '../../'
 
 import {
@@ -29,6 +31,8 @@ import {
   btnLike,
   btnComment,
   show,
+  iconOpenMenu,
+  panelMenu,
   footerSectionBtns,
 } from '../style'
 
@@ -65,6 +69,23 @@ export default class CardDocument extends PureComponent {
     postGiveDonuts({ postId: id, amount: 1 })
   }
 
+  get menuItems () {
+    const { user, currentUserId, id } = this.props
+    const isCurrentUserPost = user.id === currentUserId
+    const menu = isCurrentUserPost ? [{
+      title: 'Delete',
+      action: (event) => { this.props.postDelete({ postId: id }); event.preventDefault(); },
+    }, {
+      title: 'Share',
+      action: () => { alert('share')},
+    }] : [{
+      title: 'Share',
+      action: () => { alert('share')},
+    }]
+
+   return menu
+  }
+
   render() {
     const {
       id,
@@ -83,14 +104,16 @@ export default class CardDocument extends PureComponent {
       commentCreate,
       commentGiveDonuts,
       showUserInfo,
-      currentUser,
+      imageCurrentUser,
       currentPostType,
     } = this.props
 
     let sectionComemntClassNames = sectionContentComment
     if (!this.state.toggle) sectionComemntClassNames += ` ${show}`
     const time = moment.utc(createdAt).format("HH:mm A")
-
+    const onClickKeyboardArrow = () => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown }) }
+    const onClickUser = () => showUserInfo(user.id)
+    const closePanel = () => { this.setState({ isDisplayDropDown: false }) }
 
     return (
       <VisibilitySensor
@@ -98,13 +121,21 @@ export default class CardDocument extends PureComponent {
         onChange={::this.onChange}
       >
         <div key={id} className={wrapper}>
-          <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
+          <div className={sectionImage} onClick={onClickUser}>
             <img src={user.image.smallUrl} alt="" />
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>
-              <span className={textUserName} onClick={() => showUserInfo(user.id)}>{user.firstName}</span>
+              <span className={textUserName} onClick={onClickUser}>{user.firstName}</span>
                 {/* <span className={textPostTime}>{time}</span> */}
+              <span className={iconOpenMenu} onClick={onClickKeyboardArrow}><MdKeyboardArrowDown /></span>
+              {this.state.isDisplayDropDown &&
+               <PanelDropDownMenu
+                 className={panelMenu}
+                 items={this.menuItems}
+                 isDisplay={this.state.isDisplayDropDown}
+                 closePanel={closePanel}
+               />}
             </div>
             <TextPost
               text={text}
@@ -116,7 +147,7 @@ export default class CardDocument extends PureComponent {
                 <ButtonFile {...this.props} />
               </div>
               <div className={footerSectionBtns}>
-                <button className={btnComment} data-count={commentsCount} onClick={() => ::this.onClickCommentHandler()}>
+                <button className={btnComment} data-count={commentsCount} onClick={::this.onClickCommentHandler}>
                   comments
                 </button>
                 <ButtonDonut
@@ -132,7 +163,7 @@ export default class CardDocument extends PureComponent {
                 <InputComment
                   postId={id}
                   commentCreate={commentCreate}
-                  imageCurrentUser={currentUser.image.smallUrl}
+                  imageCurrentUser={imageCurrentUser}
                   userPost={user}
                   closeCommentBox={::this.closeCommentBox}
                 />

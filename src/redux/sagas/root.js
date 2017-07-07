@@ -11,8 +11,10 @@ const {
   updateUserProfilePicSaga,
   postsSearchSaga,
   postCreateSaga,
+  postDeleteSaga,
   commentsSearchSaga,
   commentCreateSaga,
+  commentDeleteSaga,
   userInfoSaga,
   userSearchSaga,
   currentUserSaga,
@@ -62,6 +64,7 @@ export default function* rootSaga() {
     fork(updateUserProfilePicSaga),
     fork(postsSearchSaga),
     fork(postCreateSaga),
+    fork(postDeleteSaga),
     fork(commentsSearchSaga),
     fork(commentCreateSaga),
     fork(userInfoSaga),
@@ -89,6 +92,7 @@ export default function* rootSaga() {
     fork(hashtagSearchSaga),
     fork(newPasswordUpdateSaga),
     fork(userPictureUpdateRefreshSaga),
+    fork(commentDeleteSaga),
     /*
       saga form UI
     */

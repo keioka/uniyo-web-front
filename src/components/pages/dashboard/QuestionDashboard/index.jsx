@@ -110,9 +110,11 @@ export default class QuestionDashboard extends Component {
     const {
       rightbar,
       postCreate,
+      postDelete,
       answerCreate,
       commentsSearch,
       commentCreate,
+　　　 commentDelete,
       showUserInfo,
       suggestionedUsers,
       userSearch,
@@ -185,13 +187,16 @@ export default class QuestionDashboard extends Component {
                 key={answerBest.id}
                 {...answerBest}
                 comments={allComments.filter(comment => comment.postId === answerBest.id)}
-                currentUser={currentUser}
+                currentUserId={currentUser.id}
                 commentCreate={commentCreate}
                 commentsSearch={commentsSearch}
+                commentDelete={commentDelete}
                 postGiveDonuts={postGiveDonuts}
+                postDelete={postDelete}
                 commentGiveDonuts={commentGiveDonuts}
                 showUserInfo={showUserInfo}
                 onReadContent={onReadContent}
+                imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
               />
             }
           </div>
@@ -203,13 +208,16 @@ export default class QuestionDashboard extends Component {
               key={answerRecent.id}
               {...answerRecent}
               comments={allComments.filter(comment => comment.postId === answerRecent.id)}
-              currentUser={currentUser}
+              currentUserId={currentUser.id}
               commentCreate={commentCreate}
               commentsSearch={commentsSearch}
+              commentDelete={commentDelete}
               postGiveDonuts={postGiveDonuts}
+              postDelete={postDelete}
               commentGiveDonuts={commentGiveDonuts}
               showUserInfo={showUserInfo}
               onReadContent={onReadContent}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
             />
           </div>
         }
@@ -223,13 +231,16 @@ export default class QuestionDashboard extends Component {
                   key={answer.id}
                   {...answer}
                   comments={comments}
-                  currentUser={currentUser}
+                  currentUserId={currentUser.id}
+                  postGiveDonuts={postGiveDonuts}
+                  postDelete={postDelete}
                   commentCreate={commentCreate}
                   commentsSearch={commentsSearch}
-                  postGiveDonuts={postGiveDonuts}
+                  commentDelete={commentDelete}
                   commentGiveDonuts={commentGiveDonuts}
                   showUserInfo={showUserInfo}
                   onReadContent={onReadContent}
+                  imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
                 />
               )
             })

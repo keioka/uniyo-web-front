@@ -138,6 +138,7 @@ export default class IndexDashboard extends Component {
       currentHashTag,
       postGiveDonuts,
       userGiveDonuts,
+      commentDelete,
       commentGiveDonuts,
       donutsThrow,
       onReadContent,
@@ -145,6 +146,7 @@ export default class IndexDashboard extends Component {
       relevantPosts,
       trendingPosts,
       posts,
+      postDelete,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
@@ -153,6 +155,8 @@ export default class IndexDashboard extends Component {
     const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
     const cardFactory = ({
       post,
+      postDelete,
+      commentDelete,
       commentsSearch,
       comments,
       showUserInfo,
@@ -168,12 +172,16 @@ export default class IndexDashboard extends Component {
             <CardPost
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              currentUserId={currentUser.id}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              commentDelete={commentDelete}
+
               postGiveDonuts={postGiveDonuts}
+              postDelete={postDelete}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
@@ -186,12 +194,16 @@ export default class IndexDashboard extends Component {
             <CardDocument
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              currentUserId={currentUser.id}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              commentDelete={commentDelete}
+
               postGiveDonuts={postGiveDonuts}
+              postDelete={postDelete}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
@@ -204,12 +216,15 @@ export default class IndexDashboard extends Component {
             <CardReview
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              currentUserId={currentUser.id}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              commentDelete={commentDelete}
               postGiveDonuts={postGiveDonuts}
+              postDelete={postDelete}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
@@ -222,12 +237,15 @@ export default class IndexDashboard extends Component {
             <CardQuestion
               key={post.id}
               {...post}
-              currentUser={currentUser}
+              currentUserId={currentUser.id}
+              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
               commentCreate={commentCreate}
+              commentDelete={commentDelete}
               postGiveDonuts={postGiveDonuts}
+              postDelete={postDelete}
               userGiveDonuts={userGiveDonuts}
               commentGiveDonuts={commentGiveDonuts}
               currentPostType={currentPostType}
@@ -265,6 +283,8 @@ export default class IndexDashboard extends Component {
                 donutsThrow,
                 currentUser,
                 onReadContent,
+                postDelete,
+                commentDelete,
               })
             })}
           </div>
@@ -284,6 +304,8 @@ export default class IndexDashboard extends Component {
                   donutsThrow,
                   currentUser,
                   onReadContent,
+                  postDelete,
+                  commentDelete,
                 })
               })}
           </div>
@@ -311,6 +333,8 @@ export default class IndexDashboard extends Component {
              donutsThrow,
              currentUser,
              onReadContent,
+             postDelete,
+             commentDelete,
            })
          })}
        </div>
