@@ -1,0 +1,25 @@
+@import "../../../styles/main";
+
+$color-shadow: 100;
+.element {
+  display: none;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 8px 0 rgba($color-shadow, $color-shadow, $color-shadow, 0.2), 0 6px 20px 0 rgba($color-shadow, $color-shadow, $color-shadow, 0.19);
+　border: 1px solid #e1e1e1;
+}
+
+.element--active {
+  display: block;
+}
+
+.element__item {
+  border-bottom: 1px solid #e1e1e1;
+  list-style: none;
+  padding: 15px 30px;
+  cursor: pointer;
+}
+
+.element__item:hover {
+  color: $pink;
+}

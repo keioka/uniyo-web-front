@@ -110,6 +110,7 @@ export Donut from './common/Donut'
 export DonutPlusOne from './common/DonutPlusOne'
 export BarTag from './common/BarTag'
 export BarAuthMessage from './common/BarAuthMessage'
+export PanelDropDownMenu from './common/PanelDropDownMenu'
 
 /*
   list
