@@ -159,14 +159,16 @@ export default class PostShowDashboard extends Component {
       }
     }
 
-    const { params } = this.props
+    const { params, rightbar } = this.props
     const { all } = posts
     const post = posts.filter(post => post.id == params.postId)[0]
     const { image } = currentUser
     const comments = post ? this.props.allComments.filter(comment => comment.postId === post.id) : []
+    const { isOpen: isRightbarOpen } = rightbar
+    const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
 
     return (
-      <div ref={(div)=> this._dashboard = div}>
+      <div className={dashboardWrapperClassNames} ref={(div)=> this._dashboard = div}>
         <InputPost
           imgUrl={image && image.mediumUrl}
           onPostSubmit={postCreate}
