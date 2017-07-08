@@ -35,6 +35,7 @@ import {
   SidebarRightUserInfo,
   SidebarRightChannelUsers,
   Donut,
+  ButtonClose,
 } from '../../components'
 
 import uiAction from '../../redux/actions'
@@ -242,7 +243,7 @@ export default class SidebarRight extends Component {
     return (
       <div>
         <aside className={wrapperClassNames.join(' ')}>
-          {isOpen && <div className={close} onClick={() => hideSidebarRight()}></div>}
+          {isOpen && <div className={close} onClick={() => hideSidebarRight()}><ButtonClose /></div>}
           {this.display()}
         </aside>
         { !isOpen && !isChannel && !isChannelNew &&

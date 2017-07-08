@@ -35,10 +35,10 @@ class ListComment extends Component {
   }
 
   get menuItems() {
-    const { commentDelete, id } = this.props
+    const { commentDelete, id, postId } = this.props
     return [{
       title: 'Delete',
-      action: () => { commentDelete({ commentId: id }) }
+      action: () => { commentDelete({ commentId: id, postId }) }
     }]
   }
 
@@ -51,7 +51,6 @@ class ListComment extends Component {
       donutsCount,
       showUserInfo,
       isOwnComment,
-
     } = this.props
 
     const { name, firstName, image } = user
