@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import {
   ListNotification,
+  ButtonClose,
 } from '../..'
 
 import {
@@ -19,10 +20,6 @@ import {
 } from './style'
 
 class SidebarRightNotification extends Component {
-
-  // onClick => read
-  // window scroll => read
-  // isRead false and is same channel and show latest time and
 
   render() {
     const {
@@ -49,7 +46,6 @@ class SidebarRightNotification extends Component {
             </h3>
             { countNotification > 0 && <span className={headerTitleNumber}>{countNotification}</span> }
           </div>
-          <span onClick={() => hideSidebarRight()}>X</span>
         </header>
 
         <div className={inner}>
