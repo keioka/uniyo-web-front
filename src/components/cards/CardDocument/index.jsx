@@ -102,9 +102,11 @@ export default class CardDocument extends PureComponent {
       allComments,
       comments,
       commentCreate,
+      commentDelete,
       commentGiveDonuts,
       showUserInfo,
       imageCurrentUser,
+      currentUserId,
       currentPostType,
     } = this.props
 
@@ -172,7 +174,9 @@ export default class CardDocument extends PureComponent {
                     <ListComment
                       key={comment.id}
                       showUserInfo={showUserInfo}
+                      commentDelete={commentDelete}
                       commentGiveDonuts={commentGiveDonuts}
+　                    isOwnComment={comment.user.id === currentUserId}
                       {...comment}
                     >
                       {comment.text}
