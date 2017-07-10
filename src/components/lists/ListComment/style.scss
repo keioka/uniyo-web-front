@@ -62,7 +62,17 @@
   z-index: 1;
 }
 
-.icon--open-menu {
-  margin-left: 5px;
+.icon--delete {
   cursor: pointer;
+  opacity: 0;
+  transition: 0.2s opacity ease-out;
+}
+
+.icon--delete:hover {
+  opacity: 1;
+}
+
+.icon--delete svg {
+  margin-right: 5px;
+  transform: scale(1.4);
 }
