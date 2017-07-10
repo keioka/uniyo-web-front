@@ -163,7 +163,8 @@ const ListNotification = ({
     }
 
     case 'NEW_CHANNEL_MESSAGE': {
-      const user = usersWithoutCurrentUser(notification.channel.users, currentUser)[0]
+      // const user = usersWithoutCurrentUser(notification.channel.users, currentUser)[0]
+      const { user }  = notification.channelMessage
       userImageUrl = user ? user.image.smallUrl : ''
       component = (<span><span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> sent a new message</span>)
       break
