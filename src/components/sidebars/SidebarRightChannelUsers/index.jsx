@@ -43,7 +43,7 @@ class SidebarRightChannelUsers extends Component {
     return (
       <div className={wrapper}>
         <div className={header}>
-          <h3>All user in this channel</h3>
+          <h3>All users in this channel</h3>
         </div>
         <div className={main}>
           {/* <div className={inputSearchWrapper}>
