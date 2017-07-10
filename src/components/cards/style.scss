@@ -52,6 +52,16 @@ $animation-duraion: 0.2s;
   cursor: pointer;
 }
 
+.icon--open-menu svg {
+  transform: scale(1.4);
+  fill: #949494;
+}
+
+.icon--open-menu svg:hover {
+  transform: scale(1.4);
+  fill: $black;
+}
+
 .wrapper--link {
   text-decoration: none;
   color: inherit;
@@ -82,7 +92,7 @@ $animation-duraion: 0.2s;
 }
 
 .section--content__comment {
-  margin-top: 15px;
+  // margin-top: 15px;
 }
 
 .section--content__comment--close {
@@ -98,6 +108,7 @@ $animation-duraion: 0.2s;
   transform: scaleY(1);
   transform-origin:  top;
   transition: transform 0.3s ease-out;
+  margin-top: 15px;
 }
 
 .section--content__comment__form {}

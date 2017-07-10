@@ -3,6 +3,10 @@ import moment from 'moment'
 import { Link } from 'react-router'
 import VisibilitySensor from 'react-visibility-sensor'
 import { MdKeyboardArrowDown } from 'react-icons/lib/md'
+import { MdContentCopy } from 'react-icons/lib/md'
+import { MdDeleteForever } from 'react-icons/lib/md'
+import { inputHandler } from '../../../utils'
+const { copyToClipboard } = inputHandler
 
 import {
   TextPost,
@@ -68,21 +72,30 @@ export default class CardQuestion extends PureComponent {
     postGiveDonuts({ postId: id, amount: 1 })
   }
 
-  get menuItems () {
+  get menuItems() {
     const { user, currentUserId, id } = this.props
     const isCurrentUserPost = user.id === currentUserId
+    const url = `http://uniyo.io/dashboard/posts/${id}`
+    const copyUrl = () => {
+      alert(`Copied Url! ${url}`)
+      copyToClipboard(url)
+    }
+
     const menu = isCurrentUserPost ? [{
-      title: 'Delete',
-      action: (event) => { event.preventDefault(); this.props.postDelete({ postId: id }) },
+      title: <span><MdDeleteForever data-icon='delete-forever' /> Delete</span>,
+      type: 'function',
+      action: () => { this.props.postDelete({ postId: id }) },
     }, {
-      title: 'Share',
-      action: () => { alert('share')},
+      title: <span><MdContentCopy /> Copy url</span>,
+      type: 'function',
+      action: copyUrl,
     }] : [{
-      title: 'Share',
-      action: () => { alert('share')},
+      title: <span><MdContentCopy /> Copy url</span>,
+      type: 'function',
+      action: copyUrl,
     }]
 
-   return menu
+    return menu
   }
 
   render() {

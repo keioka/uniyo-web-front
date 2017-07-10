@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { MdKeyboardArrowDown } from 'react-icons/lib/md'
+import { MdDeleteForever } from 'react-icons/lib/md'
 
 import {
   TextPost,
@@ -16,7 +16,7 @@ import {
   contentText,
   contentRight,
   panelMenu,
-  iconOpenMenu,
+  iconDelete,
 } from './style'
 
 class ListComment extends Component {
@@ -38,16 +38,18 @@ class ListComment extends Component {
     const { commentDelete, id, postId } = this.props
     return [{
       title: 'Delete',
-      action: () => { commentDelete({ commentId: id, postId }) }
+      action: () => {  }
     }]
   }
 
   render() {
     const {
       id,
+      postId,
       user,
       text,
       commentGiveDonuts,
+      commentDelete,
       donutsCount,
       showUserInfo,
       isOwnComment,
@@ -69,27 +71,20 @@ class ListComment extends Component {
             <TextPost text={text} />
           </span>
           <span className={contentRight}>
+            {isOwnComment &&
+             <span
+              className={iconDelete}
+              onClick={() => { commentDelete({ commentId: id, postId }) }}
+             >
+              <MdDeleteForever />
+             </span>
+            }
             <ButtonDonut
               donutsCount={donutsCount}
               onClick={onClickButtonDonut}
             />
-            {isOwnComment &&
-             <span
-              className={iconOpenMenu}
-              onClick={() => { this.setState({ isDisplayDropDown: !this.state.isDisplayDropDown }) }}
-             >
-              <MdKeyboardArrowDown />
-             </span>
-            }
           </span>
         </span>
-        { this.state.isDisplayDropDown &&
-          <PanelDropDownMenu
-            className={panelMenu}
-            items={this.menuItems}
-            isDisplay={this.state.isDisplayDropDown}
-            closePanel={closePanel}
-          /> }
       </li>
     )
   }
