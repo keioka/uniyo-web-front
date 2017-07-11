@@ -124,6 +124,7 @@ export default class QuestionDashboard extends Component {
       commentGiveDonuts,
       allPosts,
       onReadContent,
+      showPopup,
     } = this.props
 
     const { image, firstName } = currentUser
@@ -197,6 +198,7 @@ export default class QuestionDashboard extends Component {
                 showUserInfo={showUserInfo}
                 onReadContent={onReadContent}
                 imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+                showPopup={showPopup}
               />
             }
           </div>
@@ -218,6 +220,7 @@ export default class QuestionDashboard extends Component {
               showUserInfo={showUserInfo}
               onReadContent={onReadContent}
               imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              showPopup={showPopup}
             />
           </div>
         }
@@ -241,6 +244,7 @@ export default class QuestionDashboard extends Component {
                   showUserInfo={showUserInfo}
                   onReadContent={onReadContent}
                   imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+                  showPopup={showPopup}
                 />
               )
             })

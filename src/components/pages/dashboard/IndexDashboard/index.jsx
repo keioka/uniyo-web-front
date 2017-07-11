@@ -147,6 +147,7 @@ export default class IndexDashboard extends Component {
       trendingPosts,
       posts,
       postDelete,
+      showPopup,
     } = this.props
 
     const { hashtags: hashtagsCurrentUser, image } = currentUser
@@ -164,6 +165,7 @@ export default class IndexDashboard extends Component {
       currentPostType,
       donutsThrow,
       onReadContent,
+      showPopup,
     }) => {
 
       switch(post.type) {
@@ -187,6 +189,7 @@ export default class IndexDashboard extends Component {
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
               onReadContent={onReadContent}
+              showPopup={showPopup}
             />
           )
         case TYPES['docs']:
@@ -209,6 +212,7 @@ export default class IndexDashboard extends Component {
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
               onReadContent={onReadContent}
+              showPopup={showPopup}
             />
           )
         case TYPES['reviews']:
@@ -230,6 +234,7 @@ export default class IndexDashboard extends Component {
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
               onReadContent={onReadContent}
+              showPopup={showPopup}
             />
           )
         case TYPES['questions']:
@@ -251,6 +256,7 @@ export default class IndexDashboard extends Component {
               currentPostType={currentPostType}
               donutsThrow={donutsThrow}
               onReadContent={onReadContent}
+              showPopup={showPopup}
             />
           )
       }
@@ -285,6 +291,7 @@ export default class IndexDashboard extends Component {
                 onReadContent,
                 postDelete,
                 commentDelete,
+                showPopup,
               })
             })}
           </div>
@@ -306,6 +313,7 @@ export default class IndexDashboard extends Component {
                   onReadContent,
                   postDelete,
                   commentDelete,
+                  showPopup,
                 })
               })}
           </div>
@@ -335,6 +343,7 @@ export default class IndexDashboard extends Component {
              onReadContent,
              postDelete,
              commentDelete,
+             showPopup,
            })
          })}
        </div>
