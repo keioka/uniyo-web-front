@@ -35,6 +35,7 @@ const {
   webSocket,
   watchMarkNotificationAsRead,
   watchUserReceivedDonutsFetch,
+  watchPopupShow,
   watchContentReadCheckNotificationSaga,
   watchDonutsThrow,
   watchDonutsShift,
@@ -102,6 +103,7 @@ export default function* rootSaga() {
     fork(watchDonutsThrow),
     fork(watchDonutsShift),
     fork(watchContentReadCheckNotificationSaga),
+    fork(watchPopupShow),
     /*
       saga for webSocket
     */
