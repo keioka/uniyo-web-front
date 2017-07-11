@@ -91,11 +91,11 @@ export default class CardPost extends PureComponent  {
   }
 
   get menuItems() {
-    const { user, currentUserId, id } = this.props
+    const { user, currentUserId, id, showPopup } = this.props
     const isCurrentUserPost = user.id === currentUserId
     const url = `http://uniyo.io/dashboard/posts/${id}`
     const copyUrl = () => {
-      alert(`Copied Url! ${url}`)
+      showPopup('COPIED_URL')
       copyToClipboard(url)
     }
 

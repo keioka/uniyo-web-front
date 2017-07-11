@@ -24,6 +24,8 @@ import {
   sectionContentFooter,
   sectionContentUserName,
   sectionContentComment,
+  sectionContentCommentOpen,
+  sectionContentCommentClose,
   sectionContentCommentList,
   textUserName,
   textPostTime,
@@ -76,12 +78,12 @@ export default class CardReview extends PureComponent {
   }
 
   get menuItems() {
-    const { user, currentUserId, id } = this.props
+    const { user, currentUserId, id, showPopup } = this.props
     const isCurrentUserPost = user.id === currentUserId
     const url = `http://uniyo.io/dashboard/posts/${id}`
     const copyUrl = () => {
-      alert(`Copied Url! ${url}`)
       copyToClipboard(url)
+      showPopup('COPIED_URL')
     }
 
     const menu = isCurrentUserPost ? [{
@@ -120,6 +122,7 @@ export default class CardReview extends PureComponent {
       imageCurrentUser,
       currentUserId,
       currentPostType,
+      showPopup,
     } = this.props
 
     const time = moment.utc(createdAt).format("HH:mm A")
@@ -150,6 +153,7 @@ export default class CardReview extends PureComponent {
                 items={this.menuItems}
                 isDisplay={this.state.isDisplayDropDown}
                 closePanel={closePanel}
+
               /> }
           </div>
           <TextPost text={text} showUserInfo={showUserInfo} />
@@ -166,8 +170,7 @@ export default class CardReview extends PureComponent {
               />
             </div>
           </div>
-          { this.state.toggle &&
-            <div className={sectionContentComment}>
+          <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}`}>
               <InputComment
                 postId={id}
                 showUserInfo={showUserInfo}
@@ -191,7 +194,6 @@ export default class CardReview extends PureComponent {
                 )}
               </ul>
             </div>
-          }
         </div>
       </div>
     </VisibilitySensor>

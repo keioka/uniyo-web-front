@@ -21,10 +21,6 @@ class PanelDropDownMenu extends Component {
   }
 
   onClickWindow(event) {
-    console.log(event.target.parentNode === this._panel)
-    console.log(event.target.parentNode.parentNode === this._panel)
-    console.log(event.target.parentNode.parentNode.parentNode === this._panel)
-    console.log(event.target.parentTree)
     if (
       event.target.parentNode === this._panel ||
       event.target.parentNode.parentNode === this._panel ||

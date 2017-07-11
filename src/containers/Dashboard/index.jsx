@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
 import { Link, browserHistory } from 'react-router'
-import Rx from 'rx'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
@@ -45,6 +44,8 @@ import {
   barPushNotificationButtonClose,
   textEnableNotification,
   panelSetting,
+  popup,
+  popupEmoji,
 } from './style'
 
 import Setting from './settings.svg'
@@ -57,6 +58,7 @@ const mapStateToProps = state => ({
   comments: state.api.comments,
   hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
+  dashboard: state.ui.dashboard,
   uiStateHeader: state.ui.header,
   channels: state.api.channels,
   answers: state.api.answers,
@@ -100,6 +102,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   signout: uiActions.signout,
   addDevice: actions.addDevice,
 
+  showPopup: uiActions.showPopup,
   donutsShake: uiActions.donutsShake,
   donutsThrow: uiActions.donutsThrow,
 
@@ -241,6 +244,8 @@ export default class DashBoard extends Component {
       userSearch,
       userGiveDonuts,
 
+      dashboard,
+      showPopup,
       rightbar,
       hideSidebarRight,
       location,
@@ -378,6 +383,7 @@ export default class DashBoard extends Component {
       unReadChannelIds,
       contentReadCheckNotification,
       commentDelete,
+      showPopup,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
     }))
@@ -476,14 +482,20 @@ export default class DashBoard extends Component {
             className={textEnableNotification}
             onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
             >
-            enable desktop notifications.
-          </span>
-          <ButtonClose
-            className={barPushNotificationButtonClose}
-            onClick={() => this.setState({ isOpenNotificationBar: false })}
-          />
-        </div>
+              enable desktop notifications.
+            </span>
+            <ButtonClose
+              className={barPushNotificationButtonClose}
+              onClick={() => this.setState({ isOpenNotificationBar: false })}
+            />
+          </div>
         }
+        {this.props.dashboard.isDisplayPopup &&
+          <div className={popup}>
+            <span className={popupEmoji}>👍</span>
+            <span>Link copied to your clipboard</span>
+          </div>
+         }
         { this.renderContent }
       </LayoutDashboard>
     )
