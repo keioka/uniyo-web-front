@@ -27,6 +27,8 @@ import {
   sectionContentFooter,
   sectionContentUserName,
   sectionContentComment,
+  sectionContentCommentOpen,
+  sectionContentCommentClose,
   sectionContentCommentList,
   sectionFileDetail,
   file,
@@ -74,11 +76,11 @@ export default class CardDocument extends PureComponent {
   }
 
   get menuItems() {
-    const { user, currentUserId, id } = this.props
+    const { user, currentUserId, id, showPopup } = this.props
     const isCurrentUserPost = user.id === currentUserId
     const url = `http://uniyo.io/dashboard/posts/${id}`
     const copyUrl = () => {
-      alert(`Copied url! ${url}`)
+      showPopup('COPIED_URL')
       copyToClipboard(url)
     }
 
@@ -173,8 +175,7 @@ export default class CardDocument extends PureComponent {
                 />
               </div>
             </div>
-            { this.state.toggle &&
-              <div className={sectionContentComment}>
+            <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}` }>
                 <InputComment
                   postId={id}
                   commentCreate={commentCreate}
@@ -197,7 +198,6 @@ export default class CardDocument extends PureComponent {
                   )}
                 </ul>
               </div>
-            }
           </div>
         </div>
       </VisibilitySensor>
