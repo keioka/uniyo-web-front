@@ -16,6 +16,7 @@ const InputSearchTag = (props) => {
         type="text"
         placeholder="Search for # or @"
         {...props}
+        ref={props.refTo}
         className={element}
       />
     </div>
