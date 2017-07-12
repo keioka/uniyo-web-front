@@ -4,12 +4,12 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin: 10px 0px;
+  margin: 5px 0px;
   padding: 0px 30px;
   background: white;
   cursor: pointer;
   border-radius: 10px;
-  min-height: 90px;
+  min-height: 80px;
 }
 
 .font--link {
@@ -67,6 +67,7 @@
 
 .img-user {
   width: 50px;
+  border: 2px solid white;
 }
 
 .img-user, .img-user--one, .img-user--two {
