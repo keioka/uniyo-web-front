@@ -42,14 +42,19 @@ export default class IndexDashboard extends Component {
     isLoadingMorePost: false
   }
 
+  constructor() {
+    super()
+    this.onScrollHandler = this.onScrollHandler.bind(this)
+  }
+
   componentDidMount() {
     if (this._dashboard) {
-      window.addEventListener('scroll', ::this.onScrollHandler)
+      window.addEventListener('scroll', this.onScrollHandler)
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', ::this.onScrollHandler)
+    window.removeEventListener('scroll', this.onScrollHandler)
   }
 
   shouldUpdateComponent(nextProps) {
