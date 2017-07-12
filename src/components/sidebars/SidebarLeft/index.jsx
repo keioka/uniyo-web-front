@@ -71,6 +71,7 @@ export default class SidebarLeft extends Component {
       nextProps.isMainDashboard !== this.props.isMainDashboard ||
       nextProps.locationParams !== this.props.locationParams ||
       nextProps.hashtags.length !== this.props.hashtags.length ||
+      nextProps.suggestionedUsers.length !== this.props.suggestionedUsers.length ||
       nextState !== this.state
     ) {
       return true
@@ -447,10 +448,8 @@ render() {
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   const onChangeInputSearchTag = (event) => {
-    if (this.hasNoSearchResult) {
-      userSearch({ query: event.target.value })
-      hashtagSearch({ query: event.target.value })
-    }
+    userSearch({ query: event.target.value })
+    hashtagSearch({ query: event.target.value })
     this.setState({ keywordForSort: event.target.value })
   }
 
