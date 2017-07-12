@@ -72,23 +72,23 @@ class ListComment extends Component {
           </span>
           <span className={contentRight}>
             {isOwnComment &&
-             <span
-              className={iconDelete}
-              onClick={() => { commentDelete({ commentId: id, postId }) }}
-             >
-              <MdDeleteForever />
-             </span>
-            }
-            <ButtonDonut
-              donutsCount={donutsCount}
-              onClick={onClickButtonDonut}
-            />
+              <span
+                className={iconDelete}
+                onClick={() => { commentDelete({ commentId: id, postId }) }}
+                >
+                  <MdDeleteForever />
+                </span>
+              }
+              <ButtonDonut
+                donutsCount={donutsCount}
+                onClick={onClickButtonDonut}
+              />
+            </span>
           </span>
-        </span>
-      </li>
-    )
+        </li>
+      )
+    }
   }
-}
 
 
-export default ListComment
+  export default ListComment
