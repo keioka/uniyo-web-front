@@ -56,6 +56,7 @@ const mapStateToProps = state => ({
   users: state.api.users,
   posts: state.api.posts,
   comments: state.api.comments,
+  hashtags: state.api.hashtags.all,
   hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
   dashboard: state.ui.dashboard,
@@ -87,6 +88,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
   hashtagAdd: actions.hashtagAdd,
   hashtagDelete: actions.hashtagDelete,
+  hashtagSearch: actions.hashtagSearch,
 
   channelSearch: actions.channelSearch,
   channelCreate: actions.channelCreate,
@@ -254,6 +256,8 @@ export default class DashBoard extends Component {
       messageSearch,
       messageCreate,
 
+      hashtags,
+      hashtagSearch,
       hashtagsTrending,
       hashtagAdd,
       hashtagDelete,
@@ -358,6 +362,7 @@ export default class DashBoard extends Component {
       hideSidebarRight,
       suggestionedUsers,
       currentUser,
+      hashtags,
       messageSearch,
       messageCreate,
       channelSearch,
@@ -377,6 +382,7 @@ export default class DashBoard extends Component {
       commentGiveDonuts,
       donutsThrow,
       hashtagAdd,
+      hashtagSearch,
       showHistoryDonut,
       signout,
       notifications,
@@ -398,8 +404,13 @@ export default class DashBoard extends Component {
     return (
       <div className={container}>
         <SidebarLeft
+          suggestionedUsers={suggestionedUsers}
+          userSearch={userSearch}
+          hashtags={hashtags}
+          hashtagSearch={hashtagSearch}
           hashtagsCurrentUser={hashtagsCurrentUser}
           allChannels={allChannels}
+          channelCreate={channelCreate}
           hashtagsTrending={hashtagsTrending}
           hashtagAdd={hashtagAdd}
           hashtagDelete={hashtagDelete}
