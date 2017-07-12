@@ -106,18 +106,18 @@ export default class SidebarLeft extends Component {
   }
 
   get filteredHashtag() {
-     const { keywordForSort } = this.state
-     return this.uniqueHashtagsCurrentUser && this.uniqueHashtagsCurrentUser
-     .filter(hashtag =>
-       hashtag.hashtag.toLowerCase().includes(keywordForSort.toLowerCase())
-     )
+    const { keywordForSort } = this.state
+    return this.uniqueHashtagsCurrentUser && this.uniqueHashtagsCurrentUser
+    .filter(hashtag =>
+      hashtag.hashtag.toLowerCase().includes(keywordForSort.toLowerCase())
+    )
   }
 
   get isSearchResultForHashtagExist() {
     return this.filteredHashtag ? this.filteredHashtag.length > 0 : true
   }
 
-  get filteredChannels () {
+  get filteredChannels() {
     const { keywordForSort } = this.state
     const { allChannels } = this.props
     return allChannels.filter(channel => channel.users.some(user => user.name.includes(keywordForSort)))
@@ -137,27 +137,30 @@ export default class SidebarLeft extends Component {
     return this.filteredTrendingHashtag ? this.filteredTrendingHashtag.length > 0 : true
   }
 
-  get hasNoSearchResult () {
+  get hasNoSearchResult() {
     return !this.isSearchResultForChannelExist &&
     !this.isSearchResultForHashtagExist &&
     !this.isSearchResultForTrendingHashtagExist
   }
 
-
   get resultHashtag() {
     const { keywordForSort } = this.state
-    return this.hasNoSearchResult && (this.props.hashtags.length > 0 ? this.props.hashtags.filter(hashtag => hashtag.toLowerCase().includes(keywordForSort.toLowerCase())).map(hashtag =>
+    return this.props.hashtags.length > 0 ?
+     this.props.hashtags
+     .filter(hashtag => hashtag.toLowerCase().includes(keywordForSort.toLowerCase()))
+     .map(hashtag =>
       <ListHashtag
         hashtag={hashtag}
         hashtagType={'s'}
         type={this.props.type}
         onClick={::this.clearInputSearchTag}
-      />) : <ListHashtag
+      />) :
+      <ListHashtag
         hashtag={keywordForSort}
         hashtagType={'s'}
         type={this.props.type}
         onClick={::this.clearInputSearchTag}
-      />)
+      />
   }
 
   clearInputSearchTag() {
@@ -189,7 +192,7 @@ export default class SidebarLeft extends Component {
     const { keywordForSort } = this.state
     const { suggestionedUsers } = this.props
 
-    return this.hasNoSearchResult && suggestionedUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
+    return suggestionedUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
       <li className={sectionTag} onClick={() => onClickBtnMessage(user.id)}><span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>{user.name}</li>
     )
   }
@@ -388,6 +391,17 @@ export default class SidebarLeft extends Component {
             </ul>
           }
 
+          {keywordForSort !== '' && this.resultHashtag &&
+            <div>
+              <h4 className={sectionLabel}>
+                OTHER HASHTAGS
+              </h4>
+              <ul>
+                {this.resultHashtag}
+              </ul>
+            </div>
+          }
+
           {this.isSearchResultForChannelExist &&
           <ul className={section}>
             <Link to='/dashboard/channels/new'>
@@ -411,18 +425,19 @@ export default class SidebarLeft extends Component {
         {this.state.isShowMoreChannels ? 'Hide' : 'Show more'}
       </button>
       */}
-        </ul>
+           </ul>
         }
 
-        {this.hasNoSearchResult &&
-          <ul>
+        {keywordForSort !== '' && this.resultChannel.length > 0 &&
+          <div>
             <h4 className={sectionLabel}>
-              Result
+              Directory
             </h4>
-            {this.resultHashtag}
-            {this.resultChannel}
-          </ul>
-         }
+            <ul>
+              {this.resultChannel}
+            </ul>
+          </div>
+        }
      </nav>
    )
 }
