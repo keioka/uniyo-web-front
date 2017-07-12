@@ -4,11 +4,12 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin: 10px 0px;
-  padding: 20px 30px;
+  margin: 5px 0px;
+  padding: 0px 30px;
   border-radius: 10px;
   background: white;
   cursor: pointer;
+  min-height: 80px;
 }
 
 .font-name {
@@ -23,9 +24,11 @@
   overflow: hidden;
   display: inline-block;
   margin-right: 15px;
+  border: 2px solid white;
 }
 
 .img-user {
   border-radius: 10px;
+  border: 2px solid white;
   width: 50px;
 }

@@ -5,10 +5,12 @@ import {
   ListNewChatUser,
   ListRecentConversation,
   InputSearchUser,
+  ButtonClose,
 } from '../../../index'
 
 import {
   wrapper,
+  iconClose,
   tagUser,
   content,
   header,
@@ -31,6 +33,7 @@ export default class ChannelNewDashboard extends Component {
   }
 
   state = {
+    query: '',
     form: [],
     selectedUsers: [],
     isShowRecentConversation: true,
@@ -116,7 +119,7 @@ export default class ChannelNewDashboard extends Component {
     const matchUserName = name => query.test(name.toLowerCase())
     const filterUsers = channel => channel.users.map(user => user.name).some(matchUserName)
     const channels = this.state.query ? allChannels.filter(filterUsers) : []
-    const isChannelUser = (channel) => channel.users.includes(user => { alert('user', user.name); return query.test(user.name) })
+    // const isChannelUser = (channel) => channel.users.includes(user => query.test(user.name))
     return channels.map(channel =>
       <ListRecentConversation channel={channel} currentUser={currentUser} />
     )
@@ -150,32 +153,31 @@ export default class ChannelNewDashboard extends Component {
             </div>
             <div className={headerSectionSelectedUser}>
               {this.state.selectedUsers &&
-                this.state.selectedUsers.map((user, index) =>
-                <span
-                  className={tagUser}
-                  onClick={() => ::this.onDeleteSelectedUser(index)}
-                  >
-                    {user.name}
-                  </span>)
-                }
-              </div>
+               this.state.selectedUsers.map((user, index) =>
+               <span
+                 className={tagUser}
+                 onClick={() => ::this.onDeleteSelectedUser(index)}
+               >
+                {user.name}
+                <ButtonClose className={iconClose} onClick={() => ::this.onDeleteSelectedUser(index)} />
+               </span>)
+              }
             </div>
-            {this.state.isShowRecentConversation &&
-              <div className={section}>
-                <h4 className={sectionTitle}>Recent Conversation</h4>
-                <ul className={sectionUl}>
-                  {this.channels}
-                </ul>
-              </div>
-            }
-            {this.state.query !== '' &&
-              <div className={section}>
-                <ul className={sectionUl}>
-                  {this.filteredChannels}
-                  {this.suggestionedUsers}
-                </ul>
-              </div>
-            }
+          </div>
+          {this.state.query !== '' ?
+            <div className={section}>
+              <ul className={sectionUl}>
+                {this.filteredChannels}
+                {this.suggestionedUsers}
+              </ul>
+            </div> :
+            <div className={section}>
+              <h4 className={sectionTitle}>Recent Conversation</h4>
+              <ul className={sectionUl}>
+                {this.channels}
+              </ul>
+            </div>
+          }
           </div>
         </div>
       )
