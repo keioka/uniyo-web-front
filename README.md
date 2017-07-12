@@ -40,7 +40,7 @@ npm install
 `can not find property request of undefined` means app can not load `uniyo-redux` properly. Just reinstall it.
 
 ```
-rm -rf ../uniyo-redux; npm install; npm run dev;
+rm -rf node_modules/uniyo-redux; npm install; npm run dev
 ```
 
 
