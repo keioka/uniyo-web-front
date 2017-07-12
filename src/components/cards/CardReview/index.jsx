@@ -87,15 +87,15 @@ export default class CardReview extends PureComponent {
     }
 
     const menu = isCurrentUserPost ? [{
-      title: <span><MdDeleteForever data-icon='delete-forever' /> Delete</span>,
+      title: <span><MdDeleteForever data-icon='delete-forever' /> Delete review</span>,
       type: 'function',
       action: () => { this.props.postDelete({ postId: id }) },
     }, {
-      title: <span><MdContentCopy /> Copy url</span>,
+      title: <span><MdContentCopy /> Copy link</span>,
       type: 'function',
       action: copyUrl,
     }] : [{
-      title: <span><MdContentCopy /> Copy url</span>,
+      title: <span><MdContentCopy /> Copy link</span>,
       type: 'function',
       action: copyUrl,
     }]
