@@ -1,0 +1,25 @@
+.icon--channel--online-status {
+  margin-right: 5px;
+  padding: 1px 2px 3px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon--online {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #5fe36f;
+}
+
+.icon--offline {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #5fe36f;
+}

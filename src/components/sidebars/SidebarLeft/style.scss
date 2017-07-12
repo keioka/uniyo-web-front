@@ -82,6 +82,14 @@ $left-padding: 16px;
   margin: 2px 0px;
 }
 
+.icon--channel--online-status {
+  @extend .icon--channel--online-status;
+}
+
+.icon--online {
+  @extend .icon--online;
+}
+
 .section__tag:hover {
   background-color: white;
 }

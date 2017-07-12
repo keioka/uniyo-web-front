@@ -8,6 +8,7 @@ import {
 } from '../../'
 
 import {
+  link,
   wrapper,
   wrapperActive,
   tag,
@@ -75,6 +76,7 @@ export default class ListHashtag extends Component {
       isSelected,
       isIncludeNewPost,
       amountMention,
+      onClick,
     } = this.props
 
     const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
@@ -86,12 +88,14 @@ export default class ListHashtag extends Component {
       hashtagDelete({ hashtag, hashtagType })
     }
 
-    const link = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
+    const linkPath = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
 
     return (
       <Link
+        onClick={onClick}
         key={hashCode(hashtag)}
-        to={link}
+        to={linkPath}
+        className={link}
       >
         <li className={wrapperClassNames}>
           <span className={tag}>

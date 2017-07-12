@@ -47,22 +47,7 @@ $left-padding: 18px;
 }
 
 .section__tag {
-  color: #868686;
-  display: flex;
-  flex-direction: row;
-  list-style: none;
-  font-size: 1rem;
-  cursor: pointer;
-  padding-left: $left-padding;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  width: 196px;
-  line-height: 1.5rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  align-items: center;
-  margin: 2px 0px;
+  @extend ._tag--hashtag;
 }
 
 .section__tag--active {
