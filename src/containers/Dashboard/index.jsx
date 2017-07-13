@@ -157,6 +157,9 @@ export default class DashBoard extends Component {
     const { hashtag, type = 'all' } = this.props.location.query
     const { postsSearch } = this.props
     // If query string is changed, get new posts.
+    if (window.talkus) {
+      window.talkus('hide')
+    }
     this.setState({
       currentHashTag: hashtag,
       currentPostType: TYPES[type],
