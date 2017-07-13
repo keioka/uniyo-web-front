@@ -45,7 +45,11 @@ class UniyoWebSocket {
   }
 }
 
-const uniyoWs = new UniyoWebSocket()
+let uniyoWs
+
+if (!uniyoWs) {
+  uniyoWs = new UniyoWebSocket()
+}
 
 // function onMessage
 
@@ -58,6 +62,7 @@ function subscribe(socket) {
       data = converter.snakeToCamelCase(data)
       switch (type) {
         case 'SOCKET_READY': {
+          uniyoWs.isSocketReady = true
           emit({ type: 'WEBSOCKET_READY', response })
           break
         }
@@ -252,9 +257,17 @@ function* eventWebSocket() {
           break
         }
 
-        default:
+        case 'QUERY_USER_PRESENCE': {
+          const { statuses } = payload.data
+          action = { type: actionTypes.usersOnlineStatusFetch.success, result: { data: { statuses }  } }
+          break
+        }
+
+        default: {
           console.warn(`Don't know how to handle ${type} event.`)
+        }
       }
+
       if (action) {
         yield put(action)
       }
@@ -279,6 +292,35 @@ function* notificationWebSocket() {
   })
 }
 
+function* awaitUntilWebSocketReady({ userIds }) {
+  yield takeLatest('WEBSOCKET_HELLO', function* resendRequest() {
+    yield put({ type: 'REQUEST_USERS_ONLINE_STATUS', userIds })
+  })
+}
+
+function* requestUsersOnlineStatusWebSocket() {
+  yield takeEvery('REQUEST_USERS_ONLINE_STATUS', function* requestUsersOnlineStatusHandler({ userIds }) {
+    console.warn('REQUEST_USERS_ONLINE_STATUS')
+    console.log(uniyoWs.isSocketReady)
+    if (!uniyoWs.isSocketReady) {
+      yield call(awaitUntilWebSocketReady, { userIds })
+      console.warn('uniyoWs.isSocketReady not ready')
+    } else {
+      console.warn('uniyoWs.isSocketReady ready')
+      try {
+        const request = {
+          id: uniyoWs.sessionId,
+          type: 'QUERY_USER_PRESENCE',
+          userIds,
+        }
+        uniyoWs.socket.send(JSON.stringify(converter.camelToSnakeCase(request)))
+      } catch (e) {
+        alert(e)
+      }
+    }
+  })
+}
+
 
 export default function* webSocket() {
   yield fork(flow)
@@ -286,4 +328,5 @@ export default function* webSocket() {
   yield fork(helloWebSocket)
   yield fork(eventWebSocket)
   yield fork(notificationWebSocket)
+  yield fork(requestUsersOnlineStatusWebSocket)
 }
