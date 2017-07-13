@@ -58,6 +58,12 @@ export default class Auth extends Component {
     hashtags: PropTypes.object.isRequired,
   }
 
+  componentDidMount() {
+    if (window.talkus) {
+      window.talkus('hide')
+    }
+  }
+
   renderSuccess() {
     const { auth, authClearError } = this.props
     let message

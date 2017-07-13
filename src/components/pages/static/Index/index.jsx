@@ -59,10 +59,6 @@ export default class Index extends Component {
     })
   }
 
-  componentWillUnmount() {
-    window.talkus('hide')
-  }
-
   onClick(event){
     event.preventDefault()
     window.talkus('open')
