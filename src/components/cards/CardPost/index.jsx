@@ -73,10 +73,6 @@ export default class CardPost extends PureComponent  {
     if (commentsCount > 0 && !this.state.toggle) {
       commentsSearch({ postId: id, limit: commentsCount })
     }
-
-    this.setState({
-      toggle: !this.state.toggle,
-    })
   }
 
   onClickDonuts(event) {
@@ -196,6 +192,7 @@ export default class CardPost extends PureComponent  {
                     <div className={sectionContentCommentForm}>
                       <InputComment
                         postId={id}
+                        ref={ref => this._inputComment = ref}
                         commentCreate={commentCreate}
                         imageCurrentUser={imageCurrentUser}
                         userPost={user}
