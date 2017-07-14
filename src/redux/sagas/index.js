@@ -7,6 +7,7 @@ import * as dashboard from './ui/dashboard'
 import webSocket from './websocket'
 import * as formNotification from './form/notification'
 import * as updateProfile from './updateProfile'
+import * as onlineStatus from './onlineStatus'
 
 export default {
   ...sagas,
@@ -16,5 +17,6 @@ export default {
   ...notification,
   ...formNotification,
   ...updateProfile,
+  ...onlineStatus,
   webSocket,
 }

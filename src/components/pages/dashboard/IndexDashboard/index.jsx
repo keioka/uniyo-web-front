@@ -7,6 +7,7 @@ import {
   CardDocument,
   CardReview,
   CardQuestion,
+  CardFake,
   InputPost,
   BarTag,
 } from '../../../index'
@@ -18,6 +19,7 @@ import {
   wrapperShrink,
   sectionCards,
   sectionCardsTitle,
+  sectionCardsBlank,
   barFilter,
   btnClose,
   enter,
@@ -324,7 +326,7 @@ export default class IndexDashboard extends Component {
           </div>
          }
 
-       {hashtag &&
+       {hashtag && this.props.posts.length > 0 &&
           <BarTag
             type={type}
             currentPostType={this.props.currentPostType}
@@ -333,6 +335,19 @@ export default class IndexDashboard extends Component {
             onClearCurrentTypeHandler={onClearCurrentTypeHandler}
           />
        }
+
+       {this.props.posts.length === 0 &&
+          <BarTag
+            type={type}
+            empty
+            currentPostType={this.props.currentPostType}
+            hashtag={hashtag}
+            hashtagAdd={hashtagAdd}
+            onClearCurrentTypeHandler={onClearCurrentTypeHandler}
+          />
+       }
+
+       {this.props.posts.length > 0 ?
        <div className={sectionCards}>
          {!currentHashTag && this.props.currentPostType === "ALL" && <h3 className={sectionCardsTitle}>RECENT</h3>}
          {this.props.posts.map((post) => {
@@ -351,8 +366,28 @@ export default class IndexDashboard extends Component {
              showPopup,
            })
          })}
-       </div>
+       </div> : <BlankCardList isHashtagExist={!!hashtag} />
+      }
      </div>
+    )
+  }
+}
+
+class BlankCardList extends Component {
+  render() {
+    return (
+      <div className={sectionCardsBlank}>
+        <div className={sectionCards}>
+          <h3 className={sectionCardsTitle}>HOT 🔥</h3>
+          <CardFake />
+          <CardFake />
+        </div>
+        <div className={sectionCards}>
+          <h3 className={sectionCardsTitle}>RELEVANT</h3>
+          <CardFake />
+          <CardFake />
+        </div>
+      </div>
     )
   }
 }

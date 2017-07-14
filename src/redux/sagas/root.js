@@ -49,6 +49,8 @@ const {
   resetPasswordSaga,
   newPasswordUpdateSaga,
   userPictureUpdateRefreshSaga,
+  watchUserSearchSuccess,
+  watchChannelSearchSuccess,
 } = sagas
 
 export default function* rootSaga() {
@@ -108,6 +110,8 @@ export default function* rootSaga() {
       saga for webSocket
     */
     fork(webSocket),
+    fork(watchUserSearchSuccess),
+    fork(watchChannelSearchSuccess),
 
     /*
       saga for form

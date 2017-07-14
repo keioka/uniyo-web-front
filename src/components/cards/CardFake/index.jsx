@@ -16,19 +16,26 @@ import {
   sectionImage,
   sectionContent,
   sectionContentHeader,
-  sectionContentFotter,
+  sectionContentFooter,
+  sectionFileDetail,
   sectionContentUserName,
   sectionContentComment,
   sectionContentCommentForm,
   sectionContentCommentList,
+  footerSectionBtns,
   textUserName,
   textPostTime,
+  textPostFake,
   btnLike,
   btnComment,
+  btnFake,
+  btnSmallFake,
   show,
+  imageFake,
+  textUserNameFake,
 } from '../style'
 
-export default class CardPost extends PureComponent  {
+export default class CardFake extends PureComponent  {
 
   constructor() {
     super()
@@ -58,18 +65,25 @@ export default class CardPost extends PureComponent  {
     return (
       <div className={wrapper}>
         <div className={sectionImage}>
-
+          <div className={imageFake}></div>
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>
-            <span className={textUserName}></span>
-            {/* <span className={textPostTime}>{time}</span> */}
+            <span className={textUserNameFake}></span>
           </div>
-          <div className={sectionContentFotter}>
-
+          <div>
+            <span className={textPostFake}></span>
           </div>
-        </div>
+          <div className={sectionContentFooter}>
+            <div className={sectionFileDetail}>
+            </div>
+            <div className={footerSectionBtns}>
+              <div className={btnFake}></div>
+              <div className={btnSmallFake}></div>
+            </div>
+         </div>
       </div>
+    </div>
     )
   }
 }

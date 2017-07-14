@@ -77,6 +77,21 @@ $animation-duraion: 0.2s;
   border-radius: 50%;
 }
 
+.image--fake {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-image: linear-gradient(225deg, #fafafa, #eeeeee);
+}
+
+.text--user-name--fake {
+  display: inline-block;
+  width: 143px;
+	height: 19px;
+	border-radius: 8px;
+	background-image: linear-gradient(262deg, #fafafa, #eeeeee);
+}
+
 .section--content {
   margin-left: 1rem;
   font-size: 14px;
@@ -229,11 +244,35 @@ $animation-duraion: 0.2s;
   color: #999999;
 }
 
+.btn--fake, .btn--small--fake {
+  height: 30px;
+  border-radius: 8px;
+  background-image: linear-gradient(253deg, #fafafa, #eeeeee);
+}
+
+.btn--fake {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.btn--small--fake {
+  width: 63px;
+}
+
 .text--post-time {
   font-weight: 500;
   color: gray;
   font-size: 0.8rem;
   margin-left: 20px;
+}
+
+.text--post-fake {
+  display: inline-block;
+  width: 684px;
+	height: 19px;
+  margin-top: 15px;
+	border-radius: 8px;
+	background-image: linear-gradient(268deg, #fafafa, #eeeeee);
 }
 
 .footer__section--btns {

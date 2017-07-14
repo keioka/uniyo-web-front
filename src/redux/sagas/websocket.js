@@ -8,6 +8,7 @@ import converter from 'json-style-converter/es5'
 const webSocketUrl = __STG__ ? 'wss://staging-live.uniyo.io/v1/ws' : 'wss://live.uniyo.io/v1/ws'
 const notificationSound = new Audio("/public/assets/audio/pop_drip.wav")
 
+let instance
 class UniyoWebSocket {
 
   set sessinId(sessionId) {
@@ -15,8 +16,12 @@ class UniyoWebSocket {
   }
 
   constructor() {
-    this.init()
-    this.sessionId = null
+    if(!instance) {
+      instance = this
+      instance.init()
+      instance.sessionId = null
+    }
+    return instance
   }
 
   init() {
@@ -47,6 +52,7 @@ class UniyoWebSocket {
 
 const uniyoWs = new UniyoWebSocket()
 
+
 // function onMessage
 
 function subscribe(socket) {
@@ -58,6 +64,7 @@ function subscribe(socket) {
       data = converter.snakeToCamelCase(data)
       switch (type) {
         case 'SOCKET_READY': {
+          uniyoWs.isSocketReady = true
           emit({ type: 'WEBSOCKET_READY', response })
           break
         }
@@ -65,6 +72,8 @@ function subscribe(socket) {
           break
         }
         case 'HELLO': {
+          uniyoWs.sessionId = data.sessionId
+          uniyoWs.isAuthenticated = true
           emit({ type: 'WEBSOCKET_HELLO', response })
           break
         }
@@ -81,6 +90,12 @@ function subscribe(socket) {
           break
         }
 
+        case 'ERROR': {
+          let { error } = data
+          error = converter.snakeToCamelCase(error)
+          console.error(error.code + ': ' + error.message)
+        }
+
         default: {
           console.warn(`Don't know how to handle ${type} event.`)
         }
@@ -92,6 +107,7 @@ function subscribe(socket) {
     }
 
     socket.onclose = (event) => {
+      console.log(event)
       const reset = () => {
         const reconnectIn = uniyoWs.connectionTryNumber * 1000
         setTimeout(() => { emit({ type: 'WEBSOCKET_RESET'}) }, reconnectIn)
@@ -252,9 +268,17 @@ function* eventWebSocket() {
           break
         }
 
-        default:
+        case 'QUERY_USER_PRESENCE': {
+          const { statuses } = payload.data
+          action = { type: actionTypes.usersOnlineStatusFetch.success, result: { data: { statuses }  } }
+          break
+        }
+
+        default: {
           console.warn(`Don't know how to handle ${type} event.`)
+        }
       }
+
       if (action) {
         yield put(action)
       }
@@ -279,6 +303,32 @@ function* notificationWebSocket() {
   })
 }
 
+function* awaitUntilWebSocketReady(action) {
+  yield takeLatest('WEBSOCKET_HELLO', function* resendRequest() {
+    yield put(action)
+  })
+}
+
+function* requestUsersOnlineStatusWebSocket() {
+  yield takeEvery('REQUEST_USERS_ONLINE_STATUS', function* requestUsersOnlineStatusHandler({ userIds }) {
+    if (!uniyoWs.isAuthenticated) {
+      const action = { type: 'REQUEST_USERS_ONLINE_STATUS', userIds }
+      yield fork(awaitUntilWebSocketReady, action)
+    } else {
+      try {
+        const request = {
+          id: 1,
+          type: 'QUERY_USER_PRESENCE',
+          userIds: [2247483647],
+        }
+        uniyoWs.socket.send(JSON.stringify(converter.camelToSnakeCase(request)))
+      } catch (e) {
+        console.warn(e)
+      }
+    }
+  })
+}
+
 
 export default function* webSocket() {
   yield fork(flow)
@@ -286,4 +336,5 @@ export default function* webSocket() {
   yield fork(helloWebSocket)
   yield fork(eventWebSocket)
   yield fork(notificationWebSocket)
+  yield fork(requestUsersOnlineStatusWebSocket)
 }

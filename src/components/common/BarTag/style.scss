@@ -1,6 +1,6 @@
 @import "../../../styles/main";
 
-.bar--filter {
+.bar--tag {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,10 +10,15 @@
   word-break: break-all;
 }
 
-.bar--filter span {
+.bar--tag span {
   font-weight: bold;
   font-size: 30px;
   color: #2d2d2d;
+}
+
+.barNav {
+  display: flex;
+  flex-direction: row;
 }
 
 .btn {
@@ -51,4 +56,15 @@
 .purple {
   color: $black;
   background: #f8e8ff;
+}
+
+.textFirstLine {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.textSecondLine {
+  font-size: 25px;
+  text-align: center;
 }
