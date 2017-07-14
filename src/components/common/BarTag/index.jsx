@@ -67,7 +67,7 @@ const BarTag = ({
   const message = (tag) => {
     switch (currentPostType) {
       case 'QUESTION': {
-        const firstLineMessage = hashtag ? `🤷‍ Ask a question about #${hashtag} on your campus` : '🤷‍ Ask a question on your campus'
+        const firstLineMessage = hashtag ? `🤷‍ Ask a question about #${hashtag} on your campus` : '🤷‍ Ask a question about any #topic on your campus'
         const secondLineMessage = 'You’ll get answers from other students'
 
         return <BarTagInner
@@ -78,7 +78,7 @@ const BarTag = ({
 
       case 'REVIEW': {
         const firstLineMessage = hashtag ? `😍  This is where you share reviews #${hashtag}` : 'This is where you share reviews'
-        const secondLineMessage =  hashtag ? `You can give 1 to 5 stars to #${hashtag} with a short description` : 'You can give 1 to 5 stars to #anytopic with a short description'
+        const secondLineMessage =  hashtag ? `You can give 1 to 5 stars to #${hashtag} with a short description` : 'You can give 1 to 5 stars to any #topic with a short description'
 
         return <BarTagInner
           firstLine={firstLineMessage}
@@ -88,7 +88,7 @@ const BarTag = ({
       }
 
       case 'CLASS_NOTE': {
-        const firstLineMessage = hashtag ? `🙏 Here you can share a document about #${hashtag}` : 'Here you can share a document about any #topic'
+        const firstLineMessage = hashtag ? `🙏 Here you can share a document about #${hashtag}` : '🙏  Here you can share a document about any #topic'
         const secondLineMessage = 'Your campus will love you for sharing your notes'
 
         return <BarTagInner
@@ -100,7 +100,7 @@ const BarTag = ({
 
       default: {
         const firstLineMessage = '🙌  This is where everything is happening on campus'
-        const secondLineMessage = hashtag ? `Make a first publication with a #${hashtag}` : 'Make a first publication'
+        const secondLineMessage = hashtag ? `Make a first publication with a #${hashtag}` : 'Make a first publication with any #topic'
 
         return <BarTagInner
           firstLine={firstLineMessage}
