@@ -27,6 +27,7 @@ import {
   donutSmallOne,
   donutSmallTwo,
   donutSmallThree,
+  overlayerProfilePictureUpdate,
 } from './style'
 
 import {
@@ -109,6 +110,7 @@ export default class SidebarRight extends Component {
       userSearch,
       hideSidebarRight,
       currentUser,
+      openUpdateProfile,
     } = this.props
 
     const { displayType, isOpen, userInfo, channelUsers } = rightbar
@@ -127,6 +129,7 @@ export default class SidebarRight extends Component {
             currentUser={currentUser}
             userGiveDonuts={userGiveDonuts}
             hideSidebarRight={hideSidebarRight}
+            openUpdateProfile={openUpdateProfile}
           />
         )
       }
@@ -256,19 +259,6 @@ export default class SidebarRight extends Component {
                 </button>
               </div>
             </div>
-          </div>
-        }
-
-        { !isOpen && isChannel &&
-          <div className={btnGiveDonuts} onClick={::this.onClickSpreadDonuts}>
-            {this.state.isSpreadDonuts &&
-              <div>
-                <Donut size="small" className={donutSmallOne} />
-                <Donut size="small" className={donutSmallTwo} />
-                <Donut size="small" className={donutSmallThree} />
-              </div>
-            }
-            <Donut size="large" />
           </div>
         }
      </div>

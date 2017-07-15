@@ -9,6 +9,10 @@ import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
 import * as pushNotification from '../../services/pushNotification'
 
+import Dropzone from 'react-dropzone'
+import Webcam from 'react-webcam'
+import AvatarEditor from 'react-avatar-editor'
+
 import {
   SidebarRight,
 } from '../'
@@ -21,9 +25,11 @@ import {
   Donut,
   NavChannel,
   NavDonuts,
+  ModalProfilePictureUpdate,
 } from '../../components'
 
 import {
+  dropZone,
   error,
   container,
   main,
@@ -46,6 +52,7 @@ import {
   panelSetting,
   popup,
   popupEmoji,
+  overlayerProfilePictureUpdate,
 } from './style'
 
 import Setting from './settings.svg'
@@ -107,7 +114,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   showPopup: uiActions.showPopup,
   donutsShake: uiActions.donutsShake,
   donutsThrow: uiActions.donutsThrow,
-
+  userPictureUpdate: actions.userPictureUpdate,
   contentReadCheckNotification: uiActions.contentReadCheckNotification,
 }, dispatch)
 
@@ -135,6 +142,7 @@ export default class DashBoard extends Component {
   state = {
     isOpenSettingMenu: false,
     isOpenNotificationBar: true,
+    isOpenProfilePictureUpload: false,
     currentHashTag: '',
     currentPostType: '',
   }
@@ -143,7 +151,7 @@ export default class DashBoard extends Component {
     const { hashtag, type = 'all' } = this.props.location.query
 
     if (!authService.isTokenExist) {
-      browserHistory.push('/')
+      // browserHistory.push('/')
     }
 
     this.setState({
@@ -158,7 +166,7 @@ export default class DashBoard extends Component {
     const { postsSearch } = this.props
     // If query string is changed, get new posts.
     if (window.talkus) {
-      window.talkus('hide')
+      // window.talkus('hide')
     }
     this.setState({
       currentHashTag: hashtag,
@@ -277,6 +285,7 @@ export default class DashBoard extends Component {
       showHistoryDonut,
       signout,
       contentReadCheckNotification,
+      userPictureUpdate,
     } = this.props
 
     const { currentUser } = auth
@@ -395,6 +404,7 @@ export default class DashBoard extends Component {
       showPopup,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
+      userPictureUpdate,
     }))
 
     const unreadNotification = allNotifications.filter(notification => !notification.isRead)
@@ -403,7 +413,7 @@ export default class DashBoard extends Component {
     const isQuestionDashboard = regexQuestionDashboard.test(this.props.location.pathname)
     const onClickShowCurrentUserInfo = () => showUserInfo(currentUser.id)
     const onClickSignout = () => this.props.signout()
-
+    const openUpdateProfile = () => { this.setState({ isOpenProfilePictureUpload: true }) }
     return (
       <div className={container}>
         <SidebarLeft
@@ -471,7 +481,11 @@ export default class DashBoard extends Component {
             {childComponents}
           </div>
         </div>
-        <SidebarRight hideSidebarRight={hideSidebarRight} location={this.props.location} />
+        <SidebarRight
+          hideSidebarRight={hideSidebarRight}
+          location={this.props.location}
+          openUpdateProfile={openUpdateProfile}
+        />
       </div>
     )
   }
@@ -483,11 +497,13 @@ export default class DashBoard extends Component {
   }
 
   render() {
+    const { userPictureUpdate } = this.props
     const { fetching } = this.props.posts
-
+    const closeProfilePictureUpdate = () => this.setState({ isOpenProfilePictureUpload: false })
     // TODO: fetching case
     return (
       <LayoutDashboard>
+        {this.state.isOpenProfilePictureUpload && <ModalProfilePictureUpdate closeProfilePictureUpdate={closeProfilePictureUpdate} userPictureUpdate={userPictureUpdate} />}
         {this.state.isOpenNotificationBar && pushNotification.permissionStatus === "default" &&
         <div className={barPushNotification}>
           <Donut size="sm" />
