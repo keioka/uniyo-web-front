@@ -1,0 +1,120 @@
+@import "../../../styles/main";
+
+.wrapper {
+  z-index: 2000;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  min-height: 100vh;
+  height: 100vh;
+  background: $whiteblue;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 900;
+  color: #404040;
+}
+
+.drop-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: white;
+  border: dotted 3px #ffbfd1;
+  cursor: pointer;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.drop-zone__title {
+
+}
+
+.box--close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+// Range Slider
+$range-width: 100% !default;
+
+$range-handle-color: $pink !default;
+$range-handle-color-hover: $strongpink !default;
+$range-handle-size: 20px !default;
+
+$range-track-color: #d7dcdf !default;
+$range-track-height: 10px !default;
+
+.box--input-range {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: $range-track-height;
+  border-radius: 5px;
+  background: $range-track-color;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  // Range Handle
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+
+    &:hover {
+      background: $range-handle-color-hover;
+    }
+  }
+
+  &:active::-webkit-slider-thumb {
+    background: $range-handle-color-hover;
+  }
+
+  &::-moz-range-thumb {
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border: 0;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+
+    &:hover {
+      background: $range-handle-color-hover;
+    }
+  }
+
+  &:active::-moz-range-thumb {
+    background: $range-handle-color-hover;
+  }
+}
+
+.btn {
+  margin-top: 20px;
+}

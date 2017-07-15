@@ -445,12 +445,12 @@ export default class Profile extends Component {
              maxSize={MAX_SIZE}
              accept={MIME_TYPE}
            >
-             <div>
-               <div>
-                  <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
-                </div>
+            <div>
+              <div>
+                <h4 className={dropZoneTitle}>Drop the file or click here to find on your computer</h4>
               </div>
-            </Dropzone>
+            </div>
+          </Dropzone>
           }
           <ul className={contentSelect}>
             {/* <li className={contentSelectOptions}><Button type="option">Your Facebook picture</Button></li> */}
