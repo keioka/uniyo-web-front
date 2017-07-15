@@ -35,7 +35,7 @@ export default class Index extends Component {
   static propTypes = {}
 
   componentDidMount() {
-    window.talkus('init', 'mAuzzo8t2j9Bih5qy');
+    window.talkus('init', 'mAuzzo8t2j9Bih5qy')
     const anchorLinks = document.querySelectorAll('a[href*="#"]')
     anchorLinks.forEach((ele) => {
       ele.addEventListener('click', function onClick(event) {
