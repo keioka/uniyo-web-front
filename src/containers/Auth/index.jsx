@@ -59,9 +59,9 @@ export default class Auth extends Component {
   }
 
   componentDidMount() {
-    if (window.talkus) {
-      window.talkus('hide')
-    }
+    // if (window.talkus) {
+    //   window.talkus('hide')
+    // }
   }
 
   renderSuccess() {
