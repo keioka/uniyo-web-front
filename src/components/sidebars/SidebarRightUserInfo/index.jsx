@@ -5,6 +5,8 @@ import {
   ButtonDonut,
 } from '../../'
 
+import { MdAddAPhoto } from 'react-icons/lib/md'
+
 import {
   decorator,
 } from '../../../utils'
@@ -18,6 +20,7 @@ import {
   boxImg,
   imageProfile,
   profile,
+  profileIconUpdate,
   profileNav,
   profileName,
   profileNameH3,
@@ -25,6 +28,7 @@ import {
   tagsList,
   tagsItem,
   btnMessage,
+  overlayerProfilePictureUpdate,
 } from './style'
 
 const uniq = (array, param) => {
@@ -34,10 +38,15 @@ const uniq = (array, param) => {
 }
 
 export default class SidebarRightUserInfo extends Component {
-  render() {
-    const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser } = this.props
-    const user = allUsers.filter(user => user.id === userId)[0]
 
+  state = {
+    isShowProfilePictureUpload: true,
+  }
+
+  render() {
+    const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser, openUpdateProfile } = this.props
+    const user = allUsers.filter(user => user.id === userId)[0]
+    const isCurrentUser = currentUser.id === userId
     const onClickBtnMessage = () => {
       const filteredChannel = channels.filter(channel => {
         const users = usersWithoutCurrentUser(channel.users, currentUser)
@@ -58,32 +67,37 @@ export default class SidebarRightUserInfo extends Component {
 
     const uniqueHashtagsCurrentUser = user.hashtags && uniq(user.hashtags, 'hashtag')
     return (
-      <div className={wrapper} >
-        {user ?
-          <div>
-            <div className={boxImg}>
-              <img className={imageProfile} src={user.image.largeUrl} alt=""/>
-              <div className={profile}>
-                <div className={profileName}>
-                  <h3 className={profileNameH3}>{user.firstName} {user.lastName}</h3>
-                </div>
-                <div className={profileNav}>
-                  <button className={btnMessage} onClick={onClickBtnMessage}>Message</button>
-                  <ButtonDonut
-                    onClick={() => userGiveDonuts({ userId: user.id, amount: 1 })}
-                    donutsCount={user.receivedDonutsCount}
-                  />
+      <div>
+        <div className={wrapper} >
+          {user ?
+            <div>
+              <div className={boxImg}>
+                {isCurrentUser && <div className={profileIconUpdate} onClick={openUpdateProfile}>
+                  <MdAddAPhoto />
+                </div>}
+                <img className={imageProfile} src={user.image.largeUrl} alt="" />
+                <div className={profile}>
+                  <div className={profileName}>
+                    <h3 className={profileNameH3}>{user.firstName} {user.lastName}</h3>
+                  </div>
+                  <div className={profileNav}>
+                    <button className={btnMessage} onClick={onClickBtnMessage}>Message</button>
+                    <ButtonDonut
+                      onClick={() => userGiveDonuts({ userId: user.id, amount: 1 })}
+                      donutsCount={user.receivedDonutsCount}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className={tags}>
-              <ul className={tagsList}>
-                {uniqueHashtagsCurrentUser && uniqueHashtagsCurrentUser.map(hashtag => <li className={tagsItem}><Link to={`dashboard?hashtag=${hashtag.hashtag}`}>#{hashtag.hashtag}</Link></li>)}
-              </ul>
+              <div className={tags}>
+                <ul className={tagsList}>
+                  {uniqueHashtagsCurrentUser && uniqueHashtagsCurrentUser.map(hashtag => <li className={tagsItem}><Link to={`dashboard?hashtag=${hashtag.hashtag}`}>#{hashtag.hashtag}</Link></li>)}
+                </ul>
+              </div>
             </div>
+            : null}
           </div>
-          : null}
         </div>
       )
     }

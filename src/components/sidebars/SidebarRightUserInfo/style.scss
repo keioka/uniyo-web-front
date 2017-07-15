@@ -66,6 +66,24 @@
   margin: 0px 5px;
 }
 
+.profile__icon--update {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.profile__icon--update svg {
+  fill: white;
+}
+
 .tags {
   flex: 5;
   display: flex;
