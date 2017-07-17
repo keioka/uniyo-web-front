@@ -254,8 +254,8 @@ export default class QuestionDashboard extends Component {
        </div>
        { answers.length === 0 &&
          <div className={sectionNoAnswer}>
-           <Donut size="large" color="PINK" />
-           <h3 className={sectionNoAnswerTitle}>No Answers.</h3>
+           <p>🙏🤓🙏🤓🙏🤓🙏</p>
+           <p>No answers yet.</p>
          </div>
        }
       </div>
