@@ -77,7 +77,7 @@ const BarTag = ({
       }
 
       case 'REVIEW': {
-        const firstLineMessage = hashtag ? `😍  This is where you share reviews #${hashtag}` : 'This is where you share reviews'
+        const firstLineMessage = hashtag ? `😍  This is where you can share reviews about #${hashtag}` : 'This is where you can share reviews'
         const secondLineMessage =  hashtag ? `You can give 1 to 5 stars to #${hashtag} with a short description` : 'You can give 1 to 5 stars to any #topic with a short description'
 
         return <BarTagInner
@@ -100,7 +100,7 @@ const BarTag = ({
 
       default: {
         const firstLineMessage = '🙌  This is where everything is happening on campus'
-        const secondLineMessage = hashtag ? `Make a first publication with a #${hashtag}` : 'Make a first publication with any #topic'
+        const secondLineMessage = hashtag ? `Make a first publication about #${hashtag}` : 'Make a publication with a #hashtag to get the conversation started'
 
         return <BarTagInner
           firstLine={firstLineMessage}
