@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { decorator } from '../../../utils'
+import moment from 'moment'
 
 const { usersWithoutCurrentUser } = decorator
 
@@ -14,6 +15,7 @@ import {
   boxMultipleUserImages,
   fontName,
   fontUserNames,
+  fontTime,
   imgUser,
   imgUserOne,
   imgUserTwo,
@@ -29,7 +31,8 @@ const ListRecentConversation = ({ channel, currentUser }) => {
     isPrivate,
     lastMessageReadAt,
     name,
-    users
+    users,
+    mostRecentMessage,
   } = channel
 
   const filterdUsers = usersWithoutCurrentUser(users, currentUser)
@@ -56,8 +59,9 @@ const ListRecentConversation = ({ channel, currentUser }) => {
         <span className={spanChannelInfo}>
           <span className={fontName} data-users-count={users.length}>
             <span className={fontUserNames}>{users.map(user => user.name).join(', ')}</span>
+            <span className={fontTime}> {moment(mostRecentMessage.createdAt).local().fromNow()}</span>
           </span>
-          <p>{description === null || description === "undefined" ? null : description}</p>
+          <p>{description === null || description === "undefined" ? mostRecentMessage.text : description}</p>
         </span>
       </li>
     </Link>
