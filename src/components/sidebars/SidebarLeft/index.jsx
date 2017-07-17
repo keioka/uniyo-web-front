@@ -432,7 +432,7 @@ export default class SidebarLeft extends Component {
         {keywordForSort !== '' && this.resultChannel.length > 0 &&
           <div>
             <h4 className={sectionLabel}>
-              Directory
+              Directory 😛
             </h4>
             <ul>
               {this.resultChannel}
