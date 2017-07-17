@@ -73,6 +73,9 @@ export default class CardPost extends PureComponent  {
     if (commentsCount > 0 && !this.state.toggle) {
       commentsSearch({ postId: id, limit: commentsCount })
     }
+    this.setState({
+      toggle: !this.state.toggle,
+    })
   }
 
   onClickDonuts(event) {
