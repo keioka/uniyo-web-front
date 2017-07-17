@@ -314,6 +314,7 @@ export default class SidebarLeft extends Component {
           }
           const isSelected = (selectedChannelId && parseInt(channel.id) === parseInt(selectedChannelId))
           const amountNewMessage = messageNotification[channel.id]
+
           return (
             <ListChannel
               className={classNames.join(' ')}
