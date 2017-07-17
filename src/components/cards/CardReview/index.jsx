@@ -49,6 +49,14 @@ export default class CardReview extends PureComponent {
     isDisplayDropDown: false,
   }
 
+  componentWillMount() {
+    if (this.props.openComment) {
+      this.setState({
+        toggle: true,
+      })
+    }
+  }
+
   onChange() {
     const { id } = this.props
     this.props.onReadContent('POST_READ', id)
