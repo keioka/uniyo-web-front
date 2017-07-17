@@ -101,6 +101,7 @@ export default class PostShowDashboard extends Component {
               onReadContent={onReadContent}
               postDelete={postDelete}
               showPopup={showPopup}
+              openComment
             />
           )
         case TYPES['docs']:
@@ -121,6 +122,7 @@ export default class PostShowDashboard extends Component {
               onReadContent={onReadContent}
               postDelete={postDelete}
               showPopup={showPopup}
+              openComment
             />
           )
         case TYPES['reviews']:
@@ -141,6 +143,7 @@ export default class PostShowDashboard extends Component {
               onReadContent={onReadContent}
               postDelete={postDelete}
               showPopup={showPopup}
+              openComment
             />
           )
         case TYPES['questions']:
@@ -160,6 +163,7 @@ export default class PostShowDashboard extends Component {
               onReadContent={onReadContent}
               postDelete={postDelete}
               showPopup={showPopup}
+              openComment
             />
           )
       }
