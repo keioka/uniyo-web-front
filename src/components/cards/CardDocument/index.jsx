@@ -46,6 +46,15 @@ export default class CardDocument extends PureComponent {
 
   state = {
     toggle: false,
+    isDisplayDropDown: false,
+  }
+
+  componentWillMount() {
+    if (this.props.openComment) {
+      this.setState({
+        toggle: true,
+      })
+    }
   }
 
   closeCommentBox() {

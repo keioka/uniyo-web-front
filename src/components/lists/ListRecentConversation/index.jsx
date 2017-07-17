@@ -50,6 +50,8 @@ const ListRecentConversation = ({ channel, currentUser }) => {
     }
   }
 
+  const createdAt = mostRecentMessage && mostRecentMessage.createdAt && moment(mostRecentMessage.createdAt).local().fromNow()
+  const lastMessage = mostRecentMessage && mostRecentMessage.text
   return (
     <Link to={`/dashboard/channels/${id}`} className={fontLink}>
       <li key={id} className={wrapper}>
@@ -59,9 +61,9 @@ const ListRecentConversation = ({ channel, currentUser }) => {
         <span className={spanChannelInfo}>
           <span className={fontName} data-users-count={users.length}>
             <span className={fontUserNames}>{users.map(user => user.name).join(', ')}</span>
-            <span className={fontTime}> {moment(mostRecentMessage.createdAt).local().fromNow()}</span>
+            <span className={fontTime}>{createdAt}</span>
           </span>
-          <p>{description === null || description === "undefined" ? mostRecentMessage.text : description}</p>
+          <p>{description === null || description === "undefined" ? lastMessage : description}</p>
         </span>
       </li>
     </Link>

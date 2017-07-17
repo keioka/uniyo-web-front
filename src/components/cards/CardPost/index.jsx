@@ -62,6 +62,13 @@ export default class CardPost extends PureComponent  {
   //   }
   //   return false
   // }
+  componentWillMount() {
+    if (this.props.openComment) {
+      this.setState({
+        toggle: true,
+      })
+    }
+  }
 
   onChange() {
     const { id } = this.props
