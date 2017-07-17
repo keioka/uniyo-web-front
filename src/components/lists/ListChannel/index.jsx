@@ -21,7 +21,8 @@ const {
 } = decorator
 
 const ListChannel = ({ className, channel, amountNewMessage, currentUser, contentReadCheckNotification, unReadChannelIds, isSelected }) => {
-  const name = usersWithoutCurrentUser(channel.users, currentUser).map(user => user.firstName).join(', ')
+  const isMyChannel = channel.users && channel.users.length === 1 && channel.users[0].id === currentUser.id
+  const name = isMyChannel ? `${currentUser.firstName} (you)` : usersWithoutCurrentUser(channel.users, currentUser).map(user => user.firstName).join(', ')
   const ids = unReadChannelIds.filter((idsObject) => idsObject.channelId === channel.id)
   const liClassNames = isSelected ? [sectionTag, sectionTagActive] : [sectionTag]
   return (

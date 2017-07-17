@@ -14,7 +14,7 @@ const InputSearchTag = (props) => {
       <IconSearch />
       <input
         type="text"
-        placeholder="Search for # or @"
+        placeholder="Browse your campus"
         {...props}
         ref={props.refTo}
         className={element}
