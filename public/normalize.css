@@ -410,6 +410,7 @@ summary {
 
 canvas {
   display: inline-block;
+  cursor: move;
 }
 
 /**
