@@ -95,6 +95,9 @@
 
 .header__nav--basic svg {
   margin-right: 25px;
+  &:hover{
+    opacity: .7;
+  }
 }
 
 .footer {
