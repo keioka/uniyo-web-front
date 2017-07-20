@@ -51,7 +51,7 @@ export default class QuestionDashboard extends Component {
 
   componentDidMount() {
     const { questionId } = this.props.params
-    window.addEventListener('scroll', ::this.onScrollHandler)
+    // window.addEventListener('scroll', ::this.onScrollHandler)
     this.props.answerSearch({ questionId })
     this.props.postInfo({ postId: questionId })
   }

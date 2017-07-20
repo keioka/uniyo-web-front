@@ -62,6 +62,10 @@ export default class Auth extends Component {
     // if (window.talkus) {
     //   window.talkus('hide')
     // }
+    if (window.talkus) {
+      // window.talkus('hide')
+      document.getElementsByClassName('talkus-body')[0].style.display = 'none'
+    }
   }
 
   renderSuccess() {

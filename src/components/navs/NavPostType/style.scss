@@ -24,6 +24,9 @@
   text-decoration: none;
   text-transform: uppercase;
   vertical-align: middle;
+  &:hover{
+    opacity: .7;
+  }
 }
 
 .item--active--all,

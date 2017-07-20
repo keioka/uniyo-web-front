@@ -88,6 +88,10 @@ export default class SidebarLeft extends Component {
 
   onSubmitAddTag(event) {
     if (event.key === 'Enter') {
+      if (event.target.value === '#' || event.target.value === ' ') {
+        return
+      }
+
       this.props.hashtagAdd({
         hashtags: [event.target.value],
         tagType: 'Campus',
@@ -110,6 +114,7 @@ export default class SidebarLeft extends Component {
     const { keywordForSort } = this.state
     return this.uniqueHashtagsCurrentUser && this.uniqueHashtagsCurrentUser
     .filter(hashtag =>
+      hashtag.hashtag !== '' &&
       hashtag.hashtag.toLowerCase().includes(keywordForSort.toLowerCase())
     )
   }

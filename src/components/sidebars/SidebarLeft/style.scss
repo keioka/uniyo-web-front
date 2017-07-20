@@ -61,6 +61,9 @@ $left-padding: 16px;
   width: 15px;
   height: 15px;
   margin-left: 10px;
+  &:hover{
+    opacity: .7;
+  }
 }
 
 .section__tag {
@@ -146,6 +149,9 @@ $left-padding: 16px;
   white-space: nowrap;
   color: #575757;
   border-bottom: 2px dotted #575757;
+  &:hover{
+    opacity: .7;
+  }
 }
 
 .input--search-tag {

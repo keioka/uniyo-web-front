@@ -167,6 +167,7 @@ export default class DashBoard extends Component {
     // If query string is changed, get new posts.
     if (window.talkus) {
       // window.talkus('hide')
+      document.getElementsByClassName('talkus-body')[0].style.display = 'none'
     }
     this.setState({
       currentHashTag: hashtag,
@@ -451,7 +452,7 @@ export default class DashBoard extends Component {
                 <div className={panelSetting}>
                   <ul>
                     <li onClick={onClickShowCurrentUserInfo}>Profile</li>
-                    <li onClick={onClickSignout}>Logout</li>
+                    <li onClick={onClickSignout}>Logout 👋</li>
                   </ul>
                 </div>
               }

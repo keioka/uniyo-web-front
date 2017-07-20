@@ -179,7 +179,7 @@ export default class SidebarRight extends Component {
     }
   }
 
-  generateDonuts() {
+  generateUserImagePopup() {
     const {
       channelCreate,
       channels,
@@ -252,12 +252,7 @@ export default class SidebarRight extends Component {
         { !isOpen && !isChannel && !isChannelNew &&
           <div className={btnDonutsHistory}>
             <div className={btnDonutsHistoryInner}>
-              {this.generateDonuts()}
-              <div className={wrapperBtn}>
-                <button className={btn} onClick={() => showHistoryDonut(1)}>
-                  <span className={btnInner}>open</span>
-                </button>
-              </div>
+              {this.generateUserImagePopup()}
             </div>
           </div>
         }
