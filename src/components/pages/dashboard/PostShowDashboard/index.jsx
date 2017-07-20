@@ -176,7 +176,9 @@ export default class PostShowDashboard extends Component {
     const comments = post ? this.props.allComments.filter(comment => comment.postId === post.id) : []
     const { isOpen: isRightbarOpen } = rightbar
     const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
-
+    if (post && post.commentsCount > 0 && comments.length !== post.commentsCount) {
+      commentsSearch({ postId: post.id, limit: post.commentsCount })
+    }
     return (
       <div className={dashboardWrapperClassNames} ref={(div)=> this._dashboard = div}>
         <InputPost
