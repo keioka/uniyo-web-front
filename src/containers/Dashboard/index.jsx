@@ -26,6 +26,7 @@ import {
   NavChannel,
   NavDonuts,
   ModalProfilePictureUpdate,
+  PanelDropDownSetting,
 } from '../../components'
 
 import {
@@ -449,12 +450,11 @@ export default class DashBoard extends Component {
               }
               <Setting className={icon} onClick={() => this.setState({ isOpenSettingMenu: !this.state.isOpenSettingMenu })} />
               { this.state.isOpenSettingMenu &&
-                <div className={panelSetting}>
-                  <ul>
-                    <li onClick={onClickShowCurrentUserInfo}>Profile</li>
-                    <li onClick={onClickSignout}>Logout 👋</li>
-                  </ul>
-                </div>
+                <PanelDropDownSetting
+                  closePanel={() => this.setState({ isOpenSettingMenu: false })}
+                  signout={signout}
+                  showUserInfo={() => showUserInfo(currentUser.id)}
+                />
               }
             </div>
             {!isChannel ?

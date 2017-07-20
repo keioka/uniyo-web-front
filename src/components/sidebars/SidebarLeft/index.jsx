@@ -454,9 +454,11 @@ render() {
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
 
   const onChangeInputSearchTag = (event) => {
-    userSearch({ query: event.target.value })
-    hashtagSearch({ query: event.target.value })
-    this.setState({ keywordForSort: event.target.value })
+    const { value } = event.target
+    const keyword = value && value.match(/\w+/) && value.match(/\w+/)[0]
+    userSearch({ query: keyword })
+    hashtagSearch({ query: keyword })
+    this.setState({ keywordForSort: keyword })
   }
 
   return (
