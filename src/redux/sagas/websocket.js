@@ -207,7 +207,12 @@ function* eventWebSocket() {
       switch (type) {
         case 'NEW_POST': {
           const { post } = payload.data
-          action = { type: actionTypes.postInfo.success, result: { data: post } }
+          const currentUserId = yield select(state => state.api.auth.currentUser.id)
+          if (post.type === 'ANSWER' && post.user.id === currentUserId) {
+
+          } else {
+            action = { type: actionTypes.postInfo.success, result: { data: post } }
+          }
           break
         }
 
