@@ -111,6 +111,7 @@ export DonutPlusOne from './common/DonutPlusOne'
 export BarTag from './common/BarTag'
 export BarAuthMessage from './common/BarAuthMessage'
 export PanelDropDownMenu from './common/PanelDropDownMenu'
+export PanelDropDownSetting from './common/PanelDropDownSetting'
 export ModalProfilePictureUpdate from './common/ModalProfilePictureUpdate'
 
 /*
