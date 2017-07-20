@@ -452,7 +452,7 @@ export default class DashBoard extends Component {
                 <div className={panelSetting}>
                   <ul>
                     <li onClick={onClickShowCurrentUserInfo}>Profile</li>
-                    <li onClick={onClickSignout}>Logout</li>
+                    <li onClick={onClickSignout}>Logout 👋</li>
                   </ul>
                 </div>
               }

@@ -133,7 +133,7 @@ export default class ModalProfilePictureUpdate extends Component {
           </div>
         </Dropzone>
       }
-        <Button type="primary" className={btn} onClick={::this.onSubmit}>Get Started</Button>
+        <Button type="primary" className={btn} onClick={::this.onSubmit}>Awesome 🤗</Button>
       </div>
     )
   }
