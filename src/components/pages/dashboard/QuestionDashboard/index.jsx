@@ -42,17 +42,20 @@ export default class QuestionDashboard extends Component {
     posts: [],
   }
 
-  constructor() {
-    super()
-    this.state = {
-      isLoadingMorePost: false
-    }
+  state = {
+    isLoadingMorePost: false
   }
 
   componentDidMount() {
     const { questionId } = this.props.params
+    const question = this.props.posts.filter(post => post.type === 'QUESTION' && post.id == questionId)[0]
+    let answersCount
+    if (question) {
+      answersCount = question.answersCount
+    }
+
     // window.addEventListener('scroll', ::this.onScrollHandler)
-    this.props.answerSearch({ questionId })
+    this.props.answerSearch({ questionId, limit: 100 })
     this.props.postInfo({ postId: questionId })
   }
 
@@ -64,7 +67,7 @@ export default class QuestionDashboard extends Component {
     const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
-    const questionId = this.props.params.questionId
+    const { questionId } = this.props.params
     const answers = this.props.allPosts.filter(answer => answer.questionId == questionId)
 
     // console.log("---------------------------")
@@ -89,7 +92,7 @@ export default class QuestionDashboard extends Component {
         const params = { lastPostId: lastPost.id }
         params.hashtags = this.props.hashtag && [this.props.hashtag]
         params.types = this.props.type && this.props.type !== 'ALL' && [this.props.type]
-        this.props.postsSearch(params)
+        this.props.answerSearch({ questionId, limit: answersCount })
       }
 
       this.setState({
