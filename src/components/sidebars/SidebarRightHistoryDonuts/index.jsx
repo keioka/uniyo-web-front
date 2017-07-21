@@ -64,8 +64,8 @@ export default class SidebarRightHistoryDonuts extends Component {
     return (
       <div className={wrapper} >
         <div className={header}>
-          <span className={classNamesFirstTab.join(' ')} data-count={currentUser.availableDonutsCount} onClick={() => onClickNavDonuts(0)}>Donuts to give</span>
-          <span className={classNamesSecondTab.join(' ')} data-count={currentUser.receivedDonutsCount} onClick={() => onClickNavDonuts(1)}>Donuts received</span>
+          <span className={classNamesFirstTab.join(' ')} data-count={currentUser.availableDonutsCount} onClick={() => onClickNavDonuts(0)}>TO GIVE 😍</span>
+          <span className={classNamesSecondTab.join(' ')} data-count={currentUser.receivedDonutsCount} onClick={() => onClickNavDonuts(1)}>RECEIVED</span>
         </div>
 
         {this.props.rightbar.donutsHistoryTabNumber === 0 ?
