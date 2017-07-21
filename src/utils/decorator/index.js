@@ -2,20 +2,20 @@ export const placeholderMessage = (users, numberOfShow, currentUserId) => {
   const numberUsers = users.length
   const BASE_MESSAGE = 'Write a message to'
   if (numberUsers === 1) {
-    return `${BASE_MESSAGE} @${users[0].firstName}`
+    return `${BASE_MESSAGE} ${users[0].firstName}`
   }
 
   if (numberUsers === 2) {
-    const userNamesStringify = users.map(user => `@${user.firstName}`).join(' and ')
+    const userNamesStringify = users.map(user => `${user.firstName}`).join(' and ')
     return `${BASE_MESSAGE} ${userNamesStringify}`
   }
 
   if (numberUsers === 3) {
-    return `${BASE_MESSAGE} @${users[0].firstName}, @${users[1].firstName}, and @${users[2].firstName}`
+    return `${BASE_MESSAGE} ${users[0].firstName}, ${users[1].firstName}, and ${users[2].firstName}`
   }
 
   if (numberUsers > 3) {
-    const userNamesStringify = users.slice(0, 3).map(user => `@${user.firstName}`).join(', ')
+    const userNamesStringify = users.slice(0, 3).map(user => `${user.firstName}`).join(', ')
     const restNumber = numberUsers - 3
     return `${BASE_MESSAGE} ${userNamesStringify} and ${restNumber} others`
   }
