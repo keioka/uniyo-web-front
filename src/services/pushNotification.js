@@ -55,9 +55,12 @@ export async function syncSubscription() {
   }
 
   try {
+    const registrations = await navigator.serviceWorker.getRegistrations()
+    for(let registration of registrations) {
+      registration.unregister()
+    }
     const serviceWorkerRegistration = await navigator.serviceWorker.register("/notification_sw.js")
     const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
-
     // If the browser doesn't support payloads, the subscription object won't contain keys.
     const data = JSON.parse(JSON.stringify(subscription))
     const { endpoint, keys } = data
