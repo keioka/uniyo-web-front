@@ -20,6 +20,21 @@
   font-weight: $font-weight-normal;
 }
 
+.text-user-hashtag {
+  color: #B6B6B6;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.row--hashtags {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.box--user-info {
+  margin-left: 20px;
+}
+
 .box-image {
   overflow: hidden;
   display: inline-block;
