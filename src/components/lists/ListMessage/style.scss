@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  padding: 17px 2rem;
+  padding: 8px 2rem;
   background: white;
   align-items: flex-start;
 }
@@ -12,8 +12,8 @@
 .font-name {
   display: inline-block;
   margin-right: 20px;
-  font-size: 1rem;
-  font-weight: $font-weight-normal;
+  font-size: 15px;
+  font-weight: $font-weight-exbold;
   color: $black;
   cursor: pointer;
 }
@@ -26,7 +26,6 @@
   width: 43px;
 	height: 14px;
 	font-size: 12px;
-	font-weight: bold;
   color: #e0e0e0;
 }
 
@@ -50,5 +49,5 @@
 }
 
 .paragaph {
-  padding: 5px 0px;
+  padding: 2px 0px;
 }
