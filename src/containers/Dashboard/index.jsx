@@ -152,7 +152,7 @@ export default class DashBoard extends Component {
     const { hashtag, type = 'all' } = this.props.location.query
 
     if (!authService.isTokenExist) {
-      // browserHistory.push('/')
+      browserHistory.push('/')
     }
 
     this.setState({

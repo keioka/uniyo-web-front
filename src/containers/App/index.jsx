@@ -63,6 +63,7 @@ export default class App extends Component {
       location.pathname !== '/profile_settings' &&
       !regexEmailVerified.test(location.pathname)
     ) {
+      console.log('dahsboard')
       browserHistory.push('/dashboard')
     }
   }
