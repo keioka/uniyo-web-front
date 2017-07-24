@@ -17,6 +17,8 @@ import 'jquery.caret'
 import 'style-loader!css-loader!at.js/dist/css/jquery.atwho.css'
 import 'at.js'
 
+const path = __PROD__ ? 'api.uniyo.io' : 'staging-api.uniyo.io'
+
 export default class InputComment extends Component {
 
   onKeyDownHandler = (event) => {
@@ -44,7 +46,7 @@ export default class InputComment extends Component {
           const accessToken = localStorage.accessToken
           if (query) {
             $.ajax({
-              url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
+              url: `https://${path}/v1/users/search?query=${query}&access_token=${accessToken}`,
               type: 'GET',
               dataType: 'json',
               success: function(users) {
@@ -74,7 +76,7 @@ export default class InputComment extends Component {
           const accessToken = localStorage.accessToken
           if (query) {
             $.ajax({
-              url: `https://api.uniyo.io/v1/hashtags/search?query=${query}&access_token=${accessToken}`,
+              url: `https://${path}/v1/hashtags/search?query=${query}&access_token=${accessToken}`,
               type: 'GET',
               dataType: 'json',
               success(hashtags) {
@@ -96,6 +98,9 @@ export default class InputComment extends Component {
       insertTpl: "<span onClick='void 0' data-hashtag='true'>#${hashtag}</span>",
       searchKey: 'hashtag',
     })
+    const self = this
+    setTimeout(function() {
+    }, 0);
   }
 
   onPaste(event) {
@@ -113,7 +118,7 @@ export default class InputComment extends Component {
           <img src={imageCurrentUser} alt="" />
         </span>
         <div
-          ref={ref => this._inputComment = ref}
+          ref={ref => { this._inputComment = ref }}
           className={input}
           contentEditable
           placeholder={userPost.firstName}

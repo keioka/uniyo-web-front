@@ -9,9 +9,9 @@ export const showNotification = () => ({
   type: actionTypes.showNotification.request,
 })
 
-export const showChannelUsers = (users) => ({
+export const showChannelUsers = (userIds) => ({
   type: actionTypes.showChannelUsers.request,
-  users,
+  userIds,
 })
 
 export const showHistoryDonut = (tabNumber) => ({

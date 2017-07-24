@@ -35,6 +35,11 @@ export default class ChannelDashboard extends Component {
     isLazyLoading: false,
   }
 
+  constructor() {
+    super()
+    this.onScrollHandler = this.onScrollHandler.bind(this)
+  }
+
   componentDidMount() {
     const {
       messageSearch,
@@ -46,7 +51,7 @@ export default class ChannelDashboard extends Component {
     const timeNow = moment.utc(new Date()).format()
 
     if (this._dashboard) {
-      window.addEventListener('scroll', ::this.onScrollHandler)
+      window.addEventListener('scroll', this.onScrollHandler)
     }
     // check if channelId is found from current user's channel reducer 'all'.
 
@@ -65,7 +70,7 @@ export default class ChannelDashboard extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', ::this.onScrollHandler)
+    window.removeEventListener('scroll', this.onScrollHandler)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -274,8 +279,10 @@ export default class ChannelDashboard extends Component {
     let channelUsers
     if (channel) {
       const { users } = channel
-      const channelUsers = usersWithoutCurrentUser(users, currentUser)
-      placeholder = channel && placeholderMessage(channelUsers)
+      const { allUsers } = this.props
+      const channelUsers = users.map(userId => allUsers.filter(user => user.id === userId)[0])
+      const extractChannelOtherUsers = channel && allUsers && channelUsers && usersWithoutCurrentUser(channelUsers, currentUser)
+      placeholder = channel && placeholderMessage(extractChannelOtherUsers)
     }
 
     return (
@@ -299,7 +306,7 @@ export default class ChannelDashboard extends Component {
           <InputPost
             imgUrl={image && image.mediumUrl}
             placeholder={placeholder}
-            suggestionedUsers={channel ? channel.users : []}
+            suggestionedUsers={channel ? channelUsers : []}
             onPostSubmit={messageCreate}
             currentPostType={'MESSAGE'}
             channelId={channelId}

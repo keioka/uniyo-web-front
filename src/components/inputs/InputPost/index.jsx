@@ -4,7 +4,6 @@ import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
 import localStorage from '../../../utils/localStorageHandler'
 import postTranspiler from '../../../utils/postTranspiler'
-
 import $ from 'jquery'
 import 'jquery.caret'
 import 'style-loader!css-loader!at.js/dist/css/jquery.atwho.css'
@@ -30,6 +29,8 @@ import {
 
 import { inputHandler } from '../../../utils'
 const { placeCaretAtEnd } = inputHandler
+
+const path = __PROD__ ? 'api.uniyo.io' : 'staging-api.uniyo.io'
 
 export default class InputPost extends Component {
 
@@ -77,7 +78,7 @@ export default class InputPost extends Component {
             const accessToken = localStorage.accessToken
             if (query) {
               $.ajax({
-                url: `https://api.uniyo.io/v1/users/search?query=${query}&access_token=${accessToken}`,
+                url: `https://${path}/v1/users/search?query=${query}&access_token=${accessToken}`,
                 type: 'GET',
                 dataType: 'json',
                 success(users) {
@@ -107,7 +108,7 @@ export default class InputPost extends Component {
             const accessToken = localStorage.accessToken
             if (query) {
               $.ajax({
-                url: `https://api.uniyo.io/v1/hashtags/search?query=${query}&access_token=${accessToken}`,
+                url: `https://${path}/v1/hashtags/search?query=${query}&access_token=${accessToken}`,
                 type: 'GET',
                 dataType: 'json',
                 success(hashtags) {
@@ -139,10 +140,10 @@ export default class InputPost extends Component {
 
   componentWillReceiveProps() {
     if (
-      this.props.suggestionedUsers &&
-      this.props.suggestionedUsers.length > 0
+      this.props.allUsers &&
+      this.props.allUsers.length > 0
     ) {
-      const users = this.props.suggestionedUsers
+      const users = this.props.allUsers
       const mappedData = users.map(user => ({
         id: user.id,
         name: user.name,

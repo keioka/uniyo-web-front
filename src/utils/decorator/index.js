@@ -1,21 +1,27 @@
 export const placeholderMessage = (users, numberOfShow, currentUserId) => {
   const numberUsers = users.length
   const BASE_MESSAGE = 'Write a message to'
-  if (numberUsers === 1) {
+
+  if (numberUsers === 1 && users[0]) {
     return `${BASE_MESSAGE} @${users[0].firstName}`
   }
 
   if (numberUsers === 2) {
-    const userNamesStringify = users.map(user => `@${user.firstName}`).join(' and ')
+    const userNamesStringify = users.map(user => user && `@${user.firstName}`).join(' and ')
     return `${BASE_MESSAGE} ${userNamesStringify}`
   }
 
   if (numberUsers === 3) {
-    return `${BASE_MESSAGE} @${users[0].firstName}, @${users[1].firstName}, and @${users[2].firstName}`
+    const firstUser = users[0]
+    const secondUser = users[1]
+    const thirdUser = users[2]
+    if (firstUser && secondUser && thirdUser) {
+      return `${BASE_MESSAGE} @${firstUser.firstName}, @${secondUser.firstName}, and @${thirdUser.firstName}`
+    }
   }
 
   if (numberUsers > 3) {
-    const userNamesStringify = users.slice(0, 3).map(user => `@${user.firstName}`).join(', ')
+    const userNamesStringify = users.slice(0, 3).map(user => `${user.firstName}`).join(', ')
     const restNumber = numberUsers - 3
     return `${BASE_MESSAGE} ${userNamesStringify} and ${restNumber} others`
   }
@@ -28,7 +34,7 @@ export const usersWithoutCurrentUser = (users, currentUser) => {
   if (users.length === 1) {
     return users
   }
-  const index = users.findIndex(user => user.id === currentUser.id)
+  const index = users.findIndex(user => user && user.id === currentUser.id)
   const usersWithoutCurrentUser = [...users]
   usersWithoutCurrentUser.splice(index, 1)
   return usersWithoutCurrentUser

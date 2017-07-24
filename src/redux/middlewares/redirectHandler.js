@@ -37,14 +37,10 @@ export const redirectHandler = store => next => action => {
   }
 
   if (action.type === actionTypes.channelCreate.success) {
-    const { id } = action.result.data
+    const { id } = action.payload[0]
     browserHistory.push(`/dashboard/channels/${id}`)
   }
 
-  if (action.type === actionTypes.channelCreate.success) {
-    const { id } = action.result.data
-    browserHistory.push(`/dashboard/channels/${id}`)
-  }
 
   if (action.type === actionTypes.newPasswordUpdate.success) {
     browserHistory.push('/signin')

@@ -31,9 +31,9 @@ function* showUserInfo({ userId }) {
   }
 }
 
-function* showChannelUsers({ users }) {
-  if (users) {
-    yield put({ type: uiActionTypes.showChannelUsers.success, users })
+function* showChannelUsers({ userIds }) {
+  if (userIds) {
+    yield put({ type: uiActionTypes.showChannelUsers.success, userIds })
   } else {
     yield put({ type: uiActionTypes.showChannelUsers.error, error: 'user is not found' })
   }

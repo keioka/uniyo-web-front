@@ -111,6 +111,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
   signout: uiActions.signout,
   addDevice: actions.addDevice,
+  deleteDevice: actions.deleteDevice,
 
   showPopup: uiActions.showPopup,
   donutsShake: uiActions.donutsShake,
@@ -118,6 +119,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userPictureUpdate: actions.userPictureUpdate,
   contentReadCheckNotification: uiActions.contentReadCheckNotification,
 }, dispatch)
+
 
 const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
 
@@ -181,9 +183,10 @@ export default class DashBoard extends Component {
     if (typeForQuery && TYPES[type] !== 'ALL') { params.types = typeForQuery }
     postsSearch(params)
 
-    const { addDevice } = this.props
+    const { addDevice, deleteDevice } = this.props
+    console.log(deleteDevice)
     if (window) {
-      pushNotification.subscribe(addDevice)
+      pushNotification.subscribe(addDevice, deleteDevice)
     }
   }
 
@@ -293,7 +296,7 @@ export default class DashBoard extends Component {
     const { currentUser } = auth
     const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { all: allPosts, fetching: isPostsFetching, trending: trendingPosts, relevant: relevantPosts } = posts
-    const { all: suggestionedUsers } = users
+    const { all: allUsers } = users
     const { all: allComments } = comments
     const { all: allChannels } = channels
     const { all: allAnswers } = answers
@@ -316,11 +319,13 @@ export default class DashBoard extends Component {
 
     let isChannel = false
     let channel
+    let channelUsers
 
     if (path.match(regex)) {
       isChannel = true
       const { channelId } = this.props.router.params
       channel = allChannels.filter(channel => channel.id == channelId)[0]
+      channelUsers = isChannel && channel && channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
       if (!channel) {
         //redirect
       }
@@ -374,7 +379,7 @@ export default class DashBoard extends Component {
       commentsSearch,
       commentCreate,
       hideSidebarRight,
-      suggestionedUsers,
+      allUsers,
       currentUser,
       hashtags,
       messageSearch,
@@ -416,10 +421,12 @@ export default class DashBoard extends Component {
     const onClickShowCurrentUserInfo = () => showUserInfo(currentUser.id)
     const onClickSignout = () => this.props.signout()
     const openUpdateProfile = () => { this.setState({ isOpenProfilePictureUpload: true }) }
+
+
     return (
       <div className={container}>
         <SidebarLeft
-          suggestionedUsers={suggestionedUsers}
+          allUsers={allUsers}
           userSearch={userSearch}
           hashtags={hashtags}
           hashtagSearch={hashtagSearch}
@@ -465,6 +472,7 @@ export default class DashBoard extends Component {
               /> :
               <NavChannel
                 channel={channel}
+                channelUsers={channelUsers}
                 showUserInfo={showUserInfo}
                 showChannelUsers={showChannelUsers}
               />

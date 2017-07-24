@@ -53,6 +53,7 @@ const ListNotification = ({
   currentUser,
   showHistoryDonut,
   showUserInfo,
+  post: postObject,
 }) => {
 
   const { id, type, isRead, createdAt } = notification
@@ -81,8 +82,11 @@ const ListNotification = ({
       }
       case 'NEW_COMMENT': {
         const { comment, post } = notification
+        const postType = post.type
         const { postId, user } = comment
-        browserHistory.push(`/dashboard/posts/${post.id}`)
+        const path = postType === 'ANSWER' ? 'questions' : 'posts'
+        console.log('questionId', postObject)
+        browserHistory.push(`/dashboard/${path}/${post.id}`)
         break
       }
       case 'NEW_CHANNEL_MESSAGE': {
