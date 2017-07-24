@@ -87,21 +87,25 @@ export default class ChannelNewDashboard extends Component {
   }
 
   get suggestionedUsers() {
-    const { suggestionedUsers } = this.props
+    const { allUsers } = this.props
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
-    return suggestionedUsers
+    return allUsers
     .filter(user => query.test(user.name.toLowerCase()))
     .map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
   get channels() {
     const {
+      allUsers,
       currentUser,
       allChannels,
     } = this.props
-    return allChannels.map(channel =>
-      <ListRecentConversation channel={channel} currentUser={currentUser} />
-    )
+    const getChannelUsers = channel => channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
+
+    return allChannels.map(channel => {
+      const channelUsers = getChannelUsers(channel)
+      return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
+    })
   }
 
   get filteredChannels() {
@@ -112,17 +116,20 @@ export default class ChannelNewDashboard extends Component {
       currentUser,
       allMessages,
       allChannels,
+      allUsers,
       messageCreate,
     } = this.props
 
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
     const matchUserName = name => query.test(name.toLowerCase())
-    const filterUsers = channel => channel.users.map(user => user.name).some(matchUserName)
+    const filterUsers = channel => channel.users.map(userId => allUsers.filter(user => user.id === userId)[0].name).some(matchUserName)
+    const getChannelUsers = channel => channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
     const channels = this.state.query ? allChannels.filter(filterUsers) : []
     // const isChannelUser = (channel) => channel.users.includes(user => query.test(user.name))
-    return channels.map(channel =>
-      <ListRecentConversation channel={channel} currentUser={currentUser} />
-    )
+    return channels.map(channel => {
+      const channelUsers = getChannelUsers(channel)
+      return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
+    })
   }
 
   render() {
