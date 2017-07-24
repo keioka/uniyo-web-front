@@ -54,7 +54,7 @@ export default (state = initialiState, action) => {
     case actionTypes.showChannelUsers.success: {
       return Object.assign({
         isOpen: true,
-        channelUsers: action.users,
+        channelUserIds: action.userIds,
         displayType: 'ChannelUsers',
       })
     }
