@@ -20,9 +20,18 @@ const {
   usersWithoutCurrentUser,
 } = decorator
 
-const ListChannel = ({ className, channel, amountNewMessage, currentUser, contentReadCheckNotification, unReadChannelIds, isSelected }) => {
-  const isMyChannel = channel.users && channel.users.length === 1 && channel.users[0].id === currentUser.id
-  const name = isMyChannel ? `${currentUser.firstName} (you)` : usersWithoutCurrentUser(channel.users, currentUser).map(user => user.firstName).join(', ')
+const ListChannel = ({
+  className,
+  channel,
+  amountNewMessage,
+  currentUser,
+  contentReadCheckNotification,
+  unReadChannelIds,
+  isSelected,
+  users
+}) => {
+  const isMyChannel = users && users.length === 1 && users[0].id === currentUser.id
+  const name = isMyChannel ? `${currentUser.firstName} (you)` : usersWithoutCurrentUser(users, currentUser).map(user => user.firstName).join(', ')
   const ids = unReadChannelIds.filter((idsObject) => idsObject.channelId === channel.id)
   const liClassNames = isSelected ? [sectionTag, sectionTagActive] : [sectionTag]
   return (
@@ -33,9 +42,9 @@ const ListChannel = ({ className, channel, amountNewMessage, currentUser, conten
       onClick={() => contentReadCheckNotification({ contentType: 'MESSAGE_READ', ids })}
     >
       <li className={liClassNames.join(' ')}>
-        {channel.users.length > 2 ?
-          (<span data-amount-users={channel.users.length} className={iconChannel}>
-            {channel.users.length - 1}
+        {users.length > 2 ?
+          (<span data-amount-users={users.length} className={iconChannel}>
+            {users.length - 1}
           </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
         }
         <span className={sectionTagMain}>

@@ -1,6 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import FaSearch from 'react-icons/lib/fa/search'
+
+import {
+  decorator,
+} from '../../../utils'
+
+const {
+  usersWithoutCurrentUser,
+} = decorator
 
 import {
   ListUserDonutGive,
@@ -24,13 +32,42 @@ import {
   listUserLeftSubtitle,
 } from './style'
 
+
 class SidebarRightChannelUsers extends Component {
 
   get usersDonutsToGive() {
-    const { channelUsers, channelCreate, allChannels, userGiveDonuts, currentUser } = this.props
-    return channelUsers.map(user =>
+    const {
+      channelUsers,
+      channelCreate,
+      allChannels,
+      allUsers,
+      userGiveDonuts,
+      currentUser
+    } = this.props
+
+    const onClickBtnMessage = (userId) => {
+      const filteredChannel = allChannels.filter(channel => {
+        const channelUsers = channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
+        const users = usersWithoutCurrentUser(channelUsers, currentUser)
+        // check if current user has channel with the other user
+        // check channel is not group because it is supposed to be 1 to 1 chat
+        // check if the other user id is included. [0] is the other user and [1] is current user
+        return users.length === 1 && users[0].id == userId
+      })
+
+      const channel = filteredChannel[0]
+
+      if (channel) {
+        browserHistory.push(`/dashboard/channels/${channel.id}`)
+      } else {
+        channelCreate({ users: [userId] })
+      }
+    }
+
+    return channelUsers && channelUsers.map(user =>
       <ListUserDonutGive
         {...user}
+        onClickBtnMessage={onClickBtnMessage}
         userGiveDonuts={userGiveDonuts}
         channelCreate={channelCreate}
         channels={allChannels}

@@ -29,7 +29,7 @@ const ListNewChatUser = ({ user, onClick }) => {
           <span className={fontUserNames}>{user.name}</span>
         </span>
         <span className={rowHashtags}>
-          {hashtags.filter(hashtag => hashtag.hashtag !== '').map(hashtag => <span className={textUserHashtag}>#{hashtag.hashtag}</span>)}
+          {hashtags && hashtags.filter(hashtag => hashtag.hashtag !== '').map(hashtag => <span className={textUserHashtag}>#{hashtag.hashtag}</span>)}
         </span>
       </div>
     </li>

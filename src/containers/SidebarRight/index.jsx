@@ -44,6 +44,7 @@ import uiAction from '../../redux/actions'
 const mapStateToProps = state => ({
   donutsHistory: state.api.auth.currentUser.donutsHistory,
   rightbar: state.ui.rightbar,
+  posts: state.api.posts,
   channels: state.api.channels,
   notifications: state.api.notifications,
   formNotifications: state.form.notifications,
@@ -68,6 +69,7 @@ const {
   notificationSearch,
   userGiveDonuts,
   userSearch,
+  postInfo,
 } = actions
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -84,6 +86,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userGiveDonuts,
   userSearch,
   donutsCampusShift,
+  postInfo,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -111,13 +114,16 @@ export default class SidebarRight extends Component {
       hideSidebarRight,
       currentUser,
       openUpdateProfile,
+      posts,
+      postInfo,
     } = this.props
 
-    const { displayType, isOpen, userInfo, channelUsers } = rightbar
+    const { displayType, isOpen, userInfo, channelUserIds } = rightbar
     const { all: allUsers } = users
     const { all: allChannels } = channels
+    const { all: allPosts } = posts
     const { all: allNotifications } = notifications
-
+    const channelUsers = channelUserIds && channelUserIds.map(userId => allUsers.filter(user => user.id === userId)[0])
     switch(displayType) {
       case 'UserInfo': {
         return (
@@ -137,7 +143,9 @@ export default class SidebarRight extends Component {
       case 'ChannelUsers': {
         return (
           <SidebarRightChannelUsers
+            allUsers={allUsers}
             channelUsers={channelUsers}
+            currentUser={currentUser}
             hideSidebarRight={hideSidebarRight}
             userGiveDonuts={userGiveDonuts}
             channelCreate={channelCreate}
@@ -150,6 +158,8 @@ export default class SidebarRight extends Component {
         return (
           <SidebarRightNotification
             currentUser={currentUser}
+            allPosts={allPosts}
+            postInfo={postInfo}
             allNotifications={allNotifications}
             showHistoryDonut={showHistoryDonut}
             showUserInfo={showUserInfo}
