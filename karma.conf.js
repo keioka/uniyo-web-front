@@ -42,6 +42,14 @@ module.exports = function (config) {
       // https://github.com/airbnb/enzyme/blob/master/docs/guides/webpack.md
       // https://github.com/airbnb/enzyme/issues/47#issuecomment-162240128
       // https://github.com/airbnb/enzyme/issues/302#issuecomment-207190560
+      plugins: [
+        new webpack.DefinePlugin({
+          __PROD__: false,
+          __STG__: false,
+          __DEV__: true,
+          __DEBUG__: true
+        })
+      ],
       externals: {
         'react/addons': true,
         'jsdom': 'window',
