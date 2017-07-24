@@ -71,7 +71,7 @@ export default class SidebarLeft extends Component {
       nextProps.isMainDashboard !== this.props.isMainDashboard ||
       nextProps.locationParams !== this.props.locationParams ||
       nextProps.hashtags.length !== this.props.hashtags.length ||
-      nextProps.suggestionedUsers.length !== this.props.suggestionedUsers.length ||
+      nextProps.allUsers.length !== this.props.allUsers.length ||
       nextState !== this.state
     ) {
       return true
@@ -124,9 +124,16 @@ export default class SidebarLeft extends Component {
   }
 
   get filteredChannels() {
+    const { allUsers } = this.props
     const { keywordForSort } = this.state
     const { allChannels } = this.props
-    return allChannels.filter(channel => channel.users.some(user => user.name.includes(keywordForSort)))
+    return allChannels.filter(channel => channel.users.some(userId => {
+      const user = allUsers.filter(user => user.id === userId)[0]
+      if (user) {
+        return user.name.includes(keywordForSort)
+      }
+      return false
+    }))
   }
 
   get isSearchResultForChannelExist() {
@@ -203,10 +210,10 @@ export default class SidebarLeft extends Component {
     )
   }
 
-
   get navSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
+    // const isValidSearch = keywordForSort.match()
     const {
       allChannels,
       hashtagsCurrentUser,
@@ -218,6 +225,7 @@ export default class SidebarLeft extends Component {
       unReadChannelIds,
       contentReadCheckNotification,
       locationParams,
+      allUsers,
     } = this.props
 
     const unreadPostNotification = unreadNotification.filter(notification =>
@@ -289,27 +297,27 @@ export default class SidebarLeft extends Component {
         *
         */
 
-        const unreadMessageNotification = unreadNotification.filter(notification =>
-          notification.type === "NEW_CHANNEL_MESSAGE"
+    const unreadMessageNotification = unreadNotification.filter(notification =>
+          notification.type === 'NEW_CHANNEL_MESSAGE',
         )
 
-        const messageNotification = unreadMessageNotification.reduce((allNotifications, notification) => {
-          const channelId = notification.channel.id
-          if (channelId in allNotifications) {
-            allNotifications[channelId]++
-          } else {
-            allNotifications[channelId] = 1
-          }
+    const messageNotification = unreadMessageNotification.reduce((allNotifications, notification) => {
+      const channelId = notification.channel.id
+      if (channelId in allNotifications) {
+        allNotifications[channelId]++
+      } else {
+        allNotifications[channelId] = 1
+      }
 
-          return allNotifications
-        }, {})
+      return allNotifications
+    }, {})
 
-        const regexChannelPath = /\/dashboard\/channels\/[1-9]/
-        const isChannel = regexChannelPath.test(window.location.href)
+    const regexChannelPath = /\/dashboard\/channels\/[1-9]/
+    const isChannel = regexChannelPath.test(window.location.href)
 
-        const ComponentsChannel = allChannels &&
-        this.filteredChannels.map((channel, index) => {
-          let classNames = []
+    const ComponentsChannel = allChannels &&
+        this.filteredChannels.map((channel) => {
+          const classNames = []
           // if (!this.state.isShowMoreChannels && index > MAX_NUMBER_SHOW_ITEM) {
           //   classNames.push(hide)
           // }
@@ -319,10 +327,16 @@ export default class SidebarLeft extends Component {
           }
           const isSelected = (selectedChannelId && parseInt(channel.id) === parseInt(selectedChannelId))
           const amountNewMessage = messageNotification[channel.id]
+          const users = channel.users.map(userId => {
+            return allUsers.filter(user => user.id === userId)[0]
+          })
+
+          console.log(users)
 
           return (
             <ListChannel
               className={classNames.join(' ')}
+              users={users}
               channel={channel}
               currentUser={currentUser}
               isSelected={isSelected}
@@ -445,9 +459,9 @@ export default class SidebarLeft extends Component {
             </ul>
           </div>
         }
-     </nav>
-   )
-}
+          </nav>
+        )
+  }
 
 render() {
   const { selectedHashtag, isMainDashboard, userSearch, hashtagSearch } = this.props
@@ -470,19 +484,19 @@ render() {
             userSearch={userSearch}
             hashtagSearch={hashtagSearch}
             onChange={onChangeInputSearchTag}
-            refTo={(ref) => this._inputSearchTag = ref}
+            refTo={ref => this._inputSearchTag = ref}
           />
           <ul className={section}>
             <Link to="/dashboard">
-            <h3 className={classNameForTopSchool}>
-              All in {localStorage['SCHOOL_NAME']}
+              <h3 className={classNameForTopSchool}>
+              All in {localStorage.SCHOOL_NAME}
             </h3>
-          </Link>
-        </ul>
-        {this.navSideBar}
-      </div>
-    </aside>
-  </div>
-)
+            </Link>
+          </ul>
+          {this.navSideBar}
+        </div>
+      </aside>
+    </div>
+  )
 }
 }
