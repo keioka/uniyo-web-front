@@ -133,7 +133,7 @@ export default class CardQuestion extends PureComponent {
         <Link to={`/dashboard/questions/${id}`} className={wrapperLink} key={id}>
           <div key={id} className={wrapper}>
             <div className={sectionImage} onClick={(event) => { event.preventDefault(); showUserInfo(user.id) }}>
-              <img src={user.image.smallUrl} alt="" />
+              <img src={user.image.mediumUrl} alt="" />
             </div>
             <div className={sectionContent}>
               <div className={sectionContentHeader}>

@@ -97,16 +97,16 @@ export default class CardPost extends PureComponent  {
   }
 
   get menuItems() {
-    const { user, currentUserId, id, showPopup } = this.props
+    const { user, currentUserId, id, showPopup, type } = this.props
     const isCurrentUserPost = user.id === currentUserId
     const url = `http://uniyo.io/dashboard/posts/${id}`
     const copyUrl = () => {
       showPopup('COPIED_URL')
       copyToClipboard(url)
     }
-
+    const titleDelete = type === 'ANSWER' ? 'Delete answer' : 'Delete publication'
     const menu = isCurrentUserPost ? [{
-      title: <span><MdDeleteForever data-icon='delete-forever' /> Delete publication</span>,
+      title: <span><MdDeleteForever data-icon='delete-forever' />{titleDelete}</span>,
       type: 'function',
       action: () => { this.props.postDelete({ postId: id }) },
     }, {
@@ -158,7 +158,7 @@ export default class CardPost extends PureComponent  {
       >
         <div className={wrapper}>
           <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
-            <img src={user.image.smallUrl} alt="" />
+            <img src={user.image.mediumUrl} alt="" />
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>

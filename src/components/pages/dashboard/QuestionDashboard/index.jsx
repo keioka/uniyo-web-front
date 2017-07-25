@@ -200,7 +200,7 @@ export default class QuestionDashboard extends Component {
                 commentGiveDonuts={commentGiveDonuts}
                 showUserInfo={showUserInfo}
                 onReadContent={onReadContent}
-                imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+                imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
                 showPopup={showPopup}
               />
             }
@@ -222,7 +222,7 @@ export default class QuestionDashboard extends Component {
               commentGiveDonuts={commentGiveDonuts}
               showUserInfo={showUserInfo}
               onReadContent={onReadContent}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showPopup={showPopup}
             />
           </div>
@@ -246,7 +246,7 @@ export default class QuestionDashboard extends Component {
                   commentGiveDonuts={commentGiveDonuts}
                   showUserInfo={showUserInfo}
                   onReadContent={onReadContent}
-                  imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+                  imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
                   showPopup={showPopup}
                 />
               )
