@@ -18,6 +18,7 @@ import {
   InputSearchTag,
   ListHashtag,
   ListChannel,
+  Tooltip,
 } from '../../'
 
 import {
@@ -331,8 +332,6 @@ export default class SidebarLeft extends Component {
             return allUsers.filter(user => user.id === userId)[0]
           })
 
-          console.log(users)
-
           return (
             <ListChannel
               className={classNames.join(' ')}
@@ -374,7 +373,12 @@ export default class SidebarLeft extends Component {
           <nav className={nav}>
             {this.isSearchResultForHashtagExist &&
             <ul className={section}>
-              <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}><span>Newsfeeds</span><Plus /></h4>
+              <Tooltip text="Add a new topic to your favorites" horizontal="right">
+                <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}>
+                  <span>Newsfeeds</span>
+                  <Plus />
+                </h4>
+              </Tooltip>
               { this.state.isShowInputAddTag &&
                 <input
                   type="text"
@@ -425,11 +429,13 @@ export default class SidebarLeft extends Component {
 
           {this.isSearchResultForChannelExist &&
           <ul className={section}>
-            <Link to='/dashboard/channels/new'>
-              <h4 className={sectionLabel}>
-                PRIVATE MESSAGES <Plus />
-              </h4>
-            </Link>
+            <Tooltip text="Start a new conversation" horizontal="right">
+              <Link to='/dashboard/channels/new'>
+                <h4 className={sectionLabel}>
+                  PRIVATE MESSAGES <Plus />
+                </h4>
+              </Link>
+            </Tooltip>
             {allChannels && ComponentsChannel}
             <Link to='/dashboard/channels/new'>
               <h4 className={sectionTextAdd}>

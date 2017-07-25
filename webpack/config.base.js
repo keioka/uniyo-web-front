@@ -44,7 +44,7 @@ var baseConfig = {
       },
       {
         test: /\.svg$/,
-        loaders: ['babel-loader', 'svg-react-loader']
+        loaders: ['babel-loader', 'svg-react-loader'],
       },
       {
         test: /\.(jpe?g|png|gif)$/i,

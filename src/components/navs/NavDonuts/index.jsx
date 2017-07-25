@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import {
   Donut,
+  Tooltip,
 } from '../../'
 
 import {
@@ -37,23 +38,27 @@ export default class NavDonuts extends Component {
 
     return (
       <div className={boxDonuts}>
-        <span className={boxDonutsRow} onClick={() => showHistoryDonut(0)}>
-          <Donut
-            id="available-donuts"
-            className={donutsSpendClassName}
-            size="medium"
-            count={availableDonutsCount}
-          />
-          {availableDonutsCount}
-        </span>
-        <span className={boxDonutsRow} onClick={() => showHistoryDonut(1)}>
-          <Donut
-            id="received-donuts"
-            className={donutsReceiveClassName}
-            size="medium" count={receivedDonutsCount}
-          />
-          {receivedDonutsCount}
-        </span>
+        <Tooltip text={`Today you still have ${availableDonutsCount} donuts to give`} horizontal="right">
+          <span className={boxDonutsRow} onClick={() => showHistoryDonut(0)}>
+            <Donut
+              id="available-donuts"
+              className={donutsSpendClassName}
+              size="medium"
+              count={availableDonutsCount}
+            />
+            {availableDonutsCount}
+          </span>
+        </Tooltip>
+        <Tooltip text={`You received ${receivedDonutsCount} donuts`} horizontal="right">
+          <span className={boxDonutsRow} onClick={() => showHistoryDonut(1)}>
+            <Donut
+              id="received-donuts"
+              className={donutsReceiveClassName}
+              size="medium" count={receivedDonutsCount}
+            />
+            {receivedDonutsCount}
+          </span>
+        </Tooltip>
       </div>
     )
   }

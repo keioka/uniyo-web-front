@@ -1,3 +1,5 @@
+import Fingerprint2 from 'fingerprintjs2'
+import UAParser from 'ua-parser-js'
 const base64UrlEncodedApplicationServerKey = __STG__ ? 'BOyrRA5otpkiB4pm4ZX6ev1JravtZmH8V2W_CewV9Yv_gxSEKV6ESiaDK1Ni32BAEpXssIVLhm4_UAQIZZ25wYg' : 'BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts'
 
 const isBrowserSupportsNotifications = (window && ("Notification" in window || "serviceWorker" in navigator))
@@ -30,9 +32,11 @@ const base64UrlToUint8Array = (base64UrlData) => {
 export const permissionStatus = isBrowserSupportsNotifications && Notification.permission
 
 let addDeviceAction
+let deleteDeviceAction
 
-export async function subscribe(addDevice) {
+export async function subscribe(addDevice, deleteDevice) {
   addDeviceAction = addDevice
+  deleteDeviceAction = deleteDevice
   if (Notification && isBrowserSupportsNotifications && Notification.permission === "granted") {
     await syncSubscription()
   }
@@ -47,6 +51,33 @@ export async function requestPermissionForNotifications() {
   }
 }
 
+const getDeviceType = () => {
+
+  const deviceTypeMapping = {
+    'Chrome': 'BROWSER_CHROME',
+    'Chromium': 'BROWSER_CHROME',
+    'Edge': 'BROWSER_EDGE',
+    'Firefox': 'BROWSER_FIREFOX',
+    'Safari': 'BROWSER_SAFARI'
+  }
+
+  const parser = new UAParser()
+
+  const browserName = parser.getBrowser().name
+  const deviceType = deviceTypeMapping[browserName]
+   ? deviceTypeMapping[browserName] : 'BROWSER_OTHER'
+
+  return deviceType
+}
+
+const getDeviceId = () => {
+  return new Promise((resolve) => {
+    new Fingerprint2().get(function(result, components) {
+      resolve(result)
+    })
+  })
+}
+
 export async function syncSubscription() {
   const applicationServerKey = base64UrlToUint8Array(base64UrlEncodedApplicationServerKey)
   const subscriptionOptions = {
@@ -55,21 +86,24 @@ export async function syncSubscription() {
   }
 
   try {
-    const registrations = await navigator.serviceWorker.getRegistrations()
-    for(let registration of registrations) {
-      registration.unregister()
-    }
-    const serviceWorkerRegistration = await navigator.serviceWorker.register("/notification_sw.js")
-    const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
-    // If the browser doesn't support payloads, the subscription object won't contain keys.
-    const data = JSON.parse(JSON.stringify(subscription))
-    const { endpoint, keys } = data
-    const { auth: authSecret, p256dh: p256dhKey } = keys
-    if (data.keys) {
-      addDeviceAction({ endpoint, authSecret, p256dhKey })
-    }
+    navigator.serviceWorker.register("/notification_sw.js").then(async serviceWorkerRegistration => {
+      const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
+        // If the browser doesn't support payloads, the subscription object won't contain keys.
+      const data = JSON.parse(JSON.stringify(subscription))
+      const { endpoint, keys } = data
+      const { auth: authSecret, p256dh: p256dhKey } = keys
 
-    return true
+      const deviceId = await getDeviceId()
+      const deviceType = getDeviceType()
+      console.log('deviceId', deviceId)
+      if (data.keys) {
+        deleteDeviceAction({ deviceId, deviceType })
+        addDeviceAction({ deviceId, deviceType, endpoint, authSecret, p256dhKey })
+      }
+
+       return true
+    })
+
   } catch (e) {
     console.error(e)
     return false
