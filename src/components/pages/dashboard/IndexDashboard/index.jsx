@@ -182,7 +182,7 @@ export default class IndexDashboard extends Component {
               key={post.id}
               {...post}
               currentUserId={currentUser.id}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -205,7 +205,7 @@ export default class IndexDashboard extends Component {
               key={post.id}
               {...post}
               currentUserId={currentUser.id}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -228,7 +228,7 @@ export default class IndexDashboard extends Component {
               key={post.id}
               {...post}
               currentUserId={currentUser.id}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}
@@ -250,7 +250,7 @@ export default class IndexDashboard extends Component {
               key={post.id}
               {...post}
               currentUserId={currentUser.id}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               comments={comments}

@@ -158,7 +158,7 @@ export default class CardPost extends PureComponent  {
       >
         <div className={wrapper}>
           <div className={sectionImage} onClick={() => showUserInfo(user.id)}>
-            <img src={user.image.smallUrl} alt="" />
+            <img src={user.image.mediumUrl} alt="" />
           </div>
           <div className={sectionContent}>
             <div className={sectionContentHeader}>

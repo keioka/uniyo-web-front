@@ -145,7 +145,7 @@ export default class CardReview extends PureComponent {
     >
       <div key={id} className={wrapper}>
         <div className={sectionImage} onClick={onClickUser}>
-          <img src={user.image.smallUrl} alt="" />
+          <img src={user.image.mediumUrl} alt="" />
         </div>
         <div className={sectionContent}>
           <div className={sectionContentHeader}>

@@ -89,7 +89,7 @@ export default class PostShowDashboard extends Component {
               key={post.id}
               {...post}
               currentUserId={currentUser.id}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
               commentDelete={commentDelete}
@@ -109,7 +109,7 @@ export default class PostShowDashboard extends Component {
             <CardDocument
               key={post.id}
               {...post}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               currentUserId={currentUser.id}
               showUserInfo={showUserInfo}
               commentDelete={commentDelete}
@@ -130,7 +130,7 @@ export default class PostShowDashboard extends Component {
             <CardReview
               key={post.id}
               {...post}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               currentUserId={currentUser.id}
               showUserInfo={showUserInfo}
               commentDelete={commentDelete}
@@ -151,7 +151,7 @@ export default class PostShowDashboard extends Component {
             <CardQuestion
               key={post.id}
               {...post}
-              imageCurrentUser={currentUser.image ? currentUser.image.smallUrl : ''}
+              imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               currentUserId={currentUser.id}
               showUserInfo={showUserInfo}
               commentsSearch={commentsSearch}
