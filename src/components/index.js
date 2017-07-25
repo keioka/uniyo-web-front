@@ -113,6 +113,7 @@ export BarAuthMessage from './common/BarAuthMessage'
 export PanelDropDownMenu from './common/PanelDropDownMenu'
 export PanelDropDownSetting from './common/PanelDropDownSetting'
 export ModalProfilePictureUpdate from './common/ModalProfilePictureUpdate'
+export Tooltip from './common/Tooltip'
 
 /*
   list
