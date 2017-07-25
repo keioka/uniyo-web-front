@@ -14,6 +14,7 @@ var debug = false;
 var webpackConfigBase = require('./config.base.js');
 
 var prdConfig = Object.assign({}, webpackConfigBase, {
+  devtool: 'source-map',
   plugins: [
     new ExtractTextPlugin("style.css"),
     new webpack.DefinePlugin({
