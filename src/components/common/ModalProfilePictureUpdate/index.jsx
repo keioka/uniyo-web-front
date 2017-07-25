@@ -80,6 +80,10 @@ export default class ModalProfilePictureUpdate extends Component {
 
   onSubmit() {
     const { userPictureUpdate, closeProfilePictureUpdate } = this.props
+    if (!this._img) {
+      closeProfilePictureUpdate()
+      return
+    }
     const imageSize = this._img.getBoundingClientRect()
     const cropSize = this._avatorEditor.getCroppingRect()
     const cropSizeRecalculated = calcRect(imageSize, cropSize)
