@@ -16,8 +16,7 @@
   border: none;
   border-radius: 20px;
   outline: none;
-  padding: 18px 5px 18px 65px;
-  box-sizing: border-box;
+  padding: 18px 5px 18px 27px;  box-sizing: border-box;
   line-height: 1rem;
   word-break: break-word;
 }
@@ -43,35 +42,11 @@ span[data-hashtag=true] {
   color: $lightpink;
 }
 
-.instruction {
-  position: absolute;
-  top: -50px;
-  right: 0px;
-  font-size: 12px;
-  width: auto;
-  height: 5px;
-  padding: 20px;
-  background-color: $black;
-  color: white;
-  border-radius: 4px;
-}
-
-.instruction__command {
-  border: 1px solid white;
-  padding: 5px;
-  background-color: lighten($black, 20%);
-  border-radius: 4px;
-  margin-right: 3px;
-}
-
-.instructionItem {
-  margin-right: 10px;
-}
-
 .input__box--img {
   display: inline-block;
-  position: absolute;
   width: 35px;
+  align-self: flex-start;
+  margin: 16px 0px;
 }
 
 .input__box--img img {
