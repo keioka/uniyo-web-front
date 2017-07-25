@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
 import { Link, browserHistory } from 'react-router'
+import ReactTooltip from 'react-tooltip'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
@@ -27,6 +28,7 @@ import {
   NavDonuts,
   ModalProfilePictureUpdate,
   PanelDropDownSetting,
+  Tooltip,
 } from '../../components'
 
 import {
@@ -54,6 +56,7 @@ import {
   popup,
   popupEmoji,
   overlayerProfilePictureUpdate,
+  wrapperIcon,
 } from './style'
 
 import Setting from './settings.svg'
@@ -184,7 +187,6 @@ export default class DashBoard extends Component {
     postsSearch(params)
 
     const { addDevice, deleteDevice } = this.props
-    console.log(deleteDevice)
     if (window) {
       pushNotification.subscribe(addDevice, deleteDevice)
     }
@@ -422,7 +424,6 @@ export default class DashBoard extends Component {
     const onClickSignout = () => this.props.signout()
     const openUpdateProfile = () => { this.setState({ isOpenProfilePictureUpload: true }) }
 
-
     return (
       <div className={container}>
         <SidebarLeft
@@ -447,15 +448,20 @@ export default class DashBoard extends Component {
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
           <header className={header}>
+
             <div className={headerNavBasic}>
+              <Tooltip text="Show notifications" >
               { allNotifications &&
                 allNotifications.filter(notification => !notification.isRead).length > 0 ?
-                <span className={notification} onClick={() => showNotification()}>
+                <span className={notification} data-for='notification' data-tip="hello world"  onClick={() => showNotification()}>
                   {allNotifications.filter(notification => !notification.isRead).length}
                 </span> :
                 <Notification className={icon} onClick={() => showNotification()} />
               }
-              <Setting className={icon} onClick={() => this.setState({ isOpenSettingMenu: !this.state.isOpenSettingMenu })} />
+              </Tooltip>
+              <Tooltip text="Show settings" classNameWrapper={wrapperIcon}>
+                <Setting className={icon} onClick={() => this.setState({ isOpenSettingMenu: !this.state.isOpenSettingMenu })} />
+              </Tooltip>
               { this.state.isOpenSettingMenu &&
                 <PanelDropDownSetting
                   closePanel={() => this.setState({ isOpenSettingMenu: false })}

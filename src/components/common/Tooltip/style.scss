@@ -1,0 +1,36 @@
+.wrapper {
+  position: relative;
+}
+
+.element {
+  display: none;
+}
+
+.top {
+  top: 40px;
+}
+
+.bottom {
+  bottom: -40px;
+}
+
+.left {
+  left: 0px;
+}
+
+.right {
+  right: 0px;
+}
+
+.wrapper:hover .element {
+  display: block;
+  content: attr(data-tip);
+  position: absolute;
+  padding: 5px 10px;
+  background: rgba(10, 10, 10, .6);
+  border: 3px solid rgba(80, 80, 80, 0.2);
+  white-space: nowrap;
+  border-radius: 8px;
+  font-size: 12px;
+  color: white;
+}

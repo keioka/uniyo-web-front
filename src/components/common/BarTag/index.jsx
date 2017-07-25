@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
+
+import {
+  Tooltip,
+} from '../../'
+
 import {
   barTag,
   barTagInner,
@@ -120,15 +125,19 @@ const BarTag = ({
       { empty ? message(hashtag) : <span>#{hashtag}</span> }
       { hashtag &&
       <div className={barNav}>
-        <Link
-          to={type ? `dashboard?type=${type}` : `dashboard`}
-          className={btn}
-        >
-          <Cross />
-        </Link>
-        <span className={btn} onClick={() => onAddHashtag()}>
-          <Plus />
-        </span>
+        <Tooltip text="See all hashtags">
+          <Link
+            to={type ? `dashboard?type=${type}` : `dashboard`}
+            className={btn}
+          >
+            <Cross />
+          </Link>
+        </Tooltip>
+        <Tooltip text="Add a new topic to your favorites">
+          <span className={btn} onClick={() => onAddHashtag()}>
+            <Plus />
+          </span>
+        </Tooltip>
      </div>
      }
   </div>
