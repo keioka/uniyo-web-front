@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
 import { Link, browserHistory } from 'react-router'
-import ReactTooltip from 'react-tooltip'
 
 import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
