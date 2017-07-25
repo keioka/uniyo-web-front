@@ -5,6 +5,7 @@ import Close from './close'
 
 import {
   TextPost,
+  Tooltip,
 } from '../../'
 
 import {
@@ -105,12 +106,14 @@ export default class ListHashtag extends Component {
             </span>
           </span>
           { showBtnDelete &&
-            <span
-              className={btnClose}
-              onClick={onClickBtnHashtagDelete}
-            >
-              <Close />
-            </span>
+              <span
+                className={btnClose}
+                onClick={onClickBtnHashtagDelete}
+              >
+                <Tooltip text="Unfollow" horizontal="right">
+                  <Close />
+                </Tooltip>
+              </span>
           }
         </li>
       </Link>
