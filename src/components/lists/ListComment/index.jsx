@@ -17,6 +17,7 @@ import {
   contentRight,
   panelMenu,
   iconDelete,
+  btnDount,
 } from './style'
 
 class ListComment extends Component {
@@ -32,14 +33,6 @@ class ListComment extends Component {
     commentGiveDonuts: PropTypes.func.isRequired,
     donutsCount: PropTypes.number.isRequired,
     showUserInfo: PropTypes.func.isRequired,
-  }
-
-  get menuItems() {
-    const { commentDelete, id, postId } = this.props
-    return [{
-      title: 'Delete',
-      action: () => {  }
-    }]
   }
 
   render() {
@@ -58,37 +51,37 @@ class ListComment extends Component {
     const { name, firstName, image } = user
     const onClickButtonDonut = () => commentGiveDonuts({ commentId: id, amount: 1 })
     const onClickUserInfo = () => showUserInfo(user.id)
+    const onClickIconDelete = () => { commentDelete({ commentId: id, postId }) }
     const closePanel = () => { this.setState({ isDisplayDropDown: false }) }
 
     return (
       <li key={id} className={wrapper}>
-        <span className={boxImage} onClick={onClickUserInfo}>
+        <div className={boxImage} onClick={onClickUserInfo}>
           <img src={image.smallUrl} className={imgUser} alt={name} />
-        </span>
-        <span className={content}>
-          <span className={contentText}>
-            <span className={fontName} onClick={onClickUserInfo}>{firstName}</span>
+        </div>
+        <div className={content}>
+          <div className={contentText}>
+            <div className={fontName} onClick={onClickUserInfo}>{firstName}</div>
             <TextPost text={text} />
-          </span>
-          <span className={contentRight}>
+          </div>
+          <div className={contentRight}>
             {isOwnComment &&
-              <span
+              <div
                 className={iconDelete}
-                onClick={() => { commentDelete({ commentId: id, postId }) }}
+                onClick={onClickIconDelete}
                 >
                   <MdDeleteForever />
-                </span>
+                </div>
               }
               <ButtonDonut
                 donutsCount={donutsCount}
                 onClick={onClickButtonDonut}
               />
-            </span>
-          </span>
-        </li>
-      )
+            </div>
+          </div>
+      </li>
+    )
     }
   }
-
 
   export default ListComment
