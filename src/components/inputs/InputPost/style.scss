@@ -37,7 +37,7 @@
   caret-color: $black;
   top: 0;
   left: 0;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .input--wrapper {
@@ -56,11 +56,15 @@
 
 .input:empty:before {
   content: attr(placeholder);
-  display: block; /* For Firefox */
+  display: inline-block;
   font-size: 25px;
   line-height: 25px;
-	font-weight: 500;
+  font-weight: 500;
   color: #dcdcdc;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
 }
 
 .box--optional {

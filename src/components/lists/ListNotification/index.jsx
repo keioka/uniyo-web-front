@@ -85,8 +85,11 @@ const ListNotification = ({
         const postType = post.type
         const { postId, user } = comment
         const path = postType === 'ANSWER' ? 'questions' : 'posts'
-        console.log('questionId', postObject)
-        browserHistory.push(`/dashboard/${path}/${post.id}`)
+        if (postType === 'ANSWER') {
+          browserHistory.push(`/dashboard/questions/${postObject.questionId}`)
+        } else {
+          browserHistory.push(`/dashboard/posts/${post.id}`)
+        }
         break
       }
       case 'NEW_CHANNEL_MESSAGE': {

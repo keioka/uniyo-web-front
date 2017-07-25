@@ -20,7 +20,8 @@ import storage from '../../../utils/localStorageHandler'
 
 const getClassNoteDownloadUrl = (classNoteId:number) => {
   const { accessToken } = storage
-  return `https://api.uniyo.io/v1/class_notes/${classNoteId}/download?redirect=true&access_token=${accessToken}`
+  const path = __PROD__ ? 'api.uniyo.io' : 'staging-api.uniyo.io'
+  return `https://${path}/v1/class_notes/${classNoteId}/download?redirect=true&access_token=${accessToken}`
 }
 
 const ButtonFile = ({ id, fileName, fileSize, contentType }) => {
