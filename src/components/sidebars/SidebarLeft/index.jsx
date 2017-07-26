@@ -83,7 +83,9 @@ export default class SidebarLeft extends Component {
 
   onClickBtnAddHashTag() {
     this.setState({
-      isShowInputAddTag: !this.state.isShowInputAddTag
+      isShowInputAddTag: !this.state.isShowInputAddTag,
+    }, () => {
+      this._inputAddTag.focus()
     })
   }
 
@@ -384,9 +386,9 @@ export default class SidebarLeft extends Component {
                   type="text"
                   placeholder="Follow a new hashtag..."
                   className={inputAddTag}
-                  ref={(ref) => this._inputAddTag = ref}
+                  ref={ref => this._inputAddTag = ref}
                   onKeyUp={::this.onSubmitAddTag}
-                  onKeyDown={event => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false })}}
+                  onKeyDown={(event) => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false }) }}
                 />
               }
               { this.uniqueHashtagsCurrentUser && ComponentsHashtag }

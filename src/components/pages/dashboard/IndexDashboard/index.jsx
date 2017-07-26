@@ -12,8 +12,6 @@ import {
   BarTag,
 } from '../../../index'
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group' // ES6
-
 import {
   wrapper,
   wrapperShrink,
@@ -81,8 +79,7 @@ export default class IndexDashboard extends Component {
     const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    // console.log(scrollTop)
-    // console.log(event.target.body.pageYOffset)
+
     const currentHeight = scrollTop + window.screen.availHeight
 
     if (
@@ -268,7 +265,7 @@ export default class IndexDashboard extends Component {
           )
       }
     }
-
+    const isHashtagAlreadyAdded = currentUser.hashtags && currentUser.hashtags.some((currentUserHashtag) => currentUserHashtag.hashtag === hashtag)
     return (
       <div className={dashboardWrapperClassNames} ref={div => this._dashboard = div}>
         <InputPost
@@ -302,33 +299,12 @@ export default class IndexDashboard extends Component {
               })
             })}
           </div>
-        }
-
-        {!currentHashTag && currentPostType === "ALL" && relevantPosts && relevantPosts.length > 0 &&
-          <div className={sectionCards}>
-            <h3 className={sectionCardsTitle}>RELEVANT</h3>
-              {relevantPosts.map(post => {
-                const comments = this.props.allComments.filter(comment => comment.postId === post.id)
-                return cardFactory({
-                  post,
-                  commentsSearch,
-                  commentCreate,
-                  comments,
-                  showUserInfo,
-                  donutsThrow,
-                  currentUser,
-                  onReadContent,
-                  postDelete,
-                  commentDelete,
-                  showPopup,
-                })
-              })}
-          </div>
-         }
+       }
 
        {hashtag && this.props.posts.length > 0 &&
           <BarTag
             type={type}
+            isHashtagAlreadyAdded={isHashtagAlreadyAdded}
             currentPostType={this.props.currentPostType}
             hashtag={hashtag}
             hashtagAdd={hashtagAdd}
@@ -339,6 +315,7 @@ export default class IndexDashboard extends Component {
        {this.props.posts.length === 0 &&
           <BarTag
             type={type}
+            isHashtagAlreadyAdded={isHashtagAlreadyAdded}
             empty
             currentPostType={this.props.currentPostType}
             hashtag={hashtag}

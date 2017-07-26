@@ -28,11 +28,6 @@ export const initializeApp = store => next => action => {
       accessToken,
     }))
 
-    store.dispatch(actions.postsRelevantSearch({
-      limit: 5,
-      accessToken,
-    }))
-
     store.dispatch(actions.channelSearch({
       accessToken,
     }))

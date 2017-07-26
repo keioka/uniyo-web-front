@@ -38,6 +38,7 @@ const BarTag = ({
   hashtag,
   hashtagAdd,
   onClearCurrentTypeHandler,
+  isHashtagAlreadyAdded,
 }) => {
   let color
   switch (currentPostType) {
@@ -133,11 +134,13 @@ const BarTag = ({
             <Cross />
           </Link>
         </Tooltip>
-        <Tooltip text="Add a new topic to your favorites">
-          <span className={btn} onClick={() => onAddHashtag()}>
-            <Plus />
-          </span>
-        </Tooltip>
+        {!isHashtagAlreadyAdded &&
+          <Tooltip text="Add a new topic to your favorites">
+            <span className={btn} onClick={() => onAddHashtag()}>
+              <Plus />
+            </span>
+          </Tooltip>
+        }
      </div>
      }
   </div>
