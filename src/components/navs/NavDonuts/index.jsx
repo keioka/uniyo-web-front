@@ -37,7 +37,7 @@ export default class NavDonuts extends Component {
     //
     // }
     const isDonutsGiveAvailable = availableDonutsCount !== 0
-    const textTooltipDonutsGive = isDonutsGiveAvailable ? `Today you still have ${availableDonutsCount} donuts to give` : `No more donut to give`
+    const textTooltipDonutsGive = isDonutsGiveAvailable ? `Today you still have ${availableDonutsCount} donuts to give` : `No more donut to give for now!`
     return (
       <div className={boxDonuts}>
         <Tooltip text={textTooltipDonutsGive} horizontal="right">

@@ -126,7 +126,7 @@ const BarTag = ({
       { empty ? message(hashtag) : <span>#{hashtag}</span> }
       { hashtag &&
       <div className={barNav}>
-        <Tooltip text="See all hashtags">
+        <Tooltip text="Quit this selection">
           <Link
             to={type ? `dashboard?type=${type}` : `dashboard`}
             className={btn}
@@ -135,7 +135,7 @@ const BarTag = ({
           </Link>
         </Tooltip>
         {!isHashtagAlreadyAdded &&
-          <Tooltip text="Add a new topic to your favorites">
+          <Tooltip text="Follow this topic">
             <span className={btn} onClick={() => onAddHashtag()}>
               <Plus />
             </span>

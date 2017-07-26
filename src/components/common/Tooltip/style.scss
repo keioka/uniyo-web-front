@@ -7,11 +7,11 @@
 }
 
 .top {
-  top: 40px;
+  top: 35px;
 }
 
 .bottom {
-  bottom: -40px;
+  bottom: -35px;
 }
 
 .left {
@@ -26,9 +26,8 @@
   display: block;
   content: attr(data-tip);
   position: absolute;
-  padding: 5px 10px;
-  background: rgba(10, 10, 10, .6);
-  border: 3px solid rgba(80, 80, 80, 0.2);
+  padding: 8px;
+  background: #404040;
   white-space: nowrap;
   border-radius: 8px;
   font-size: 12px;
