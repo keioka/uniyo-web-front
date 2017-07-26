@@ -493,13 +493,13 @@ export default class DashBoard extends Component {
           </header>
           <div className={mainContent}>
             {childComponents}
+            <SidebarRight
+              hideSidebarRight={hideSidebarRight}
+              location={this.props.location}
+              openUpdateProfile={openUpdateProfile}
+            />
           </div>
         </div>
-        <SidebarRight
-          hideSidebarRight={hideSidebarRight}
-          location={this.props.location}
-          openUpdateProfile={openUpdateProfile}
-        />
       </div>
     )
   }
