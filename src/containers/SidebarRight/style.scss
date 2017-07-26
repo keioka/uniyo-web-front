@@ -1,23 +1,24 @@
 @import "../../styles/main";
 
 .wrapper {
-  position: fixed;
+  position: sticky;
   right: 0px;
   top: 62px;
   z-index: 3;
   background: white;
+  will-change: transform;
   border-left: 1px solid $lightgray;
 }
 
 .sidebar--open {
   width: 330px;
   height: 100vh;
-  transition: width 22s ease;
+  transition: width 0.1s ease-out;
 }
 
 .sidebar--close {
-  width: 0px;
-  transition: width 22s ease;
+  width: 0px !important;
+  transition: width 0.1s ease-out;
 }
 
 .close {

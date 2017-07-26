@@ -254,13 +254,19 @@ export default class SidebarRight extends Component {
     const isChannel = regexChannelPath.test(this.props.location.pathname)
     const isChannelNew = regexChannelNewPath.test(this.props.location.pathname)
     return (
-
+      <div>
         <aside className={wrapperClassNames.join(' ')}>
           {isOpen && <div className={close} onClick={() => hideSidebarRight()}><ButtonClose /></div>}
           {this.display()}
         </aside>
-
-    
+        { !isOpen && !isChannel && !isChannelNew &&
+          <div className={btnDonutsHistory}>
+            <div className={btnDonutsHistoryInner}>
+              {this.generateUserImagePopup()}
+            </div>
+          </div>
+        }
+     </div>
     )
   }
 }

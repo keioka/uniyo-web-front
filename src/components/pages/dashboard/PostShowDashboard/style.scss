@@ -1,11 +1,11 @@
+@import "../../../../styles/main";
+
 .wrapper {
   width: 100%;
 }
 
 .wrapper--shrink {
-  width: 100%;
-  padding-right: 330px;
-  box-sizing: border-box;
+  @extend ._wrapper--shrink;
 }
 
 .section--cards {
