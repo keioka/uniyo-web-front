@@ -206,9 +206,9 @@ export default class SidebarLeft extends Component {
       self.clearInputSearchTag()
     }
     const { keywordForSort } = this.state
-    const { suggestionedUsers } = this.props
+    const { allUsers } = this.props
 
-    return suggestionedUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
+    return allUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
       <li className={sectionTag} onClick={() => onClickBtnMessage(user.id)}><span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>{user.name}</li>
     )
   }
