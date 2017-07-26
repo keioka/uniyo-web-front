@@ -67,6 +67,7 @@
   min-height: calc(100vh - 60px);
   background-color: $lightgray;
   height: calc(100% - 60px);
+  display: flex;
 }
 
 .main--shrink {
