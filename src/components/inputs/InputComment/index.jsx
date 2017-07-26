@@ -115,7 +115,7 @@ export default class InputComment extends Component {
           <img src={imageCurrentUser} alt="" />
         </span>
         <div
-          ref={refTo}
+          ref={(ref) => { refTo(ref); this._inputComment = ref }}
           className={input}
           contentEditable
           placeholder={userPost.firstName}
