@@ -265,7 +265,7 @@ export default class IndexDashboard extends Component {
           )
       }
     }
-
+    const isHashtagAlreadyAdded = currentUser.hashtags && currentUser.hashtags.some((currentUserHashtag) => currentUserHashtag.hashtag === hashtag)
     return (
       <div className={dashboardWrapperClassNames} ref={div => this._dashboard = div}>
         <InputPost
@@ -304,6 +304,7 @@ export default class IndexDashboard extends Component {
        {hashtag && this.props.posts.length > 0 &&
           <BarTag
             type={type}
+            isHashtagAlreadyAdded={isHashtagAlreadyAdded}
             currentPostType={this.props.currentPostType}
             hashtag={hashtag}
             hashtagAdd={hashtagAdd}
@@ -314,6 +315,7 @@ export default class IndexDashboard extends Component {
        {this.props.posts.length === 0 &&
           <BarTag
             type={type}
+            isHashtagAlreadyAdded={isHashtagAlreadyAdded}
             empty
             currentPostType={this.props.currentPostType}
             hashtag={hashtag}
