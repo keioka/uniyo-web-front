@@ -375,7 +375,7 @@ export default class SidebarLeft extends Component {
           <nav className={nav}>
             {this.isSearchResultForHashtagExist &&
             <ul className={section}>
-              <Tooltip text="Add a new topic to your favorites" horizontal="right">
+              <Tooltip text="Follow a new topic" horizontal="right">
                 <h4 className={sectionLabel} onClick={::this.onClickBtnAddHashTag}>
                   <span>Newsfeeds</span>
                   <Plus />
