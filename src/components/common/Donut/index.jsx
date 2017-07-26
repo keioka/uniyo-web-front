@@ -6,6 +6,7 @@ import {
   med,
   sm,
   xs,
+  styleEmpty,
 } from './style'
 
 import PinkDonut from './donut_pink.svg'
@@ -14,6 +15,7 @@ import PurpleDonut from './donut_purple.svg'
 import WhiteDonut from './donut_white.svg'
 import YellowDonut from './donut_yellow.svg'
 import BlueDonut from './donut_blue.svg'
+import EmptyDonut from './donut_empty.svg'
 
 const allDonuts = [PinkDonut, GreenDonut, PurpleDonut, WhiteDonut, YellowDonut, BlueDonut]
 export default class Donut extends Component {
@@ -26,7 +28,7 @@ export default class Donut extends Component {
   }
 
   render() {
-    const { color = 'RANDOM', size, id, className } = this.props
+    const { color = 'RANDOM', size, className, empty } = this.props
     let classNames = [className]
     let ComponentDonut
 
@@ -49,6 +51,8 @@ export default class Donut extends Component {
       default:
       classNames.push(med)
     }
+
+
 
     switch (color) {
       case 'PINK': {
@@ -75,7 +79,12 @@ export default class Donut extends Component {
     }
 
     return (
-      <ComponentDonut id={id} className={classNames.join(' ')} />
+      <div>
+        {empty ?
+          <EmptyDonut className={styleEmpty} /> :
+          <ComponentDonut className={classNames.join(' ')} />
+        }
+      </div>
     )
   }
 }

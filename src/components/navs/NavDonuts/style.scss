@@ -35,6 +35,11 @@
   animation: zoom 0.3s cubic-bezier(.36,.07,.19,.97);
   transform: translate3d(0, 0, 0);
 }
+
+.font--empty-donuts-count, {
+  color: #FF4081;
+}
+
 //
 // @keyframes zoom {
 //   10%, 90% {
