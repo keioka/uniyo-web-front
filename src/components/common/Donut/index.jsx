@@ -78,13 +78,10 @@ export default class Donut extends Component {
       }
     }
 
-    return (
-      <div>
-        {empty ?
-          <EmptyDonut className={styleEmpty} /> :
-          <ComponentDonut className={classNames.join(' ')} />
-        }
-      </div>
-    )
+    const renderDonut = empty ?
+      <EmptyDonut className={styleEmpty} /> :
+      <ComponentDonut className={classNames.join(' ')} />
+
+    return renderDonut
   }
 }
