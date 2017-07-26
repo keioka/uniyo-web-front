@@ -11,6 +11,7 @@ import {
   boxDonutsRow,
   receiveDonutsActive,
   spentDonutsActive,
+  fontDonutsCount,
 } from './style'
 
 export default class NavDonuts extends Component {
@@ -35,18 +36,20 @@ export default class NavDonuts extends Component {
     // if (isSpentDonuts) {
     //
     // }
-
+    const isDonutsGiveAvailable = availableDonutsCount !== 0
+    const textTooltipDonutsGive = isDonutsGiveAvailable ? `Today you still have ${availableDonutsCount} donuts to give` : `No donuts`
     return (
       <div className={boxDonuts}>
-        <Tooltip text={`Today you still have ${availableDonutsCount} donuts to give`} horizontal="right">
+        <Tooltip text={textTooltipDonutsGive} horizontal="right">
           <span className={boxDonutsRow} onClick={() => showHistoryDonut(0)}>
             <Donut
               id="available-donuts"
               className={donutsSpendClassName}
               size="medium"
+              empty={availableDonutsCount === 0}
               count={availableDonutsCount}
             />
-            {availableDonutsCount}
+            {/* <span className={!isDonutsGiveAvailable && fontDonutsCount}>{availableDonutsCount}</span> */}
           </span>
         </Tooltip>
         <Tooltip text={`You received ${receivedDonutsCount} donuts`} horizontal="right">
@@ -54,7 +57,8 @@ export default class NavDonuts extends Component {
             <Donut
               id="received-donuts"
               className={donutsReceiveClassName}
-              size="medium" count={receivedDonutsCount}
+              size="medium"
+              count={receivedDonutsCount}
             />
             {receivedDonutsCount}
           </span>
