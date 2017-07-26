@@ -21,6 +21,7 @@ import {
   imgUserTwo,
   wrapper,
   spanChannelInfo,
+  iconOnline,
   iconUsersCount,
 } from './style'
 
@@ -36,16 +37,17 @@ export default class ListRecentConversation extends Component {
       mostRecentMessage,
     } = channel
 
-    const filterdUsers = channelUsers && usersWithoutCurrentUser(channelUsers, currentUser)
+    const filteredUsers = channelUsers && usersWithoutCurrentUser(channelUsers, currentUser)
 
     const userImage = () => {
-      if (filterdUsers && filterdUsers.length < 2) {
-        return (<img src={filterdUsers[0].image.smallUrl} className={imgUser} />)
+      if (filteredUsers && filteredUsers.length < 2) {
+        const image = filteredUsers[0] && filteredUsers[0].image.mediumUrl
+        return (<img src={image} className={imgUser} />)
       } else {
         return (
           <div className={boxMultipleUserImages}>
-            <img src={filterdUsers && filterdUsers[0].image.smallUrl} className={imgUserOne} />
-            <img src={filterdUsers && filterdUsers[1].image.smallUrl} className={imgUserTwo} />
+            <img src={filteredUsers && filteredUsers[0] && filteredUsers[0].image.smallUrl} className={imgUserOne} />
+            <img src={filteredUsers && filteredUsers[1] && filteredUsers[1].image.smallUrl} className={imgUserTwo} />
           </div>
         )
       }
@@ -53,6 +55,8 @@ export default class ListRecentConversation extends Component {
 
     const createdAt = mostRecentMessage && mostRecentMessage.createdAt && moment(mostRecentMessage.createdAt).local().fromNow()
     const lastMessage = mostRecentMessage && mostRecentMessage.text
+
+    console.log(filteredUsers)
     return (
       <Link to={`/dashboard/channels/${id}`} className={fontLink}>
         <li key={id} className={wrapper}>
@@ -60,8 +64,10 @@ export default class ListRecentConversation extends Component {
             {userImage()}
           </span>
           <span className={spanChannelInfo}>
-            <span className={fontName} data-users-count={filterdUsers && filterdUsers.length}>
-              <span className={fontUserNames}>{filterdUsers && filterdUsers.map(user => user.name).join(', ')}</span>
+            <span className={fontName}>
+              {filteredUsers && filteredUsers.length > 1 && <span className={iconUsersCount}>{filteredUsers.length}</span>}
+              {filteredUsers && filteredUsers.length === 1 && <span className={iconOnline}></span>}
+              <span className={fontUserNames}>{filteredUsers && filteredUsers.map(user => user && user.name).join(', ')}</span>
               <span className={fontTime}>{createdAt}</span>
             </span>
             <p>{description === null || description === "undefined" ? lastMessage : description}</p>

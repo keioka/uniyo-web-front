@@ -8,6 +8,9 @@ import {
   ButtonClose,
 } from '../../../index'
 
+import { decorator } from '../../../../utils'
+const { usersWithoutCurrentUser } = decorator
+
 import {
   wrapper,
   iconClose,
@@ -121,11 +124,12 @@ export default class ChannelNewDashboard extends Component {
     } = this.props
 
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
-    const matchUserName = name => query.test(name.toLowerCase())
-    const filterUsers = channel => channel.users.map(userId => allUsers.filter(user => user.id === userId)[0].name).some(matchUserName)
+    const matchUserName = user => { console.log(user); return user[0].name && query.test(user[0].name.toLowerCase()) }
+    const filterUsers = channel => usersWithoutCurrentUser(channel.users.map(userId => allUsers.filter(user => user.id === userId)), currentUser).some(matchUserName)
     const getChannelUsers = channel => channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
     const channels = this.state.query ? allChannels.filter(filterUsers) : []
     // const isChannelUser = (channel) => channel.users.includes(user => query.test(user.name))
+    console.log('channels', channels)
     return channels.map(channel => {
       const channelUsers = getChannelUsers(channel)
       return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
