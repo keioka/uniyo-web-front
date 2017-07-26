@@ -98,9 +98,6 @@ export default class InputComment extends Component {
       insertTpl: "<span onClick='void 0' data-hashtag='true'>#${hashtag}</span>",
       searchKey: 'hashtag',
     })
-    const self = this
-    setTimeout(function() {
-    }, 0);
   }
 
   onPaste(event) {
@@ -110,7 +107,7 @@ export default class InputComment extends Component {
   }
 
   render() {
-    const { postId, className, commentCreate, imageCurrentUser, userPost } = this.props
+    const { postId, className, commentCreate, imageCurrentUser, userPost, refTo } = this.props
     const classNames = `${input} ${className}`
     return (
       <span className={wrapper}>
@@ -118,7 +115,7 @@ export default class InputComment extends Component {
           <img src={imageCurrentUser} alt="" />
         </span>
         <div
-          ref={ref => { this._inputComment = ref }}
+          ref={refTo}
           className={input}
           contentEditable
           placeholder={userPost.firstName}

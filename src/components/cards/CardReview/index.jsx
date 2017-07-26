@@ -74,7 +74,7 @@ export default class CardReview extends PureComponent {
     if (commentsCount > 0) {
       commentsSearch({ postId: id, limit: commentsCount })
     }
-
+    this._inputComment.focus()
     this.setState({
       toggle: !this.state.toggle,
     })
@@ -181,6 +181,7 @@ export default class CardReview extends PureComponent {
           <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}`}>
               <InputComment
                 postId={id}
+                refTo={ref => this._inputComment = ref}
                 showUserInfo={showUserInfo}
                 commentCreate={commentCreate}
                 imageCurrentUser={imageCurrentUser}
