@@ -100,7 +100,8 @@ $left-padding: 16px;
 .section__tag--hot {
   color: $darkgray;
   background-color: white;
-  display: flex;
+  display: inline-block;
+  overflow: hidden;
   align-items: center;
   width: 196px;
   padding: 3px 5px 3px $left-padding !important;
