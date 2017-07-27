@@ -24,7 +24,6 @@ const NavChannel = ({ channel, channelUsers, showUserInfo, showChannelUsers }) =
     <nav className={wrapper}>
       <ul className={ul}>
         {channel && slicedUsers && slicedUsers.map(user => {
-          console.warn('user', user)
           return (
             <li className={iconUser} onClick={() => user && showUserInfo(user.id)}>
               <img src={user && user.image.smallUrl} alt="" className={iconUserImg} />

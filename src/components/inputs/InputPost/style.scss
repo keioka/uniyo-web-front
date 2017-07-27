@@ -58,13 +58,14 @@
   content: attr(placeholder);
   display: inline-block;
   font-size: 25px;
-  line-height: 25px;
+  line-height: 30px;
   font-weight: 500;
   color: #dcdcdc;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
+  vertical-align: middle;
 }
 
 .box--optional {

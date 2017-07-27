@@ -201,12 +201,13 @@ export default class InputPost extends Component {
   }
 
   onChange(event) {
-    // const search = "#"
-    // const searchRegex = /\#\w+/
-    // $("div:contains('"+search+"')").each(function () {
-    //   var regex = new RegExp(searchRegex ,'gi');
-    //   $(this).html($(this).text().replace(searchRegex, "<span class='red'>"+search+"</span>"));
-    // })
+    const search = "#"
+    const searchRegex = /\#\w+/
+    $("div:contains('"+search+"')").each(function () {
+      console.log(this)
+      var regex = new RegExp(searchRegex ,'gi');
+      $(this).html($(this).text().replace(searchRegex, "<span class='red'>"+search+"</span>"));
+    })
   }
 
   onSubmit() {
@@ -330,10 +331,10 @@ export default class InputPost extends Component {
       BoxOptional = (
         <StarRatingComponent
           name={'Review'} /* name of the radio input, it is required */
-          value={5} /* number of selected icon (`0` - none, `1` - first) */
+          value={0} /* number of selected icon (`0` - none, `1` - first) */
           starCount={5} /* number of icons in rating, default `5` */
           starColor={'#FFDD00'} /* color of selected icons, default `#ffb400` */
-          emptyStarColor={'gray'} /* color of non-selected icons, default `#333` */
+          emptyStarColor={'#dcdcdc'} /* color of non-selected icons, default `#333` */
           onStarClick={::this.onStarClick}
           editing
         />)

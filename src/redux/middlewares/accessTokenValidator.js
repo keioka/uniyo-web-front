@@ -79,10 +79,21 @@ export const accessTokenValidator = store => next => action => {
     })
   }
 
+  if (type === actionTypes.channelCreate.request) {
+    if (action.users.length === 1 && action.users[0] === store.getState().api.auth.currentUser.id) {
+      browserHistory.push('/dashboard/channels/1')
+      return false
+    } else {
+      return next(action)
+    }
+  } else {
+    return next(action)
+   }
+
   // //refreshAccessTokenIfNeeded
   // if (storage.hasValidAccessTokens && storage.isAccessTokenExpired) {
   //   console.warn("Token is expired")
   //   store.dispatch(actions.tokenRefresh(storage.refreshToken))
   // }
-  return next(action)
+
 }

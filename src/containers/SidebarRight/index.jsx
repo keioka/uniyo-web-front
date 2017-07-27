@@ -130,6 +130,7 @@ export default class SidebarRight extends Component {
           <SidebarRightUserInfo
             allUsers={allUsers}
             userId={userInfo.id}
+            showHistoryDonut={showHistoryDonut}
             channels={allChannels}
             channelCreate={channelCreate}
             currentUser={currentUser}
