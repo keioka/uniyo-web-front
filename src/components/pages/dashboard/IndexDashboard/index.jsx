@@ -282,7 +282,7 @@ export default class IndexDashboard extends Component {
         {!currentHashTag && currentPostType === "ALL" && trendingPosts && trendingPosts.length > 0 &&
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>HOT 🔥</h3>
-            {trendingPosts.map(post => {
+            {[...trendingPosts].sort((a, b) => b.donutsCount - a.donutsCount).map(post => {
               const comments = this.props.allComments.filter(comment => comment.postId === post.id)
               return cardFactory({
                 post,
