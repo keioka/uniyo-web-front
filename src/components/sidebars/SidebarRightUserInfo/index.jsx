@@ -47,6 +47,7 @@ export default class SidebarRightUserInfo extends Component {
     const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser, openUpdateProfile, showHistoryDonut } = this.props
     const user = allUsers.filter(user => user.id === userId)[0]
     const isCurrentUser = currentUser.id === userId
+
     const onClickBtnMessage = () => {
       const filteredChannel = channels.filter(channel => {
         const users = usersWithoutCurrentUser(channel.users, currentUser)
@@ -57,6 +58,11 @@ export default class SidebarRightUserInfo extends Component {
       })
 
       const channel = filteredChannel[0]
+
+      if (isCurrentUser) {
+        browserHistory.push(`/dashboard/channels/1`)
+        return
+      }
 
       if (channel) {
         browserHistory.push(`/dashboard/channels/${channel.id}`)

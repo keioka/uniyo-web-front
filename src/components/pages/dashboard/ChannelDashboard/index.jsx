@@ -76,9 +76,15 @@ export default class ChannelDashboard extends Component {
   componentWillReceiveProps(nextProps) {
     this.markNotificationRead()
     if (this.props.params.channelId != nextProps.params.channelId) {
-      const { messageSearch } = this.props
+      const { messageSearch, showChannelUsers, allChannels, rightbar } = this.props
       const { channelId } = nextProps.params
       const timeNow = moment.utc(new Date()).format()
+
+      const channel = allChannels.filter(channel => channel.id == channelId)[0]
+
+      if (channel && rightbar.isOpen && rightbar.displayType === "ChannelUsers") {
+        showChannelUsers(channel.users)
+      }
 
       messageSearch({
         limit: 50,
