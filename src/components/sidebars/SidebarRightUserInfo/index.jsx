@@ -44,7 +44,7 @@ export default class SidebarRightUserInfo extends Component {
   }
 
   render() {
-    const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser, openUpdateProfile } = this.props
+    const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser, openUpdateProfile, showHistoryDonut } = this.props
     const user = allUsers.filter(user => user.id === userId)[0]
     const isCurrentUser = currentUser.id === userId
     const onClickBtnMessage = () => {
@@ -66,13 +66,15 @@ export default class SidebarRightUserInfo extends Component {
     }
 
     const uniqueHashtagsCurrentUser = user.hashtags && uniq(user.hashtags, 'hashtag')
+    const onClickDonuts = () => isCurrentUser ? showHistoryDonut(1) : userGiveDonuts({ userId: user.id, amount: 1 })
     return (
       <div>
         <div className={wrapper} >
           {user ?
             <div>
               <div className={boxImg}>
-                {isCurrentUser && <div className={profileIconUpdate} onClick={openUpdateProfile}>
+                {isCurrentUser &&
+                <div className={profileIconUpdate} onClick={openUpdateProfile}>
                   <MdAddAPhoto />
                 </div>}
                 <img className={imageProfile} src={user.image.largeUrl} alt="" />
@@ -83,7 +85,7 @@ export default class SidebarRightUserInfo extends Component {
                   <div className={profileNav}>
                     <button className={btnMessage} onClick={onClickBtnMessage}>Message</button>
                     <ButtonDonut
-                      onClick={() => userGiveDonuts({ userId: user.id, amount: 1 })}
+                      onClick={onClickDonuts}
                       donutsCount={user.receivedDonutsCount}
                     />
                   </div>
