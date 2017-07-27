@@ -168,6 +168,7 @@ export default class CardQuestion extends PureComponent {
               <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}` }>
                   <InputComment
                     postId={id}
+                    refTo={ref => this._inputComment = ref}
                     showUserInfo={showUserInfo}
                     commentCreate={commentCreate}
                     imageCurrentUser={imageCurrentUser}
