@@ -59,8 +59,8 @@ export default class SidebarRightUserInfo extends Component {
 
       const channel = filteredChannel[0]
 
-      if (isCurrentUser) {
-        browserHistory.push(`/dashboard/channels/1`)
+      if (isCurrentUser && channels[0]) {
+        browserHistory.push(`/dashboard/channels/${channels[0].id}`)
         return
       }
 
