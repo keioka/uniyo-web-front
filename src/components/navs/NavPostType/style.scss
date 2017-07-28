@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.inner {
+  vertical-align: middle;
+}
+
 .item {
   list-style: none;
   height: 60px;
@@ -17,16 +21,14 @@
   font-size: 0.8rem;
 	font-weight: bold;
   white-space: nowrap;
-}
-
-.item a {
   color: #878787;
   text-decoration: none;
   text-transform: uppercase;
   vertical-align: middle;
-  &:hover{
-    opacity: .7;
-  }
+}
+
+.item:hover{
+  opacity: .7;
 }
 
 .item--active--all,

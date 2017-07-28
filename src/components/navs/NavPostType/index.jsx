@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import {
   wrapper,
   item,
+  inner,
   itemActive,
   itemActiveAll,
   itemActiveReview,
@@ -84,16 +85,11 @@ class NavPostType extends Component {
             }
           }
 
-
-
           const path = dashboardPathGenarator({ hashtag: currentHashTag, type: type.path })
           return (
-            <li
-              key={type.id}
-              className={classNames.join(' ')}
-            >
-              <Link to={path}>{type.title}</Link>
-            </li>
+            <Link to={path} key={type.id} className={classNames.join(' ')}>
+              <span className={inner}>{type.title}</span>
+            </Link>
           )
         })}
       </ul>
