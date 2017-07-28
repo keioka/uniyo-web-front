@@ -46,8 +46,6 @@ export default class ChannelDashboard extends Component {
       params,
     } = this.props
     const { channelId } = params
-
-    this.markNotificationRead()
     const timeNow = moment.utc(new Date()).format()
 
     if (this._dashboard) {
@@ -58,6 +56,7 @@ export default class ChannelDashboard extends Component {
     // TODO: This is patch
     // The problem is when messageSearch is called it is used old access token
     // Should make flag whether token is refreshed or not and if it true, get messageSearch action fired.
+    const self = this
     setTimeout(() => {
       messageSearch({
         limit: 50,
@@ -66,7 +65,9 @@ export default class ChannelDashboard extends Component {
       })
     }, 1000)
 
-    window.scrollTo(14000, 14000)
+    self.markNotificationRead()
+    self._dashboardContent.scrollTop = self._dashboardContent.scrollHeight
+    // window.scrollTo(14000, 14000)
   }
 
   componentWillUnmount() {
@@ -79,7 +80,6 @@ export default class ChannelDashboard extends Component {
       const { messageSearch, showChannelUsers, allChannels, rightbar } = this.props
       const { channelId } = nextProps.params
       const timeNow = moment.utc(new Date()).format()
-
       const channel = allChannels.filter(channel => channel.id == channelId)[0]
 
       if (channel && rightbar.isOpen && rightbar.displayType === "ChannelUsers") {
@@ -91,13 +91,15 @@ export default class ChannelDashboard extends Component {
         channelId,
         around: timeNow,
       })
-      window.scrollTo(14000, 14000)
+
+      this._dashboardContent.scrollTop = this._dashboardContent.scrollHeight
     }
 
     const { allMessages, showUserInfo } = this.props
 
     // when new message is coming through websocket
     if (allMessages.length !== nextProps.allMessages.length) {
+      this._dashboardContent.scrollTop = this._dashboardContent.scrollHeight
     }
   }
 
@@ -283,12 +285,14 @@ export default class ChannelDashboard extends Component {
 
     let placeholder
     let channelUsers
+    let defaultTitle
     if (channel) {
       const { users } = channel
       const { allUsers } = this.props
       const channelUsers = users.map(userId => allUsers.filter(user => user.id === userId)[0])
       const extractChannelOtherUsers = channel && allUsers && channelUsers && usersWithoutCurrentUser(channelUsers, currentUser)
       placeholder = channel && placeholderMessage(extractChannelOtherUsers)
+      defaultTitle = channelUsers && `This is your private message channel with ${extractChannelOtherUsers.map(user => user.firstName).join(',')}`
     }
 
     return (
@@ -297,14 +301,14 @@ export default class ChannelDashboard extends Component {
           <div className={headerBar}>
             <div className={headerBarChannelInfo}>
               <div className={headerBarChannelInfoDescription}>
-                <span className={fontGroupName}>{channel && channel.name || 'Private Group Name' }</span>
+                <span className={fontGroupName}>{channel && channel.name || defaultTitle}</span>
                 <span className={fontDescription}>{channel && channel.description || 'Add a short description' }</span>
               </div>
             </div>
           </div>
         </div>
         <div className={content}>
-          <div className={contentUl}>
+          <div className={contentUl} ref={(div) => this._dashboardContent = div}>
             { messages && this.messages }
           </div>
         </div>
