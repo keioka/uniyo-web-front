@@ -1,0 +1,19 @@
+.atwho-list:hover {
+
+}
+
+.atwho-view .cur {
+  background-color: #fc70a6 !important;
+}
+
+.atwho-view {
+  font-size: 14px;
+}
+
+.atwho-list {
+  padding: 2px 10px;
+}
+
+.atwho-view ul {
+  border-radius: 4px;
+}
