@@ -449,7 +449,7 @@ export default class DashBoard extends Component {
           <header className={header}>
 
             <div className={headerNavBasic}>
-              <Tooltip text="Show notifications" >
+              <Tooltip text="Show notifications" classNameWrapper={wrapperIcon}>
               { allNotifications &&
                 allNotifications.filter(notification => !notification.isRead).length > 0 ?
                 <span className={notification} data-for='notification' data-tip="hello world"  onClick={() => showNotification()}>
