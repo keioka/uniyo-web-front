@@ -14,6 +14,7 @@ import {
 import {
   wrapper,
   wrapperShrink,
+  inner,
   page,
   header,
   headerBar,
@@ -34,6 +35,7 @@ import {
 export default class ChannelDashboard extends Component {
 
   state = {
+    init: false,
     isLazyLoading: false,
   }
 
@@ -57,9 +59,6 @@ export default class ChannelDashboard extends Component {
     const { channelId } = params
     const timeNow = moment.utc(new Date()).format()
     this.markNotificationRead()
-    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
-
-
     setTimeout(() => {
       messageSearch({
         limit: 50,
@@ -74,10 +73,22 @@ export default class ChannelDashboard extends Component {
     window.removeEventListener('scroll', this.onScrollHandler)
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    console.log(prevProps)
     this._inputMessage.focus()
-    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
+    console.log(this._dashboard.getBoundingClientRect().top < 200)
+    console.log('init', !this.state.init)
+    if (!this.state.init || this._dashboard.getBoundingClientRect().top > 200) {
+      this.scrollToBottom()
+      if (!this.state.init && prevProps.allMessages.length < this.props.allMessages.length) {
+        this.setState({ init: true })
+      }
+    }
+  }
 
+  scrollToBottom() {
+    console.log('scroll to bottom', this._dashboard.getBoundingClientRect().height + 270)
+    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().height + 2270
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,7 +98,7 @@ export default class ChannelDashboard extends Component {
       const { channelId } = nextProps.params
       const timeNow = moment.utc(new Date()).format()
       const channel = allChannels.filter(channel => channel.id == channelId)[0]
-
+      this.setState({ init: false })
       if (channel && rightbar.isOpen && rightbar.displayType === "ChannelUsers") {
         showChannelUsers(channel.users)
       }
@@ -98,14 +109,13 @@ export default class ChannelDashboard extends Component {
         around: timeNow,
       })
       console.log('%c Change page ', 'background: #222; color: #bada55')
-      this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
-
+      this.scrollToBottom()
     }
 
     const { allMessages, showUserInfo } = this.props
     // when new message is coming through websocket
     if (allMessages.length !== nextProps.allMessages.length) {
-      this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
+      this.scrollToBottom()
     }
   }
 
@@ -186,7 +196,7 @@ export default class ChannelDashboard extends Component {
   messageCreate({ text, channelId }) {
     const { messageCreate } = this.props
     messageCreate({ text, channelId })
-    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
+    this.scrollToBottom()
   }
 
   get messages() {
@@ -301,19 +311,21 @@ export default class ChannelDashboard extends Component {
     }
 
     return (
-      <div className={dashboardWrapperClassNames} ref={(div)=> this._dashboard = div}>
-        <div className={header}>
-          <div className={headerBar}>
-            <div className={headerBarChannelInfo}>
-              <div className={headerBarChannelInfoDescription}>
-                <span className={fontGroupName}>{channel && channel.name || '🐓💨' }</span>
-                <span className={fontDescription}>{channel && channel.description || defaultTitle}</span>
+      <div className={dashboardWrapperClassNames} >
+        <div className={inner} ref={(div)=> this._dashboard = div}>
+          <div className={header}>
+            <div className={headerBar}>
+              <div className={headerBarChannelInfo}>
+                <div className={headerBarChannelInfoDescription}>
+                  <span className={fontGroupName}>{channel && channel.name || '🐓💨' }</span>
+                  <span className={fontDescription}>{channel && channel.description || defaultTitle}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={content}>
-          { messages && this.messages }
+          <div className={content}>
+            { messages && this.messages }
+          </div>
         </div>
         <div className={sectionInput}>
           <InputPost
