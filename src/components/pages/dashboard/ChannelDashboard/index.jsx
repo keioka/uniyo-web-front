@@ -78,6 +78,9 @@ export default class ChannelDashboard extends Component {
     this._inputMessage.focus()
     console.log(this._dashboard.getBoundingClientRect().top < 200)
     console.log('init', !this.state.init)
+    if (prevProps.allMessages.length + 1 === this.props.allMessages.length) {
+      this.scrollToBottom()
+    }
     if (!this.state.init || this._dashboard.getBoundingClientRect().top > 200) {
       this.scrollToBottom()
       if (!this.state.init && prevProps.allMessages.length < this.props.allMessages.length) {
