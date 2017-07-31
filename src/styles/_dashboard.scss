@@ -1,4 +1,8 @@
 ._wrapper--shrink {
   width: 100%;
   box-sizing: border-box;
+  padding-right: 330px;
+  box-sizing: border-box;
+  overflow: scroll;
+  height: calc(100vh - 60px);
 }
