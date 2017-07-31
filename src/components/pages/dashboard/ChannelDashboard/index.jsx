@@ -42,28 +42,24 @@ export default class ChannelDashboard extends Component {
     this.onScrollHandler = this.onScrollHandler.bind(this)
   }
 
-  scrollToBottom = () => {
-    const node = ReactDOM.findDOMNode(this._dashboard)
-    node.scrollIntoView({ behavior: "smooth" })
-  }
-
   componentDidMount() {
     const {
       messageSearch,
       params,
     } = this.props
-    const { channelId } = params
-    const timeNow = moment.utc(new Date()).format()
-
     if (this._dashboard) {
       window.addEventListener('scroll', this.onScrollHandler)
     }
     // check if channelId is found from current user's channel reducer 'all'.
-
     // TODO: This is patch
-    // The problem is when messageSearch is called it is used old access token
+    // The problem is when messageSearch is called by using old access token
     // Should make flag whether token is refreshed or not and if it true, get messageSearch action fired.
-    const self = this
+    const { channelId } = params
+    const timeNow = moment.utc(new Date()).format()
+    this.markNotificationRead()
+    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
+
+
     setTimeout(() => {
       messageSearch({
         limit: 50,
@@ -71,10 +67,7 @@ export default class ChannelDashboard extends Component {
         around: timeNow,
       })
     }, 1000)
-    self.markNotificationRead()
-    // self._dashboardContent.scrollTop = self._dashboardContent.scrollHeight
-    // this.scrollToBottom()
-    window.scrollTo(100000, 100000)
+
   }
 
   componentWillUnmount() {
@@ -83,13 +76,12 @@ export default class ChannelDashboard extends Component {
 
   componentDidUpdate() {
     this._inputMessage.focus()
+    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
+
   }
 
   componentWillReceiveProps(nextProps) {
     this.markNotificationRead()
-    this._inputMessage.blur()
-    this._inputMessage.focus()
-
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch, showChannelUsers, allChannels, rightbar } = this.props
       const { channelId } = nextProps.params
@@ -100,21 +92,20 @@ export default class ChannelDashboard extends Component {
         showChannelUsers(channel.users)
       }
 
-      window.scrollTo(100000, 100000)
       messageSearch({
         limit: 50,
         channelId,
         around: timeNow,
       })
-
+      console.log('%c Change page ', 'background: #222; color: #bada55')
+      this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
 
     }
 
     const { allMessages, showUserInfo } = this.props
-
     // when new message is coming through websocket
     if (allMessages.length !== nextProps.allMessages.length) {
-      window.scrollTo(100000, 100000)
+      this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
     }
   }
 
@@ -144,12 +135,6 @@ export default class ChannelDashboard extends Component {
     const lastMessage = messages[lastMessageIndex] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
-    //
-    // console.log("---------------------------")
-    // console.log('body scroll top', event.target.body.scrollTop)
-    // console.log(scrollHeight, currentHeight)
-    // console.log(scrollHeight < currentHeight)
-    // console.log("---------------------------")
 
     if (
       scrollHeight < currentHeight &&
@@ -196,6 +181,12 @@ export default class ChannelDashboard extends Component {
       }
 
     }
+  }
+
+  messageCreate({ text, channelId }) {
+    const { messageCreate } = this.props
+    messageCreate({ text, channelId })
+    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom
   }
 
   get messages() {
@@ -289,7 +280,6 @@ export default class ChannelDashboard extends Component {
       allMessages,
       allChannels,
       messageSearch,
-      messageCreate,
     } = this.props
     const { channelId } = this.props.params
     const channel = allChannels.filter(channel => channel.id == channelId)[0]
@@ -307,7 +297,7 @@ export default class ChannelDashboard extends Component {
       const channelUsers = users.map(userId => allUsers.filter(user => user.id === userId)[0])
       const extractChannelOtherUsers = channel && allUsers && channelUsers && usersWithoutCurrentUser(channelUsers, currentUser)
       placeholder = channel && placeholderMessage(extractChannelOtherUsers)
-      defaultTitle = channelUsers && `This is your private message channel with ${extractChannelOtherUsers.map(user => user.firstName).join(',')}`
+      defaultTitle = channelUsers && `This is your private message channel with ${extractChannelOtherUsers.map(user => user && user.firstName && user.firstName).join(',')}`
     }
 
     return (
@@ -331,7 +321,7 @@ export default class ChannelDashboard extends Component {
             imgUrl={image && image.mediumUrl}
             placeholder={placeholder}
             suggestionedUsers={channel ? channelUsers : []}
-            onPostSubmit={messageCreate}
+            onPostSubmit={::this.messageCreate}
             currentPostType={'MESSAGE'}
             channelId={channelId}
             userSearch={userSearch}
