@@ -203,10 +203,7 @@ export default class InputPost extends Component {
   onChange(event) {
     const search = "#"
     const searchRegex = /\#\w+/
-    $("div:contains('"+search+"')").each(function () {
-      var regex = new RegExp(searchRegex ,'gi');
-      $(this).html($(this).text().replace(searchRegex, "<span class='red'>"+search+"</span>"));
-    })
+    console.log(event)
   }
 
   onSubmit() {

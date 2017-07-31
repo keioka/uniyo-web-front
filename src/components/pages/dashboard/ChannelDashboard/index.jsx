@@ -74,10 +74,7 @@ export default class ChannelDashboard extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps)
     this._inputMessage.focus()
-    console.log(this._dashboard.getBoundingClientRect().top < 200)
-    console.log('init', !this.state.init)
     if (prevProps.allMessages.length + 1 === this.props.allMessages.length) {
       this.scrollToBottom()
     }
@@ -90,7 +87,6 @@ export default class ChannelDashboard extends Component {
   }
 
   scrollToBottom() {
-    console.log('scroll to bottom', this._dashboard.getBoundingClientRect().height + 270)
     this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().height + 2270
   }
 
