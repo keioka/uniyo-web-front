@@ -292,7 +292,7 @@ export default class ChannelDashboard extends Component {
       const channelUsers = users.map(userId => allUsers.filter(user => user.id === userId)[0])
       const extractChannelOtherUsers = channel && allUsers && channelUsers && usersWithoutCurrentUser(channelUsers, currentUser)
       placeholder = channel && placeholderMessage(extractChannelOtherUsers)
-      defaultTitle = channelUsers && `This is your private message channel with ${extractChannelOtherUsers.map(user => user.firstName).join(',')}`
+      defaultTitle = channelUsers && `Go for it! This is your very private space with ${extractChannelOtherUsers.map(user => user.firstName).join(', ')}`
     }
 
     return (
@@ -301,8 +301,8 @@ export default class ChannelDashboard extends Component {
           <div className={headerBar}>
             <div className={headerBarChannelInfo}>
               <div className={headerBarChannelInfoDescription}>
-                <span className={fontGroupName}>{channel && channel.name || defaultTitle}</span>
-                <span className={fontDescription}>{channel && channel.description || 'Add a short description' }</span>
+                <span className={fontGroupName}>{channel && channel.name || '🐓💨' }</span>
+                <span className={fontDescription}>{channel && channel.description || defaultTitle}</span>
               </div>
             </div>
           </div>
