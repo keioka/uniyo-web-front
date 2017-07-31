@@ -1,5 +1,7 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
+
 import moment from 'moment'
 import { decorator } from '../../../../utils'
 const { placeholderMessage, usersWithoutCurrentUser } = decorator
@@ -40,6 +42,11 @@ export default class ChannelDashboard extends Component {
     this.onScrollHandler = this.onScrollHandler.bind(this)
   }
 
+  scrollToBottom = () => {
+    const node = ReactDOM.findDOMNode(this._dashboard)
+    node.scrollIntoView({ behavior: "smooth" })
+  }
+
   componentDidMount() {
     const {
       messageSearch,
@@ -64,18 +71,25 @@ export default class ChannelDashboard extends Component {
         around: timeNow,
       })
     }, 1000)
-
     self.markNotificationRead()
-    self._dashboardContent.scrollTop = self._dashboardContent.scrollHeight
-    // window.scrollTo(14000, 14000)
+    // self._dashboardContent.scrollTop = self._dashboardContent.scrollHeight
+    // this.scrollToBottom()
+    window.scrollTo(100000, 100000)
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScrollHandler)
   }
 
+  componentDidUpdate() {
+    this._inputMessage.focus()
+  }
+
   componentWillReceiveProps(nextProps) {
     this.markNotificationRead()
+    this._inputMessage.blur()
+    this._inputMessage.focus()
+
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch, showChannelUsers, allChannels, rightbar } = this.props
       const { channelId } = nextProps.params
@@ -86,20 +100,21 @@ export default class ChannelDashboard extends Component {
         showChannelUsers(channel.users)
       }
 
+      window.scrollTo(100000, 100000)
       messageSearch({
         limit: 50,
         channelId,
         around: timeNow,
       })
 
-      this._dashboardContent.scrollTop = this._dashboardContent.scrollHeight
+
     }
 
     const { allMessages, showUserInfo } = this.props
 
     // when new message is coming through websocket
     if (allMessages.length !== nextProps.allMessages.length) {
-      this._dashboardContent.scrollTop = this._dashboardContent.scrollHeight
+      window.scrollTo(100000, 100000)
     }
   }
 
@@ -238,7 +253,7 @@ export default class ChannelDashboard extends Component {
     })
 
     return (
-      <div>
+      <div className={contentUl} ref={(div) => this._dashboardContent = div}>
         {Object.keys(messageObj).map((key, index) => {
           const messages = messageObj[key]
           const componentsMessages = messages.map(messageChunk => (
@@ -308,12 +323,11 @@ export default class ChannelDashboard extends Component {
           </div>
         </div>
         <div className={content}>
-          <div className={contentUl} ref={(div) => this._dashboardContent = div}>
-            { messages && this.messages }
-          </div>
+          { messages && this.messages }
         </div>
         <div className={sectionInput}>
           <InputPost
+            refTo={(input) => this._inputMessage = input}
             imgUrl={image && image.mediumUrl}
             placeholder={placeholder}
             suggestionedUsers={channel ? channelUsers : []}

@@ -384,7 +384,7 @@ export default class InputPost extends Component {
             className={input}
             contentEditable
             placeholder={this.props.placeholder || this.placeholder}
-            ref={(input) => { this._input = input }}
+            ref={(input) => { this.props.refTo && this.props.refTo(input); this._input = input }}
             onChange={::this.onChange}
             onFocus={::this.onFocus}
             onCopy={::this.onCopy}

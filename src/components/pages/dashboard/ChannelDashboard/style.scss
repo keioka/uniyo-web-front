@@ -2,6 +2,8 @@
 
 .wrapper {
   width: 100%;
+  overflow: scroll;
+  height: calc(100vh - 60px);
 }
 
 .wrapper--shrink {
@@ -165,13 +167,14 @@
 
 .content {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   flex-direction: column-reverse;
   background: #f7f7f7;
 }
 
 .content__ul {
   display: flex;
+  min-height: calc(100vh - 100px);
   justify-content: flex-end;
   flex-direction: column;
 }
