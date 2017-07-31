@@ -203,14 +203,6 @@ export default class SidebarRight extends Component {
 
     const { displayType, isOpen, userInfo, campusDonuts } = rightbar
 
-  //  if(campusDonuts.length > 0) {
-  //     this.props.donutsCampusShift()
-  //   }
-
-    // const userImages = campusDonuts && campusDonuts.length > 0 && [...new Set(donutsHistory.map(user => {
-    //   return user.image.mediumUrl
-    // }))].slice(0, 1)
-
     const animationClasses = [ imageAnimationOne, imageAnimationTwo, imageAnimationThree ]
     return (
       <div>
@@ -267,7 +259,7 @@ export default class SidebarRight extends Component {
             </div>
           </div>
         }
-     </div>
+      </div>
     )
   }
 }
