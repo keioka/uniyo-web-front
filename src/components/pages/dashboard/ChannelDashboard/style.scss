@@ -53,23 +53,33 @@
 .header {
   width: 100%;
   box-sizing: border-box;
-  padding: 33px 20px;
+  padding: 100px;
 }
 
 .header-bar {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
+  justify-content: center;
+  font-weight: bold;
 }
 
 .header-bar__channel-info {
-  display: flex;
-  flex-direction: row;
-  margin-right: 10px;
-  align-items: center;
-  padding: 0px 2rem;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.header-bar__channel-info__description {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.font--group-name {
+  font-size: 50px;
+}
+
+.font--description {
+  font-size: 20px;
 }
 
 .header-bar__channel-info__users-count {
@@ -86,24 +96,10 @@
   font-size: 0.8rem;
 }
 
-.header-bar__channel-info__description {
-  display: inline-flex;
-  flex-direction: column;
-}
-
 .header-bar__channel-info__description span {
-	font-weight: 300;
-	font-style: italic;
-  color: #a3a3a3;
-}
-
-.font--group-name {
-  font-size: 25px;
-}
-
-.font--description {
-  font-size: 15px;
-  margin-top: 15px;
+  font-weight: 600;
+  color: #404040;
+  text-align: center;
 }
 
 .header__item-user {
