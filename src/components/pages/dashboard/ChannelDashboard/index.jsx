@@ -91,7 +91,7 @@ export default class ChannelDashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.markNotificationRead()
+    // this.markNotificationRead()
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch, showChannelUsers, allChannels, rightbar } = this.props
       const { channelId } = nextProps.params
@@ -107,7 +107,6 @@ export default class ChannelDashboard extends Component {
         channelId,
         around: timeNow,
       })
-      console.log('%c Change page ', 'background: #222; color: #bada55')
       this.scrollToBottom()
     }
 
