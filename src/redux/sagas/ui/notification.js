@@ -7,7 +7,7 @@ function* contentReadCheckNotificationRequest({ notificationId }) {
 }
 
 function* contentReadCheckNotificationAsync({ ids }) {
-  yield ids.map(idObject => fork(contentReadCheckNotificationRequest, { notificationId: idObject.notificationId } ))
+  yield fork(contentReadCheckNotificationRequest, { notificationId: ids.map(idObject => idObject.notificationId).join(',') })
 }
 
 export function* watchContentReadCheckNotificationSaga() {
