@@ -33,7 +33,7 @@
   outline: none;
   border: none;
   padding: 0px 15px;
-  line-height: 25px;
+  line-height: 1.15;
   caret-color: $black;
   top: 0;
   left: 0;
@@ -49,7 +49,6 @@
   outline: none;
   box-sizing: border-box;
   position: relative;
-  letter-spacing: 0.4px;
   display: flex;
   align-items: center;
 }
@@ -58,7 +57,7 @@
   content: attr(placeholder);
   display: inline-block;
   font-size: 25px;
-  line-height: 30px;
+  margin-top: -3px;
   font-weight: 500;
   color: #dcdcdc;
   text-overflow: ellipsis;
