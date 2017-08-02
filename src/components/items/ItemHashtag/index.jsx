@@ -67,6 +67,17 @@ export default class ItemHashtag extends Component {
     isIncludeNewPost: false,
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (
+      this.props.isSelected !== nextProps.isSelected ||
+      this.props.isIncludeNewPost !== nextProps.isIncludeNewPost ||
+      this.props.amountMention !== nextProps.amountMention
+    ) {
+      return true
+    }
+    return false
+  }
+
   render() {
     const {
       className,
@@ -90,11 +101,11 @@ export default class ItemHashtag extends Component {
     }
 
     const linkPath = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
-
+    const key = `$item_hashtag__${hashCode(hashtag)}`
     return (
       <Link
         onClick={onClick}
-        key={hashCode(hashtag)}
+        key={key}
         to={linkPath}
         className={link}
       >
