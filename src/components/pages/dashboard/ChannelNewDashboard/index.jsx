@@ -1,6 +1,12 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../../redux/actions'
+import { bindActionCreators } from 'redux'
+
 import {
   ListNewChatUser,
   ListRecentConversation,
@@ -30,6 +36,23 @@ import {
 
 import Cross from './cross'
 
+const mapStateToProps = (state, ownProps) => ({
+  currentUser: state.api.auth.currentUser,
+  allChannels: state.api.channels.all,
+  allUsers: state.api.users.all,
+  allMessages: state.api.messages.all,
+  rightbar: state.ui.rightbar,
+  notifications: state.api.notifications,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  userSearch: actions.userSearch,
+  channelCreate: actions.channelCreate,
+  showUserInfo: uiActions.showUserInfo,
+  messageCreate: actions.messageCreate,
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class ChannelNewDashboard extends Component {
 
   static defaultProps = {
@@ -113,14 +136,9 @@ export default class ChannelNewDashboard extends Component {
 
   get filteredChannels() {
     const {
-      showUserInfo,
-      suggestionedUsers,
-      userSearch,
       currentUser,
-      allMessages,
       allChannels,
       allUsers,
-      messageCreate,
     } = this.props
 
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
@@ -136,16 +154,6 @@ export default class ChannelNewDashboard extends Component {
   }
 
   render() {
-    const {
-      showUserInfo,
-      suggestionedUsers,
-      userSearch,
-      currentUser,
-      allMessages,
-      allChannels,
-      messageCreate,
-    } = this.props
-
     return (
       <div ref={(div)=> this._dashboard = div} className={wrapper}>
         <div className={btnClose}>
