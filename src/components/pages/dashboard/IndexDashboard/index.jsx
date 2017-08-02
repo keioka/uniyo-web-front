@@ -2,6 +2,11 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../../redux/actions'
+import { bindActionCreators } from 'redux'
+
 import {
   CardPost,
   CardDocument,
@@ -25,6 +30,58 @@ import {
   appear,
 } from './style'
 
+const TYPES = {
+  docs: 'CLASS_NOTE',
+  post: 'POST',
+  reviews: 'REVIEW',
+  questions: 'QUESTION',
+  all: 'ALL',
+}
+
+const mapStateToProps = state => ({
+  currentUser: state.api.auth.currentUser,
+  users: state.api.users,
+  allPosts: state.api.posts.all,
+  trendingPosts: state.api.posts.trending,
+  allComments: state.api.comments.all,
+  hashtags: state.api.hashtags.all,
+  hashtagsTrending: state.api.hashtags.trending,
+  rightbar: state.ui.rightbar,
+  dashboard: state.ui.dashboard,
+  uiStateHeader: state.ui.header,
+  channels: state.api.channels,
+  answers: state.api.answers,
+  notifications: state.api.notifications,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  postInfo: actions.postInfo,
+  postsSearch: actions.postsSearch,
+  postCreate: actions.postCreate,
+  postDelete: actions.postDelete,
+  postsTrendingSearch: actions.postsTrendingSearch,
+  postGiveDonuts: actions.postGiveDonuts,
+
+  commentsSearch: actions.commentsSearch,
+  commentCreate: actions.commentCreate,
+  commentGiveDonuts: actions.commentGiveDonuts,
+  commentDelete: actions.commentDelete,
+
+  hashtagAdd: actions.hashtagAdd,
+
+  channelSearch: actions.channelSearch,
+  channelCreate: actions.channelCreate,
+  messageSearch: actions.messageSearch,
+  messageCreate: actions.messageCreate,
+
+  showUserInfo: uiActions.showUserInfo,
+
+  showPopup: uiActions.showPopup,
+  donutsThrow: uiActions.donutsThrow,
+  contentReadCheckNotification: uiActions.contentReadCheckNotification,
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class IndexDashboard extends Component {
 
   static propTypes = {
@@ -39,7 +96,7 @@ export default class IndexDashboard extends Component {
   }
 
   state = {
-    isLoadingMorePost: false
+    isLoadingMorePost: false,
   }
 
   constructor() {
@@ -75,7 +132,7 @@ export default class IndexDashboard extends Component {
 
   onScrollHandler(event) {
     const dashboard = this._dashboard
-    const { posts } = this.props
+    const posts = this.filteredPosts
     const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
@@ -119,6 +176,27 @@ export default class IndexDashboard extends Component {
     })
   }
 
+  get filteredPosts() {
+    const { allPosts, hashtag, trendingPosts, type, location } = this.props
+    let sortedPosts = allPosts
+    const regexTag = /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g
+
+    if (hashtag) {
+          // combine all trendingPosts relevantPosts allPosts and filter them
+      sortedPosts = [ ...trendingPosts, ...sortedPosts ]
+      sortedPosts = sortedPosts && sortedPosts.filter(post => {
+        const hashtag:String = `#${location.query.hashtag.toLowerCase()}`
+        const matched:Array = post.text.match(regexTag) || []
+        return matched.map(hashtag => hashtag.toLowerCase()).includes(hashtag)
+      })
+    }
+
+    if (type) {
+      sortedPosts = sortedPosts.filter(post => post.type === TYPES[type])
+    }
+    return sortedPosts
+  }
+
   render() {
     const TYPES = {
       docs: 'CLASS_NOTE',
@@ -130,6 +208,9 @@ export default class IndexDashboard extends Component {
     const {
       commentsSearch,
       commentCreate,
+      commentDelete,
+      commentGiveDonuts,
+
       hashtagAdd,
       showUserInfo,
       currentUser,
@@ -142,12 +223,10 @@ export default class IndexDashboard extends Component {
       currentHashTag,
       postGiveDonuts,
       userGiveDonuts,
-      commentDelete,
-      commentGiveDonuts,
+
       donutsThrow,
       onReadContent,
       rightbar,
-      relevantPosts,
       trendingPosts,
       posts,
       postDelete,
@@ -301,7 +380,7 @@ export default class IndexDashboard extends Component {
           </div>
        }
 
-       {hashtag && this.props.posts.length > 0 &&
+       {hashtag && this.filteredPosts.length > 0 &&
           <BarTag
             type={type}
             isHashtagAlreadyAdded={isHashtagAlreadyAdded}
@@ -312,7 +391,7 @@ export default class IndexDashboard extends Component {
           />
        }
 
-       {this.props.posts.length === 0 &&
+       {this.filteredPosts.length === 0 &&
           <BarTag
             type={type}
             isHashtagAlreadyAdded={isHashtagAlreadyAdded}
@@ -324,10 +403,10 @@ export default class IndexDashboard extends Component {
           />
        }
 
-       {this.props.posts.length > 0 ?
+       {this.filteredPosts.length > 0 ?
        <div className={sectionCards}>
          {!currentHashTag && this.props.currentPostType === "ALL" && <h3 className={sectionCardsTitle}>RECENT</h3>}
-         {this.props.posts.map((post) => {
+         {this.filteredPosts.map((post) => {
            const comments = this.props.allComments.filter(comment => comment.postId === post.id)
            return cardFactory({
              post,
@@ -367,4 +446,41 @@ class BlankCardList extends Component {
       </div>
     )
   }
+}
+
+
+IndexDashboard.propTypes = {
+  // hashtag:,
+  // type: ,
+  // currentHashTag:,
+  // currentPostType:,
+  // posts:,
+  // postsSearch: ,
+  // allPosts,
+  // trendingPosts,
+  // location: ,
+  // allComments:,
+  // commentsSearch: ,
+  // commentCreate: ,
+  // hashtagAdd: ,
+  // showUserInfo:,
+  // currentUser:,
+  // location:,
+  // suggestionedUsers:,
+  // userSearch:,
+  // postCreate:,
+  // onClearCurrentTypeHandler:,
+  // currentPostType:,
+  // currentHashTag:,
+  // postGiveDonuts:,
+  // userGiveDonuts:,
+  // commentDelete:,
+  // commentGiveDonuts:,
+  // donutsThrow:,
+  // onReadContent:,
+  // rightbar:,
+  // trendingPosts:,
+  // posts:,
+  // postDelete:,
+  // showPopup:,
 }
