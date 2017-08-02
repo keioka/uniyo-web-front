@@ -119,7 +119,7 @@ export Tooltip from './common/Tooltip'
   list
 */
 
-export ListChannel from './lists/ListChannel'
+export ItemChannel from './lists/ItemChannel'
 export ListUserDonutGive from './lists/ListUserDonutGive'
 export ItemComment from './lists/ItemComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
