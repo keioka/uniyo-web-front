@@ -21,8 +21,8 @@ const {
 
 import {
   InputSearchTag,
-  ListHashtag,
-  ListChannel,
+  ItemHashtag,
+  ItemChannel,
   Tooltip,
 } from '../../'
 
@@ -192,13 +192,13 @@ export default class SidebarLeft extends Component {
      this.props.hashtags
      .filter(hashtag => hashtag.toLowerCase().includes(keywordForSort.toLowerCase()))
      .map(hashtag =>
-      <ListHashtag
+      <ItemHashtag
         hashtag={hashtag}
         hashtagType={'s'}
         type={this.props.type}
         onClick={::this.clearInputSearchTag}
       />) :
-      <ListHashtag
+      <ItemHashtag
         hashtag={keywordForSort}
         hashtagType={'s'}
         type={this.props.type}
@@ -307,7 +307,7 @@ export default class SidebarLeft extends Component {
           const amountMention = mentionHashtagList[hashtag.hashtag]
 
           return (
-            <ListHashtag
+            <ItemHashtag
               className={classNames.join(' ')}
               hashtag={hashtag.hashtag}
               hashtagType={hashtag.type}
@@ -362,7 +362,7 @@ export default class SidebarLeft extends Component {
           })
 
           return (
-            <ListChannel
+            <ItemChannel
               className={classNames.join(' ')}
               users={users}
               channel={channel}
@@ -389,7 +389,7 @@ export default class SidebarLeft extends Component {
           const isSelected = this.props.selectedHashtag === hashtag
 
           return (
-            <ListHashtag
+            <ItemHashtag
               className={classNames.join(' ')}
               hashtag={hashtag}
               isSelected={isSelected}
