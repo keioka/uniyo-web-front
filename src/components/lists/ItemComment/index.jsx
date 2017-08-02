@@ -20,7 +20,7 @@ import {
   btnDount,
 } from './style'
 
-class ListComment extends Component {
+class ItemComment extends Component {
 
   state = {
     isDisplayDropDown: false,
@@ -84,4 +84,4 @@ class ListComment extends Component {
     }
   }
 
-  export default ListComment
+  export default ItemComment
