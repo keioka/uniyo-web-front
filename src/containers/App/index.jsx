@@ -6,6 +6,8 @@ import { browserHistory } from 'react-router'
 import { actions } from 'uniyo-redux'
 
 import authService from '../../services/authentification'
+import whyDidYouUpdate from 'why-did-you-update'
+// whyDidYouUpdate(React)
 
 import {
   app,

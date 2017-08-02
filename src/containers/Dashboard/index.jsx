@@ -295,7 +295,6 @@ export default class DashBoard extends Component {
     } = this.props
 
     const { currentUser } = auth
-    const { hashtags: hashtagsCurrentUser, image } = currentUser
     const { all: allPosts, fetching: isPostsFetching, trending: trendingPosts, relevant: relevantPosts } = posts
     const { all: allUsers } = users
     const { all: allComments } = comments
@@ -426,23 +425,9 @@ export default class DashBoard extends Component {
     return (
       <div className={container}>
         <SidebarLeft
-          allUsers={allUsers}
-          userSearch={userSearch}
-          hashtags={hashtags}
-          hashtagSearch={hashtagSearch}
-          hashtagsCurrentUser={hashtagsCurrentUser}
-          allChannels={allChannels}
-          channelCreate={channelCreate}
-          hashtagsTrending={hashtagsTrending}
-          hashtagAdd={hashtagAdd}
-          hashtagDelete={hashtagDelete}
-          unreadNotification={unreadNotification}
           isMainDashboard={isMainDashboard}
           selectedHashtag={this.props.location.query.hashtag}
           locationParams={this.props.params}
-          contentReadCheckNotification={contentReadCheckNotification}
-          unReadChannelIds={unReadChannelIds}
-          currentUser={currentUser}
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>

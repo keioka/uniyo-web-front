@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../redux/actions'
+
 import {
   postValue,
   decorator,
@@ -53,6 +58,28 @@ const uniq = (array, param) => {
   })
 }
 
+const mapStateToProps = state => ({
+  currentUser: state.api.auth.currentUser,
+  hashtagsCurrentUser: state.api.auth.currentUser.hashtags,
+  allUsers: state.api.users.all,
+  hashtags: state.api.hashtags.all,
+  hashtagsTrending: state.api.hashtags.trending,
+  allChannels: state.api.channels.all,
+  allNotifications: state.api.notifications.all,
+  unReadChannelIds: state.api.notifications.unReadChannelIds,
+  unreadNotification: state.api.notifications.all.filter(notification => !notification.isRead),
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  userSearch: actions.userSearch,
+  hashtagAdd: actions.hashtagAdd,
+  hashtagDelete: actions.hashtagDelete,
+  hashtagSearch: actions.hashtagSearch,
+  channelCreate: actions.channelCreate,
+  contentReadCheckNotification: uiActions.contentReadCheckNotification,
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class SidebarLeft extends Component {
 
   state = {
