@@ -46,7 +46,7 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
   return path
 }
 
-export default class ListHashtag extends Component {
+export default class ItemHashtag extends Component {
 
   static propTypes = {
     className: PropTypes.string.isRequired,
