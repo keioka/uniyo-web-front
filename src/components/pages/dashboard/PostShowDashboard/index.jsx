@@ -1,6 +1,11 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
 
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../../redux/actions'
+import { bindActionCreators } from 'redux'
+
 import {
   CardPost,
   CardDocument,
@@ -22,12 +27,32 @@ import {
   sectionCardsTitle,
 } from './style'
 
+const mapStateToProps = (state, ownProps) => ({
+  currentUser: state.api.auth.currentUser,
+  post: state.api.posts.all.filter(post => parseInt(post.id) === parseInt(ownProps.params.postId))[0],
+  comments: state.api.comments.all.filter(comment => parseInt(comment.postId) === parseInt(ownProps.params.postId)),
+  rightbar: state.ui.rightbar,
+  notifications: state.api.notifications,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  postCreate: actions.postCreate,
+  postDelete: actions.postDelete,
+  postGiveDonuts: actions.postGiveDonuts,
+  commentsSearch: actions.commentsSearch,
+  commentCreate: actions.commentCreate,
+  commentGiveDonuts: actions.commentGiveDonuts,
+  commentDelete: actions.commentDelete,
+  showUserInfo: uiActions.showUserInfo,
+  showPopup: uiActions.showPopup,
+}, dispatch)
+
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class PostShowDashboard extends Component {
 
   componentDidMount() {
-    const { posts, params, postInfo } = this.props
-    const { all } = posts
-    const post = posts.filter(post => post.id == params.postId)[0]
+    const { post, postInfo, params } = this.props
     if (!post) {
       postInfo({
         postId: params.postId,
@@ -56,12 +81,15 @@ export default class PostShowDashboard extends Component {
       allComments,
       postDelete,
       postGiveDonuts,
-      posts,
+      post,
+      comments,
       postInfo,
       userGiveDonuts,
       commentGiveDonuts,
       onReadContent,
       showPopup,
+      params,
+      rightbar,
     } = this.props
 
     const cardFactory = ({
@@ -165,11 +193,7 @@ export default class PostShowDashboard extends Component {
       }
     }
 
-    const { params, rightbar } = this.props
-    const { all } = posts
-    const post = posts.filter(post => post.id == params.postId)[0]
     const { image } = currentUser
-    const comments = post ? this.props.allComments.filter(comment => comment.postId === post.id) : []
     const { isOpen: isRightbarOpen } = rightbar
     const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
     if (post && post.commentsCount > 0 && comments.length !== post.commentsCount) {
