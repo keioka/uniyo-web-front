@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux'
 
 import {
   ItemNewChatUser,
-  ListRecentConversation,
+  ItemRecentConversation,
   InputSearchUser,
   ButtonClose,
 } from '../../../index'
@@ -130,7 +130,7 @@ export default class ChannelNewDashboard extends Component {
 
     return allChannels.map(channel => {
       const channelUsers = getChannelUsers(channel)
-      return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
+      return <ItemRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
     })
   }
 
@@ -149,7 +149,7 @@ export default class ChannelNewDashboard extends Component {
     // const isChannelUser = (channel) => channel.users.includes(user => query.test(user.name))
     return channels.map(channel => {
       const channelUsers = getChannelUsers(channel)
-      return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
+      return <ItemRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
     })
   }
 

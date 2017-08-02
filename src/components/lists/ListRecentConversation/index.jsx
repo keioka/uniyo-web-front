@@ -25,7 +25,7 @@ import {
   iconUsersCount,
 } from './style'
 
-export default class ListRecentConversation extends Component {
+export default class ItemRecentConversation extends Component {
   render () {
     const { channel, channelUsers, currentUser } = this.props
     const {
@@ -56,7 +56,6 @@ export default class ListRecentConversation extends Component {
     const createdAt = mostRecentMessage && mostRecentMessage.createdAt && moment(mostRecentMessage.createdAt).local().fromNow()
     const lastMessage = mostRecentMessage && mostRecentMessage.text
 
-    console.log(filteredUsers)
     return (
       <Link to={`/dashboard/channels/${id}`} className={fontLink}>
         <li key={id} className={wrapper}>
