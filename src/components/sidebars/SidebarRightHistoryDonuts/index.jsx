@@ -28,7 +28,7 @@ import {
 } from './style'
 
 import {
-  ListDonutsReceive,
+  ItemDonutsReceive,
   ListUserDonutGive,
   ButtonDonut,
 } from '../../'
@@ -123,7 +123,7 @@ export default class SidebarRightHistoryDonuts extends Component {
 
           </ul>) :
           (<ul className={ul}>
-            {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history}  />)}
+            {donutsHistory && donutsHistory.map(history => <ItemDonutsReceive {...history}  />)}
           </ul>)
         }
       </div>
