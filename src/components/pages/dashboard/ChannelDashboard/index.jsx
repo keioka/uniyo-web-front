@@ -2,6 +2,11 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../../redux/actions'
+import { bindActionCreators } from 'redux'
+
 import moment from 'moment'
 import { decorator } from '../../../../utils'
 const { placeholderMessage, usersWithoutCurrentUser } = decorator
@@ -32,6 +37,30 @@ import {
   fontDescription,
 } from './style'
 
+
+const mapStateToProps = (state, ownProps) => {
+  const { channelId } = ownProps.params
+  return {
+    currentUser: state.api.auth.currentUser,
+    allUsers: state.api.users.all,
+    channel: state.api.channels.all.filter(channel => channel.id == channelId)[0],
+    rightbar: state.ui.rightbar,
+    isOpenRightbar: state.ui.rightbar.isOpen,
+    displayTypeRightbar: state.ui.rightbar.displayType,
+    dashboard: state.ui.dashboard,
+    allMessages: state.api.messages.all.filter(message => message.channelId == channelId),
+  }
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  messageSearch: actions.messageSearch,
+  messageCreate: actions.messageCreate,
+  showUserInfo: uiActions.showUserInfo,
+  showChannelUsers: uiActions.showChannelUsers,
+
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class ChannelDashboard extends Component {
 
   state = {
@@ -58,7 +87,7 @@ export default class ChannelDashboard extends Component {
     // Should make flag whether token is refreshed or not and if it true, get messageSearch action fired.
     const { channelId } = params
     const timeNow = moment.utc(new Date()).format()
-    this.markNotificationRead()
+    // this.markNotificationRead()
     setTimeout(() => {
       messageSearch({
         limit: 50,
@@ -93,12 +122,11 @@ export default class ChannelDashboard extends Component {
   componentWillReceiveProps(nextProps) {
     // this.markNotificationRead()
     if (this.props.params.channelId != nextProps.params.channelId) {
-      const { messageSearch, showChannelUsers, allChannels, rightbar } = this.props
+      const { messageSearch, showChannelUsers, channel, isOpenRightbar, displayTypeRightbar } = this.props
       const { channelId } = nextProps.params
       const timeNow = moment.utc(new Date()).format()
-      const channel = allChannels.filter(channel => channel.id == channelId)[0]
       this.setState({ init: false })
-      if (channel && rightbar.isOpen && rightbar.displayType === "ChannelUsers") {
+      if (channel && isOpenRightbar && displayTypeRightbar === "ChannelUsers") {
         showChannelUsers(channel.users)
       }
 
@@ -138,7 +166,7 @@ export default class ChannelDashboard extends Component {
     const { channelId } = this.props.params
 
     // All messages on channel
-    const messages = allMessages.filter(message => message.channelId == channelId)
+    const messages = allMessages
     const lastMessageIndex = messages.length - 1
     const lastMessage = messages[lastMessageIndex] || true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
@@ -200,7 +228,7 @@ export default class ChannelDashboard extends Component {
   get messages() {
     const { allMessages, showUserInfo } = this.props
     const { channelId } = this.props.params
-    const messages = allMessages.filter(message => message.channelId == channelId)
+    const messages = allMessages
     const lastMessageIndex = messages.length - 1
     const allMessagesContainer = []
     // * if user is same and the message is created within 5 min, push it.
@@ -253,8 +281,8 @@ export default class ChannelDashboard extends Component {
 
     return (
       <div className={contentUl} ref={(div) => this._dashboardContent = div}>
-        {Object.keys(messageObj).map((key, index) => {
-          const messages = messageObj[key]
+        {Object.keys(messageObj).map((time, index) => {
+          const messages = messageObj[time]
           const componentsMessages = messages.map(messageChunk => (
             <ListMessage
               messages={messageChunk}
@@ -266,7 +294,7 @@ export default class ChannelDashboard extends Component {
             <div className={sectionMessagesChunk}>
               <div className={sectionMessagesChunkHeader}>
                 <div className={sectionMessagesChunkDate}>
-                  {key}
+                  {time}
                 </div>
               </div>
               <div className={sectionMessagesChunkContent}>{componentsMessages}</div>
@@ -286,15 +314,14 @@ export default class ChannelDashboard extends Component {
       userSearch,
       currentUser,
       allMessages,
-      allChannels,
+      channel,
       messageSearch,
+      isOpenRightbar,
     } = this.props
     const { channelId } = this.props.params
-    const channel = allChannels.filter(channel => channel.id == channelId)[0]
-    const messages = allMessages.filter(message => message.channelId == channelId)
-    const { hashtags: hashtagsCurrentUser, image } = currentUser
-    const { isOpen: isRightbarOpen } = rightbar
-    const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
+    const messages = allMessages
+    const { image } = currentUser
+    const dashboardWrapperClassNames = isOpenRightbar ? wrapperShrink : wrapper
 
     let placeholder
     let channelUsers
@@ -342,4 +369,17 @@ export default class ChannelDashboard extends Component {
       </div>
     )
   }
+}
+
+ChannelDashboard.PropTypes = {
+  params: '',
+  rightbar: '',
+  showUserInfo: '',
+  suggestionedUsers: '',
+  userSearch: '',
+  currentUser: '',
+  allMessages: '',
+  channels: '',
+  messageSearch: '',
+  messageCreate: '',
 }
