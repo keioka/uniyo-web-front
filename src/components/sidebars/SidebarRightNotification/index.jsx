@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
 import {
-  ListNotification,
+  ItemNotification,
   ButtonClose,
 } from '../..'
 
@@ -75,7 +75,7 @@ class SidebarRightNotification extends Component {
                 {newNotification.map(notification => {
                   const post = notification.post && allPosts.filter(post => post.id === notification.post.id)[0]
                   return (
-                    <ListNotification
+                    <ItemNotification
                       post={post}
                       postInfo={postInfo}
                       currentUser={currentUser}
@@ -98,7 +98,7 @@ class SidebarRightNotification extends Component {
                   const isLastNotification = (index === (pastNotifications.length - 1))
                   const post = notification.post && allPosts.filter(post => post.id === notification.post.id)[0]
                   return (
-                    <ListNotification
+                    <ItemNotification
                       post={post}
                       currentUser={currentUser}
                       notification={notification}
