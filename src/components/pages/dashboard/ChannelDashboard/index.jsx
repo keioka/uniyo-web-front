@@ -13,7 +13,7 @@ const { placeholderMessage, usersWithoutCurrentUser } = decorator
 
 import {
   InputPost,
-  ListMessage,
+  ItemMessage,
 } from '../../../index'
 
 import {
@@ -284,7 +284,7 @@ export default class ChannelDashboard extends Component {
         {Object.keys(messageObj).map((time, index) => {
           const messages = messageObj[time]
           const componentsMessages = messages.map(messageChunk => (
-            <ListMessage
+            <ItemMessage
               messages={messageChunk}
               showUserInfo={showUserInfo}
             />

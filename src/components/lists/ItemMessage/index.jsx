@@ -15,7 +15,7 @@ import {
   paragaph,
 } from './style'
 
-class ListMessage extends Component {
+class ItemMessage extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return !(this.props.messages.length !== nextProps.messages.length)
@@ -49,4 +49,4 @@ class ListMessage extends Component {
   // TODO: what if long comment
 }
 
-export default ListMessage
+export default ItemMessage
