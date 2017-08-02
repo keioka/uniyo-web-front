@@ -11,7 +11,7 @@ const { copyToClipboard } = inputHandler
 import {
   TextPost,
   Donut,
-  ListComment,
+  ItemComment,
   ButtonDonut,
   InputComment,
   PanelDropDownMenu,
@@ -177,7 +177,7 @@ export default class CardQuestion extends PureComponent {
                   />
                   <ul className={sectionContentCommentList}>
                     {comments && comments.map(comment =>
-                      <ListComment
+                      <ItemComment
                         key={comment.id}
                         showUserInfo={showUserInfo}
                         commentDelete={commentDelete}
@@ -186,7 +186,7 @@ export default class CardQuestion extends PureComponent {
                         {...comment}
                       >
                         {comment.text}
-                      </ListComment>
+                      </ItemComment>
                     )}
                     </ul>
                   </div>

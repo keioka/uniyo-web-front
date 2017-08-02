@@ -105,6 +105,7 @@ export TextMention from './texts/TextMention'
   common
 */
 
+export Header from './common/Header'
 export Donut from './common/Donut'
 export DonutPlusOne from './common/DonutPlusOne'
 export BarTag from './common/BarTag'
@@ -120,7 +121,7 @@ export Tooltip from './common/Tooltip'
 
 export ListChannel from './lists/ListChannel'
 export ListUserDonutGive from './lists/ListUserDonutGive'
-export ListComment from './lists/ListComment'
+export ItemComment from './lists/ItemComment'
 export ListMentionSuggestion from './lists/ListMentionSuggestion'
 export ListMessage from './lists/ListMessage'
 export ListNewChatUser from './lists/ListNewChatUser'

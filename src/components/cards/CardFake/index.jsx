@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import {
   TextPost,
   Donut,
-  ListComment,
+  ItemComment,
   InputComment,
   ButtonDonut,
 } from '../../'

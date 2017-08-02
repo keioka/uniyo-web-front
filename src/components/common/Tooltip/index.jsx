@@ -29,7 +29,7 @@ export default class Tooltip extends Component {
     switch (horizontal) {
       case 'left':
         className.push(left)
-        break;
+        break
       case 'right':
         className.push(right)
         break
