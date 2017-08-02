@@ -8,7 +8,7 @@ import uiActions from '../../../../redux/actions'
 import { bindActionCreators } from 'redux'
 
 import {
-  ListNewChatUser,
+  ItemNewChatUser,
   ListRecentConversation,
   InputSearchUser,
   ButtonClose,
@@ -117,7 +117,7 @@ export default class ChannelNewDashboard extends Component {
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
     return allUsers
     .filter(user => query.test(user.name.toLowerCase()))
-    .map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)
+    .map(user => <ItemNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
   get channels() {

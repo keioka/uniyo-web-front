@@ -17,7 +17,7 @@ import {
 } from './style'
 
 
-const ListNewChatUser = ({ user, onClick }) => {
+const ItemNewChatUser = ({ user, onClick }) => {
   const { id, image, name, hashtags } = user
   return (
     <li key={id} className={wrapper} onClick={() => onClick(user)}>
@@ -37,4 +37,4 @@ const ListNewChatUser = ({ user, onClick }) => {
   // TODO: what if long comment
 }
 
-export default ListNewChatUser
+export default ItemNewChatUser
