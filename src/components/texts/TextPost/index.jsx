@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import { Link } from 'react-router'
 import reactStringReplace from 'react-string-replace'
 import ReactEmoji from 'react-emoji'
@@ -19,7 +19,7 @@ const TYPES = {
   'QUESTION': 'questions',
 }
 
-export default class TextPost extends Component {
+export default class TextPost extends PureComponent {
 
   shouldComponentUpdate() {
     return false
@@ -57,9 +57,9 @@ export default class TextPost extends Component {
       .split('|')
 
       const userId = segments[0]
-      const display = segments[1]
+      const displayName = segments[1]
 
-      return <TextMention key={`MENTION_${i}`} userId={userId} showUserInfo={showUserInfo} display={display} />
+      return <TextMention key={`MENTION_${i}`} userId={userId} showUserInfo={showUserInfo} display={displayName} />
     })
 
     parsedText = reactStringReplace(parsedText, /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g, (match, i) => {
