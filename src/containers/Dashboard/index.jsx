@@ -3,9 +3,10 @@ import React, { Component, PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
+import uiActions from '../../redux/actions'
+
 import { Link, browserHistory } from 'react-router'
 
-import uiActions from '../../redux/actions'
 import authService from '../../services/authentification'
 import * as pushNotification from '../../services/pushNotification'
 
@@ -19,6 +20,7 @@ import {
 
 import {
   LayoutDashboard,
+  Header,
   SidebarLeft,
   ButtonClose,
   NavPostType,
@@ -58,59 +60,20 @@ import {
   wrapperIcon,
 } from './style'
 
-import Setting from './settings.svg'
-import Notification from './notification.svg'
-
 const mapStateToProps = state => ({
   auth: state.api.auth,
-  users: state.api.users,
-  posts: state.api.posts,
-  comments: state.api.comments,
-  hashtags: state.api.hashtags.all,
-  hashtagsTrending: state.api.hashtags.trending,
   rightbar: state.ui.rightbar,
-  dashboard: state.ui.dashboard,
-  uiStateHeader: state.ui.header,
-  channels: state.api.channels,
-  answers: state.api.answers,
-  messages: state.api.messages,
   notifications: state.api.notifications,
+  dashboard: state.ui.dashboard,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  postInfo: actions.postInfo,
-  postsSearch: actions.postsSearch,
-  postCreate: actions.postCreate,
-  postDelete: actions.postDelete,
-  postsRelevantSearch: actions.postsRelevantSearch,
-  postsTrendingSearch: actions.postsTrendingSearch,
-  postGiveDonuts: actions.postGiveDonuts,
-  answerSearch: actions.answerSearch,
-  answerCreate: actions.answerCreate,
-
-  commentsSearch: actions.commentsSearch,
-  commentCreate: actions.commentCreate,
-  commentGiveDonuts: actions.commentGiveDonuts,
-  commentDelete: actions.commentDelete,
-
-  userSearch: actions.userSearch,
-  userGiveDonuts: actions.userGiveDonuts,
-
-  hashtagAdd: actions.hashtagAdd,
-  hashtagDelete: actions.hashtagDelete,
-  hashtagSearch: actions.hashtagSearch,
-
-  channelSearch: actions.channelSearch,
-  channelCreate: actions.channelCreate,
-  messageSearch: actions.messageSearch,
-  messageCreate: actions.messageCreate,
-
   showUserInfo: uiActions.showUserInfo,
   showChannelUsers: uiActions.showChannelUsers,
   showNotification: uiActions.showNotification,
   showHistoryDonut: uiActions.showHistoryDonut,
   hideSidebarRight: uiActions.hideSidebarRight,
-
+  postsSearch: actions.postsSearch,
   signout: uiActions.signout,
   addDevice: actions.addDevice,
   deleteDevice: actions.deleteDevice,
@@ -174,6 +137,7 @@ export default class DashBoard extends Component {
       // window.talkus('hide')
       document.getElementsByClassName('talkus-body')[0].style.display = 'none'
     }
+
     this.setState({
       currentHashTag: hashtag,
       currentPostType: TYPES[type],
@@ -211,6 +175,33 @@ export default class DashBoard extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const { currentHashTag, currentPostType } = this.state
+    const { hashtag, type = 'all' } = this.props.location.query
+    const { postsSearch } = this.props
+    // If query string is changed, get new posts.
+    if (window.talkus && document.getElementsByClassName('talkus-body')[0]) {
+      // window.talkus('hide')
+      document.getElementsByClassName('talkus-body')[0].style.display = 'none'
+    }
+
+    this.setState({
+      currentHashTag: hashtag,
+      currentPostType: TYPES[type],
+    })
+
+    const params = {}
+    const typeForQuery = [TYPES[type]]
+    if (hashtag) { params.hashtags = [hashtag] }
+    if (typeForQuery && TYPES[type] !== 'ALL') { params.types = typeForQuery }
+    postsSearch(params)
+
+    const { addDevice, deleteDevice } = this.props
+    if (window) {
+      pushNotification.subscribe(addDevice, deleteDevice)
+    }
+  }
+
   onSelectPostType(type) {
     this.setState({
       currentPostType: type,
@@ -238,53 +229,14 @@ export default class DashBoard extends Component {
       showUserInfo,
       showChannelUsers,
       showNotification,
-
-      comments,
-      commentCreate,
-      commentsSearch,
-      commentDelete,
-      commentGiveDonuts,
-
-      posts,
-      postInfo,
-      postCreate,
-      postsSearch,
-      postDelete,
-      postsTrendingSearch,
-      postsRelevantSearch,
-      postGiveDonuts,
-
-      channelSearch,
-      channelCreate,
-      channels,
-
       auth,
-      users,
-      userSearch,
-      userGiveDonuts,
-
+      router,
       dashboard,
       showPopup,
       rightbar,
       hideSidebarRight,
       location,
-
-      messages,
-      messageSearch,
-      messageCreate,
-
-      hashtags,
-      hashtagSearch,
-      hashtagsTrending,
-      hashtagAdd,
-      hashtagDelete,
-
-      answers,
-      answerSearch,
-      answerCreate,
-
       notifications,
-
       uiStateHeader,
       donutsShake,
       donutsThrow,
@@ -295,14 +247,7 @@ export default class DashBoard extends Component {
     } = this.props
 
     const { currentUser } = auth
-    const { all: allPosts, fetching: isPostsFetching, trending: trendingPosts, relevant: relevantPosts } = posts
-    const { all: allUsers } = users
-    const { all: allComments } = comments
-    const { all: allChannels } = channels
-    const { all: allAnswers } = answers
-    const { all: allMessages } = messages
     const { all: allNotifications, unReadChannelIds } = notifications
-    const { isReceiveDonuts, isSpentDonuts } = uiStateHeader
 
     const { currentHashTag, currentPostType } = this.state
 
@@ -314,101 +259,15 @@ export default class DashBoard extends Component {
       [start] channel feature
      *************************************** */
 
-    const regex = new RegExp(/\/dashboard\/channels\/\d+/)
-    const path = this.props.location.pathname
-
-    let isChannel = false
-    let channel
-    let channelUsers
-
-    if (path.match(regex)) {
-      isChannel = true
-      const { channelId } = this.props.router.params
-      channel = allChannels.filter(channel => channel.id == channelId)[0]
-      channelUsers = isChannel && channel && channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
-      if (!channel) {
-        //redirect
-      }
-    }
-
-    /* **************************************
-      [end] channel feature
-     *************************************** */
-
-    /* **************************************
-      [start] filter feature
-     *************************************** */
-
-    let sortedPosts = allPosts
-
-    if (hashtag) {
-      // combine all trendingPosts relevantPosts allPosts and filter them
-      sortedPosts = [ ...trendingPosts, ...relevantPosts, ...sortedPosts ]
-      sortedPosts = sortedPosts.filter(post => {
-        const hashtag:String = `#${this.props.location.query.hashtag.toLowerCase()}`
-        const matched:Array = post.text.match(regexTag) || []
-        return matched.map(hashtag => hashtag.toLowerCase()).includes(hashtag)
-      })
-    }
-
-    if (type) {
-      sortedPosts = sortedPosts.filter(post => post.type === TYPES[type])
-    }
-
-    /* **************************************
-      [end] filter feature
-     *************************************** */
-
     const childComponents = React.Children.map(this.props.children, child => React.cloneElement(child, {
-      posts: sortedPosts,
+      // allPosts,
       hashtag,
-      isPostsFetching,
       type: TYPES[type],
-      userSearch,
-      allComments,
-      allMessages,
-      allChannels,
-      allAnswers,
-      allPosts,
-      postsSearch,
-      postCreate,
-      postDelete,
-      showUserInfo,
-      showChannelUsers,
-      showNotification,
-      commentsSearch,
-      commentCreate,
-      hideSidebarRight,
-      allUsers,
-      currentUser,
-      hashtags,
-      messageSearch,
-      messageCreate,
-      channelSearch,
-      channelCreate,
       currentHashTag,
       currentPostType,
-      answerSearch,
-      answerCreate,
-      postInfo,
-      rightbar,
-      postsTrendingSearch,
-      postsRelevantSearch,
-      trendingPosts,
-      relevantPosts,
-      postGiveDonuts,
-      userGiveDonuts,
-      commentGiveDonuts,
-      donutsThrow,
-      hashtagAdd,
-      hashtagSearch,
-      showHistoryDonut,
-      signout,
       notifications,
       unReadChannelIds,
       contentReadCheckNotification,
-      commentDelete,
-      showPopup,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
       userPictureUpdate,
@@ -431,51 +290,14 @@ export default class DashBoard extends Component {
           type={type}
         />
         <div className={[main, toggleDisplayRightBar].join(' ')}>
-          <header className={header}>
-
-            <div className={headerNavBasic}>
-              <Tooltip text="Show notifications" classNameWrapper={wrapperIcon}>
-              { allNotifications &&
-                allNotifications.filter(notification => !notification.isRead).length > 0 ?
-                <span className={notification} data-for='notification' data-tip="hello world"  onClick={() => showNotification()}>
-                  {allNotifications.filter(notification => !notification.isRead).length}
-                </span> :
-                <Notification className={icon} onClick={() => showNotification()} />
-              }
-              </Tooltip>
-              <Tooltip text="Show settings" classNameWrapper={wrapperIcon}>
-                <Setting className={icon} onClick={() => this.setState({ isOpenSettingMenu: !this.state.isOpenSettingMenu })} />
-              </Tooltip>
-              { this.state.isOpenSettingMenu &&
-                <PanelDropDownSetting
-                  closePanel={() => this.setState({ isOpenSettingMenu: false })}
-                  signout={signout}
-                  showUserInfo={() => showUserInfo(currentUser.id)}
-                />
-              }
-            </div>
-            {!isChannel ?
-              <NavPostType
-                onSelectPostType={::this.onSelectPostType}
-                currentPostType={isQuestionDashboard ? TYPES['questions']: currentPostType}
-                currentHashTag={hashtag}
-              /> :
-              <NavChannel
-                channel={channel}
-                channelUsers={channelUsers}
-                showUserInfo={showUserInfo}
-                showChannelUsers={showChannelUsers}
-              />
-            }
-            <NavDonuts
-              donutsShake={donutsShake}
-              isReceiveDonuts={isReceiveDonuts}
-              isSpentDonuts={isSpentDonuts}
-              showHistoryDonut={showHistoryDonut}
-              availableDonutsCount={currentUser.availableDonutsCount}
-              receivedDonutsCount={currentUser.receivedDonutsCount}
-            />
-          </header>
+          <Header
+            currentPostType={currentPostType}
+            isQuestionDashboard={isQuestionDashboard}
+            hashtag={hashtag}
+            router={this.props.router}
+            location={this.props.location}
+            onSelectPostType={::this.onSelectPostType}
+          />
           <div className={mainContent}>
             {childComponents}
             <SidebarRight
@@ -497,7 +319,6 @@ export default class DashBoard extends Component {
 
   render() {
     const { userPictureUpdate } = this.props
-    const { fetching } = this.props.posts
     const closeProfilePictureUpdate = () => this.setState({ isOpenProfilePictureUpload: false })
     // TODO: fetching case
     return (
