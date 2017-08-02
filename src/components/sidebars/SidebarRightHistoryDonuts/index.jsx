@@ -29,7 +29,7 @@ import {
 
 import {
   ItemDonutsReceive,
-  ListUserDonutGive,
+  ItemUserDonutGive,
   ButtonDonut,
 } from '../../'
 
@@ -64,7 +64,7 @@ export default class SidebarRightHistoryDonuts extends Component {
     }
 
     return filteredUsers.map(user =>
-      <ListUserDonutGive
+      <ItemUserDonutGive
         {...user}
         onClickBtnMessage={onClickBtnMessage}
         channelCreate={channelCreate}
