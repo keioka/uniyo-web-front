@@ -1,0 +1,53 @@
+@import "../../../styles/main";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  border-bottom: 1px solid $lightgray;
+  background-color: #f7f7f7;
+  box-shadow: 0 1px 0 0 #e1e1e1;
+  padding: 0px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.header__nav--basic {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.header__nav--basic svg {
+  margin-right: 25px;
+  &:hover{
+    opacity: .7;
+  }
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 31px;
+  height: 31px;
+  line-height: 31px;
+  color: white;
+  background-color: $red;
+  margin-right: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.wrapper--icon {
+  height: 31px;
+  display: flex;
+  align-items: center;
+}

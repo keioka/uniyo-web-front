@@ -1,6 +1,12 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../../redux/actions'
+import { bindActionCreators } from 'redux'
+
 import {
   CardPost,
   InputPost,
@@ -29,6 +35,43 @@ import {
   sectionNoAnswerTitle,
 } from './style'
 
+const mapStateToProps = (state, ownProps) => ({
+  currentUser: state.api.auth.currentUser,
+  users: state.api.users,
+  question: state.api.posts.all.filter(post => post.type === 'QUESTION' && parseInt(post.id) === parseInt(ownProps.params.questionId))[0],
+  allComments: state.api.comments.all,
+  rightbar: state.ui.rightbar,
+  answers: state.api.posts.all.filter(answer => parseInt(answer.questionId) === parseInt(ownProps.params.questionId)),
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  postInfo: actions.postInfo,
+  postsSearch: actions.postsSearch,
+  postCreate: actions.postCreate,
+  postDelete: actions.postDelete,
+  postsTrendingSearch: actions.postsTrendingSearch,
+  postGiveDonuts: actions.postGiveDonuts,
+
+  commentsSearch: actions.commentsSearch,
+  commentCreate: actions.commentCreate,
+  commentGiveDonuts: actions.commentGiveDonuts,
+  commentDelete: actions.commentDelete,
+
+  hashtagAdd: actions.hashtagAdd,
+
+  channelSearch: actions.channelSearch,
+  channelCreate: actions.channelCreate,
+  messageSearch: actions.messageSearch,
+  messageCreate: actions.messageCreate,
+
+  showUserInfo: uiActions.showUserInfo,
+
+  showPopup: uiActions.showPopup,
+  donutsThrow: uiActions.donutsThrow,
+  contentReadCheckNotification: uiActions.contentReadCheckNotification,
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class QuestionDashboard extends Component {
 
   static propTypes = {
@@ -47,8 +90,8 @@ export default class QuestionDashboard extends Component {
   }
 
   componentDidMount() {
-    const { questionId } = this.props.params
-    const question = this.props.posts.filter(post => post.type === 'QUESTION' && post.id == questionId)[0]
+    const { question, answerSearch, postInfo, params } = this.props
+    const { questionId } = params
     let answersCount
     if (question) {
       answersCount = question.answersCount
@@ -61,14 +104,12 @@ export default class QuestionDashboard extends Component {
 
   onScrollHandler(event) {
     const dashboard = this._dashboard
-    const { posts } = this.props
-    const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
+    const { question } = this.props
     const answersCount = question && question.answersCount
-    const lastPost = posts[posts.length - 1] || true // <- if there is not post, assign true
+    const lastPost = true // <- if there is not post, assign true
     const { scrollHeight } = event.target.body
     const currentHeight = event.target.body.scrollTop + window.screen.availHeight
     const { questionId } = this.props.params
-    const answers = this.props.allPosts.filter(answer => answer.questionId == questionId)
 
     // console.log("---------------------------")
     // console.log(scrollHeight, currentHeight)
@@ -111,6 +152,8 @@ export default class QuestionDashboard extends Component {
 
   render() {
     const {
+      question,
+      answers,
       rightbar,
       postCreate,
       postDelete,
@@ -134,8 +177,6 @@ export default class QuestionDashboard extends Component {
     const { isOpen: isRightbarOpen } = rightbar
     const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
     const { questionId } = this.props.params
-    const question = this.props.posts.filter((post) => post.type === 'QUESTION' && post.id == questionId)[0]
-    const answers = allPosts.filter(post => post.type === 'ANSWER' && post.questionId == questionId)
 
     const ComponentSectionQuestion = ({ user, text, showUserInfo, donutsCount }) => {
       return (
