@@ -240,7 +240,7 @@ export default class SidebarLeft extends Component {
     )
   }
 
-  get navSideBar() {
+  renderNavSideBar() {
     const MAX_NUMBER_SHOW_ITEM = 4
     const { keywordForSort } = this.state
     // const isValidSearch = keywordForSort.match()
@@ -289,38 +289,6 @@ export default class SidebarLeft extends Component {
       }
       return allMentions
     }, {}) : {}
-
-
-    /* Hashtag
-     *
-     */
-
-    const ComponentsHashtag = this.filteredHashtag &&
-      this.filteredHashtag
-      .map((hashtag, index) => {
-          const classNames = []
-          // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
-          //   classNames.push(hide)
-          // }
-          const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
-          const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
-          const amountMention = mentionHashtagList[hashtag.hashtag]
-
-          return (
-            <ItemHashtag
-              className={classNames.join(' ')}
-              hashtag={hashtag.hashtag}
-              hashtagType={hashtag.type}
-              hashtagDelete={hashtagDelete}
-              isSelected={isSelected}
-              isIncludeNewPost={isIncludeNewPost}
-              amountMention={amountMention}
-              showBtnDelete
-              type={this.props.type}
-            />
-          )
-        })
-
 
        /* Channel
         *
@@ -418,24 +386,16 @@ export default class SidebarLeft extends Component {
                   onKeyDown={(event) => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false }) }}
                 />
               }
-              { this.uniqueHashtagsCurrentUser && ComponentsHashtag }
-              {/* { keywordForSort === '' &&
-              hashtagsCurrentUser &&
-              hashtagsCurrentUser.length > MAX_NUMBER_SHOW_ITEM &&
-              <button
-              className={btnShowMore}
-              onClick={() => { this.setState({ isShowMoreTags: !this.state.isShowMoreTags }) }}
-              >
-              {this.state.isShowMoreTags ? 'Hide' : 'Show more'}
-            </button>
-          } */}
-          {/* <h4
-            className={sectionTextAdd}
-            onClick={::this.onClickBtnAddHashTag}
-            >
-              <span>+ Add a new hashtag</span>
-            </h4> */}
-          </ul>
+              { this.uniqueHashtagsCurrentUser &&
+                <ListHashtags
+                  filteredHashtag={this.filteredHashtag}
+                  selectedHashtag={this.props.selectedHashtag}
+                  mentionHashtagList={mentionHashtagList}
+                  flattenHashtagsNotification={flattenHashtagsNotification}
+                  hashtagDelete={hashtagDelete}
+                />
+              }
+            </ul>
           }
 
           {hashtagsTrending && this.isSearchResultForTrendingHashtagExist &&
@@ -501,7 +461,7 @@ export default class SidebarLeft extends Component {
 render() {
   const { selectedHashtag, isMainDashboard, userSearch, hashtagSearch } = this.props
   const classNameForTopSchool = !selectedHashtag && isMainDashboard ? `${sectionTag} ${sectionTagHot} ${sectionTagHotActive}` : `${sectionTag} ${sectionTagHot}`
-
+  const navSideBar = this.renderNavSideBar()
   const onChangeInputSearchTag = (event) => {
     const { value } = event.target
     const keyword = value && value.match(/\w+/) && value.match(/\w+/)[0]
@@ -528,10 +488,57 @@ render() {
             </h3>
             </Link>
           </ul>
-          {this.navSideBar}
+          {navSideBar}
         </div>
       </aside>
     </div>
   )
 }
+}
+
+class ListHashtags extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    if (
+      this.props.filteredHashtag.length !== nextProps.filteredHashtag.length ||
+      this.props.selectedHashtag !== nextProps.selectedHashtag ||
+      this.props.mentionHashtagList !== nextProps.mentionHashtagList ||
+      this.props.flattenHashtagsNotification.length !== nextProps.flattenHashtagsNotification.length
+    ) {
+      return true
+    }
+    return false
+  }
+
+  render() {
+    const { filteredHashtag, selectedHashtag, mentionHashtagList, flattenHashtagsNotification, hashtagDelete } = this.props
+    return (
+      <ul>
+      {filteredHashtag && filteredHashtag
+        .map((hashtag, index) => {
+          const classNames = []
+            // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
+            //   classNames.push(hide)
+            // }
+            const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
+            const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
+            const amountMention = mentionHashtagList[hashtag.hashtag]
+
+            return (
+              <ItemHashtag
+                className={classNames.join(' ')}
+                hashtag={hashtag.hashtag}
+                hashtagType={hashtag.type}
+                hashtagDelete={hashtagDelete}
+                isSelected={isSelected}
+                isIncludeNewPost={isIncludeNewPost}
+                amountMention={amountMention}
+                showBtnDelete
+                type={this.props.type}
+              />
+            )
+          })}
+       </ul>
+    )
+  }
 }
