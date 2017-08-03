@@ -26,13 +26,24 @@ import {
   notification,
 } from './style'
 
+const TYPES = {
+  docs: 'CLASS_NOTE',
+  post: 'POST',
+  reviews: 'REVIEW',
+  questions: 'QUESTION',
+  all: 'ALL',
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentUser: state.api.auth.currentUser,
+    availableDonutsCount: state.api.auth.currentUser.availableDonutsCount,
+    receivedDonutsCount: state.api.auth.currentUser.receivedDonutsCount,
+    currentUserId: state.api.auth.currentUser.id,
     allUsers: state.api.users.all,
     allChannels: state.api.channels.all,
-    uiStateHeader: state.ui.header,
-    unreadNotification: state.api.notifications.all.filter(notification => !notification.isRead).length,
+    unreadNotification: state.api.notifications.all.filter(notification => !notification.isRead),
+    isReceiveDonuts: state.ui.header.isReceiveDonuts,
+    isSpentDonuts: state.ui.header.isSpentDonuts,
   }
 }
 
@@ -54,12 +65,35 @@ export default class Header extends Component {
     isOpenSettingMenu: false
   }
 
+  shouldComponentUpdate(nextProps) {
+    // console.log('nextProps', nextProps)
+    // console.log('this.props', this.props)
+    //
+    // console.log('nextProps', nextProps.allMessages.length)
+    // console.log('this.props', this.props.allMessages.length)
+    if (
+      this.props.availableDonutsCount !== nextProps.availableDonutsCount ||
+      this.props.receivedDonutsCount !== nextProps.receivedDonutsCount ||
+      this.props.unreadNotification.length !== nextProps.unreadNotification.length ||
+      this.props.allUsers.length !== nextProps.allUsers.length ||
+      this.props.allChannels.length !== nextProps.allChannels.length ||
+      this.props.isReceiveDonuts !== nextProps.isSpentDonuts ||
+      this.props.isSpentDonuts !== nextProps.isSpentDonuts
+    ) {
+      console.log('header update')
+      return true
+    }
+    console.log('header no update')
+    return false
+  }
+
   render() {
     const {
       allUsers,
       allChannels,
       unreadNotification,
-      uiStateHeader,
+      isReceiveDonuts,
+      isSpentDonuts,
       onSelectPostType,
       isQuestionDashboard,
       hashtag,
@@ -69,13 +103,14 @@ export default class Header extends Component {
       showChannelUsers,
       showNotification,
       showHistoryDonut,
-      currentUser,
       signout,
       location,
       router,
+      availableDonutsCount,
+      receivedDonutsCount,
+      currentUserId,
     } = this.props
 
-    const { isReceiveDonuts, isSpentDonuts } = uiStateHeader
 
     const regex = new RegExp(/\/dashboard\/channels\/\d+/)
     const path = location.pathname
@@ -112,14 +147,14 @@ export default class Header extends Component {
             <PanelDropDownSetting
               closePanel={() => this.setState({ isOpenSettingMenu: false })}
               signout={signout}
-              showUserInfo={() => showUserInfo(currentUser.id)}
+              showUserInfo={() => showUserInfo(currentUserId)}
             />
           }
         </div>
         {!isChannel ?
           <NavPostType
             onSelectPostType={onSelectPostType}
-            currentPostType={isQuestionDashboard ? TYPES['questions']: currentPostType}
+            currentPostType={isQuestionDashboard ? TYPES['questions'] : currentPostType}
             currentHashTag={hashtag}
           /> :
           <NavChannel
@@ -134,8 +169,8 @@ export default class Header extends Component {
           isReceiveDonuts={isReceiveDonuts}
           isSpentDonuts={isSpentDonuts}
           showHistoryDonut={showHistoryDonut}
-          availableDonutsCount={currentUser.availableDonutsCount}
-          receivedDonutsCount={currentUser.receivedDonutsCount}
+          availableDonutsCount={availableDonutsCount}
+          receivedDonutsCount={receivedDonutsCount}
         />
       </header>
     )
