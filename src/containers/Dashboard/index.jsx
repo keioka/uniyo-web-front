@@ -270,7 +270,6 @@ export default class DashBoard extends Component {
       contentReadCheckNotification,
       onClearCurrentTypeHandler: this.onClearCurrentTypeHandler.bind(this),
       onReadContent: this.onReadContent.bind(this),
-      userPictureUpdate,
     }))
 
     const unreadNotification = allNotifications.filter(notification => !notification.isRead)
