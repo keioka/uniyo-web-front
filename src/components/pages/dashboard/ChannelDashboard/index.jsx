@@ -87,7 +87,7 @@ export default class ChannelDashboard extends Component {
     // Should make flag whether token is refreshed or not and if it true, get messageSearch action fired.
     const { channelId } = params
     const timeNow = moment.utc(new Date()).format()
-    // this.markNotificationRead()
+    this.markNotificationRead()
     setTimeout(() => {
       messageSearch({
         limit: 50,
@@ -115,12 +115,28 @@ export default class ChannelDashboard extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    // console.log('nextProps', nextProps)
+    // console.log('this.props', this.props)
+    //
+    // console.log('nextProps', nextProps.allMessages.length)
+    // console.log('this.props', this.props.allMessages.length)
+    if (
+      this.props.allMessages.length !== nextProps.allMessages.length
+    ) {
+      // console.log('update')
+      return true
+    }
+    // console.log('no update')
+    return false
+  }
+
   scrollToBottom() {
     this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().height + 2270
   }
 
   componentWillReceiveProps(nextProps) {
-    // this.markNotificationRead()
+    this.markNotificationRead()
     if (this.props.params.channelId != nextProps.params.channelId) {
       const { messageSearch, showChannelUsers, channel, isOpenRightbar, displayTypeRightbar } = this.props
       const { channelId } = nextProps.params
@@ -152,7 +168,6 @@ export default class ChannelDashboard extends Component {
       contentReadCheckNotification,
       unReadChannelIds = [],
     } = this.props
-
     const { channelId } = params
     const ids = unReadChannelIds.filter(idsObject => idsObject.channelId === parseInt(channelId))
     if (ids.length > 0) {
@@ -167,34 +182,6 @@ export default class ChannelDashboard extends Component {
 
     // All messages on channel
     const messages = allMessages
-    const lastMessageIndex = messages.length - 1
-    const lastMessage = messages[lastMessageIndex] || true // <- if there is not post, assign true
-    const { scrollHeight } = event.target.body
-    const currentHeight = event.target.body.scrollTop + window.screen.availHeight
-
-    if (
-      scrollHeight < currentHeight &&
-      !this.state.isLazyLoading &&
-      lastMessage // to avoid bug 'lastPost returns undefined' while scrolling
-    ) {
-
-      // TODO: fix bug 'this.props.postsSearch action dispatched twice'
-
-      const searchMessage = () => {
-        this.props.messageSearch({
-          limit: 50,
-          channelId,
-          after: moment.utc(lastMessage.createdAt).format(),
-        })
-      }
-
-      this.setState({
-        // if it is not loaded, this won't be turned to false.
-        // which means engine never call this block.
-        isLazyLoading: true,
-      }, searchMessage)
-    }
-
 
     if (
       event.target.body.scrollTop <= 0
@@ -266,7 +253,6 @@ export default class ChannelDashboard extends Component {
       if (isLastMessage) {
         allMessagesContainer.push(messagesChunk)
       }
-
     })
 
     const messageObj = {}
@@ -278,30 +264,30 @@ export default class ChannelDashboard extends Component {
         messageObj[date] = [messageChunk]
       }
     })
+    const renderMessages = Object.keys(messageObj).map((time, index) => {
+      const messages = messageObj[time]
+      const componentsMessages = messages.map(messageChunk => (
+        <ItemMessage
+          messages={messageChunk}
+          showUserInfo={showUserInfo}
+        />
+      ))
+
+      return (
+        <div className={sectionMessagesChunk}>
+          <div className={sectionMessagesChunkHeader}>
+            <div className={sectionMessagesChunkDate}>
+              {time}
+            </div>
+          </div>
+          <div className={sectionMessagesChunkContent}>{componentsMessages}</div>
+        </div>
+      )
+    })
 
     return (
       <div className={contentUl} ref={(div) => this._dashboardContent = div}>
-        {Object.keys(messageObj).map((time, index) => {
-          const messages = messageObj[time]
-          const componentsMessages = messages.map(messageChunk => (
-            <ItemMessage
-              messages={messageChunk}
-              showUserInfo={showUserInfo}
-            />
-          ))
-
-          return (
-            <div className={sectionMessagesChunk}>
-              <div className={sectionMessagesChunkHeader}>
-                <div className={sectionMessagesChunkDate}>
-                  {time}
-                </div>
-              </div>
-              <div className={sectionMessagesChunkContent}>{componentsMessages}</div>
-            </div>
-          )
-        })
-       }
+        {renderMessages}
       </div>
     )
   }
