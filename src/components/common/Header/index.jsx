@@ -54,7 +54,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   showChannelUsers: uiActions.showChannelUsers,
   showNotification: uiActions.showNotification,
   showHistoryDonut: uiActions.showHistoryDonut,
-  signout: actions.signout,
+  signout: uiActions.signout,
   donutsShake: uiActions.donutsShake,
 }, dispatch)
 
