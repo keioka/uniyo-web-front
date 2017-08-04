@@ -272,12 +272,9 @@ export default class DashBoard extends Component {
       onReadContent: this.onReadContent.bind(this),
     }))
 
-    const unreadNotification = allNotifications.filter(notification => !notification.isRead)
-    const isMainDashboard = this.props.location.pathname === "/dashboard"
+    const isMainDashboard = this.props.location.pathname === '/dashboard'
     const regexQuestionDashboard = /\/dashboard\/questions/
     const isQuestionDashboard = regexQuestionDashboard.test(this.props.location.pathname)
-    const onClickShowCurrentUserInfo = () => showUserInfo(currentUser.id)
-    const onClickSignout = () => this.props.signout()
     const openUpdateProfile = () => { this.setState({ isOpenProfilePictureUpload: true }) }
 
     return (
