@@ -406,14 +406,14 @@ export default class SidebarLeft extends Component {
           }
 
           {keywordForSort !== '' && this.resultHashtag &&
-            <div>
+            <ul className={section}>
               <h4 className={sectionLabel}>
                 OTHER HASHTAGS
               </h4>
               <ul>
                 {this.resultHashtag}
               </ul>
-            </div>
+            </ul>
           }
 
           {this.isSearchResultForChannelExist &&
@@ -445,14 +445,14 @@ export default class SidebarLeft extends Component {
         }
 
         {keywordForSort !== '' && this.resultChannel.length > 0 &&
-          <div>
+          <ul className={section}>
             <h4 className={sectionLabel}>
               Directory 😛
             </h4>
             <ul>
               {this.resultChannel}
             </ul>
-          </div>
+          </ul>
         }
           </nav>
         )
