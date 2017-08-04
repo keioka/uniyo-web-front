@@ -98,7 +98,7 @@ export default class InputPost extends Component {
             }
           },
         },
-        displayTpl: "<li class='atwho-list' style='display: flex; align-items: center; font-family: Roboto; padding: 5px 10px;'><img style='width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;' src='${image}' /> ${name}</li>",
+        displayTpl: "<li class='atwho-list'><span class='atwho-list__inner'><img style='width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;' src='${image}' /><span>${name}</span></span></li>",
         insertTpl: "<span onClick='void 0' data-user-id=${id}>@${name}</span>",
         searchKey: 'name',
       }).atwho({
