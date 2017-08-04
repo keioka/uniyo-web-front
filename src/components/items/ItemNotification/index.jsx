@@ -86,7 +86,7 @@ const ItemNotification = ({
         const { postId, user } = comment
         const path = postType === 'ANSWER' ? 'questions' : 'posts'
         if (postType === 'ANSWER') {
-          browserHistory.push(`/dashboard/questions/${postObject.questionId}`)
+          browserHistory.push(`/dashboard/questions/${postObject.questionId}?hightlightedAnswerId=${postId}`)
         } else {
           browserHistory.push(`/dashboard/posts/${post.id}`)
         }

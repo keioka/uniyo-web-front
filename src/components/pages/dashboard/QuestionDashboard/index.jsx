@@ -92,13 +92,19 @@ export default class QuestionDashboard extends Component {
   }
 
   componentDidMount() {
-    const { question, answerSearch, postInfo, params } = this.props
+    const { question, answerSearch, postInfo, params, commentsSearch } = this.props
     const { questionId } = params
     let answersCount
     if (question) {
       answersCount = question.answersCount
     }
 
+    const { hightlightedAnswerId } = this.props.location.query
+    if (hightlightedAnswerId) {
+      commentsSearch({
+        postId: hightlightedAnswerId,
+      })
+    }
     // window.addEventListener('scroll', ::this.onScrollHandler)
     this.props.answerSearch({ questionId, limit: 100 })
     this.props.postInfo({ postId: questionId })
@@ -212,6 +218,7 @@ export default class QuestionDashboard extends Component {
     const textPlaceHolder = question ? `Help @${question.user.firstName} to find the best answer` : 'Help other students to find the best answer'
     // TODO: Avoid Mutation
 
+    const { hightlightedAnswerId } = this.props.location.query
 
     return (
       <div className={dashboardWrapperClassNames} ref={(div)=> this._dashboard = div}>
@@ -233,7 +240,7 @@ export default class QuestionDashboard extends Component {
               <CardPost
                 key={answerBest.id}
                 {...answerBest}
-                comments={allComments.filter(comment => comment.postId === answerBest.id)}
+                comments={allComments.filter(comment => parseInt(comment.postId) === parseInt(answerBest.id))}
                 currentUserId={currentUser.id}
                 commentCreate={commentCreate}
                 commentsSearch={commentsSearch}
@@ -245,6 +252,7 @@ export default class QuestionDashboard extends Component {
                 onReadContent={onReadContent}
                 imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
                 showPopup={showPopup}
+                openComment={hightlightedAnswerId && parseInt(hightlightedAnswerId) === parseInt(answerBest.id)}
               />
             }
           </div>
@@ -255,7 +263,7 @@ export default class QuestionDashboard extends Component {
             <CardPost
               key={answerRecent.id}
               {...answerRecent}
-              comments={allComments.filter(comment => comment.postId === answerRecent.id)}
+              comments={allComments.filter(comment => parseInt(comment.postId) === parseInt(answerRecent.id))}
               currentUserId={currentUser.id}
               commentCreate={commentCreate}
               commentsSearch={commentsSearch}
@@ -267,6 +275,7 @@ export default class QuestionDashboard extends Component {
               onReadContent={onReadContent}
               imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
               showPopup={showPopup}
+              openComment={hightlightedAnswerId && parseInt(hightlightedAnswerId) === parseInt(answerRecent.id)}
             />
           </div>
         }
@@ -274,7 +283,7 @@ export default class QuestionDashboard extends Component {
           <div className={sectionCards}>
             <h3 className={sectionCardsTitle}>OTHER ANSWERS</h3>
             {answersOther.map(answer => {
-              const comments = allComments.filter(comment => comment.postId === answer.id)
+              const comments = allComments.filter(comment => parseInt(comment.postId) === parseInt(answer.id))
               return (
                 <CardPost
                   key={answer.id}
@@ -291,6 +300,7 @@ export default class QuestionDashboard extends Component {
                   onReadContent={onReadContent}
                   imageCurrentUser={currentUser.image ? currentUser.image.mediumUrl : ''}
                   showPopup={showPopup}
+                  openComment={hightlightedAnswerId && parseInt(hightlightedAnswerId) === parseInt(answer.id)}
                 />
               )
             })
