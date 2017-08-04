@@ -11,8 +11,21 @@
 }
 
 .atwho-list {
+  font-family: Roboto;
   padding: 2px 10px;
 }
+
+.atwho-list__inner {
+  line-height: 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.atwho-list__inner span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 
 .atwho-view ul {
   border-radius: 2px;
