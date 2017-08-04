@@ -20,7 +20,7 @@ const {
   usersWithoutCurrentUser,
 } = decorator
 
-const ListChannel = ({
+const ItemChannel = ({
   className,
   channel,
   amountNewMessage,
@@ -56,4 +56,4 @@ const ListChannel = ({
   )
 }
 
-export default ListChannel
+export default ItemChannel

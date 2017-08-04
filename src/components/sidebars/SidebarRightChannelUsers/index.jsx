@@ -11,7 +11,7 @@ const {
 } = decorator
 
 import {
-  ListUserDonutGive,
+  ItemUserDonutGive,
 } from '../../'
 
 import {
@@ -65,7 +65,7 @@ class SidebarRightChannelUsers extends Component {
     }
 
     return channelUsers && channelUsers.map(user =>
-      <ListUserDonutGive
+      <ItemUserDonutGive
         {...user}
         onClickBtnMessage={onClickBtnMessage}
         userGiveDonuts={userGiveDonuts}

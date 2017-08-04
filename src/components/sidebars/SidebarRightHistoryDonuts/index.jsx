@@ -28,8 +28,8 @@ import {
 } from './style'
 
 import {
-  ListDonutsReceive,
-  ListUserDonutGive,
+  ItemDonutsReceive,
+  ItemUserDonutGive,
   ButtonDonut,
 } from '../../'
 
@@ -64,7 +64,7 @@ export default class SidebarRightHistoryDonuts extends Component {
     }
 
     return filteredUsers.map(user =>
-      <ListUserDonutGive
+      <ItemUserDonutGive
         {...user}
         onClickBtnMessage={onClickBtnMessage}
         channelCreate={channelCreate}
@@ -123,7 +123,7 @@ export default class SidebarRightHistoryDonuts extends Component {
 
           </ul>) :
           (<ul className={ul}>
-            {donutsHistory && donutsHistory.map(history => <ListDonutsReceive {...history}  />)}
+            {donutsHistory && donutsHistory.map(history => <ItemDonutsReceive {...history}  />)}
           </ul>)
         }
       </div>

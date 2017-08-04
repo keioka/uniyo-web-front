@@ -1,9 +1,15 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+
+import { connect } from 'react-redux'
+import { actions } from 'uniyo-redux'
+import uiActions from '../../../../redux/actions'
+import { bindActionCreators } from 'redux'
+
 import {
-  ListNewChatUser,
-  ListRecentConversation,
+  ItemNewChatUser,
+  ItemRecentConversation,
   InputSearchUser,
   ButtonClose,
 } from '../../../index'
@@ -30,6 +36,23 @@ import {
 
 import Cross from './cross'
 
+const mapStateToProps = (state, ownProps) => ({
+  currentUser: state.api.auth.currentUser,
+  allChannels: state.api.channels.all,
+  allUsers: state.api.users.all,
+  allMessages: state.api.messages.all,
+  rightbar: state.ui.rightbar,
+  notifications: state.api.notifications,
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  userSearch: actions.userSearch,
+  channelCreate: actions.channelCreate,
+  showUserInfo: uiActions.showUserInfo,
+  messageCreate: actions.messageCreate,
+}, dispatch)
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class ChannelNewDashboard extends Component {
 
   static defaultProps = {
@@ -94,7 +117,7 @@ export default class ChannelNewDashboard extends Component {
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
     return allUsers
     .filter(user => query.test(user.name.toLowerCase()))
-    .map(user => <ListNewChatUser user={user} onClick={::this.onSelectedUser} />)
+    .map(user => <ItemNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
   get channels() {
@@ -107,20 +130,15 @@ export default class ChannelNewDashboard extends Component {
 
     return allChannels.map(channel => {
       const channelUsers = getChannelUsers(channel)
-      return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
+      return <ItemRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
     })
   }
 
   get filteredChannels() {
     const {
-      showUserInfo,
-      suggestionedUsers,
-      userSearch,
       currentUser,
-      allMessages,
       allChannels,
       allUsers,
-      messageCreate,
     } = this.props
 
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
@@ -131,21 +149,11 @@ export default class ChannelNewDashboard extends Component {
     // const isChannelUser = (channel) => channel.users.includes(user => query.test(user.name))
     return channels.map(channel => {
       const channelUsers = getChannelUsers(channel)
-      return <ListRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
+      return <ItemRecentConversation channel={channel} channelUsers={channelUsers} currentUser={currentUser} />
     })
   }
 
   render() {
-    const {
-      showUserInfo,
-      suggestionedUsers,
-      userSearch,
-      currentUser,
-      allMessages,
-      allChannels,
-      messageCreate,
-    } = this.props
-
     return (
       <div ref={(div)=> this._dashboard = div} className={wrapper}>
         <div className={btnClose}>

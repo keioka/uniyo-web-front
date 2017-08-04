@@ -44,7 +44,7 @@ const postTypes = {
   'ANSWER': 'answer',
 }
 
-const ListNotification = ({
+const ItemNotification = ({
   notification,
   notificationReadMark,
   onVisiable,
@@ -214,4 +214,4 @@ const ListNotification = ({
   )
 }
 
-export default ListNotification
+export default ItemNotification

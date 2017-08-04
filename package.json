@@ -139,6 +139,7 @@
     "svg-react-loader": "^0.3.7",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.3",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "why-did-you-update": "0.0.8"
   }
 }

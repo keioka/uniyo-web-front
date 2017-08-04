@@ -11,7 +11,7 @@ import {
   TextPost,
   Donut,
   ButtonDonut,
-  ListComment,
+  ItemComment,
   InputComment,
   PanelDropDownMenu,
 } from '../../'
@@ -190,7 +190,7 @@ export default class CardReview extends PureComponent {
               />
               <ul className={sectionContentCommentList}>
                 {comments && comments.map(comment =>
-                  <ListComment
+                  <ItemComment
                     key={comment.id}
                     showUserInfo={showUserInfo}
                     commentDelete={commentDelete}
@@ -199,7 +199,7 @@ export default class CardReview extends PureComponent {
                     {...comment}
                   >
                     {comment.text}
-                  </ListComment>
+                  </ItemComment>
                 )}
               </ul>
             </div>

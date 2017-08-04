@@ -16,7 +16,7 @@ import {
   boxInfoRight,
 } from './style'
 
-const ListDonutsReceive = ({ id, fromUser, time }) => {
+const ItemDonutsReceive = ({ id, fromUser, time }) => {
   const { firstName, lastName, name, image } = fromUser
   return (
     <li key={id} className={wrapper}>
@@ -37,10 +37,10 @@ const ListDonutsReceive = ({ id, fromUser, time }) => {
   // TODO: what if long comment
 }
 
-ListDonutsReceive.propTypes = {
+ItemDonutsReceive.propTypes = {
   id: PropTypes.number.isRequired,
   fromUser: PropTypes.object.isRequired,
   time: PropTypes.string.isRequired,
 }
 
-export default ListDonutsReceive
+export default ItemDonutsReceive

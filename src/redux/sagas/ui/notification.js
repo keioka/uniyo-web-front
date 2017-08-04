@@ -3,11 +3,14 @@ import uiActionTypes from '../../actionTypes'
 import { actionTypes } from 'uniyo-redux'
 
 function* contentReadCheckNotificationRequest({ notificationId }) {
-  yield put({ type: actionTypes.notificationReadMark.request, notificationId })
+  const isSendingNotificationReadMark = yield select(state => state.api.notifications.isSendingNotificationReadMark)
+  if (!isSendingNotificationReadMark) {
+    yield put({ type: actionTypes.notificationReadMark.request, notificationId })
+  }
 }
 
 function* contentReadCheckNotificationAsync({ ids }) {
-  yield ids.map(idObject => fork(contentReadCheckNotificationRequest, { notificationId: idObject.notificationId } ))
+  yield fork(contentReadCheckNotificationRequest, { notificationId: ids.map(idObject => idObject.notificationId).join(',') })
 }
 
 export function* watchContentReadCheckNotificationSaga() {

@@ -6,6 +6,8 @@ import { browserHistory } from 'react-router'
 import { actions } from 'uniyo-redux'
 
 import authService from '../../services/authentification'
+import whyDidYouUpdate from 'why-did-you-update'
+// whyDidYouUpdate(React)
 
 import {
   app,
@@ -63,7 +65,6 @@ export default class App extends Component {
       location.pathname !== '/profile_settings' &&
       !regexEmailVerified.test(location.pathname)
     ) {
-      console.log('dahsboard')
       browserHistory.push('/dashboard')
     }
   }

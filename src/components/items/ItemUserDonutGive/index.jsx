@@ -29,7 +29,7 @@ import {
 } from './style'
 
 
-const ListUserDonutGive = ({
+const ItemUserDonutGive = ({
   id: userId,
   name,
   image,
@@ -79,4 +79,4 @@ const ListUserDonutGive = ({
   // TODO: what if long comment
 }
 
-export default ListUserDonutGive
+export default ItemUserDonutGive

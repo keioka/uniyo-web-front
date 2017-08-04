@@ -65,7 +65,7 @@ function subscribe(socket) {
       switch (type) {
         case 'SOCKET_READY': {
           uniyoWs.isSocketReady = true
-          emit({ type: 'WEBSOCKET_READY', response })
+          emit({ type: 'WS@READY', response })
           break
         }
         case 'PONG': {
@@ -74,18 +74,18 @@ function subscribe(socket) {
         case 'HELLO': {
           uniyoWs.sessionId = data.sessionId
           uniyoWs.isAuthenticated = true
-          emit({ type: 'WEBSOCKET_HELLO', response })
+          emit({ type: 'WS@HELLO', response })
           break
         }
         case 'EVENT': {
-          const action = { type: 'WEBSOCKET_EVENT', data: data.event }
+          const action = { type: 'WS@EVENT', data: data.event }
           emit(action)
           break
         }
 
         case 'NOTIFICATION': {
           const { notification } = data
-          const action = { type: 'WEBSOCKET_NOTIFICATION', notification }
+          const action = { type: 'WS@NOTIFICATION', notification }
           emit(action)
           break
         }
@@ -107,10 +107,10 @@ function subscribe(socket) {
     }
 
     socket.onclose = (event) => {
-      console.log(event)
+      console.warn(event)
       const reset = () => {
         const reconnectIn = uniyoWs.connectionTryNumber * 1000
-        setTimeout(() => { emit({ type: 'WEBSOCKET_RESET'}) }, reconnectIn)
+        setTimeout(() => { emit({ type: 'WS@RESET'}) }, reconnectIn)
         uniyoWs.connectionTryNumber = uniyoWs.connectionTryNumber + 1
       }
       reset()
@@ -172,9 +172,9 @@ function* flow() {
   let task
   while (true) {
     const appFlow = yield race({
-      init: take('WEBSOCKET_INIT'),
-      reset: take('WEBSOCKET_RESET'),
-      stop: take('WEBSOCKET_STOP')
+      init: take('WS@INIT'),
+      reset: take('WS@RESET'),
+      stop: take('WS@STOP')
     })
 
     if (appFlow.init) {
@@ -192,15 +192,15 @@ function* flow() {
 }
 
 function* initWebSocket() {
-  yield takeLatest('WEBSOCKET_READY', authenticate)
+  yield takeLatest('WS@READY', authenticate)
 }
 
 function* helloWebSocket() {
-  yield takeLatest('WEBSOCKET_HELLO', ping)
+  yield takeLatest('WS@HELLO', ping)
 }
 
 function* eventWebSocket() {
-  yield takeEvery('WEBSOCKET_EVENT', function* eventHandler(payload) {
+  yield takeEvery('WS@EVENT', function* eventHandler(payload) {
     try {
       const { type } = payload.data
       let action
@@ -298,18 +298,18 @@ function playNotificationSound() {
 }
 
 function* notificationWebSocket() {
-  yield takeEvery('WEBSOCKET_NOTIFICATION', function* notificationHandler({ notification }) {
+  yield takeEvery('WS@NOTIFICATION', function* notificationHandler({ notification }) {
     try {
-      yield put({ type: actionTypes.notificationFetch.success, result: { data: notification }})
+      yield put({ type: actionTypes.notificationFetch.success, result: { data: notification } })
       yield fork(playNotificationSound)
     } catch (e) {
-      console.warn(e)
+      console.error(e)
     }
   })
 }
 
 function* awaitUntilWebSocketReady(action) {
-  yield takeLatest('WEBSOCKET_HELLO', function* resendRequest() {
+  yield takeLatest('WS@HELLO', function* resendRequest() {
     yield put(action)
   })
 }

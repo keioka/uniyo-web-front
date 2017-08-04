@@ -46,7 +46,7 @@ const dashboardPathGenarator = ({ hashtag, type }) => {
   return path
 }
 
-export default class ListHashtag extends Component {
+export default class ItemHashtag extends Component {
 
   static propTypes = {
     className: PropTypes.string.isRequired,
@@ -65,6 +65,17 @@ export default class ListHashtag extends Component {
     hashtagType: '',
     isSelected: false,
     isIncludeNewPost: false,
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (
+      this.props.isSelected !== nextProps.isSelected ||
+      this.props.isIncludeNewPost !== nextProps.isIncludeNewPost ||
+      this.props.amountMention !== nextProps.amountMention
+    ) {
+      return true
+    }
+    return false
   }
 
   render() {
@@ -90,11 +101,11 @@ export default class ListHashtag extends Component {
     }
 
     const linkPath = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
-
+    const key = `$item_hashtag__${hashCode(hashtag)}`
     return (
       <Link
         onClick={onClick}
-        key={hashCode(hashtag)}
+        key={key}
         to={linkPath}
         className={link}
       >
