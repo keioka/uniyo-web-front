@@ -79,7 +79,7 @@ export default class ChannelDashboard extends Component {
       params,
     } = this.props
     if (this._dashboard) {
-      window.addEventListener('scroll', this.onScrollHandler)
+      this._dashboard.addEventListener('scroll', this.onScrollHandler)
     }
     // check if channelId is found from current user's channel reducer 'all'.
     // TODO: This is patch
@@ -99,7 +99,7 @@ export default class ChannelDashboard extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScrollHandler)
+    this._dashboard.removeEventListener('scroll', this.onScrollHandler)
   }
 
   componentDidUpdate(prevProps) {
@@ -185,7 +185,7 @@ export default class ChannelDashboard extends Component {
     const messages = allMessages
 
     if (
-      event.target.body.scrollTop <= 0
+      event.target.scrollTop <= 0
     ) {
       // TODO: fix bug 'this.props.postsSearch action dispatched twice'
       const firstMessage = messages[0]
