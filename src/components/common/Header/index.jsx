@@ -65,12 +65,16 @@ export default class Header extends Component {
     isOpenSettingMenu: false
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     // console.log('nextProps', nextProps)
     // console.log('this.props', this.props)
     //
     // console.log('nextProps', nextProps.allMessages.length)
     // console.log('this.props', this.props.allMessages.length)
+
+    if (this.props.router.params.channelId !== nextProps.router.params.channelId) {
+      return true
+    }
     if (
       this.props.availableDonutsCount !== nextProps.availableDonutsCount ||
       this.props.receivedDonutsCount !== nextProps.receivedDonutsCount ||
@@ -78,12 +82,13 @@ export default class Header extends Component {
       this.props.allUsers.length !== nextProps.allUsers.length ||
       this.props.allChannels.length !== nextProps.allChannels.length ||
       this.props.isReceiveDonuts !== nextProps.isSpentDonuts ||
-      this.props.isSpentDonuts !== nextProps.isSpentDonuts
+      this.props.isSpentDonuts !== nextProps.isSpentDonuts ||
+      this.props.currentPostType !== nextProps.currentPostType ||
+      this.props.location.pathname !== nextProps.location.pathname ||
+      this.state.isOpenSettingMenu !== nextState.isOpenSettingMenu
     ) {
-      console.log('header update')
       return true
     }
-    console.log('header no update')
     return false
   }
 
@@ -111,7 +116,6 @@ export default class Header extends Component {
       currentUserId,
     } = this.props
 
-
     const regex = new RegExp(/\/dashboard\/channels\/\d+/)
     const path = location.pathname
 
@@ -128,6 +132,7 @@ export default class Header extends Component {
         //redirect
       }
     }
+
     return (
       <header className={header}>
         <div className={headerNavBasic}>
