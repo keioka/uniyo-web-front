@@ -36,6 +36,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  postInfo: actions.postInfo,
   postCreate: actions.postCreate,
   postDelete: actions.postDelete,
   postGiveDonuts: actions.postGiveDonuts,
