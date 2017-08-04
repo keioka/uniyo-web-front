@@ -123,7 +123,8 @@ export default class ChannelDashboard extends Component {
     // console.log('this.props', this.props.allMessages.length)
     if (
       this.props.params.channelId !== nextProps.params.channelId ||
-      this.props.allMessages.length !== nextProps.allMessages.length
+      this.props.allMessages.length !== nextProps.allMessages.length ||
+      this.props.isOpenRightbar !== nextProps.isOpenRightbar
     ) {
       // console.log('update')
       return true
