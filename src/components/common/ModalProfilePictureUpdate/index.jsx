@@ -18,6 +18,7 @@ import {
   header,
   title,
   btn,
+  btnClose,
   boxCloseBtn,
 } from './style'
 
@@ -103,7 +104,7 @@ export default class ModalProfilePictureUpdate extends Component {
     return (
       <div className={wrapper}>
         <div className={boxCloseBtn}>
-          <ButtonClose onClick={closeProfilePictureUpdate} />
+          <ButtonClose className={btnClose} onClick={closeProfilePictureUpdate} />
         </div>
         <div className={header}>
           <h2 className={title}>Change your profile picture! 😙</h2>
