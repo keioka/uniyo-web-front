@@ -63,6 +63,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   channelCreate: actions.channelCreate,
   messageSearch: actions.messageSearch,
   messageCreate: actions.messageCreate,
+  answerSearch: actions.answerSearch,
+  answerCreate: actions.answerCreate,
 
   showUserInfo: uiActions.showUserInfo,
 
