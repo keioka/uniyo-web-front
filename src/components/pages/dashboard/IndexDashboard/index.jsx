@@ -107,56 +107,56 @@ export default class IndexDashboard extends Component {
     window.removeEventListener('scroll', this.onScrollHandler)
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (
-      this.props.type !== nextProps.type ||
-      this.props.hashtag !== nextProps.hashtag ||
-      this.props.allPosts.length !== nextProps.allPosts.length ||
-      this.props.hashtags.length !== nextProps.hashtags.length ||
-      this.props.allComments.length !== nextProps.allComments.length ||
-      this.props.trendingPosts.length !== nextProps.trendingPosts.length ||
-      this.props.currentUser.hashtags !== nextProps.currentUser.hashtags ||
-      this.props.rightbar.isOpen !== nextProps.rightbar.isOpen
-    ) {
-      // console.log('------------------------------')
-      // console.log('type', this.props.type !== nextProps.type)
-      // console.log('this.props.type', this.props.type)
-      // console.log('nextProps.type', nextProps.type)
-      //
-      // console.log('hashtag', this.props.hashtag !== nextProps.hashtag)
-      // console.log('this.props.hashtag', this.props.hashtag)
-      // console.log('nextProps.hashtag', nextProps.hashtag)
-      //
-      // console.log('allPosts.length', this.props.allPosts.length !== nextProps.allPosts.length)
-      // console.log('this.props.allPosts.length', this.props.allPosts.length)
-      // console.log('nextProps.allPosts.length', nextProps.allPosts.length)
-      //
-      // console.log('hashtags.length', this.props.hashtags.length !== nextProps.hashtags.length)
-      // console.log('this.props.hashtags.length', this.props.hashtags.length)
-      // console.log('nextProps.hashtags.length', nextProps.hashtags.length)
-      //
-      // console.log('allComments.length', this.props.allComments.length !== nextProps.allComments.length)
-      // console.log('this.props.allComments.length', this.props.allComments.length)
-      // console.log('nextProps.allComments.length', nextProps.allComments.length)
-      //
-      // console.log('trendingPosts.length', this.props.trendingPosts.length !== nextProps.trendingPosts.length)
-      // console.log('this.props.trendingPosts.length', this.props.trendingPosts.length)
-      // console.log('nextProps.trendingPosts.length', nextProps.trendingPosts.length)
-      //
-      // console.log('currentUser', this.props.currentUser !== nextProps.currentUser)
-      // console.log('this.props.currentUser', this.props.currentUser)
-      // console.log('nextProps.currentUser', nextProps.currentUser)
-      //
-      // console.log('rightbar', this.props.rightbar !== nextProps.rightbar)
-      // console.log('this.props.rightbar', this.props.rightbar)
-      // console.log('nextProps.rightbar', nextProps.rightbar)
-      //
-      console.log('shouldComponentUpdate', 'update')
-      return true
-    }
-    console.log('shouldComponentUpdate', 'no update')
-    return false
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   if (
+  //     this.props.type !== nextProps.type ||
+  //     this.props.hashtag !== nextProps.hashtag ||
+  //     this.props.allPosts.length !== nextProps.allPosts.length ||
+  //     this.props.hashtags.length !== nextProps.hashtags.length ||
+  //     this.props.allComments.length !== nextProps.allComments.length ||
+  //     this.props.trendingPosts.length !== nextProps.trendingPosts.length ||
+  //     this.props.currentUser.hashtags !== nextProps.currentUser.hashtags ||
+  //     this.props.rightbar.isOpen !== nextProps.rightbar.isOpen
+  //   ) {
+  //     // console.log('------------------------------')
+  //     // console.log('type', this.props.type !== nextProps.type)
+  //     // console.log('this.props.type', this.props.type)
+  //     // console.log('nextProps.type', nextProps.type)
+  //     //
+  //     // console.log('hashtag', this.props.hashtag !== nextProps.hashtag)
+  //     // console.log('this.props.hashtag', this.props.hashtag)
+  //     // console.log('nextProps.hashtag', nextProps.hashtag)
+  //     //
+  //     // console.log('allPosts.length', this.props.allPosts.length !== nextProps.allPosts.length)
+  //     // console.log('this.props.allPosts.length', this.props.allPosts.length)
+  //     // console.log('nextProps.allPosts.length', nextProps.allPosts.length)
+  //     //
+  //     // console.log('hashtags.length', this.props.hashtags.length !== nextProps.hashtags.length)
+  //     // console.log('this.props.hashtags.length', this.props.hashtags.length)
+  //     // console.log('nextProps.hashtags.length', nextProps.hashtags.length)
+  //     //
+  //     // console.log('allComments.length', this.props.allComments.length !== nextProps.allComments.length)
+  //     // console.log('this.props.allComments.length', this.props.allComments.length)
+  //     // console.log('nextProps.allComments.length', nextProps.allComments.length)
+  //     //
+  //     // console.log('trendingPosts.length', this.props.trendingPosts.length !== nextProps.trendingPosts.length)
+  //     // console.log('this.props.trendingPosts.length', this.props.trendingPosts.length)
+  //     // console.log('nextProps.trendingPosts.length', nextProps.trendingPosts.length)
+  //     //
+  //     // console.log('currentUser', this.props.currentUser !== nextProps.currentUser)
+  //     // console.log('this.props.currentUser', this.props.currentUser)
+  //     // console.log('nextProps.currentUser', nextProps.currentUser)
+  //     //
+  //     // console.log('rightbar', this.props.rightbar !== nextProps.rightbar)
+  //     // console.log('this.props.rightbar', this.props.rightbar)
+  //     // console.log('nextProps.rightbar', nextProps.rightbar)
+  //     //
+  //     console.log('shouldComponentUpdate', 'update')
+  //     return true
+  //   }
+  //   console.log('shouldComponentUpdate', 'no update')
+  //   return false
+  // }
 
   onScrollHandler(event) {
     const dashboard = this._dashboard
