@@ -122,6 +122,7 @@ export default class ChannelDashboard extends Component {
     // console.log('nextProps', nextProps.allMessages.length)
     // console.log('this.props', this.props.allMessages.length)
     if (
+      this.props.params.channelId !== nextProps.params.channelId ||
       this.props.allMessages.length !== nextProps.allMessages.length
     ) {
       // console.log('update')
@@ -132,7 +133,7 @@ export default class ChannelDashboard extends Component {
   }
 
   scrollToBottom() {
-    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().height + 2270
+    this._dashboard.scrollTop = this._dashboard.getBoundingClientRect().bottom + 100000
   }
 
   componentWillReceiveProps(nextProps) {
