@@ -67,7 +67,7 @@ class Authentification {
   }
 
   tokenRefreshHandler() {
-    console.warn("----- checking expiration ---------", (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) )
+    // console.log("checking expiration", (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) )
     if (this.storage.hasValidAccessTokens && this.storage.isAccessTokenExpired) {
       this.actionForTokenRefresh(this.storage.refreshToken)
     }

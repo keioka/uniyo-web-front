@@ -35,7 +35,6 @@ export default class Index extends Component {
   static propTypes = {}
 
   componentDidMount() {
-    console.log(typeof window.talkus)
     if (typeof window.talkus === 'object') {
       window.talkus('init', 'mAuzzo8t2j9Bih5qy')
     }

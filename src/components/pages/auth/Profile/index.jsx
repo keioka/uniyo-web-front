@@ -436,7 +436,7 @@ export default class Profile extends Component {
                 scale={this.state.scaleImage}
                 borderRadius={250}
              />
-             <div className={boxInputRange}><input type="range" min="1" max="10" step="0.1" value={this.state.scaleImage} className={rangeSlider} onChange={(event) => { console.log(event.target.value); this.setState({ scaleImage: event.target.value }) }} /></div>
+             <div className={boxInputRange}><input type="range" min="1" max="10" step="0.1" value={this.state.scaleImage} className={rangeSlider} onChange={(event) => { this.setState({ scaleImage: event.target.value }) }} /></div>
            </div> :
            <Dropzone
              className={dropZone}

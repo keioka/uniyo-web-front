@@ -191,7 +191,6 @@ export default class IndexDashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps', nextProps)
     const { currentHashTag, currentPostType } = this.props
     if (
       currentHashTag !== nextProps.currentHashTag ||
@@ -219,7 +218,6 @@ export default class IndexDashboard extends Component {
         return matched.map(hashtag => hashtag.toLowerCase()).includes(hashtag)
       })
     }
-    console.log('rerender')
     if (type) {
       sortedPosts = sortedPosts.filter(post => post.type === type)
     }

@@ -203,7 +203,6 @@ export default class InputPost extends Component {
   onChange(event) {
     const search = "#"
     const searchRegex = /\#\w+/
-    console.log(event)
   }
 
   onSubmit() {

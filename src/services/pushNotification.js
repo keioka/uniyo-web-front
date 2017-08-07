@@ -106,12 +106,12 @@ export async function syncSubscription() {
       const data = JSON.parse(JSON.stringify(subscription))
       const { endpoint, keys } = data
       const { auth: authSecret, p256dh: p256dhKey } = keys
-      console.log('------------')
-      console.log(subscription)
-      console.log(data)
+      // console.log('------------')
+      // console.log(subscription)
+      // console.log(data)
       const deviceId = await getDeviceId()
       const deviceType = getDeviceType()
-      console.log('deviceId', deviceId)
+      // console.log('deviceId', deviceId)
       if (data.keys) {
         // deleteDeviceAction({ deviceId, deviceType })
         addDeviceAction({ deviceId, deviceType, endpoint, authSecret, p256dhKey })
