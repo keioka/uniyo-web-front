@@ -1,20 +1,16 @@
-
 var notificationHandler = (function() {
 
-  function showNotification(notification) {
-    var title = ""
-    var notificationOptions = {
-      body: notification.message,
-      icon: 'public/assets/images/uniyo.png'
-    }
+  function push(event) {
+    if (event.data || Object.prototype.hasOwnProperty(event.data, 'message')) {
+      var title = event.title || "Hello from notification"
+      var notificationOptions = {
+        body: event.message,
+        icon: 'public/assets/images/uniyo.png'
+      }
 
-    return self.registration.showNotification(notification.title, notificationOptions);
-  }
-
-  function push(e) {
-    if (e.data) {
-      var n = e.data.json();
-      return showNotification(n);
+      event.waitUntil(
+        self.registration.showNotification(title, notificationOptions)
+      )
     }
     // TODO: [Add]
     //   - check the type of notification
@@ -32,8 +28,12 @@ self.addEventListener("push", event => {
   notificationHandler.push(event);
 });
 
+self.addEventListener('install', event => {
+  notificationHandler.push({ title: "install" });
+});
+
 self.addEventListener("activate", event => {
-  notificationHandler.push("title")
+  notificationHandler.push({ title: "title" });
 });
 
 self.addEventListener("notificationclick", function(event) {
