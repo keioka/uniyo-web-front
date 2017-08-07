@@ -15,7 +15,7 @@ var baseConfig = {
   output: {
     filename: '[name].bundle.js',
     path: pathPublic,
-    publicPath: '/public/',
+    publicPath: '/',
     sourceMapFilename: '[name].js.map'
   },
   resolve: {
