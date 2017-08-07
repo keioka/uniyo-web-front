@@ -78,6 +78,19 @@ const getDeviceId = () => {
   })
 }
 
+const deleteServiceworker = () => new Promise((resolve, reject) => {
+  try {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for(const registration of registrations) {
+        registration.unregister()
+      }
+      resolve({ isDelete: true })
+    })
+  } catch(e) {
+    reject({ isDelete: false, errorMessage: e })
+  }
+})
+
 export async function syncSubscription() {
   const applicationServerKey = base64UrlToUint8Array(base64UrlEncodedApplicationServerKey)
   const subscriptionOptions = {
@@ -86,18 +99,21 @@ export async function syncSubscription() {
   }
 
   try {
+    // const isInit = await deleteServiceworker()
     navigator.serviceWorker.register("/notification_sw.js").then(async serviceWorkerRegistration => {
       const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
         // If the browser doesn't support payloads, the subscription object won't contain keys.
       const data = JSON.parse(JSON.stringify(subscription))
       const { endpoint, keys } = data
       const { auth: authSecret, p256dh: p256dhKey } = keys
-
+      console.log('------------')
+      console.log(subscription)
+      console.log(data)
       const deviceId = await getDeviceId()
       const deviceType = getDeviceType()
       console.log('deviceId', deviceId)
       if (data.keys) {
-        deleteDeviceAction({ deviceId, deviceType })
+        // deleteDeviceAction({ deviceId, deviceType })
         addDeviceAction({ deviceId, deviceType, endpoint, authSecret, p256dhKey })
       }
 

@@ -2,7 +2,7 @@
   "name": "UniYo",
   "short_name": "UniYo",
   "icons": [{
-        "src": "/public/assets/img/uniyo.png",
+        "src": "/public/assets/images/uniyo.png",
         "sizes": "88x88",
         "type": "image/png"
       }],
