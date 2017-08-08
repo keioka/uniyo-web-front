@@ -5,12 +5,8 @@ import { browserHistory } from 'react-router'
 
 export const redirectHandler = store => next => action => {
 
-  if (
-    action.type === actionTypes.tokenRefresh.error ||
-    action.type === uiActionTypes.signout.request
-  ) {
-    localStorage.clear()
-    browserHistory.push('/')
+  if (action.type === actionTypes.tokenRefresh.error) {
+    console.error('token refresh error')
   }
 
   if (action.type === actionTypes.userCreate.success) {

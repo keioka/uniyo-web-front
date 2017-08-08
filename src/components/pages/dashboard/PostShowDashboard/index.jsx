@@ -1,5 +1,6 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
+import { browserHistory } from 'react-router'
 
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
@@ -61,6 +62,13 @@ export default class PostShowDashboard extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const { post } = this.props
+    if (post && post.type === 'ANSWER') {
+      browserHistory.push(`/dashboard/questions/${post.questionId}?hightlightedAnswerId=${post.id}`)
+    }
+  }
+
   render() {
 
     const TYPES = {
@@ -68,6 +76,7 @@ export default class PostShowDashboard extends Component {
       post: 'POST',
       reviews: 'REVIEW',
       questions: 'QUESTION',
+      answer: 'ANSWER',
     }
 
     const {

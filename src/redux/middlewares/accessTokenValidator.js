@@ -49,6 +49,7 @@ export const accessTokenValidator = store => next => action => {
     type === actionTypes.userGiveDonuts.request ||
     type === actionTypes.notificationSearch.request ||
     type === actionTypes.addDevice.request ||
+    type === actionTypes.deleteDevice.request ||
     type === actionTypes.hashtagSearch.request ||
     type === actionTypes.postDelete.request ||
     type === actionTypes.commentDelete.request
