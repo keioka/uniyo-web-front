@@ -46,11 +46,14 @@ const {
   postGiveDonutsSaga,
   userGiveDonutsSaga,
   addDeviceSaga,
+  deleteDeviceSaga,
+  deviceManageSaga,
   resetPasswordSaga,
   newPasswordUpdateSaga,
   userPictureUpdateRefreshSaga,
   watchUserSearchSuccess,
   watchChannelSearchSuccess,
+  signoutProcessSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -91,6 +94,7 @@ export default function* rootSaga() {
     fork(postGiveDonutsSaga),
     fork(userGiveDonutsSaga),
     fork(addDeviceSaga),
+    fork(deleteDeviceSaga),
     fork(resetPasswordSaga),
     fork(hashtagSearchSaga),
     fork(newPasswordUpdateSaga),
@@ -99,6 +103,8 @@ export default function* rootSaga() {
     /*
       saga form UI
     */
+
+    fork(signoutProcessSaga),
     fork(watchShowUserInfo),
     fork(watchShowChannelUsers),
     fork(watchShowChannelUsers),
@@ -106,6 +112,7 @@ export default function* rootSaga() {
     fork(watchDonutsShift),
     fork(watchContentReadCheckNotificationSaga),
     fork(watchPopupShow),
+    fork(deviceManageSaga),
     /*
       saga for webSocket
     */
