@@ -78,6 +78,7 @@ const getDeviceId = () => {
   })
 }
 
+let isInit
 const deleteServiceworker = () => new Promise((resolve, reject) => {
   try {
     navigator.serviceWorker.getRegistrations().then((registrations) => {
@@ -99,26 +100,27 @@ export async function syncSubscription() {
   }
 
   try {
-    // const isInit = await deleteServiceworker()
-    navigator.serviceWorker.register("/notification_sw.js").then(async serviceWorkerRegistration => {
-      const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
+    // let initializer
+    // if (!isInit) {
+    //   initializer = await deleteServiceworker()
+    // }
+    // if (initializer.isDelete) {
+      navigator.serviceWorker.register("/public/notification_sw.js").then(async serviceWorkerRegistration => {
+        const subscription = await serviceWorkerRegistration.pushManager.subscribe(subscriptionOptions)
         // If the browser doesn't support payloads, the subscription object won't contain keys.
-      const data = JSON.parse(JSON.stringify(subscription))
-      const { endpoint, keys } = data
-      const { auth: authSecret, p256dh: p256dhKey } = keys
-      // console.log('------------')
-      // console.log(subscription)
-      // console.log(data)
-      const deviceId = await getDeviceId()
-      const deviceType = getDeviceType()
-      // console.log('deviceId', deviceId)
-      if (data.keys) {
-        // deleteDeviceAction({ deviceId, deviceType })
-        addDeviceAction({ deviceId, deviceType, endpoint, authSecret, p256dhKey })
-      }
-
-       return true
-    })
+        const data = JSON.parse(JSON.stringify(subscription))
+        const { endpoint, keys } = data
+        const { auth: authSecret, p256dh: p256dhKey } = keys
+        const deviceId = await getDeviceId()
+        const deviceType = getDeviceType()
+        if (data.keys) {
+          // deleteDeviceAction({ deviceId, deviceType })
+          addDeviceAction({ deviceId, deviceType, endpoint, authSecret, p256dhKey })
+        }
+        isInit = true
+        return true
+      })
+    // }
 
   } catch (e) {
     console.error(e)
