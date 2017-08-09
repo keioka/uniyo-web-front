@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
+import shallowCompare from 'react-addons-shallow-compare'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -100,6 +101,7 @@ export default class SidebarLeft extends Component {
       nextProps.locationParams !== this.props.locationParams ||
       nextProps.hashtags.length !== this.props.hashtags.length ||
       nextProps.allUsers.length !== this.props.allUsers.length ||
+      shallowCompare(this, this.props.allUsers, nextProps.allUsers) ||
       nextState !== this.state
     ) {
       return true

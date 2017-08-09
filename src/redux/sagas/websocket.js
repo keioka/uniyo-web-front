@@ -90,6 +90,13 @@ function subscribe(socket) {
           break
         }
 
+        case 'QUERY_USER_PRESENCE': {
+          const { statuses } = data
+          const action = { type: actionTypes.userOnlineStatusUpdate.success, payload: statuses }
+          emit(action)
+          break
+        }
+
         case 'ERROR': {
           let { error } = data
           error = converter.snakeToCamelCase(error)
@@ -171,20 +178,20 @@ function* flow() {
   // get initialized web socket
   let task
   while (true) {
-    const appFlow = yield race({
+    const webSocketFlow = yield race({
       init: take('WS@INIT'),
       reset: take('WS@RESET'),
       stop: take('WS@STOP')
     })
 
-    if (appFlow.init) {
+    if (webSocketFlow.init) {
       task = yield fork(runWebSocket)
-    } else if (appFlow.reset) {
+    } else if (webSocketFlow.reset) {
       yield cancel(task)
       uniyoWs.reset()
       console.warn('websocket is reseted')
       task = yield fork(runWebSocket)
-    } else if (appFlow.stop) {
+    } else if (webSocketFlow.stop) {
       yield cancel(task)
     }
 
@@ -251,7 +258,7 @@ function* eventWebSocket() {
 
         case 'USER_PRESENCE_CHANGED': {
           const { status, userId } = payload.data
-          action = { type: actionTypes.userOnlineStatusUpdate.success, result: { data: { status, userId } } }
+          action = { type: actionTypes.userOnlineStatusUpdate.success, payload: [{ status, userId }] }
           break
         }
 
@@ -275,7 +282,7 @@ function* eventWebSocket() {
 
         case 'QUERY_USER_PRESENCE': {
           const { statuses } = payload.data
-          action = { type: actionTypes.usersOnlineStatusFetch.success, result: { data: { statuses }  } }
+          action = { type: actionTypes.usersOnlineStatusFetch.success, payload: statuses }
           break
         }
 
@@ -315,16 +322,16 @@ function* awaitUntilWebSocketReady(action) {
 }
 
 function* requestUsersOnlineStatusWebSocket() {
-  yield takeEvery('REQUEST_USERS_ONLINE_STATUS', function* requestUsersOnlineStatusHandler({ userIds }) {
+  yield takeEvery('QUERY_USERS_ONLINE_STATUS_REQUEST', function* requestUsersOnlineStatusHandler({ userIds }) {
     if (!uniyoWs.isAuthenticated) {
-      const action = { type: 'REQUEST_USERS_ONLINE_STATUS', userIds }
+      const action = { type: 'QUERY_USERS_ONLINE_STATUS_REQUEST', userIds }
       yield fork(awaitUntilWebSocketReady, action)
     } else {
       try {
         const request = {
           id: 1,
           type: 'QUERY_USER_PRESENCE',
-          userIds: [2247483647],
+          userIds,
         }
         uniyoWs.socket.send(JSON.stringify(converter.camelToSnakeCase(request)))
       } catch (e) {

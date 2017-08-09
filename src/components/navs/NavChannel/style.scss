@@ -50,8 +50,14 @@ $height-icon: 35px;
   right: 0px;
   width: 10px;
   height: 10px;
-  border-radius: 50%;
-  background-color: #5fe36f;
+}
+
+.icon--online {
+  @extend ._icon--online;
+}
+
+.icon--offile {
+  @extend ._icon--offline;
 }
 
 .icon--user:hover .icon--user__img {

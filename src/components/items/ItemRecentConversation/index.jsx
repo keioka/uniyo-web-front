@@ -22,6 +22,7 @@ import {
   wrapper,
   spanChannelInfo,
   iconOnline,
+  iconOffline,
   iconUsersCount,
 } from './style'
 
@@ -46,8 +47,8 @@ export default class ItemRecentConversation extends Component {
       } else {
         return (
           <div className={boxMultipleUserImages}>
-            <img src={filteredUsers && filteredUsers[0] && filteredUsers[0].image.smallUrl} className={imgUserOne} />
-            <img src={filteredUsers && filteredUsers[1] && filteredUsers[1].image.smallUrl} className={imgUserTwo} />
+            <img src={filteredUsers && filteredUsers[0] && filteredUsers[0].image.mediumUrl} className={imgUserOne} />
+            <img src={filteredUsers && filteredUsers[1] && filteredUsers[1].image.mediumUrl} className={imgUserTwo} />
           </div>
         )
       }
@@ -65,7 +66,7 @@ export default class ItemRecentConversation extends Component {
           <span className={spanChannelInfo}>
             <span className={fontName}>
               {filteredUsers && filteredUsers.length > 1 && <span className={iconUsersCount}>{filteredUsers.length}</span>}
-              {filteredUsers && filteredUsers.length === 1 && <span className={iconOnline}></span>}
+              {filteredUsers && filteredUsers.length === 1 && filteredUsers[0].isOnline ? <span className={iconOnline}></span> : <span className={iconOffline}></span>}
               <span className={fontUserNames}>{filteredUsers && filteredUsers.map(user => user && user.name).join(', ')}</span>
               <span className={fontTime}>{createdAt}</span>
             </span>
