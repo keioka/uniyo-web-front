@@ -14,6 +14,8 @@ import {
   textUserHashtag,
   rowHashtags,
   boxUserInfo,
+  iconOnline,
+  iconOffline,
 } from './style'
 
 
@@ -22,10 +24,11 @@ const ItemNewChatUser = ({ user, onClick }) => {
   return (
     <li key={id} className={wrapper} onClick={() => onClick(user)}>
       <div className={boxImage}>
-        <img src={image.smallUrl} className={imgUser} />
+        <img src={image.mediumUrl} className={imgUser} />
       </div>
       <div className={boxUserInfo}>
         <span className={fontName}>
+          {user.isOnline ? <span className={iconOnline}></span> : <span className={iconOffline}></span>}
           <span className={fontUserNames}>{user.name}</span>
         </span>
         <span className={rowHashtags}>

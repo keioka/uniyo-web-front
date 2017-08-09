@@ -10,14 +10,17 @@
   background: white;
   cursor: pointer;
   min-height: 80px;
+  box-sizing: border-box;
+  width: 98%;
 }
 
 .font-name {
-  display: inline-block;
+  display: inline-flex;
   margin-right: 20px;
   font-size: 16px;
   color: #030303;
   font-weight: $font-weight-normal;
+  align-items: center;
 }
 
 .text-user-hashtag {
@@ -32,6 +35,9 @@
 }
 
 .box--user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-left: 20px;
 }
 
@@ -46,4 +52,14 @@
   border-radius: 10px;
   border: 2px solid white;
   width: 50px;
+}
+
+.icon--online {
+  @extend ._icon--online;
+  margin-right: 10px;
+}
+
+.icon--offline {
+  @extend ._icon--offline;
+  margin-right: 10px;
 }
