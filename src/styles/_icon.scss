@@ -1,4 +1,4 @@
-.icon--channel--online-status {
+._icon--channel--online-status {
   margin-right: 5px;
   padding: 1px 2px 3px 2px;
   display: flex;
@@ -6,20 +6,25 @@
   justify-content: center;
 }
 
-.icon--online {
+$size-icon-online-status: 6px;
+
+._icon--online, ._icon--offline {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: $size-icon-online-status;
+  height: $size-icon-online-status;
   padding: 2px;
   border-radius: 50%;
-  background: #5fe36f;
+  box-sizing: border-box;
 }
 
-.icon--offline {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  padding: 2px;
-  border-radius: 50%;
+._icon--online {
+  border: 2px solid rgba(0, 0, 0, 0);
   background: #5fe36f;
+  transition: background 1s ease-out;
+}
+
+._icon--offline {
+  border: 2px solid lightgray;
+  background: white;
+  transition: background 0.3s ease-out;
 }
