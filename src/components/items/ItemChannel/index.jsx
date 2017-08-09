@@ -4,6 +4,7 @@ import { browserHistory, Link } from 'react-router'
 import {
   sectionTag,
   iconOnline,
+  iconOffline,
   iconChannel,
   iconNumberNewMessage,
   iconChannelOnlineStatus,
@@ -45,7 +46,10 @@ const ItemChannel = ({
         {users.length > 2 ?
           (<span data-amount-users={users.length} className={iconChannel}>
             {users.length - 1}
-          </span>) : (<span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>)
+          </span>) :
+          (<span data-user-online className={iconChannelOnlineStatus}>
+             {usersWithoutCurrentUser(users, currentUser)[0].isOnline ? <span className={iconOnline} /> : <span className={iconOffline} />}
+           </span>)
         }
         <span className={sectionTagMain}>
           <span className={fontUserNames}>{name}</span>

@@ -17,20 +17,15 @@ $left-padding: 18px;
 }
 
 .icon--channel--online-status {
-  margin-right: 5px;
-  padding: 1px 2px 3px 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend ._icon--channel--online-status;
 }
 
 .icon--online {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  padding: 2px;
-  border-radius: 50%;
-  background: #5fe36f;
+  @extend ._icon--online;
+}
+
+.icon--offline {
+  @extend ._icon--offline;
 }
 
 .icon--number--new-message {
