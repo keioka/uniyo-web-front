@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
+import shallowCompare from 'react-addons-shallow-compare'
 
 import { connect } from 'react-redux'
 import { actions } from 'uniyo-redux'
@@ -80,6 +81,7 @@ export default class Header extends Component {
       this.props.receivedDonutsCount !== nextProps.receivedDonutsCount ||
       this.props.unreadNotification.length !== nextProps.unreadNotification.length ||
       this.props.allUsers.length !== nextProps.allUsers.length ||
+      shallowCompare(this, this.props.allUsers, nextProps.allUsers) ||
       this.props.allChannels.length !== nextProps.allChannels.length ||
       this.props.isReceiveDonuts !== nextProps.isSpentDonuts ||
       this.props.isSpentDonuts !== nextProps.isSpentDonuts ||
