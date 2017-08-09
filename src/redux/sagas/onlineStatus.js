@@ -3,8 +3,9 @@ import { delay } from 'redux-saga'
 
 import { actionTypes } from 'uniyo-redux'
 
-function* usersOnlineStatusFetchAsync() {
-  yield put({ type: 'REQUEST_USERS_ONLINE_STATUS', userIds: [1] })
+function* usersOnlineStatusFetchAsync({ payload: users }) {
+  const userIds = users.map(user => user.id)
+  yield put({ type: 'QUERY_USERS_ONLINE_STATUS_REQUEST', userIds })
 }
 
 export function* watchUserSearchSuccess() {
@@ -12,5 +13,5 @@ export function* watchUserSearchSuccess() {
 }
 
 export function* watchChannelSearchSuccess() {
-  yield takeLatest(actionTypes.channelSearch.success, usersOnlineStatusFetchAsync)
+  // yield takeLatest(actionTypes.channelSearch.success, usersOnlineStatusFetchAsync)
 }
