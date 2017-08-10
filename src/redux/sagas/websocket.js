@@ -1,10 +1,13 @@
 import { put, take, fork, call, takeLatest, select, takeEvery, wait, race, cancel } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
-import { eventChannel, END } from 'redux-saga'
+import { eventChannel } from 'redux-saga'
 import uiActionTypes from '../actionTypes'
 import { actionTypes } from 'uniyo-redux'
 import converter from 'json-style-converter/es5'
+
+import { pushNotificationNonVisiable } from '../../services/pushNotification'
+
 const webSocketUrl = __PROD__ ? 'wss://live.uniyo.io/v1/ws' : 'wss://staging-live.uniyo.io/v1/ws'
 const notificationSound = new Audio("/public/assets/audio/pop_drip.wav")
 
@@ -309,6 +312,9 @@ function* notificationWebSocket() {
     try {
       yield put({ type: actionTypes.notificationFetch.success, result: { data: notification } })
       yield fork(playNotificationSound)
+      if (document && document.hidden) {
+        yield fork(pushNotificationNonVisiable, notification)
+      }
     } catch (e) {
       console.error(e)
     }

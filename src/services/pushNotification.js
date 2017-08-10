@@ -1,5 +1,8 @@
 import Fingerprint2 from 'fingerprintjs2'
 import UAParser from 'ua-parser-js'
+import { postValue, decorator } from '../utils'
+const { extractHashtagFromText } = postValue
+
 const base64UrlEncodedApplicationServerKey = __STG__ ? 'BOyrRA5otpkiB4pm4ZX6ev1JravtZmH8V2W_CewV9Yv_gxSEKV6ESiaDK1Ni32BAEpXssIVLhm4_UAQIZZ25wYg' : 'BPZVpRpcSsKwFXEAk6fBn2lFWEoz3X0r1ycGtRFN8bl-K_ZyJ9M4MwkDTwB1YSrb5GQjlZQQB6xy8avXGalhQts'
 
 const isBrowserSupportsNotifications = (window && ("Notification" in window || "serviceWorker" in navigator))
@@ -125,5 +128,104 @@ export async function syncSubscription() {
   } catch (e) {
     console.error(e)
     return false
+  }
+}
+
+const postTypes = {
+  'POST': 'publication',
+  'REVIEW': 'review',
+  'QUESTION': 'question',
+  'CLASS_NOTE': 'document',
+  'ANSWER': 'answer',
+}
+
+const generatePushNotificationOption = (notification) => {
+  console.log(notification)
+  const { type: notificationType } = notification
+  const option = {}
+  switch (notificationType) {
+    case 'POST_MENTION': {
+      const { type, text } = notification.post
+      const parsedText = text.replace(/<@(.*?)>/g, (match, i) => {
+        const segments = match
+        .replace('<@', '')
+        .replace('>', '')
+        .split('|')
+        return `@${segments[1]}`
+      })
+
+      option.title = `You've mentioned on ${postTypes[type]}`
+      option.body = parsedText
+      break
+    }
+
+    case 'POST_HASHTAG': {
+      const { type, user, text } = notification.post
+      option.title = `${user.firstName} made a ${postTypes[type]} about ${extractHashtagFromText(text)}`
+      option.body = notification.post.text
+      break
+    }
+
+    case 'NEW_COMMENT': {
+      const { type } = notification.post
+      const { user } = notification.comment
+
+      option.title = `${user.firstName} commented on your ${postTypes[type]}`
+      option.body = notification.comment.text
+      break
+    }
+
+    case 'NEW_CHANNEL_MESSAGE': {
+      option.title = notification.channelMessage.user.name
+      option.body = notification.channelMessage.text
+      break
+    }
+
+    case 'NEW_ANSWER': {
+      const { answer } = notification
+      const { user, text } = answer
+      option.title = `${user.firstName} answered your question`
+      option.body = text
+      break
+    }
+
+    case 'COMMENT_MENTION': {
+      const { text, user } = notification.comment
+      option.title = `You've mentioned on a comment`
+      const parsedText = text.replace(/<@(.*?)>/g, (match, i) => {
+        const segments = match
+        .replace('<@', '')
+        .replace('>', '')
+        .split('|')
+        return `@${segments[1]}`
+      })
+      option.body = parsedText
+    }
+
+    case 'WEEKLY_RECEIVED_DONUTS_COUNT': {
+      const { donutsCount } = notification
+      option.title = `You got ${donutsCount} donuts last week`
+      option.body = 'See who sent donuts to you!'
+      break
+    }
+
+    default:
+      option.title = `You got an update!`
+      option.body = 'See what is happening on your campus'
+      break
+  }
+  return option
+}
+
+export const pushNotificationNonVisiable = (notification) => {
+  if (!("Notification" in window)) {
+    console.error("This browser does not support desktop notification")
+  } else if (Notification.permission === "granted") {
+    const option = generatePushNotificationOption(notification)
+    option.icon = '/public/assets/images/uniyo.png'
+    const n = new Notification(option.title, option)
+    n.onClick = () => {
+      window.open('/dashboard')
+    }
   }
 }

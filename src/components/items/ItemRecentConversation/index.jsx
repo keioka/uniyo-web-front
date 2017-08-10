@@ -56,7 +56,7 @@ export default class ItemRecentConversation extends Component {
 
     const createdAt = mostRecentMessage && mostRecentMessage.createdAt && moment(mostRecentMessage.createdAt).local().fromNow()
     const lastMessage = mostRecentMessage && mostRecentMessage.text
-
+    const renderOnlineStatus = (user) => user && user.isOnline ? <span className={iconOnline}></span> : <span className={iconOffline}></span>
     return (
       <Link to={`/dashboard/channels/${id}`} className={fontLink}>
         <li key={id} className={wrapper}>
@@ -66,7 +66,7 @@ export default class ItemRecentConversation extends Component {
           <span className={spanChannelInfo}>
             <span className={fontName}>
               {filteredUsers && filteredUsers.length > 1 && <span className={iconUsersCount}>{filteredUsers.length}</span>}
-              {filteredUsers && filteredUsers.length === 1 && filteredUsers[0].isOnline ? <span className={iconOnline}></span> : <span className={iconOffline}></span>}
+              {(filteredUsers && filteredUsers.length === 1) && renderOnlineStatus(filteredUsers[0])}
               <span className={fontUserNames}>{filteredUsers && filteredUsers.map(user => user && user.name).join(', ')}</span>
               <span className={fontTime}>{createdAt}</span>
             </span>
