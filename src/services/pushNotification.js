@@ -191,7 +191,6 @@ const generatePushNotificationOption = (notification) => {
 
     case 'COMMENT_MENTION': {
       const { text, user } = notification.comment
-      option.title = `You've mentioned on a comment`
       const parsedText = text.replace(/<@(.*?)>/g, (match, i) => {
         const segments = match
         .replace('<@', '')
@@ -199,7 +198,9 @@ const generatePushNotificationOption = (notification) => {
         .split('|')
         return `@${segments[1]}`
       })
+      option.title = `You've mentioned on a comment`
       option.body = parsedText
+      break
     }
 
     case 'WEEKLY_RECEIVED_DONUTS_COUNT': {

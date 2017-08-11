@@ -104,6 +104,12 @@ const ItemNotification = ({
         break
       }
 
+      case 'COMMENT_MENTION': {
+        const { post } = notification
+        browserHistory.push(`/dashboard/posts/${post.id}`)
+        break
+      }
+
       case 'WEEKLY_RECEIVED_DONUTS_COUNT': {
         showHistoryDonut(1)
         break
@@ -174,6 +180,13 @@ const ItemNotification = ({
       const { user }  = notification.channelMessage
       userImageUrl = user ? user.image.smallUrl : ''
       component = (<span><span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> sent a new message</span>)
+      break
+    }
+
+    case 'COMMENT_MENTION': {
+      const { user } = notification.comment
+      userImageUrl = user ? user.image.smallUrl : ''
+      component = (<span><span className={textUserName} onClick={(event) => { event.preventDefault(); event.stopPropagation(); showUserInfo(user.id)}}>@{user.firstName}</span> mentioned you on a comment</span>)
       break
     }
 
