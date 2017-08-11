@@ -39,6 +39,7 @@ import {
 
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('ownProps', ownProps)
   const { channelId } = ownProps.params
   return {
     currentUser: state.api.auth.currentUser,
@@ -103,7 +104,16 @@ export default class ChannelDashboard extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { showChannelUsers, channel, isOpenRightbar, displayTypeRightbar } = this.props
     this._inputMessage.focus()
+    if (this.props.params.channelId !== prevProps.params.channelId) {
+      console.log(channel)
+      if (channel && isOpenRightbar && displayTypeRightbar === "ChannelUsers") {
+        console.log(channel.users)
+        showChannelUsers(channel.users)
+      }
+    }
+
     if (prevProps.allMessages.length + 1 === this.props.allMessages.length) {
       this.scrollToBottom()
     }
@@ -139,14 +149,11 @@ export default class ChannelDashboard extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.markNotificationRead()
-    if (this.props.params.channelId != nextProps.params.channelId) {
+    if (this.props.params.channelId !== nextProps.params.channelId) {
       const { messageSearch, showChannelUsers, channel, isOpenRightbar, displayTypeRightbar } = this.props
       const { channelId } = nextProps.params
       const timeNow = moment.utc(new Date()).format()
-      this.setState({ init: false })
-      if (channel && isOpenRightbar && displayTypeRightbar === "ChannelUsers") {
-        showChannelUsers(channel.users)
-      }
+
 
       messageSearch({
         limit: 50,
@@ -154,6 +161,7 @@ export default class ChannelDashboard extends Component {
         around: timeNow,
       })
       this.scrollToBottom()
+      this.setState({ init: false })
     }
 
     const { allMessages, showUserInfo } = this.props
