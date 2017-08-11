@@ -101,11 +101,9 @@ export default class ItemHashtag extends Component {
     }
 
     const linkPath = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
-    const key = `$item_hashtag__${hashCode(hashtag)}`
     return (
       <Link
         onClick={onClick}
-        key={key}
         to={linkPath}
         className={link}
       >
