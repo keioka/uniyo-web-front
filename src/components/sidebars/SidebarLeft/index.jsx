@@ -89,26 +89,27 @@ export default class SidebarLeft extends Component {
     isShowMoreTags: false,
     isShowMoreChannels: false,
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.allChannels.length !== this.props.allChannels.length ||
-      nextProps.unreadNotification.length !== this.props.unreadNotification.length ||
-      nextProps.isSchoolTop !== this.props.isSchoolTop ||
-      nextProps.selectedHashtag !== this.props.selectedHashtag ||
-      nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
-      nextProps.isMainDashboard !== this.props.isMainDashboard ||
-      nextProps.locationParams !== this.props.locationParams ||
-      nextProps.hashtags.length !== this.props.hashtags.length ||
-      nextProps.allUsers.length !== this.props.allUsers.length ||
-      shallowCompare(this, this.props.allUsers, nextProps.allUsers) ||
-      nextState !== this.state
-    ) {
-      return true
-    }
-
-    return false
-  }
+  //
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (
+  //     nextProps.allChannels.length !== this.props.allChannels.length ||
+  //     nextProps.unreadNotification.length !== this.props.unreadNotification.length ||
+  //     nextProps.isSchoolTop !== this.props.isSchoolTop ||
+  //     nextProps.selectedHashtag !== this.props.selectedHashtag ||
+  //     nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
+  //     nextProps.isMainDashboard !== this.props.isMainDashboard ||
+  //     nextProps.locationParams !== this.props.locationParams ||
+  //     nextProps.hashtags.length !== this.props.hashtags.length ||
+  //     shallowCompare(this, this.props.hashtagsCurrentUsers, nextProps.hashtagsCurrentUser) ||
+  //     nextProps.allUsers.length !== this.props.allUsers.length ||
+  //     shallowCompare(this, this.props.allUsers, nextProps.allUsers) ||
+  //     nextState !== this.state
+  //   ) {
+  //     return true
+  //   }
+  //
+  //   return false
+  // }
 
   onClickBtnAddHashTag() {
     this.setState({
@@ -142,7 +143,7 @@ export default class SidebarLeft extends Component {
     return hashtagsCurrentUser && uniq(hashtagsCurrentUser, 'hashtag')
   }
 
-  get filteredHashtag() {
+  filteredHashtag() {
     const { keywordForSort } = this.state
     return this.uniqueHashtagsCurrentUser && this.uniqueHashtagsCurrentUser
     .filter(hashtag =>
@@ -152,7 +153,7 @@ export default class SidebarLeft extends Component {
   }
 
   get isSearchResultForHashtagExist() {
-    return this.filteredHashtag ? this.filteredHashtag.length > 0 : true
+    return this.filteredHashtag() ? this.filteredHashtag().length > 0 : true
   }
 
   get filteredChannels() {
@@ -388,15 +389,29 @@ export default class SidebarLeft extends Component {
                   onKeyDown={(event) => { event.keyCode === 27 && this.setState({ isShowInputAddTag: false }) }}
                 />
               }
-              { this.uniqueHashtagsCurrentUser &&
-                <ListHashtags
-                  filteredHashtag={this.filteredHashtag}
-                  selectedHashtag={this.props.selectedHashtag}
-                  mentionHashtagList={mentionHashtagList}
-                  flattenHashtagsNotification={flattenHashtagsNotification}
-                  hashtagDelete={hashtagDelete}
-                />
-              }
+              {this.filteredHashtag() && this.filteredHashtag().map(hashtag => {
+                    const classNames = []
+                    const isSelected = this.props.selectedHashtag ? this.props.selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
+                    const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
+                    const amountMention = mentionHashtagList[hashtag.hashtag]
+                    const titleHashtag = hashtag.hashtag
+                    const typeHashtag = hashtag.type
+                    return (
+                      <ItemHashtag
+                        key={`$item_hashtag__${titleHashtag}`}
+                        className={classNames.join(' ')}
+                        hashtag={titleHashtag}
+                        hashtagType={typeHashtag}
+                        hashtagDelete={hashtagDelete}
+                        isSelected={isSelected}
+                        isIncludeNewPost={isIncludeNewPost}
+                        amountMention={amountMention}
+                        showBtnDelete
+                        type={this.props.type}
+                      />
+                    )
+              })}
+
             </ul>
           }
 
@@ -500,47 +515,47 @@ render() {
 
 class ListHashtags extends Component {
 
-  shouldComponentUpdate(nextProps) {
-    if (
-      this.props.filteredHashtag.length !== nextProps.filteredHashtag.length ||
-      this.props.selectedHashtag !== nextProps.selectedHashtag ||
-      this.props.mentionHashtagList !== nextProps.mentionHashtagList ||
-      this.props.flattenHashtagsNotification.length !== nextProps.flattenHashtagsNotification.length
-    ) {
-      return true
-    }
-    return false
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   // if (
+  //   //   this.props.filteredHashtag.length !== nextProps.filteredHashtag.length ||
+  //   //   this.props.selectedHashtag !== nextProps.selectedHashtag ||
+  //   //   this.props.mentionHashtagList !== nextProps.mentionHashtagList ||
+  //   //   this.props.flattenHashtagsNotification.length !== nextProps.flattenHashtagsNotification.length ||
+  //   //   shallowCompare(this, this.props.filteredHashtag, nextProps.filteredHashtag)
+  //   // ) {
+  //   //   return true
+  //   // }
+  //   return true
+  // }
 
   render() {
     const { filteredHashtag, selectedHashtag, mentionHashtagList, flattenHashtagsNotification, hashtagDelete } = this.props
+    console.log(filteredHashtag)
     return (
       <ul>
-      {filteredHashtag && filteredHashtag
-        .map((hashtag, index) => {
+      {filteredHashtag && filteredHashtag.map(hashtag => {
+          console.log('hashtag', hashtag)
           const classNames = []
-            // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
-            //   classNames.push(hide)
-            // }
-            const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
-            const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
-            const amountMention = mentionHashtagList[hashtag.hashtag]
-
-            return (
-              <ItemHashtag
-                className={classNames.join(' ')}
-                hashtag={hashtag.hashtag}
-                hashtagType={hashtag.type}
-                hashtagDelete={hashtagDelete}
-                isSelected={isSelected}
-                isIncludeNewPost={isIncludeNewPost}
-                amountMention={amountMention}
-                showBtnDelete
-                type={this.props.type}
-              />
-            )
-          })}
-       </ul>
+          const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
+          const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
+          const amountMention = mentionHashtagList[hashtag.hashtag]
+          const titleHashtag = hashtag.hashtag
+          const typeHashtag = hashtag.type
+          return (
+            <ItemHashtag
+              className={classNames.join(' ')}
+              hashtag={titleHashtag}
+              hashtagType={typeHashtag}
+              hashtagDelete={hashtagDelete}
+              isSelected={isSelected}
+              isIncludeNewPost={isIncludeNewPost}
+              amountMention={amountMention}
+              showBtnDelete
+              type={this.props.type}
+            />
+          )
+        })}
+      </ul>
     )
   }
 }

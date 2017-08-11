@@ -90,7 +90,6 @@ export default class ItemHashtag extends Component {
       amountMention,
       onClick,
     } = this.props
-
     const wrapperClassNames = isSelected ? `${className} ${wrapper} ${wrapperActive}` : `${className} ${wrapper}`
     const classNameHashtag = isIncludeNewPost ? tagBold : tagRegular
 
@@ -101,11 +100,10 @@ export default class ItemHashtag extends Component {
     }
 
     const linkPath = isSelected ? '/dashboard' : dashboardPathGenarator({ hashtag })
-    const key = `$item_hashtag__${hashCode(hashtag)}`
     return (
       <Link
+        key={hashtag}
         onClick={onClick}
-        key={key}
         to={linkPath}
         className={link}
       >
