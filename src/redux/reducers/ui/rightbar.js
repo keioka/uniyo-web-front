@@ -7,7 +7,7 @@ const initialiState = {
   isFetchingUserInfo: false,
   isFetchingNotification: false,
   isFetchingHistoryDonut: false,
-  userInfo: {},
+  userId: null,
   channelUsers: [],
   notifications: [],
   historyDonut: [],
@@ -45,7 +45,7 @@ export default (state = initialiState, action) => {
     case actionTypes.showUserInfo.success: {
       return Object.assign({
         isFetchingUserInfo: false,
-        userInfo: action.user,
+        userId: action.user.id,
         isOpen: true,
         displayType: 'UserInfo',
       })
@@ -66,7 +66,7 @@ export default (state = initialiState, action) => {
         isFetchingUserInfo: false,
         isFetchingNotification: false,
         isFetchingHistoryDonut: false,
-        userInfo: {},
+        userInfo: null,
         notifications: [],
         historyDonut: [],
       })

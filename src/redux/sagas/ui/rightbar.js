@@ -17,11 +17,9 @@ function* showUserInfo({ userId }) {
     const tokens = yield select(getTokens)
     const { accessToken } = tokens
 
-    let user = users.all.find(user => user.id === userId)
+    // let user = users.all.find(user => user.id === userId)
 
-    if (!user) {
-      user = yield call(sagas.userInfoAsync, { userId, accessToken })
-    }
+    const user = yield call(sagas.userInfoAsync, { userId, accessToken })
 
     if (user) {
       yield put({ type: uiActionTypes.showUserInfo.success, user })

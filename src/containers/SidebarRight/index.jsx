@@ -118,18 +118,19 @@ export default class SidebarRight extends Component {
       postInfo,
     } = this.props
 
-    const { displayType, isOpen, userInfo, channelUserIds } = rightbar
+    const { displayType, isOpen, userId, channelUserIds } = rightbar
     const { all: allUsers } = users
     const { all: allChannels } = channels
     const { all: allPosts } = posts
     const { all: allNotifications } = notifications
     const channelUsers = channelUserIds && channelUserIds.map(userId => allUsers.filter(user => user.id === userId)[0])
-    switch(displayType) {
+
+    switch (displayType) {
       case 'UserInfo': {
         return (
           <SidebarRightUserInfo
             allUsers={allUsers}
-            userId={userInfo.id}
+            userId={userId}
             showHistoryDonut={showHistoryDonut}
             channels={allChannels}
             channelCreate={channelCreate}
