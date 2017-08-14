@@ -107,9 +107,7 @@ export default class ChannelDashboard extends Component {
     const { showChannelUsers, channel, isOpenRightbar, displayTypeRightbar } = this.props
     this._inputMessage.focus()
     if (this.props.params.channelId !== prevProps.params.channelId) {
-      console.log(channel)
       if (channel && isOpenRightbar && displayTypeRightbar === "ChannelUsers") {
-        console.log(channel.users)
         showChannelUsers(channel.users)
       }
     }
