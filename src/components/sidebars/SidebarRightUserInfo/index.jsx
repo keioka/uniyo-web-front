@@ -29,6 +29,9 @@ import {
   tagsItem,
   btnMessage,
   overlayerProfilePictureUpdate,
+  iconOnlineStatus,
+  iconOnline,
+  iconOffline,
 } from './style'
 
 const uniq = (array, param) => {
@@ -87,6 +90,7 @@ export default class SidebarRightUserInfo extends Component {
                 <div className={profile}>
                   <div className={profileName}>
                     <h3 className={profileNameH3}>{user.firstName} {user.lastName}</h3>
+                    <span className={iconOnlineStatus}>{user.isOnline ? <span className={iconOnline}></span> : <span className={iconOffline}></span>}</span>
                   </div>
                   <div className={profileNav}>
                     <button className={btnMessage} onClick={onClickBtnMessage}>Message</button>

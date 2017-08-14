@@ -146,3 +146,20 @@
     background: $strongpink;
   }
 }
+
+.profile--name {
+
+}
+
+.icon--online-status {
+  margin-left: 10px;
+  display: flex;
+}
+
+.icon--online {
+  @extend ._icon--online;
+}
+
+.icon--offline {
+  @extend ._icon--offline;
+}
