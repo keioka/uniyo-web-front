@@ -262,9 +262,9 @@ export default class SidebarLeft extends Component {
     } = this.props
 
     const unreadPostNotification = unreadNotification.filter(notification =>
-      notification.type === "POST_HASHTAG" ||
-      notification.type === "POST_MENTION" ||
-      notification.type === "NEW_COMMENT"
+      notification.type === 'POST_HASHTAG' ||
+      notification.type === 'POST_MENTION' ||
+      notification.type === 'NEW_COMMENT'
     )
 
 
@@ -275,7 +275,8 @@ export default class SidebarLeft extends Component {
     const flattenHashtagsNotification = Array.prototype.concat.apply([], hashtagsNotification)
 
     const unreadMentionNotification = unreadNotification.filter(notification =>
-      notification.type === "POST_MENTION"
+      notification.type === 'POST_MENTION' ||
+      notification.type === 'NEW_COMMENT'
     )
 
     const mentionNotification = unreadMentionNotification.map(notification =>
