@@ -52,7 +52,7 @@ const ItemChannel = ({
            </span>)
         }
         <span className={sectionTagMain}>
-          <span className={fontUserNames}>{name}</span>
+          {amountNewMessage > 0 ? <b><span className={fontUserNames}>{name}</span></b> : <span className={fontUserNames}>{name}</span>}
           {amountNewMessage > 0 && <span className={iconNumberNewMessage}>{amountNewMessage}</span>}
         </span>
       </li>
