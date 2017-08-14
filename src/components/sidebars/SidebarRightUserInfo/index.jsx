@@ -53,10 +53,12 @@ export default class SidebarRightUserInfo extends Component {
 
     const onClickBtnMessage = () => {
       const filteredChannel = channels.filter(channel => {
-        const users = usersWithoutCurrentUser(channel.users, currentUser)
+        const channelUsers = channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
+        const users = usersWithoutCurrentUser(channelUsers, currentUser)
         // check if current user has channel with the other user
         // check channel is not group because it is supposed to be 1 to 1 chat
         // check if the other user id is included. [0] is the other user and [1] is current user
+
         return users.length === 1 && users[0].id == userId
       })
 
