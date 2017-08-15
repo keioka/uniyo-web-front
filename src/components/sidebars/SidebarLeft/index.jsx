@@ -42,6 +42,7 @@ import {
   iconChannelOnlineStatus,
   iconNumberNewMessage,
   iconOnline,
+  iconOffline,
   userNames,
   tag,
   nav,
@@ -239,7 +240,7 @@ export default class SidebarLeft extends Component {
     const { allUsers } = this.props
 
     return allUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
-      <li className={sectionTag} onClick={() => onClickBtnMessage(user.id)}><span data-user-online className={iconChannelOnlineStatus}><span className={iconOnline} /></span>{user.name}</li>
+      <li className={sectionTag} onClick={() => onClickBtnMessage(user.id)}><span data-user-online className={iconChannelOnlineStatus}>{user.isOnline ? <span className={iconOnline} /> : <span className={iconOffline} />}</span> {user.name}</li>
     )
   }
 

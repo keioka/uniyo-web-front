@@ -208,6 +208,18 @@ $left-padding: 16px;
   fill: $darkgray;
 }
 
+.icon--channel-online-status {
+  @extend ._icon--channel--online-status;
+}
+
+.icon--online {
+  @extend ._icon--online;
+}
+
+.icon--offline {
+  @extend ._icon--offline;
+}
+
 @media only screen and (min-width: 769px) {
   .wrapper {
     opacity: 1;
