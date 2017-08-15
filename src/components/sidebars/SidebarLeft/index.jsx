@@ -514,7 +514,7 @@ render() {
           </ul>
          {this.state.inValidSearch ?
          <h4 className={sectionLabel}>
-           No search result
+           No search result 😫
          </h4>
          : navSideBar}
         </div>
