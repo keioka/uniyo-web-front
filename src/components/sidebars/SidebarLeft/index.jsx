@@ -90,27 +90,27 @@ export default class SidebarLeft extends Component {
     isShowMoreTags: false,
     isShowMoreChannels: false,
   }
-  //
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (
-  //     nextProps.allChannels.length !== this.props.allChannels.length ||
-  //     nextProps.unreadNotification.length !== this.props.unreadNotification.length ||
-  //     nextProps.isSchoolTop !== this.props.isSchoolTop ||
-  //     nextProps.selectedHashtag !== this.props.selectedHashtag ||
-  //     nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
-  //     nextProps.isMainDashboard !== this.props.isMainDashboard ||
-  //     nextProps.locationParams !== this.props.locationParams ||
-  //     nextProps.hashtags.length !== this.props.hashtags.length ||
-  //     shallowCompare(this, this.props.hashtagsCurrentUsers, nextProps.hashtagsCurrentUser) ||
-  //     nextProps.allUsers.length !== this.props.allUsers.length ||
-  //     shallowCompare(this, this.props.allUsers, nextProps.allUsers) ||
-  //     nextState !== this.state
-  //   ) {
-  //     return true
-  //   }
-  //
-  //   return false
-  // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.allChannels.length !== this.props.allChannels.length ||
+      nextProps.unreadNotification.length !== this.props.unreadNotification.length ||
+      nextProps.isSchoolTop !== this.props.isSchoolTop ||
+      nextProps.selectedHashtag !== this.props.selectedHashtag ||
+      nextProps.hashtagsCurrentUser !== this.props.hashtagsCurrentUser ||
+      nextProps.isMainDashboard !== this.props.isMainDashboard ||
+      nextProps.locationParams !== this.props.locationParams ||
+      nextProps.hashtags.length !== this.props.hashtags.length ||
+      shallowCompare(this, this.props.hashtagsCurrentUsers, nextProps.hashtagsCurrentUser) ||
+      nextProps.allUsers.length !== this.props.allUsers.length ||
+      shallowCompare(this, this.props.allUsers, nextProps.allUsers) ||
+      nextState !== this.state
+    ) {
+      return true
+    }
+
+    return false
+  }
 
   onClickBtnAddHashTag() {
     this.setState({
@@ -190,19 +190,22 @@ export default class SidebarLeft extends Component {
     !this.isSearchResultForTrendingHashtagExist
   }
 
-  get resultHashtag() {
+  renderResultHashtag() {
     const { keywordForSort } = this.state
-    return this.props.hashtags.length > 0 ?
-     this.props.hashtags
-     .filter(hashtag => hashtag.toLowerCase().includes(keywordForSort.toLowerCase()))
+    const hashtags = this.props.hashtags
+    .filter(hashtag => hashtag.toLowerCase().includes(keywordForSort.toLowerCase()))
+    return hashtags.length > 0 ?
+     hashtags
      .map(hashtag =>
       <ItemHashtag
+        key={`$item_hashtag_result__${hashtag}`}
         hashtag={hashtag}
         hashtagType={'s'}
         type={this.props.type}
         onClick={::this.clearInputSearchTag}
       />) :
       <ItemHashtag
+        key={`$item_hashtag_result__${keywordForSort}`}
         hashtag={keywordForSort}
         hashtagType={'s'}
         type={this.props.type}
@@ -424,13 +427,13 @@ export default class SidebarLeft extends Component {
             </ul>
           }
 
-          {keywordForSort !== '' && this.resultHashtag &&
+          {keywordForSort !== '' && this.renderResultHashtag() &&
             <ul className={section}>
               <h4 className={sectionLabel}>
                 OTHER HASHTAGS
               </h4>
               <ul>
-                {this.resultHashtag}
+                {this.renderResultHashtag()}
               </ul>
             </ul>
           }
@@ -483,10 +486,11 @@ render() {
   const navSideBar = this.renderNavSideBar()
   const onChangeInputSearchTag = (event) => {
     const { value } = event.target
+    const inValidSearch = value && value.match(/\$|\^|\&|\*|\(|\)|\-|\+|\=/) && value.match(/\w+/)[0]
     const keyword = value && value.match(/\w+/) && value.match(/\w+/)[0]
     userSearch({ query: keyword })
     hashtagSearch({ query: keyword })
-    this.setState({ keywordForSort: keyword })
+    this.setState({ keywordForSort: keyword, inValidSearch: inValidSearch })
   }
 
   return (
@@ -503,11 +507,15 @@ render() {
           <ul className={section}>
             <Link to="/dashboard">
               <h3 className={classNameForTopSchool}>
-              All in {localStorage.SCHOOL_NAME}
-            </h3>
+                All in {localStorage.SCHOOL_NAME}
+              </h3>
             </Link>
           </ul>
-          {navSideBar}
+         {this.state.inValidSearch ?
+         <h4 className={sectionLabel}>
+           No search result
+         </h4>
+         : navSideBar}
         </div>
       </aside>
     </div>
@@ -532,11 +540,9 @@ class ListHashtags extends Component {
 
   render() {
     const { filteredHashtag, selectedHashtag, mentionHashtagList, flattenHashtagsNotification, hashtagDelete } = this.props
-    console.log(filteredHashtag)
     return (
       <ul>
       {filteredHashtag && filteredHashtag.map(hashtag => {
-          console.log('hashtag', hashtag)
           const classNames = []
           const isSelected = selectedHashtag ? selectedHashtag.toLowerCase() === hashtag.hashtag.toLowerCase() : false
           const isIncludeNewPost = flattenHashtagsNotification.map(hashtagNotification => hashtagNotification.toLowerCase()).includes(hashtag.hashtag.toLowerCase())
