@@ -52,7 +52,7 @@ var notificationHandler = (function () {
       var title = data.title || "Hello from notification";
       var url = generateUrlPath(data);
       var notificationOptions = {
-        body: data.message || 'You have updates',
+        body: data.message.replace(/�/, '') || 'You have updates',
         icon: './assets/images/uniyo.png',
         data: {
           url: url,
