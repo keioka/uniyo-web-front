@@ -366,6 +366,7 @@ export default class SidebarLeft extends Component {
 
           return (
             <ItemHashtag
+              key={`$item_hashtag_trending__${hashtag}`}
               className={classNames.join(' ')}
               hashtag={hashtag}
               isSelected={isSelected}
