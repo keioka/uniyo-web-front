@@ -140,7 +140,7 @@ const postTypes = {
 }
 
 const generatePushNotificationOption = (notification) => {
-  console.log(notification)
+
   const { type: notificationType } = notification
   const option = {}
   switch (notificationType) {
@@ -161,10 +161,18 @@ const generatePushNotificationOption = (notification) => {
 
     case 'POST_HASHTAG': {
       const { type, user, text } = notification.post
-      option.title = `${user.firstName} made a ${postTypes[type]} about ${extractHashtagFromText(text)}`
-      option.body = notification.post.text
-      break
-    }
+      const parsedText = text.replace(/<@(.*?)>/g, (match, i) => {
+        const segments = match
+        .replace('<@', '')
+        .replace('>', '')
+        .split('|')
+        return `@${segments[1]}`
+    })
+
+    option.title = `${user.firstName} made a ${postTypes[type]} about ${extractHashtagFromText(text)}`
+    option.body = parsedText
+    break
+  }
 
     case 'NEW_COMMENT': {
       const { type } = notification.post
