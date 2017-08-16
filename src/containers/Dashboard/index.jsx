@@ -58,6 +58,7 @@ import {
   popupEmoji,
   overlayerProfilePictureUpdate,
   wrapperIcon,
+  barPushNotificationItem,
 } from './style'
 
 const mapStateToProps = state => ({
@@ -323,18 +324,30 @@ export default class DashBoard extends Component {
         {this.state.isOpenNotificationBar && pushNotification.permissionStatus === "default" &&
         <div className={barPushNotification}>
           <Donut size="sm" />
-          Uniyo needs your permission to&nbsp;
-          <span
-            className={textEnableNotification}
-            onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
+          Notify when you get news on your campus&nbsp;
+          <span className={barPushNotificationItem}>
+            •
+            <span
+              className={textEnableNotification}
+              onClick={() => { this.setState({ isOpenNotificationBar: false }); pushNotification.requestPermissionForNotifications()}}
             >
-              enable desktop notifications.
+              Enable notifications
             </span>
-            <ButtonClose
-              className={barPushNotificationButtonClose}
+          </span>
+          <span className={barPushNotificationItem}>
+            •
+            <span
+              className={textEnableNotification}
               onClick={() => this.setState({ isOpenNotificationBar: false })}
-            />
-          </div>
+            >
+               Ask me next time.
+            </span>
+          </span>
+          <ButtonClose
+            className={barPushNotificationButtonClose}
+            onClick={() => this.setState({ isOpenNotificationBar: false })}
+          />
+        </div>
         }
         {this.props.dashboard.isDisplayPopup &&
           <div className={popup}>
