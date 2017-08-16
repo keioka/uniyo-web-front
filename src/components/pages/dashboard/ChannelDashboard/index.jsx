@@ -39,7 +39,6 @@ import {
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('ownProps', ownProps)
   const { channelId } = ownProps.params
   return {
     currentUser: state.api.auth.currentUser,
