@@ -116,7 +116,7 @@ export default class ChannelNewDashboard extends Component {
     const { allUsers } = this.props
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
     return allUsers
-    .filter(user => query.test(user.name.toLowerCase()))
+    .filter(user => query.test(user.name.toLowerCase()) || (user.hashtags && user.hashtags.some(hashtag && query.test(hashtag.toLowerCase()) )))
     .map(user => <ItemNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
@@ -173,11 +173,11 @@ export default class ChannelNewDashboard extends Component {
               {this.state.selectedUsers &&
                this.state.selectedUsers.map((user, index) =>
                <span
+                 key={`$span_selected_user_id-${user.id}`}
                  className={tagUser}
-                 onClick={() => ::this.onDeleteSelectedUser(index)}
                >
-                {user.name}
-                <ButtonClose className={iconClose} onClick={() => ::this.onDeleteSelectedUser(index)} />
+                 {user.name}
+                 <ButtonClose className={iconClose} onClick={() => ::this.onDeleteSelectedUser(index)} />
                </span>)
               }
             </div>
