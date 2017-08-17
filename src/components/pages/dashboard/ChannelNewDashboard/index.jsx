@@ -116,7 +116,7 @@ export default class ChannelNewDashboard extends Component {
     const { allUsers } = this.props
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
     return allUsers
-    .filter(user => query.test(user.name.toLowerCase()) || (user.hashtags && user.hashtags.some(hashtag && query.test(hashtag.toLowerCase()) )))
+    .filter(user => query.test(user.name.toLowerCase()) || (user.hashtags && user.hashtags.some(hashtag => query.test(hashtag.hashtag.toLowerCase())) ))
     .map(user => <ItemNewChatUser user={user} onClick={::this.onSelectedUser} />)
   }
 
