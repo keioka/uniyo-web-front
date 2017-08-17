@@ -10,7 +10,7 @@ const InputSearchUser = (props, { className }) => {
   return (
     <input
       type="text"
-      placeholder="Find or start conversations, search with name or #hashtag"
+      placeholder="Find or start a conversation, search by name or by #hashtag"
       {...props}
       className={classNames}
     />

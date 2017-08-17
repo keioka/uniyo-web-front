@@ -190,7 +190,7 @@ export default class ChannelNewDashboard extends Component {
               </ul>
             </div> :
             <div className={section}>
-              <h4 className={sectionTitle}>Recent Conversation</h4>
+              <h4 className={sectionTitle}>Recent conversations</h4>
               <ul className={sectionUl}>
                 {this.channels}
               </ul>

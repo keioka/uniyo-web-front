@@ -11,7 +11,10 @@
   cursor: pointer;
   min-height: 80px;
   box-sizing: border-box;
-  width: 98%;
+  width: 100%;
+  &:hover{
+    background: $extralightpink;
+  }
 }
 
 .font-name {
@@ -38,7 +41,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .box-image {
@@ -56,10 +59,10 @@
 
 .icon--online {
   @extend ._icon--online;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .icon--offline {
   @extend ._icon--offline;
-  margin-right: 10px;
+  margin-right: 5px;
 }
