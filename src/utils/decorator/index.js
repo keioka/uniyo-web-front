@@ -29,15 +29,14 @@ export const placeholderMessage = (users, numberOfShow, currentUserId) => {
 
 export const usersWithoutCurrentUser = (users, currentUser) => {
   if (!users || !currentUser) {
-    console.warn('usersWithoutCurrentUser did not get users or currentUser')
+    console.error('usersWithoutCurrentUser did not get users or currentUser')
+    return users
   }
   if (users.length === 1) {
     return users
   }
-  const index = users.findIndex(user => user && user.id === currentUser.id)
-  const usersWithoutCurrentUser = [...users]
-  usersWithoutCurrentUser.splice(index, 1)
-  return usersWithoutCurrentUser
+
+  return users.filter(user => user && user.id !== currentUser.id)
 }
 
 

@@ -143,7 +143,7 @@ export default class ChannelNewDashboard extends Component {
 
     const query = new RegExp(`^${this.state.query ? this.state.query.toLowerCase() : ''}`)
     const matchUserName = user => user[0].name && query.test(user[0].name.toLowerCase())
-    const filterUsers = channel => usersWithoutCurrentUser(channel.users.map(userId => allUsers.filter(user => user.id === userId)), currentUser).some(matchUserName)
+    const filterUsers = channel => { return usersWithoutCurrentUser(channel.users.map(userId => allUsers.filter(user => user.id === userId)), currentUser).some(matchUserName) }
     const getChannelUsers = channel => channel.users.map(userId => allUsers.filter(user => user.id === userId)[0])
     const channels = this.state.query ? allChannels.filter(filterUsers) : []
     // const isChannelUser = (channel) => channel.users.includes(user => query.test(user.name))
