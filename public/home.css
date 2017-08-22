@@ -211,12 +211,19 @@
   transform: color 2s ease-out;
 }
 
+.home-lineseparator{
+  height:2.5em;
+  background: #833ab4;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffd8a2, #dbffa2, #ffbfbf, #e9c9ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffd8a2, #dbffa2, #ffbfbf, #e9c9ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 .home-footer-sitemap {
   display: flex;
   padding: 40px 10rem;
   justify-content: center;
   background: white;
-  padding: 40px 140px 40px 210px;
+  padding: 30px 140px 0px 210px;
 }
 
 .home-footer-sitemap__nav {
@@ -235,7 +242,7 @@
 }
 
 .home-footer-sitemap__nav:nth-child(1) h5 {
-  color: #C56910;
+  color: #89d4a8;
 }
 
 .home-footer-sitemap__nav:nth-child(2) h5 {
@@ -278,7 +285,9 @@
 
 .home-footer {
   height: 3.5em;
-  background: #f3f3f3;
+  background: #f3f3f3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, white, #eaeaea, white);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, white, #eaeaea, white); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: #A2A2A2;
   text-align: center;
   font-size: 12.6px;

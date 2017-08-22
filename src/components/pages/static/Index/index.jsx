@@ -95,8 +95,9 @@ export default class Index extends Component {
          <header className="home-header">
            <img src="/public/assets/images/home/logo.svg" alt=""/>
            <nav className="home-header-nav">
-             <a href="#download" className="home-header-link">Download</a>
-             <a href="#pricing" className="home-header-link">Pricing</a>
+             <a href="https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8" className="home-header-link">Download</a>
+             {/*<a href="#download" className="home-header-link">Download</a>*/}
+             {/* <a href="#pricing" className="home-header-link">Pricing</a>*/}
              <Link to="/signin" className="home-header-link">Log in</Link>
              <Link to="/signup" className="home-header-link home-signup">Sign up</Link>
            </nav>
@@ -219,6 +220,7 @@ export default class Index extends Component {
          </div>
        </div>
        */}
+       <div className="home-lineseparator"></div>
        <div className="home-footer-sitemap">
          <div className="home-footer-sitemap__nav">
            <h5>Popcorn  🍿</h5>
@@ -256,7 +258,7 @@ export default class Index extends Component {
            <ul>
              {/*<li><a href="#download">Download desktop app</a></li>
              <li><a href="#downloadapp">Download mobile app</a></li>*/}
-             <li><a href="https://www.google.co.il/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjX5IjfoevVAhVEPRoKHe9YCAIQFggnMAA&url=https%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Funiyo-campus-communication-for-students%2Fid1249873841%3Fmt%3D8&usg=AFQjCNESVga9LW36b7rFKSTuslW-9WOAtA">Download mobile app</a></li>
+             <li><a href="https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8">Download mobile app</a></li>
            </ul>
          </div>
 
