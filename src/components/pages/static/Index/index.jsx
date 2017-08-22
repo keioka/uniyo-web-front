@@ -76,7 +76,7 @@ export default class Index extends Component {
       navigator.userAgent.match(/iPad/i) ||
       navigator.userAgent.match(/iPod/i)
     ) {
-      btnText = 'iOS app is coming soon'
+      btnText = 'Download the app'
     } else {
       btnText = 'App is coming soon'
     }
@@ -102,9 +102,9 @@ export default class Index extends Component {
            </nav>
          </header>
          <img src="/public/assets/images/home/Donnut.svg" alt="" className="home--top-donnut-mobile"/>
-         <h1 className="home-title">The front-page of your campus 👋</h1>
+         <h1 className="home-title">The front-page of your campus</h1>
          <h3 className="home-subtitle">See what's happening on campus and connect with other students.</h3>
-         <h3 className="home-subtitle-mobile">Uniyo is what’s happening on your campus, right now.</h3>
+         <h3 className="home-subtitle-mobile">See what's happening on campus and connect with other students.</h3>
          <Link to="/signup" className="home-btn home-btn-join-campus">Join your campus</Link>
          <img src="/public/assets/images/home/Home_illustration.png" srcset="/public/assets/images/home/Home_illustration@2x.png 500w, /public/assets/images/home/Home_illustration@3x.png 1000w" className="home-img-screenshot" alt=""/>
          <img src="/public/assets/images/home/donuts_left.svg" className="home-img-donuts-left" alt=""/>
