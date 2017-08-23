@@ -47,7 +47,17 @@ export default class SidebarRightUserInfo extends Component {
   }
 
   render() {
-    const { allUsers, channelCreate, channels, userGiveDonuts, userId, currentUser, openUpdateProfile, showHistoryDonut } = this.props
+    const {
+      allUsers,
+      channelCreate,
+      channels,
+      userGiveDonuts,
+      userId,
+      currentUser,
+      openUpdateProfile,
+      showHistoryDonut,
+    } = this.props
+
     const user = allUsers.filter(user => user.id === userId)[0]
     const isCurrentUser = currentUser.id === userId
 
@@ -85,9 +95,10 @@ export default class SidebarRightUserInfo extends Component {
             <div>
               <div className={boxImg}>
                 {isCurrentUser &&
-                <div className={profileIconUpdate} onClick={openUpdateProfile}>
-                  <MdAddAPhoto />
-                </div>}
+                  <div className={profileIconUpdate} onClick={openUpdateProfile}>
+                    <MdAddAPhoto />
+                  </div>
+                }
                 <img className={imageProfile} src={user.image.largeUrl} alt="" />
                 <div className={profile}>
                   <div className={profileName}>
