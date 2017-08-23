@@ -181,7 +181,7 @@ export default class QuestionDashboard extends Component {
       showPopup,
     } = this.props
 
-    const { image, firstName } = currentUser
+    const { image, firstName, id: currentUserId } = currentUser
     const { isOpen: isRightbarOpen } = rightbar
     const dashboardWrapperClassNames = isRightbarOpen ? wrapperShrink : wrapper
     const { questionId } = this.props.params
@@ -231,6 +231,7 @@ export default class QuestionDashboard extends Component {
           userSearch={userSearch}
           showUserInfo={showUserInfo}
           questionId={questionId}
+          currentUserId={currentUserId}
         />
         <div className={sectionCardsFirst}>
         {answerBest &&
