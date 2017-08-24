@@ -225,6 +225,11 @@ export default class DashBoard extends Component {
     })
   }
 
+  openUpdateProfile() {
+    this.setState({ isOpenProfilePictureUpload: true })
+  }
+
+
   get renderContent() {
     const {
       showUserInfo,
@@ -276,7 +281,6 @@ export default class DashBoard extends Component {
     const isMainDashboard = this.props.location.pathname === '/dashboard'
     const regexQuestionDashboard = /\/dashboard\/questions/
     const isQuestionDashboard = regexQuestionDashboard.test(this.props.location.pathname)
-    const openUpdateProfile = () => { this.setState({ isOpenProfilePictureUpload: true }) }
 
     return (
       <div className={container}>
@@ -300,7 +304,7 @@ export default class DashBoard extends Component {
             <SidebarRight
               hideSidebarRight={hideSidebarRight}
               location={this.props.location}
-              openUpdateProfile={openUpdateProfile}
+              openUpdateProfile={::this.openUpdateProfile}
             />
           </div>
         </div>

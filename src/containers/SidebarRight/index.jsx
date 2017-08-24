@@ -8,12 +8,8 @@ import { Link } from 'react-router'
 
 import {
   wrapper,
-  wrapperBtn,
   sidebarOpen,
   sidebarClose,
-  userInfo,
-  notification,
-  historyDonut,
   close,
   btnDonutsHistory,
   btnDonutsHistoryInner,
@@ -21,13 +17,6 @@ import {
   imageAnimationOne,
   imageAnimationTwo,
   imageAnimationThree,
-  btn,
-  btnInner,
-  btnGiveDonuts,
-  donutSmallOne,
-  donutSmallTwo,
-  donutSmallThree,
-  overlayerProfilePictureUpdate,
 } from './style'
 
 import {
@@ -35,7 +24,6 @@ import {
   SidebarRightNotification,
   SidebarRightUserInfo,
   SidebarRightChannelUsers,
-  Donut,
   ButtonClose,
 } from '../../components'
 
