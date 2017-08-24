@@ -76,7 +76,7 @@ export default class Index extends Component {
       navigator.userAgent.match(/iPad/i) ||
       navigator.userAgent.match(/iPod/i)
     ) {
-      btnText = 'iOS app is coming soon'
+      btnText = 'Download the app'
     } else {
       btnText = 'App is coming soon'
     }
@@ -95,22 +95,24 @@ export default class Index extends Component {
          <header className="home-header">
            <img src="/public/assets/images/home/logo.svg" alt=""/>
            <nav className="home-header-nav">
-             <a href="#download" className="home-header-link">Download</a>
-             <a href="#pricing" className="home-header-link">Pricing</a>
+             <a href="https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8" className="home-header-link">Download</a>
+             {/*<a href="#download" className="home-header-link">Download</a>*/}
+             {/* <a href="#pricing" className="home-header-link">Pricing</a>*/}
              <Link to="/signin" className="home-header-link">Log in</Link>
              <Link to="/signup" className="home-header-link home-signup">Sign up</Link>
            </nav>
          </header>
          <img src="/public/assets/images/home/Donnut.svg" alt="" className="home--top-donnut-mobile"/>
-         <h1 className="home-title">The front page of your campus</h1>
-         <h3 className="home-subtitle">Uniyo is a powerful messaging app to reach your entire campus.</h3>
-         <h3 className="home-subtitle-mobile">Uniyo is what’s happening on your campus, right now.</h3>
+         <h1 className="home-title">The front-page of your campus</h1>
+         <h3 className="home-subtitle">See what's happening on campus and connect with other students.</h3>
+         <h3 className="home-subtitle-mobile">See what's happening on campus and connect with other students.</h3>
          <Link to="/signup" className="home-btn home-btn-join-campus">Join your campus</Link>
          <img src="/public/assets/images/home/Home_illustration.png" srcset="/public/assets/images/home/Home_illustration@2x.png 500w, /public/assets/images/home/Home_illustration@3x.png 1000w" className="home-img-screenshot" alt=""/>
          <img src="/public/assets/images/home/donuts_left.svg" className="home-img-donuts-left" alt=""/>
          <img src="/public/assets/images/home/donuts_right.svg" className="home-img-donuts-right" alt=""/>
          {this.showDownloadBtn()}
        </div>
+       {/*
        <div id="download" className="home-mid-section home--desktop">
          <div className="home--desktop-left">
            <h2 className="home-section-title">Uniyo for Mac 👩‍💻</h2>
@@ -217,6 +219,8 @@ export default class Index extends Component {
            </div>
          </div>
        </div>
+       */}
+       <div className="home-lineseparator"></div>
        <div className="home-footer-sitemap">
          <div className="home-footer-sitemap__nav">
            <h5>Popcorn  🍿</h5>
@@ -235,7 +239,7 @@ export default class Index extends Component {
              <li><a href="https://medium.com/uniyo">Blog</a></li>
              <li><a href="https://www.dropbox.com/sh/958ztm8az3fsui9/AAB0OlJ1xDxQ80Ls1Lj-k9-3a?dl=0">Press kit</a></li>
              <li><a href="https://medium.com/uniyo">About</a></li>
-             <li><a href="#pricing">Pricing</a></li>
+             {/*<li><a href="#pricing">Pricing</a></li>*/}
            </ul>
          </div>
 
@@ -252,8 +256,9 @@ export default class Index extends Component {
          <div className="home-footer-sitemap__nav">
            <h5>Candies  🍬</h5>
            <ul>
-             <li><a href="#download">Download desktop app</a></li>
-             <li><a href="#downloadapp">Download mobile app</a></li>
+             {/*<li><a href="#download">Download desktop app</a></li>
+             <li><a href="#downloadapp">Download mobile app</a></li>*/}
+             <li><a href="https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8">Download mobile app</a></li>
            </ul>
          </div>
 
