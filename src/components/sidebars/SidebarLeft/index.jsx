@@ -116,13 +116,16 @@ export default class SidebarLeft extends Component {
     this.setState({
       isShowInputAddTag: !this.state.isShowInputAddTag,
     }, () => {
-      this._inputAddTag.focus()
+      if (this.state.isShowInputAddTag) {
+        this._inputAddTag.focus()
+      }
     })
   }
 
   onSubmitAddTag(event) {
+    const regexEmpty = /^\s*$/
     if (event.key === 'Enter') {
-      if (event.target.value === '#' || event.target.value === ' ') {
+      if (event.target.value === '#' || regexEmpty.test(event.target.value)) {
         return
       }
 
