@@ -118,14 +118,16 @@ export default class Header extends Component {
       currentUserId,
     } = this.props
 
-    const regex = new RegExp(/\/dashboard\/channels\/\d+/)
+    const regexChannel = new RegExp(/\/dashboard\/channels\/\d+/)
+    const regexChannelNew = new RegExp(/\/dashboard\/channels\/new/)
     const path = location.pathname
+    const isChannelNew = path.match(regexChannelNew)
 
     let isChannel = false
     let channel
     let channelUsers
 
-    if (path.match(regex)) {
+    if (path.match(regexChannel)) {
       isChannel = true
       const { channelId } = router.params
       channel = allChannels.filter(channel => channel.id == channelId)[0]
@@ -136,7 +138,9 @@ export default class Header extends Component {
     }
 
     return (
-      <header className={header}>
+      <div>
+      {!isChannelNew && <header className={header}>
+
         <div className={headerNavBasic}>
           <Tooltip text="Show notifications" classNameWrapper={wrapperIcon}>
           { unreadNotification &&
@@ -179,7 +183,8 @@ export default class Header extends Component {
           availableDonutsCount={availableDonutsCount}
           receivedDonutsCount={receivedDonutsCount}
         />
-      </header>
+      </header> }
+    </div>
     )
   }
 }
