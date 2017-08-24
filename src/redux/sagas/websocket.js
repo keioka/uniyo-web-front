@@ -51,6 +51,11 @@ class UniyoWebSocket {
   reset() {
     this.init()
   }
+
+  close() {
+    this.socket.close()
+    this.init()
+  }
 }
 
 const uniyoWs = new UniyoWebSocket()
@@ -173,13 +178,16 @@ function* ping(socket) {
     // if (times === 2) { <- use for test onclose
       // uniyoWs.socket.close()
     // }
-    uniyoWs.socket.send(JSON.stringify(converter.snakeToCamelCase(message)))
+    if (uniyoWs.socket) {
+      uniyoWs.socket.send(JSON.stringify(converter.snakeToCamelCase(message)))
+    }
   }
 }
 
+let task
+
 function* flow() {
   // get initialized web socket
-  let task
   while (true) {
     const webSocketFlow = yield race({
       init: take('WS@INIT'),
@@ -196,6 +204,7 @@ function* flow() {
       task = yield fork(runWebSocket)
     } else if (webSocketFlow.stop) {
       yield cancel(task)
+      uniyoWs.close()
     }
 
   }
