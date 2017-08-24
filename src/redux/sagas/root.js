@@ -54,6 +54,7 @@ const {
   watchUserSearchSuccess,
   watchChannelSearchSuccess,
   signoutProcessSaga,
+  sharePostFetchSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -100,6 +101,7 @@ export default function* rootSaga() {
     fork(newPasswordUpdateSaga),
     fork(userPictureUpdateRefreshSaga),
     fork(commentDeleteSaga),
+    fork(sharePostFetchSaga),
     /*
       saga form UI
     */
