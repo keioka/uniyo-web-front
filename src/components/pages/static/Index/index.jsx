@@ -78,10 +78,10 @@ export default class Index extends Component {
       navigator.userAgent.match(/iPad/i) ||
       navigator.userAgent.match(/iPod/i)
     ) {
-      btnText = 'iOS app is coming soon'
+      btnText = 'Download the app'
       url = 'https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8'
     } else {
-      btnText = 'App is coming soon'
+      btnText = 'Download the app'
       url = 'https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8'
     }
 
@@ -101,7 +101,6 @@ export default class Index extends Component {
          <header className="home-header">
            <img src="/public/assets/images/home/logo.svg" alt=""/>
            <nav className="home-header-nav">
-             <a href="https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8" className="home-header-link">Download</a>
              {/*<a href="#download" className="home-header-link">Download</a>*/}
              {/* <a href="#pricing" className="home-header-link">Pricing</a>*/}
              <Link to="/signin" className="home-header-link">Log in</Link>
