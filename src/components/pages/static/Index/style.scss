@@ -450,15 +450,10 @@ a:hover {
   left: 0;
 }
 
+.home-title-mobile,
+.home-subtitle-mobile,
+.home--top-donnut-mobile,
 .home-btn-download {
-  display: none;
-}
-
-.home--top-donnut-mobile {
-  display: none;
-}
-
-.home-subtitle-mobile {
   display: none;
 }
 
@@ -470,6 +465,7 @@ a:hover {
   .home--pricing,
   .home-footer-sitemap,
   .home-btn-join-campus,
+  .home-title,
   .home-subtitle {
     display: none;
   }
