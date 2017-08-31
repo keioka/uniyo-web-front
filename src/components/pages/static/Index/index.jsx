@@ -68,23 +68,29 @@ export default class Index extends Component {
   }
 
   showDownloadBtn() {
-    let btnText = ""
+    let btnText
+    let url
     if (navigator.userAgent.match(/Android/i)){
       btnText = 'Android app is coming soon'
+      url = ''
     } else if (
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/iPad/i) ||
       navigator.userAgent.match(/iPod/i)
     ) {
-      btnText = 'Download the app'
+      btnText = 'iOS app is coming soon'
+      url = 'https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8'
     } else {
       btnText = 'App is coming soon'
+      url = 'https://itunes.apple.com/us/app/uniyo-campus-communication-for-students/id1249873841?mt=8'
     }
 
     return (
-      <div className="home-btn-download home-btn">
-        {btnText}
-      </div>
+      <Link to={url}>
+        <div className="home-btn-download home-btn">
+          {btnText}
+        </div>
+      </Link>
     )
   }
 
