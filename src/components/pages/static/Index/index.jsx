@@ -86,11 +86,11 @@ export default class Index extends Component {
     }
 
     return (
-      <Link to={url}>
+      <a href={url}>
         <div className="home-btn-download home-btn">
           {btnText}
         </div>
-      </Link>
+      </a>
     )
   }
 
