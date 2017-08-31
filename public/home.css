@@ -483,6 +483,10 @@ a:hover {
   display: none;
 }
 
+.home-title-mobile {
+  display: none;
+}
+
 .home-subtitle-mobile {
   display: none;
 }
@@ -495,6 +499,7 @@ a:hover {
   .home--pricing,
   .home-footer-sitemap,
   .home-btn-join-campus,
+  .home-title,
   .home-subtitle {
     display: none;
   }
@@ -512,6 +517,20 @@ a:hover {
     padding: 20px 0px;
   }
 
+  .home-title-mobile {
+    display: block;
+    color: #FF3375;
+    padding: 0;
+    width: 100%;
+    font-size: 45px !important;
+    margin-right: 40px;
+    line-height: 1.11;
+    text-align: left;
+    margin-top: 37px;
+    margin-left: 65px;
+    margin-bottom: 0px;
+  }
+
   .home-subtitle-mobile {
     padding: 14px;
     display: block;
@@ -525,17 +544,6 @@ a:hover {
     display: block !important;
   }
 
-  .home-title {
-    text-align: center;
-    padding: 0;
-    font-size: 45px !important;
-    margin-right: 40px;
-    line-height: 1.11;
-    text-align: left;
-    margin-top: 37px;
-    margin-left: 14px;
-    margin-bottom: 0px;
-  }
 }
 @media only screen and (max-width: 767px) {
   .home-header {
