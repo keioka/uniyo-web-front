@@ -108,8 +108,8 @@ export default class Index extends Component {
            </nav>
          </header>
          <img src="/public/assets/images/home/Donnut.svg" alt="" className="home--top-donnut-mobile"/>
-         <h1 className="home-title">The front-page of your campus</h1>
-         <h1 className="home-title-mobile">Title mobile</h1>
+         <h1 className="home-title">The front-page of your campus 👋</h1>
+         <h1 className="home-title-mobile">The front-page of your campus</h1>
          <h3 className="home-subtitle">See what's happening on campus and connect with other students.</h3>
          <h3 className="home-subtitle-mobile">See what's happening on campus and connect with other students.</h3>
          <Link to="/signup" className="home-btn home-btn-join-campus">Join your campus</Link>
