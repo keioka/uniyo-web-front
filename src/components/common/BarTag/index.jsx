@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-
+import { MdShare } from 'react-icons/lib/md'
 
 import {
   Tooltip,
@@ -17,11 +17,16 @@ import {
   purple,
   textFirstLine,
   textSecondLine,
+  icon,
 } from './style'
+
+import { inputHandler } from '../../../utils'
+const { copyToClipboard } = inputHandler
 
 import Cross from './cross'
 import Plus from './plus'
 
+const BASE_URL = __PROD__ ? 'uniyo.io' : 'staging.uniyo.io'
 const BarTagInner = ({ firstLine, secondLine }) => {
   return (
     <div className={barTagInner} >
@@ -35,6 +40,7 @@ const BarTag = ({
   empty,
   type,
   currentPostType,
+  showPopup,
   hashtag,
   hashtagAdd,
   onClearCurrentTypeHandler,
@@ -118,6 +124,7 @@ const BarTag = ({
   }
 
   const classNames = [ barTag, color ]
+  const urlShareHashtag = `https://${BASE_URL}/open/hashtags/${hashtag}`
   return (
     <div
       className={classNames.join(' ')}
@@ -141,6 +148,11 @@ const BarTag = ({
             </span>
           </Tooltip>
         }
+        <Tooltip text="Get the link to share">
+          <span className={btn} onClick={() => { copyToClipboard(urlShareHashtag); showPopup('Copied URL') } }>
+            <MdShare className={icon} />
+          </span>
+        </Tooltip>
      </div>
      }
   </div>

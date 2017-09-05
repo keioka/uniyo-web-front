@@ -414,6 +414,7 @@ export default class IndexDashboard extends Component {
             currentPostType={this.props.currentPostType}
             hashtag={hashtag}
             hashtagAdd={hashtagAdd}
+　　　　　　　showPopup={showPopup}
             onClearCurrentTypeHandler={onClearCurrentTypeHandler}
           />
        }
@@ -426,6 +427,7 @@ export default class IndexDashboard extends Component {
             currentPostType={this.props.currentPostType}
             hashtag={hashtag}
             hashtagAdd={hashtagAdd}
+            showPopup={showPopup}
             onClearCurrentTypeHandler={onClearCurrentTypeHandler}
           />
        }
