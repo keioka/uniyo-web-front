@@ -22,7 +22,7 @@ export const accessTokenValidator = store => next => action => {
     } else {
       const school = schools.filter(school => schoolId === school.id)[0]
       if (school) {
-        storage.setSchoolName = school.name
+        storage.setSchoolName = school.simpleName
       }
     }
   }
