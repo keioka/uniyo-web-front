@@ -47,6 +47,10 @@ export default class Signin extends Component {
         id: this.props.params.schoolSlug,
       })
     }
+
+    if (!window.talkus) {
+      window.talkus('init', 'mAuzzo8t2j9Bih5qy')
+    }
   }
 
   onSubmit() {

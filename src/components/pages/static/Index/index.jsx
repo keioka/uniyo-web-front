@@ -35,9 +35,9 @@ export default class Index extends Component {
   static propTypes = {}
 
   componentDidMount() {
-    // if (typeof window.talkus === 'object') {
-    window.talkus('init', 'mAuzzo8t2j9Bih5qy')
-    // }
+    if (!window.talkus) {
+      window.talkus('init', 'mAuzzo8t2j9Bih5qy')
+    }
 
     const anchorLinks = document.querySelectorAll('a[href*="#"]')
     anchorLinks.forEach((ele) => {
@@ -63,7 +63,7 @@ export default class Index extends Component {
   }
 
   componentWillUnmount() {
-    window.talkus = undefined
+    window.talkus('close')
   }
 
   onClick(event){

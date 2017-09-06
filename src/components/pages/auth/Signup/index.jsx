@@ -53,6 +53,13 @@ export default class Signup extends Component {
         id: this.props.params.schoolSlug,
       })
     }
+    if (!window.talkus) {
+      window.talkus('init', 'mAuzzo8t2j9Bih5qy')
+    }
+  }
+
+  componentWillUnmount() {
+    window.talkus('close')
   }
 
   onSubmit() {
