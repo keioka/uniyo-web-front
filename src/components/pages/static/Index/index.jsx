@@ -63,7 +63,7 @@ export default class Index extends Component {
   }
 
   componentWillUnmount() {
-    window.talkus('close')
+    window.talkus('hide')
   }
 
   onClick(event){
