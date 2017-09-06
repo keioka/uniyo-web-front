@@ -67,11 +67,12 @@ export default class App extends Component {
     ) {
       browserHistory.push('/dashboard')
     }
+
+    if (window.talkus) {
+      window.talkus('init', 'mAuzzo8t2j9Bih5qy')
+    }
   }
 
-  if (window.talkus) {
-    window.talkus('init', 'mAuzzo8t2j9Bih5qy')
-  }
 
   componentWillReceiveProps() {
     // If user just logined or signup
