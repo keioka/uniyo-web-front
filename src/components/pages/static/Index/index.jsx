@@ -36,7 +36,6 @@ export default class Index extends Component {
 
   componentDidMount() {
     if (window.talkus) {
-      window.talkus('init', 'mAuzzo8t2j9Bih5qy')
       window.talkus('show')
     }
 
