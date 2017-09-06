@@ -35,9 +35,6 @@ export default class Index extends Component {
   static propTypes = {}
 
   componentDidMount() {
-    if (window.talkus) {
-      window.talkus('show')
-    }
 
     const anchorLinks = document.querySelectorAll('a[href*="#"]')
     anchorLinks.forEach((ele) => {
@@ -60,10 +57,6 @@ export default class Index extends Component {
         })
       })
     })
-  }
-
-  componentWillUnmount() {
-    window.talkus('hide')
   }
 
   onClick(event){
