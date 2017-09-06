@@ -35,16 +35,16 @@ export default class Index extends Component {
   static propTypes = {}
 
   componentDidMount() {
-    if (typeof window.talkus === 'object') {
-      window.talkus('init', 'mAuzzo8t2j9Bih5qy')
-    }
+    // if (typeof window.talkus === 'object') {
+    window.talkus('init', 'mAuzzo8t2j9Bih5qy')
+    // }
 
     const anchorLinks = document.querySelectorAll('a[href*="#"]')
     anchorLinks.forEach((ele) => {
       ele.addEventListener('click', function onClick(event) {
         const elementYTop = document.getElementById(this.hash.match(/\w+/)).offsetTop
-        event.preventDefault();
-        var duration = 500;
+        event.preventDefault()
+        var duration = 500
         var startingY = window.pageYOffset
         var diff = elementYTop - startingY
         var start
@@ -60,6 +60,10 @@ export default class Index extends Component {
         })
       })
     })
+  }
+
+  componentWillUnmount() {
+    window.talkus = undefined
   }
 
   onClick(event){
