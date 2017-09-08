@@ -52,7 +52,8 @@ export const accessTokenValidator = store => next => action => {
     type === actionTypes.deleteDevice.request ||
     type === actionTypes.hashtagSearch.request ||
     type === actionTypes.postDelete.request ||
-    type === actionTypes.commentDelete.request
+    type === actionTypes.commentDelete.request ||
+    type === actionTypes.userAll.request
   ) {
     action.accessToken = storage.accessToken
   }
