@@ -151,7 +151,6 @@ export default class ChannelDashboard extends Component {
       const { channelId } = nextProps.params
       const timeNow = moment.utc(new Date()).format()
 
-
       messageSearch({
         limit: 50,
         channelId,

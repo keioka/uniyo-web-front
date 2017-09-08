@@ -130,6 +130,7 @@ class ListHistoryDonutsToGive extends Component {
   }
 
   componentWillUnmount() {
+    const self = this
     this._list.removeEventListener('scroll', ::self.onScrollHandler)
   }
 
