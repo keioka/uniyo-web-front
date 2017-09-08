@@ -75,6 +75,13 @@ export default class SidebarRightHistoryDonuts extends Component {
     )
   }
 
+  onChangeSearchCampus(event) {
+    const { userSearch } = this.props
+    this.setState({ userSearchQuery: event.target.value })
+    userSearch({ query: event.target.value })
+  }
+
+
   render() {
     const {
       donutsHistory,
@@ -84,12 +91,12 @@ export default class SidebarRightHistoryDonuts extends Component {
       allChannels,
       currentUser,
       userGiveDonuts,
+      userAll,
     } = this.props
 
     const classNamesFirstTab = this.props.rightbar.donutsHistoryTabNumber === 0 ? [headerNav, headerNavActive] : [headerNav]
     const classNamesSecondTab = this.props.rightbar.donutsHistoryTabNumber === 1 ? [headerNav, headerNavActive] : [headerNav]
     const onClickNavDonuts = tabNumber => this.props.showHistoryDonut(tabNumber)
-    const onChangeSearchCampus = (event) => { this.setState({ userSearchQuery: event.target.value }); userSearch({ query: event.target.value }) }
 
     return (
       <div className={wrapper} >
@@ -99,34 +106,66 @@ export default class SidebarRightHistoryDonuts extends Component {
         </div>
 
         {this.props.rightbar.donutsHistoryTabNumber === 0 ?
-          (<ul className={ul}>
-            <div className={inputSearchWrapper}>
-              <FaSearch />
-              <input
-                type="text"
-                className={inputSearch}
-                placeholder="Search in your campus"
-                onChange={onChangeSearchCampus}
-              />
-            </div>
-            <div className={listUserInvite}>
-              <div className={listUserInviteLeft}>
-                <div className={listUserInviteLeftImg}></div>
-                <div className={listUserInviteLeftText}>
-                  <span className={listUserInviteLeftTitle}>Invite Friend</span>
-                  <span className={listUserInviteLeftSubtitle}>With a donut</span>
-                </div>
-              </div>
-              <span className={listUserInviteRight}><ButtonDonut donutsCount={0} /></span>
-            </div>
-            {this.usersDonutsToGive}
-
-          </ul>) :
+          (<ListHistoryDonutsToGive
+             userAll={userAll}
+             onChangeSearchCampus={::this.onChangeSearchCampus}
+             usersDonutsToGive={this.usersDonutsToGive}
+           />) :
           (<ul className={ul}>
             {donutsHistory && donutsHistory.map(history => <ItemDonutsReceive {...history}  />)}
           </ul>)
         }
       </div>
+    )
+  }
+}
+
+class ListHistoryDonutsToGive extends Component {
+
+  componentDidMount() {
+    const self = this
+    if (this._list) {
+      this._list.addEventListener('scroll', ::self.onScrollHandler)
+    }
+  }
+
+  componentWillUnmount() {
+    this._list.removeEventListener('scroll', ::self.onScrollHandler)
+  }
+
+  onScrollHandler() {
+    if (this._list.clientHeight < this._list.scrollTop + 800) {
+      const { userAll } = this.props
+      userAll({ limit: 50, offset: 1 })
+    }
+  }
+
+  render() {
+    const { userAll, usersDonutsToGive, onChangeSearchCampus } = this.props
+    return (
+    <ul ref={(ref) => this._list = ref} className={ul}>
+      <div className={inputSearchWrapper}>
+        <FaSearch />
+        <input
+          type="text"
+          className={inputSearch}
+          placeholder="Search in your campus"
+          onChange={onChangeSearchCampus}
+        />
+      </div>
+      <div className={listUserInvite}>
+        <div className={listUserInviteLeft}>
+          <div className={listUserInviteLeftImg}></div>
+          <div className={listUserInviteLeftText}>
+            <span className={listUserInviteLeftTitle}>Invite Friend</span>
+            <span className={listUserInviteLeftSubtitle}>With a donut</span>
+          </div>
+        </div>
+        <span className={listUserInviteRight}><ButtonDonut donutsCount={0} /></span>
+      </div>
+      {usersDonutsToGive}
+      {/* <div onClick={() => )}>Load more</div> */}
+    </ul>
     )
   }
 }

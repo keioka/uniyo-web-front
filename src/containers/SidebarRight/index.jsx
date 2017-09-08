@@ -57,6 +57,7 @@ const {
   notificationSearch,
   userGiveDonuts,
   userSearch,
+  userAll,
   postInfo,
 } = actions
 
@@ -75,6 +76,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   userSearch,
   donutsCampusShift,
   postInfo,
+  userAll,
 }, dispatch)
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -104,6 +106,7 @@ export default class SidebarRight extends Component {
       openUpdateProfile,
       posts,
       postInfo,
+      userAll,
     } = this.props
 
     const { displayType, isOpen, userId, channelUserIds } = rightbar
@@ -173,6 +176,7 @@ export default class SidebarRight extends Component {
             allUsers={allUsers}
             donutsHistory={donutsHistory}
             hideSidebarRight={hideSidebarRight}
+            userAll={userAll}
           />
         )
       }
