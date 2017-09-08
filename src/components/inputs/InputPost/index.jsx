@@ -313,7 +313,7 @@ export default class InputPost extends Component {
       }
 
       default: {
-        placeholder = 'Hi'
+        placeholder = ''
       }
     }
     return placeholder
