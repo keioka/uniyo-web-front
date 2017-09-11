@@ -10,6 +10,7 @@ function* userPictureUpdateRefreshAsync() {
   const { id: userId } = currentUser
   yield call(delay, 2000)
   yield put({ type: actionTypes.currentUser.request, userId, accessToken })
+  yield put({ type: actionTypes.userInfo.request, userId, accessToken })
 }
 
 export function* userPictureUpdateRefreshSaga() {
