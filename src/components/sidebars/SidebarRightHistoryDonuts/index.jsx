@@ -137,7 +137,7 @@ class ListHistoryDonutsToGive extends Component {
   onScrollHandler() {
     console.log('clientHeight', this._list.clientHeight)
     console.log('scrollTop', this._list.scrollTop)
-    if (this._list.clientHeight < this._list.scrollTop + 800) {
+    if (this._list.clientHeight < this._list.scrollTop + 900) {
       const { userAll } = this.props
       userAll({ limit: 50, offset: 1 })
     }
