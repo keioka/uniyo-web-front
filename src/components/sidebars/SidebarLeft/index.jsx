@@ -222,19 +222,19 @@ export default class SidebarLeft extends Component {
   }
 
   get resultChannel() {
-    const { allChannels, currentUser, channelCreate } = this.props
+    const { allChannels, currentUser, channelCreate, allUsers } = this.props
     const self = this
     const onClickBtnMessage = (userId) => {
       const filteredChannel = allChannels.filter(channel => {
-        const users = usersWithoutCurrentUser(channel.users, currentUser)
+        const users = usersWithoutCurrentUser(channel.users.map(userId => allUsers.filter(user => user && user.id === userId)[0]), currentUser)
         // check if current user has channel with the other user
         // check channel is not group because it is supposed to be 1 to 1 chat
         // check if the other user id is included. [0] is the other user and [1] is current user
-        return users.length === 1 && users[0].id == userId
+        return users.length === 1 && users[0].id === userId
       })
 
       const channel = filteredChannel[0]
-
+      console.log('channel', channel)
       if (channel) {
         browserHistory.push(`/dashboard/channels/${channel.id}`)
       } else {
@@ -243,7 +243,6 @@ export default class SidebarLeft extends Component {
       self.clearInputSearchTag()
     }
     const { keywordForSort } = this.state
-    const { allUsers } = this.props
 
     return allUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
       <li className={sectionTag} onClick={() => onClickBtnMessage(user.id)}><span data-user-online className={iconChannelOnlineStatus}>{user.isOnline ? <span className={iconOnline} /> : <span className={iconOffline} />}</span> {user.name}</li>
