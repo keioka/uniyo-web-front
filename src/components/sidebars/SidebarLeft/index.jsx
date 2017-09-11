@@ -234,7 +234,6 @@ export default class SidebarLeft extends Component {
       })
 
       const channel = filteredChannel[0]
-      console.log('channel', channel)
       if (channel) {
         browserHistory.push(`/dashboard/channels/${channel.id}`)
       } else {
