@@ -44,13 +44,13 @@ class Authentification {
    */
 
   initializeRefreshToken(actionForTokenRefresh, isLogin, fetching) {
-    if (this.storage.isAccessTokenExpiredAlready) {
-      this.storage.clear()
-    } else if (!this.initialized && !isLogin && !fetching) {
-      // if service is not initialized and user is not isLogin and not fetching user
+    // if (this.storage.isAccessTokenExpiredAlready) {
+    //   this.storage.clear()
+    // } else if (!this.initialized && !isLogin && !fetching) {
+    //   // if service is not initialized and user is not isLogin and not fetching user
       const { refreshToken } = this.storage
       actionForTokenRefresh(refreshToken)
-    }
+    // }
   }
 
   /**
