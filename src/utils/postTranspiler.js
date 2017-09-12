@@ -1,6 +1,6 @@
 export default (textArea) => {
   let text = textArea.textContent
-
+  text = textArea.innerHTML.replace(/\<span (\w+)[^>]+>[^>]+>/g, '').replace(/\<\/span+>/g, '').replace(/<br>/g, '\n')
   text = text.replace(/</g, '&lt;')
              .replace(/>/g, '&gt;')
 
