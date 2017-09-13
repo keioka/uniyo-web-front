@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Emoji</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="YO_comment" transform="translate(-1142.000000, -76.000000)">
+            <g id="Emoji" transform="translate(1143.000000, 77.000000)">
+                <g>
+                    <circle id="Oval-4" stroke="#AAAAAA" fill="#F0F0F0" cx="12" cy="12" r="12"></circle>
+                    <circle id="Oval-2" fill="#AAAAAA" cx="6.7826087" cy="8.86956522" r="1.56521739"></circle>
+                    <circle id="Oval-2" fill="#AAAAAA" cx="17.2173913" cy="8.86956522" r="1.56521739"></circle>
+                    <path d="M6.26086957,16.6956522 C8.17391304,18.4347826 10.0869565,19.3043478 12,19.3043478 C13.9130435,19.3043478 15.826087,18.4347826 17.7391304,16.6956522" id="Line" stroke="#AAAAAA" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
