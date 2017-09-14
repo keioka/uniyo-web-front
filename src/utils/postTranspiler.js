@@ -3,6 +3,7 @@ export default (textArea) => {
   text = textArea.innerHTML.replace(/\<span (\w+)[^>]+>[^>]+>/g, '').replace(/\<\/span+>/g, '').replace(/<br>/g, '\n')
   text = text.replace(/</g, '&lt;')
              .replace(/>/g, '&gt;')
+             .replace(/&nbsp;/, ' ')
 
   let userIds = textArea.innerHTML.match(/data-user-id\=\"[0-9]+\"/g)
 
