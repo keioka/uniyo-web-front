@@ -116,6 +116,12 @@ export ModalProfilePictureUpdate from './common/ModalProfilePictureUpdate'
 export Tooltip from './common/Tooltip'
 
 /*
+  panel
+*/
+
+export PanelGif from './panels/PanelGif'
+
+/*
   list
 */
 
