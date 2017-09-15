@@ -9,10 +9,15 @@ import 'jquery.caret'
 import 'style-loader!css-loader!at.js/dist/css/jquery.atwho.css'
 import 'at.js'
 
+import IconGif from './icon-gif'
+import IconEmoji from './icon-emoji'
+import IconPicture from './icon-picture'
+
 import {
   TextPost,
   TextMention,
   ListMentionSuggestion,
+  PanelGif,
 } from '../../'
 
 import {
@@ -20,11 +25,13 @@ import {
   wrapperImageBox,
   input,
   inputWrapper,
+  icons,
   boxOptional,
   dropZone,
   dropZoneBox,
   dropZoneFilename,
   btnFileDelete,
+  sectionMultiContent,
 } from './style'
 
 import { inputHandler } from '../../../utils'
@@ -46,6 +53,7 @@ export default class InputPost extends Component {
   }
 
   state = {
+    contentTab: -1,
     form: {
       rating: 5,
       file: null,
@@ -387,6 +395,14 @@ export default class InputPost extends Component {
             onKeyDown={::this.onKeyDown}
             onPaste={::this.onPaste}
           />
+          <div className={icons}>
+            <IconEmoji />
+            <IconPicture />
+            <IconGif onClick={() => this.setState({ contentTab: 3 }) } />
+          </div>
+          <div className={sectionMultiContent}>
+            <PanelGif />
+          </div>
         </div>
       </span>
     )

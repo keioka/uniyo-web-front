@@ -6,6 +6,7 @@
   background: white;
   border-bottom: 1px solid $gray;
   z-index: 10;
+  padding-right: 40px;
 }
 
 .wrapper--image-box {
@@ -196,9 +197,20 @@ span[data-hashtag=true] {
   content: url('./donut.png')
 }
 
-.icon {
-  width: 1.5rem;
+.icons {
+  display: flex;
+  width: 120px;
+  justify-content: space-between;
+}
+
+.icons svg {
   cursor: pointer;
-  margin-right: 15px;
-  padding: 0;
+}
+
+.section--multi-content {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  width: 280px;
+  height: auto;
 }
