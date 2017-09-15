@@ -56,6 +56,7 @@ const {
   watchChannelSearchSuccess,
   signoutProcessSaga,
   sharePostFetchSaga,
+  watchFetchGifImagesSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -128,5 +129,11 @@ export default function* rootSaga() {
       saga for form
     */
     fork(watchMarkNotificationAsRead),
+
+
+    /*
+      saga for input
+    */
+    fork(watchFetchGifImagesSaga),
   ]
 }
