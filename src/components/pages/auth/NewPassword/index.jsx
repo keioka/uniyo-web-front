@@ -96,11 +96,11 @@ export default class NewPassword extends Component {
               type="password"
               className={input}
               onChange={event => this.setState({ form: { ...this.state.form, passwordConfirmation: event.target.value } })}
-              placeholder="Reset your Password"
+              placeholder="Confirm your Password"
             />
           </div>
           <div className={contentFooter}>
-            <Button onClick={::this.onSubmit} type="primary" className={btn}>Renew password</Button>
+            <Button onClick={::this.onSubmit} type="primary" className={btn}>Reset password</Button>
             <span className={text}>Want to log in instead? <b><Link to={`/schools/${selectedSchool.slug}/signin`}>Click here</Link></b></span>
           </div>
         </div>

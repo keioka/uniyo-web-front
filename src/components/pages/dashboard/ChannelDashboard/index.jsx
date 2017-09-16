@@ -334,7 +334,7 @@ export default class ChannelDashboard extends Component {
             <div className={headerBar}>
               <div className={headerBarChannelInfo}>
                 <div className={headerBarChannelInfoDescription}>
-                  <span className={fontGroupName}>{channel && channel.name || '🐓💨' }</span>
+                  <span className={fontGroupName}>{channel && channel.name || '💬' }</span>
                   <span className={fontDescription}>{channel && channel.description || defaultTitle}</span>
                 </div>
               </div>

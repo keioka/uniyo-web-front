@@ -1,8 +1,10 @@
 export default (textArea) => {
-  let text = textArea.textContent
-  text = textArea.innerHTML.replace(/\<span (\w+)[^>]+>[^>]+>/g, '').replace(/\<\/span+>/g, '').replace(/<br>/g, '\n')
-  text = text.replace(/</g, '&lt;')
-             .replace(/>/g, '&gt;')
+  let text = textArea.innerHTML
+         .replace(/\<div (\w+)[^>]+>[^>]+>/g, '').replace(/\<\/div+>/g, '').replace(/<br>/g, '\n')
+         .replace(/\<span (\w+)[^>]+>[^>]+>/g, '').replace(/\<\/span+>/g, '').replace(/<br>/g, '\n')
+         .replace(/</g, '&lt;')
+         .replace(/>/g, '&gt;')
+         .replace(/&nbsp;/g, ' ')
 
   let userIds = textArea.innerHTML.match(/data-user-id\=\"[0-9]+\"/g)
 

@@ -72,11 +72,11 @@ export default class Auth extends Component {
     const { auth, authClearError } = this.props
     let message
     if (auth.isResetSuccess) {
-      message = 'Sent email to you. Please check your email 😄'
+      message = 'Sent. Please check your email 😄'
     }
 
     if (auth.isUpdateNewPasswordSuccess) {
-      message = 'Now you have new password! 😋'
+      message = 'You now have a new password! 😋'
     }
 
     return (
