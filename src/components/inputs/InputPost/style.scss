@@ -3,10 +3,20 @@
 .wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   background: white;
   border-bottom: 1px solid $gray;
   z-index: 10;
   padding-right: 40px;
+}
+
+.wrapper--main {
+  display: flex;
+}
+
+.wrapper--preview {
+  display: flex;
+  padding: 0px 0px 20px 30px;
 }
 
 .wrapper--image-box {
@@ -211,6 +221,22 @@ span[data-hashtag=true] {
   position: absolute;
   top: 90px;
   right: 20px;
-  width: 280px;
+  width: 235px;
   height: auto;
+}
+
+.section--preview {
+  display: block;
+}
+
+.img--preview-gif {
+  cursor: pointer;
+}
+
+.img--preview-gif:after {
+  content: 'GIF';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: rgba(20, 20, 20, 0.3);
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="24px" viewBox="0 0 27 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Camera_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="YO_comment" transform="translate(-1182.000000, -109.000000)">
+            <g id="Camera_hover" transform="translate(1182.000000, 109.000000)">
+                <g>
+                    <ellipse id="Oval" fill="#1CFF69" fill-rule="nonzero" cx="5.404375" cy="2.95454545" rx="1.15425" ry="1"></ellipse>
+                    <path d="M26.4113991,20.0157194 C26.4113991,21.899681 24.9532847,23.4323955 23.161019,23.4323955 L3.8713801,23.4323955 C2.07911444,23.4323955 0.621,21.899681 0.621,20.0157194 L0.621,6.8599197 C0.621,5.0398212 1.98798228,3.44324357 3.65873841,3.44324357 L8.27610079,3.44324357 L9.55195092,1.11224023 C9.73421523,0.760993152 10.0987438,0.537472284 10.4936498,0.537472284 L16.5083719,0.537472284 C16.9032779,0.537472284 17.2678065,0.760993152 17.4500708,1.11224023 L18.7259209,3.44324357 L23.1306416,3.44324357 C24.9229073,3.44324357 26.3810217,4.9759581 26.3810217,6.8599197 L26.3810217,20.0157194 L26.4113991,20.0157194 Z" id="Path" stroke="#1CFF69" fill="#E5FFEE" transform="translate(13.516200, 11.984934) scale(-1, 1) translate(-13.516200, -11.984934) "></path>
+                    <ellipse id="Oval" fill="#1CFF69" fill-rule="nonzero" cx="22.764375" cy="6.18359202" rx="1.15425" ry="1.21330377"></ellipse>
+                    <path d="M13.5,18.7370288 C10.7055,18.7370288 8.45775,16.3423503 8.45775,13.4368071 C8.45775,10.4993348 10.735875,8.13658537 13.5,8.13658537 C16.2945,8.13658537 18.54225,10.5312639 18.54225,13.4368071 C18.54225,16.3742794 16.2945,18.7370288 13.5,18.7370288 Z" id="Shape" stroke="#1CFF69" stroke-width="1.5" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

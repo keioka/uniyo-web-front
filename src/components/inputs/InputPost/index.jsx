@@ -13,6 +13,10 @@ import IconGif from './icon-gif'
 import IconEmoji from './icon-emoji'
 import IconPicture from './icon-picture'
 
+import IconGifActive from './icon-gif-active'
+import IconEmojiActive from './icon-emoji-active'
+import IconPictureActive from './icon-picture-active'
+
 import {
   TextPost,
   TextMention,
@@ -22,6 +26,8 @@ import {
 
 import {
   wrapper,
+  wrapperMain,
+  wrapperPreview,
   wrapperImageBox,
   input,
   inputWrapper,
@@ -32,6 +38,8 @@ import {
   dropZoneFilename,
   btnFileDelete,
   sectionMultiContent,
+  sectionPreview,
+  imgPreviewGif,
 } from './style'
 
 import { inputHandler } from '../../../utils'
@@ -53,6 +61,7 @@ export default class InputPost extends Component {
   }
 
   state = {
+    selectedGif: null,
     contentTab: -1,
     form: {
       rating: 5,
@@ -219,10 +228,20 @@ export default class InputPost extends Component {
     const submit = (data) => {
       this.props.onPostSubmit(data)
     }
+
+    const embeds = this.state.selectedGif ? {
+      'embeds[0][text]': '',
+      'embeds[0][type]': 'IMAGE',
+      'embeds[0][url]': this.state.selectedGif,
+      'embeds[0][color]': '',
+      'embeds[0][border_left_color]': '',
+    } : {}
+
     switch (currentPostType) {
       case 'ALL': {
         submit({
           postType: 'POST',
+          embeds,
           text,
         })
         break
@@ -232,6 +251,7 @@ export default class InputPost extends Component {
         submit({
           postType: currentPostType,
           text,
+          embeds,
           rating: this.state.form.rating,
         })
         break
@@ -241,6 +261,7 @@ export default class InputPost extends Component {
         submit({
           postType: currentPostType,
           text,
+          embeds,
         })
         break
       }
@@ -249,6 +270,7 @@ export default class InputPost extends Component {
         submit({
           postType: currentPostType,
           text,
+          embeds,
           classNote: this.state.form.file,
         })
         break
@@ -374,36 +396,62 @@ export default class InputPost extends Component {
     showUserInfo(currentUserId)
   }
 
+  onSelectGif(image) {
+    const { url } = image.media[0].gif
+    this.setState({
+      contentTab: -1,
+      selectedGif: url,
+    })
+  }
+
+  onClearGif() {
+    this.setState({
+      contentTab: -1,
+      selectedGif: null,
+    })
+  }
+
   render() {
-    const { imgUrl, hashtag, currentHashTag } = this.props
+    const { imgUrl, hashtag, currentHashTag, currentPostType } = this.props
+    const self = this
+    const closePanelGif = () => { self.setState({ contentTab: -1 })}
     return (
       <span className={wrapper}>
-        <span className={wrapperImageBox} onClick={::this.onClickUserImage}>
-          <img src={imgUrl || 'loading'} />
-        </span>
-        {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
-        <div className={inputWrapper}>
-          <div
-            id="input"
-            className={input}
-            contentEditable
-            placeholder={this.props.placeholder || this.placeholder}
-            ref={(input) => { this.props.refTo && this.props.refTo(input); this._input = input }}
-            onChange={::this.onChange}
-            onFocus={::this.onFocus}
-            onCopy={::this.onCopy}
-            onKeyDown={::this.onKeyDown}
-            onPaste={::this.onPaste}
-          />
-          <div className={icons}>
-            <IconEmoji />
-            <IconPicture />
-            <IconGif onClick={() => this.setState({ contentTab: 3 }) } />
-          </div>
-          <div className={sectionMultiContent}>
-            <PanelGif />
+        <div className={wrapperMain}>
+          <span className={wrapperImageBox} onClick={::this.onClickUserImage}>
+            <img src={imgUrl || 'loading'} />
+          </span>
+          {this.BoxOptional ? <span className={boxOptional}>{this.BoxOptional}</span> : null}
+          <div className={inputWrapper}>
+            <div
+              id="input"
+              className={input}
+              contentEditable
+              placeholder={this.props.placeholder || this.placeholder}
+              ref={(input) => { this.props.refTo && this.props.refTo(input); this._input = input }}
+              onChange={::this.onChange}
+              onFocus={::this.onFocus}
+              onCopy={::this.onCopy}
+              onKeyDown={::this.onKeyDown}
+              onPaste={::this.onPaste}
+            />
+            {currentPostType !== 'MESSAGE' &&
+              <div className={icons}>
+                <IconEmoji />
+                <IconPicture />
+                {this.state.contentTab === 3 ? <IconGifActive onClick={() => this.setState({ contentTab: -1 })} /> : <IconGif onClick={() => this.setState({ contentTab: 3 })} /> }
+              </div>
+            }
+            <div className={sectionMultiContent}>
+              { this.state.contentTab === 3 && <PanelGif onSelectGif={::this.onSelectGif} closePanelGif={closePanelGif} /> }
+            </div>
           </div>
         </div>
+        {this.state.selectedGif &&
+          <div className={wrapperPreview}>
+            <img src={this.state.selectedGif} className={imgPreviewGif} alt="" onClick={::this.onClearGif} />
+          </div>
+        }
       </span>
     )
   }
