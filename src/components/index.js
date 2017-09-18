@@ -78,7 +78,7 @@ export CardFake from './cards/CardFake'
 
 export InputHashtag from './inputs/InputHashtag'
 export InputSearchSchool from './inputs/InputSearchSchool'
-export InputSearchTag from './inputs/InputSearchTag'
+export InputSearch from './inputs/InputSearch'
 export InputTextTransparent from './inputs/InputTextTransparent'
 export InputPost from './inputs/InputPost'
 export InputComment from './inputs/InputComment'

@@ -21,7 +21,7 @@ const {
 } = postValue
 
 import {
-  InputSearchTag,
+  InputSearch,
   ItemHashtag,
   ItemChannel,
   Tooltip,
@@ -239,7 +239,7 @@ export default class SidebarLeft extends Component {
       } else {
         channelCreate({ users: [userId] })
       }
-      self.clearInputSearchTag()
+      self.clearInputSearch()
     }
     const { keywordForSort } = this.state
 
@@ -488,10 +488,13 @@ render() {
   const navSideBar = this.renderNavSideBar()
   const onChangeInputSearchTag = (event) => {
     const { value } = event.target
+    const regexEmpty = /^\s+$/
     const inValidSearch = value && value.match(/\$|\^|\&|\*|\(|\)|\-|\+|\=/) && value.match(/\w+/)[0]
     const keyword = value && value.match(/\w+/) && value.match(/\w+/)[0]
-    userSearch({ query: keyword })
-    hashtagSearch({ query: keyword })
+    if (!regexEmpty.test(value)) {
+      userSearch({ query: keyword })
+      hashtagSearch({ query: keyword })
+    }
     this.setState({ keywordForSort: keyword, inValidSearch: inValidSearch })
   }
 
@@ -499,8 +502,9 @@ render() {
     <div className={absolute}>
       <aside className={wrapper}>
         <div className={inner}>
-          <InputSearchTag
+          <InputSearch
             className={inputSearchTag}
+            placeholder="Browse your campus"
             userSearch={userSearch}
             hashtagSearch={hashtagSearch}
             onChange={onChangeInputSearchTag}
