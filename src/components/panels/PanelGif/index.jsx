@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import uiActions from '../../../redux/actions'
 
 import {
+  InputSearch,
   ButtonClose,
 } from '../../'
 
@@ -15,6 +16,7 @@ import {
   elementItem,
   barSearch,
   img,
+  header,
 } from './style'
 
 // import Plus from './plus'
@@ -35,18 +37,6 @@ class PanelGif extends Component {
     this.onClickWindow = this.onClickWindow.bind(this)
   }
 
-  onClickWindow(event) {
-    if (
-      event.target.parentNode === this._panel ||
-      event.target.parentNode.parentNode === this._panel ||
-      event.target.parentNode.parentNode.parentNode === this._panel ||
-      event.target.parentNode.parentNode.parentNode.parentNode === this._panel
-    ) {
-      return
-    }
-    this.props.closePanel()
-  }
-
   componentDidMount() {
     const { fetchGifImages } = this.props
     fetchGifImages()
@@ -59,22 +49,38 @@ class PanelGif extends Component {
     document.getElementById("content").removeEventListener('click', self.onClickWindow, false)
   }
 
+  onClickWindow(event) {
+    if (
+      event.target.parentNode === this._panel ||
+      event.target.parentNode.parentNode === this._panel ||
+      event.target.parentNode.parentNode.parentNode === this._panel ||
+      event.target.parentNode.parentNode.parentNode.parentNode === this._panel
+    ) {
+      return
+    }
+    this.props.closePanelGif()
+  }
+
+  onChangeInputSearchGif(event) {
+    const { fetchGifImages } = this.props
+    fetchGifImages({ query: event.target.value })
+  }
+
   render() {
     return (
-      <div className={element}>
-        {/* <div className={barSearch}>
-          <input type="text"/>
-        </div> */}
+      <div className={element} ref={(ref) => this._panel = ref }>
+        <div className={header}>
+          <InputSearch refTo={(ref) => this._inputSearchGif = ref} placeholder="Search gif" onChange={::this.onChangeInputSearchGif} />
+        </div>
         <ul className={list}>
-          {this.props.imagesGif.map(image => {
-            <p>hello</p>
-          })}
-          {/* <img src="https://media.tenor.co/images/bcc346dd645ef34c5eed0e22fe3196fe/tenor.gif" className={img} alt=""/>
-          <img src="https://media.tenor.co/images/acaeae5ee4454eb497608baf393537b5/tenor.gif" className={img} alt=""/>
-          <img src="https://media.tenor.co/images/a2c03c58c2a86927613b7347a775da64/tenor.gif" className={img} alt=""/>
-          <img src="https://media.tenor.co/images/bcc346dd645ef34c5eed0e22fe3196fe/tenor.gif" className={img} alt=""/>
-          <img src="https://media.tenor.co/images/bcc346dd645ef34c5eed0e22fe3196fe/tenor.gif" className={img} alt=""/>
-          <img src="https://media.tenor.co/images/bcc346dd645ef34c5eed0e22fe3196fe/tenor.gif" className={img} alt=""/> */}
+          {this.props.imagesGif.map(image =>
+             <img
+               src={image.media[0].tinygif.url}
+               alt="image_gif"
+               className={img}
+               onClick={() => this.props.onSelectGif(image)}
+             />
+          )}
         </ul>
       </div>
     )
