@@ -116,6 +116,7 @@ export default class CardDocument extends PureComponent {
       id,
       text,
       user,
+      embeds,
       commentsCount,
       donutsCount,
       donutsThrow,
@@ -171,6 +172,7 @@ export default class CardDocument extends PureComponent {
             />
             <div className={sectionContentFooter}>
               <div className={sectionFileDetail}>
+                {embeds.length > 0 && <img src={embeds[0].url} />}
                 <ButtonFile {...this.props} />
               </div>
               <div className={footerSectionBtns}>

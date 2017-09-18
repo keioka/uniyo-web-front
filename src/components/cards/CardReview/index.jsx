@@ -117,6 +117,7 @@ export default class CardReview extends PureComponent {
       id,
       text,
       user,
+      embeds,
       donutsCount,
       donutsThrow,
       commentsCount,
@@ -168,6 +169,7 @@ export default class CardReview extends PureComponent {
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFooter}>
             <div className={sectionFileDetail}>
+              {embeds.length > 0 && <img src={embeds[0].url} />}
             </div>
             <div className={footerSectionBtns}>
               <button className={btnComment} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>

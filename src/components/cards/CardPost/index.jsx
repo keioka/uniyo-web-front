@@ -128,7 +128,7 @@ export default class CardPost extends PureComponent  {
       id,
       text,
       user,
-      likesCount,
+      embeds,
       commentsCount,
       donutsCount,
       currentUserLiked,
@@ -181,6 +181,7 @@ export default class CardPost extends PureComponent  {
               />
               <div className={sectionContentFooter}>
                 <div className={sectionFileDetail}>
+                  {embeds.length > 0 && <img src={embeds[0].url} />}
                 </div>
                 <div className={footerSectionBtns}>
                   <button
@@ -198,34 +199,32 @@ export default class CardPost extends PureComponent  {
                    />
                   </div>
                 </div>
-                {/* { this.state.toggle && */}
-                  <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}` }>
-                    <div className={sectionContentCommentForm}>
-                      <InputComment
-                        postId={id}
-                        refTo={ref => this._inputComment = ref}
-                        commentCreate={commentCreate}
-                        imageCurrentUser={imageCurrentUser}
-                        userPost={user}
-                        closeCommentBox={::this.closeCommentBox}
-                      />
-                    </div>
-                    <ul className={sectionContentCommentList}>
-                      {comments && comments.map(comment =>
-                        <ItemComment
-                          key={comment.id}
-                          showUserInfo={showUserInfo}
-                          commentDelete={commentDelete}
-                          commentGiveDonuts={commentGiveDonuts}
-　　　　　　　　　　　　　　　 isOwnComment={comment.user.id === currentUserId}
-                          {...comment}
+                <div className={this.state.toggle ? `${sectionContentComment} ${sectionContentCommentOpen}` : `${sectionContentComment} ${sectionContentCommentClose}` }>
+                  <div className={sectionContentCommentForm}>
+                    <InputComment
+                      postId={id}
+                      refTo={ref => this._inputComment = ref}
+                      commentCreate={commentCreate}
+                      imageCurrentUser={imageCurrentUser}
+                      userPost={user}
+                      closeCommentBox={::this.closeCommentBox}
+                    />
+                  </div>
+                  <ul className={sectionContentCommentList}>
+                    {comments && comments.map(comment =>
+                      <ItemComment
+                        key={comment.id}
+                        showUserInfo={showUserInfo}
+                        commentDelete={commentDelete}
+                        commentGiveDonuts={commentGiveDonuts}
+                        isOwnComment={comment.user.id === currentUserId}
+                        {...comment}
                         >
                           {comment.text}
                         </ItemComment>
                       )}
-                      </ul>
-                    </div>
-                  {/* } */}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </VisibilitySensor>
