@@ -106,6 +106,7 @@ export default class CardQuestion extends PureComponent {
       id,
       text,
       user,
+      embeds,
       donutsCount,
       donutsThrow,
       answersCount,
@@ -155,7 +156,9 @@ export default class CardQuestion extends PureComponent {
                 currentPostType={currentPostType}
               />
               <div className={sectionContentFooter}>
-                <div className={sectionFileDetail}></div>
+                <div className={sectionFileDetail}>
+                  {embeds.length > 0 && <img src={embeds[0].url} />}
+                </div>
                 <div className={footerSectionBtns}>
                   <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>
                   <ButtonDonut

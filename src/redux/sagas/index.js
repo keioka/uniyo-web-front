@@ -3,6 +3,7 @@ import * as rightbar from './ui/rightbar'
 import * as header from './ui/header'
 import * as notification from './ui/notification'
 import * as dashboard from './ui/dashboard'
+import * as input from './ui/input'
 
 import webSocket from './websocket'
 import * as app from './app'
@@ -22,5 +23,6 @@ export default {
   ...updateProfile,
   ...onlineStatus,
   ...device,
+  ...input,
   webSocket,
 }

@@ -7,20 +7,19 @@ import {
   element,
 } from './style'
 
-const InputSearchTag = (props) => {
+const InputSearch = (props) => {
   const classNames = `${wrapper} ${props.className}`
   return (
     <div className={classNames}>
       <IconSearch />
       <input
         type="text"
-        placeholder="Browse your campus"
         {...props}
-        ref={props.refTo}
         className={element}
+        ref={props.refTo}
       />
     </div>
   )
 }
 
-export default InputSearchTag
+export default InputSearch

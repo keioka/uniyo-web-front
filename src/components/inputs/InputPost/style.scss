@@ -3,9 +3,20 @@
 .wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   background: white;
   border-bottom: 1px solid $gray;
   z-index: 10;
+  padding-right: 40px;
+}
+
+.wrapper--main {
+  display: flex;
+}
+
+.wrapper--preview {
+  display: flex;
+  padding: 0px 0px 20px 30px;
 }
 
 .wrapper--image-box {
@@ -196,9 +207,36 @@ span[data-hashtag=true] {
   content: url('./donut.png')
 }
 
-.icon {
-  width: 1.5rem;
+.icons {
+  display: flex;
+  width: 120px;
+  justify-content: space-between;
+}
+
+.icons svg {
   cursor: pointer;
-  margin-right: 15px;
-  padding: 0;
+}
+
+.section--multi-content {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  width: 235px;
+  height: auto;
+}
+
+.section--preview {
+  display: block;
+}
+
+.img--preview-gif {
+  cursor: pointer;
+}
+
+.img--preview-gif:after {
+  content: 'GIF';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: rgba(20, 20, 20, 0.3);
 }
