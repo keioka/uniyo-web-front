@@ -2,6 +2,8 @@
 import React, { Component, PropTypes } from 'react'
 import StarRatingComponent from 'react-star-rating-component'
 import Dropzone from 'react-dropzone'
+import { Picker } from 'emoji-mart'
+
 import localStorage from '../../../utils/localStorageHandler'
 import postTranspiler from '../../../utils/postTranspiler'
 import $ from 'jquery'
@@ -22,6 +24,7 @@ import {
   TextMention,
   ListMentionSuggestion,
   PanelGif,
+  PanelEmoji,
 } from '../../'
 
 import {
@@ -417,10 +420,15 @@ export default class InputPost extends Component {
     })
   }
 
+  onClickEmoji(emoji) {
+    this._input.innerHTML = this._input.innerHTML + emoji.native
+    this._input.focus()
+  }
+
   render() {
     const { imgUrl, hashtag, currentHashTag, currentPostType } = this.props
     const self = this
-    const closePanelGif = () => { self.setState({ contentTab: -1 })}
+    const closePanel = () => { self.setState({ contentTab: -1 })}
     return (
       <span className={wrapper}>
         <div className={wrapperMain}>
@@ -449,7 +457,13 @@ export default class InputPost extends Component {
               </div>
             }
             <div className={sectionMultiContent}>
-              { this.state.contentTab === 2 && <PanelGif onSelectGif={::this.onSelectGif} closePanelGif={closePanelGif} /> }
+              { this.state.contentTab === 0 &&
+                <PanelEmoji
+                  onClickEmoji={::this.onClickEmoji}
+                  closePanel={closePanel}
+                />
+              }
+              { this.state.contentTab === 2 && <PanelGif onSelectGif={::this.onSelectGif} closePanel={closePanel} /> }
             </div>
           </div>
         </div>

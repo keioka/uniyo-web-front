@@ -58,7 +58,7 @@ class PanelGif extends Component {
     ) {
       return
     }
-    this.props.closePanelGif()
+    this.props.closePanel()
   }
 
   onChangeInputSearchGif(event) {
