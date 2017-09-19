@@ -48,6 +48,7 @@
   "homepage": "https://github.com/uniyo/web-frontend#readme",
   "dependencies": {
     "at.js": "^1.5.3",
+    "axios": "^0.16.2",
     "cropperjs": "^1.0.0-rc",
     "draft-js": "^0.10.0",
     "draft-js-mention-plugin": "2.0.0-beta10",
