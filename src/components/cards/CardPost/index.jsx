@@ -7,6 +7,7 @@ import { MdContentCopy } from 'react-icons/lib/md'
 import { MdDeleteForever } from 'react-icons/lib/md'
 import { inputHandler } from '../../../utils'
 const { copyToClipboard } = inputHandler
+
 import {
   TextPost,
   Donut,
