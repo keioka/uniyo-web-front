@@ -32,6 +32,12 @@ import {
   input,
   inputWrapper,
   icons,
+  iconGif,
+  iconGifActive,
+  iconPicture,
+  iconPictureActive,
+  iconEmoji,
+  iconEmojiActive,
   boxOptional,
   dropZone,
   dropZoneBox,
@@ -437,13 +443,13 @@ export default class InputPost extends Component {
             />
             {currentPostType !== 'MESSAGE' &&
               <div className={icons}>
-                <IconEmoji />
-                <IconPicture />
-                {this.state.contentTab === 3 ? <IconGifActive onClick={() => this.setState({ contentTab: -1 })} /> : <IconGif onClick={() => this.setState({ contentTab: 3 })} /> }
+                {this.state.contentTab === 0 ? <div className={iconEmojiActive} onClick={() => this.setState({ contentTab: -1 })} /> : <div className={iconEmoji} onClick={() => this.setState({ contentTab: 0 })} /> }
+                {this.state.contentTab === 1 ? <div className={iconPictureActive} onClick={() => this.setState({ contentTab: -1 })} /> : <div className={iconPicture} onClick={() => this.setState({ contentTab: 1 })} /> }
+                {this.state.contentTab === 2 ? <div className={iconGifActive} onClick={() => this.setState({ contentTab: -1 })} /> : <div className={iconGif} onClick={() => this.setState({ contentTab: 2 })} /> }
               </div>
             }
             <div className={sectionMultiContent}>
-              { this.state.contentTab === 3 && <PanelGif onSelectGif={::this.onSelectGif} closePanelGif={closePanelGif} /> }
+              { this.state.contentTab === 2 && <PanelGif onSelectGif={::this.onSelectGif} closePanelGif={closePanelGif} /> }
             </div>
           </div>
         </div>

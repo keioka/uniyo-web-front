@@ -217,6 +217,55 @@ span[data-hashtag=true] {
   cursor: pointer;
 }
 
+.icon {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.icon--gif {
+  @extend .icon;
+  background-image: url('!file-loader!./icon-gif.svg');
+}
+
+.icon--gif:hover {
+  background-image: url('!file-loader!./icon-gif-active.svg');
+}
+
+.icon--gif--active {
+  @extend .icon;
+  background-image: url('!file-loader!./icon-gif-active.svg');
+}
+
+.icon--picture {
+  @extend .icon;
+  background-image: url('!file-loader!./icon-picture.svg');
+}
+
+.icon--picture:hover {
+  background-image: url('!file-loader!./icon-picture-active.svg');
+}
+
+.icon--picture--active {
+  @extend .icon;
+  background-image: url('!file-loader!./icon-picture-active.svg');
+}
+
+.icon--emoji {
+  @extend .icon;
+  background-image: url('!file-loader!./icon-emoji.svg');
+}
+
+.icon--emoji:hover {
+  background-image: url('!file-loader!./icon-emoji-active.svg');
+}
+
+.icon--emoji--active {
+  @extend .icon;
+  background-image: url('!file-loader!./icon-emoji-active.svg');
+}
+
 .section--multi-content {
   position: absolute;
   top: 90px;
