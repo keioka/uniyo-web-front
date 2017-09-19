@@ -53,6 +53,7 @@
     "draft-js": "^0.10.0",
     "draft-js-mention-plugin": "2.0.0-beta10",
     "draft-js-plugins-editor": "2.0.0-beta10",
+    "emoji-mart": "^1.0.1",
     "express": "^4.15.2",
     "fingerprintjs2": "^1.5.1",
     "immutable": "^3.8.1",
