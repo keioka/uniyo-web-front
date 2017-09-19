@@ -120,6 +120,7 @@ export Tooltip from './common/Tooltip'
 */
 
 export PanelGif from './panels/PanelGif'
+export PanelEmoji from './panels/PanelEmoji'
 
 /*
   list
