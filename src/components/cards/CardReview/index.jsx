@@ -38,6 +38,7 @@ import {
   iconStar,
   panelMenu,
   iconOpenMenu,
+  imgGif,
 } from '../style'
 
 import Star from './star.svg'
@@ -169,7 +170,7 @@ export default class CardReview extends PureComponent {
           <TextPost text={text} showUserInfo={showUserInfo} />
           <div className={sectionContentFooter}>
             <div className={sectionFileDetail}>
-              {embeds.length > 0 && <img src={embeds[0].url} />}
+              {embeds.length > 0 && <img className={imgGif} src={embeds[0].url} />}
             </div>
             <div className={footerSectionBtns}>
               <button className={btnComment} data-count={commentsCount} onClick={(event) => ::this.onClickCommentHandler(event)}>comments</button>

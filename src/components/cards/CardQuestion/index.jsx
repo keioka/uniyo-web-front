@@ -38,6 +38,7 @@ import {
   show,
   iconOpenMenu,
   panelMenu,
+  imgGif,
 } from '../style'
 
 export default class CardQuestion extends PureComponent {
@@ -157,7 +158,7 @@ export default class CardQuestion extends PureComponent {
               />
               <div className={sectionContentFooter}>
                 <div className={sectionFileDetail}>
-                  {embeds.length > 0 && <img src={embeds[0].url} />}
+                  {embeds.length > 0 && <img className={imgGif} src={embeds[0].url} />}
                 </div>
                 <div className={footerSectionBtns}>
                   <button className={btnComment} data-count={answersCount} onClick={(event) => ::this.onClickCommentHandler(event)}>Answers</button>

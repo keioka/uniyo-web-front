@@ -40,6 +40,7 @@ import {
   iconOpenMenu,
   panelMenu,
   footerSectionBtns,
+  imgGif,
 } from '../style'
 
 export default class CardDocument extends PureComponent {
@@ -172,7 +173,7 @@ export default class CardDocument extends PureComponent {
             />
             <div className={sectionContentFooter}>
               <div className={sectionFileDetail}>
-                {embeds.length > 0 && <img src={embeds[0].url} />}
+                {embeds.length > 0 && <img className={imgGif} src={embeds[0].url} />}
                 <ButtonFile {...this.props} />
               </div>
               <div className={footerSectionBtns}>
