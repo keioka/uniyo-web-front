@@ -121,7 +121,7 @@ export Tooltip from './common/Tooltip'
 
 export PanelGif from './panels/PanelGif'
 export PanelEmoji from './panels/PanelEmoji'
-
+export PanelPicturePost from './panels/PanelPicturePost'
 /*
   list
 */
