@@ -25,6 +25,7 @@ import {
   ListMentionSuggestion,
   PanelGif,
   PanelEmoji,
+  PanelPicturePost,
 } from '../../'
 
 import {
@@ -71,6 +72,7 @@ export default class InputPost extends Component {
 
   state = {
     selectedGif: null,
+    uploadedPicture: null,
     contentTab: -1,
     form: {
       rating: 5,
@@ -238,12 +240,20 @@ export default class InputPost extends Component {
       this.props.onPostSubmit(data)
     }
 
-    const embeds = this.state.selectedGif ? {
+    let embeds = this.state.selectedGif ? {
       'embeds[0][text]': '',
       'embeds[0][type]': 'IMAGE',
       'embeds[0][url]': this.state.selectedGif,
       'embeds[0][color]': '',
       'embeds[0][border_left_color]': '',
+    } : {}
+
+    embeds = this.state.uploadedPicture ? {
+      'embeds[0][text]': '',
+      'embeds[0][type]': 'IMAGE',
+      'embeds[0][file_data]': this.state.uploadedPicture,
+      'embeds[0][file_name]': this.state.uploadedPicture.name,
+      'embeds[0][content_type]': this.state.uploadedPicture.type,
     } : {}
 
     switch (currentPostType) {
@@ -420,9 +430,22 @@ export default class InputPost extends Component {
     })
   }
 
+  onClearPicture() {
+    this.setState({
+      uploadedPicture: null,
+    })
+  }
+
   onClickEmoji(emoji) {
     this._input.innerHTML = this._input.innerHTML + emoji.native
     this._input.focus()
+  }
+
+  onUploadedPicture(file) {
+    this.setState({
+      contentTab: -1,
+      uploadedPicture: file,
+    })
   }
 
   render() {
@@ -463,6 +486,12 @@ export default class InputPost extends Component {
                   closePanel={closePanel}
                 />
               }
+              { this.state.contentTab === 1 &&
+                <PanelPicturePost
+                  onUploadedPicture={::this.onUploadedPicture}
+                  closePanel={closePanel}
+                />
+              }
               { this.state.contentTab === 2 && <PanelGif onSelectGif={::this.onSelectGif} closePanel={closePanel} /> }
             </div>
           </div>
@@ -470,6 +499,11 @@ export default class InputPost extends Component {
         {this.state.selectedGif &&
           <div className={wrapperPreview}>
             <img src={this.state.selectedGif} className={imgPreviewGif} alt="" onClick={::this.onClearGif} />
+          </div>
+        }
+        {this.state.uploadedPicture &&
+          <div className={wrapperPreview}>
+            <img src={this.state.uploadedPicture.preview} className={imgPreviewGif} alt="" onClick={::this.onClearPicture} />
           </div>
         }
       </span>
