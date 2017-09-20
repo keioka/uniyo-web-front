@@ -37,11 +37,12 @@ module.exports = function (config) {
         require: [require.resolve('bdd-lazy-var/bdd_lazy_var_global')],
       }
     },
-    reporters: ['mocha', 'coverage'], // A list of reporters to use.
+    // reporters: ['mocha', 'coverage'], // A list of reporters to use.
     webpack: Object.assign({}, webpackBaseConfig, {
       // https://github.com/airbnb/enzyme/blob/master/docs/guides/webpack.md
       // https://github.com/airbnb/enzyme/issues/47#issuecomment-162240128
       // https://github.com/airbnb/enzyme/issues/302#issuecomment-207190560
+      devtool: 'eval',
       plugins: [
         new webpack.DefinePlugin({
           __PROD__: false,
