@@ -2,6 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { Link } from 'react-router'
 import reactStringReplace from 'react-string-replace'
 import ReactEmoji from 'react-emoji'
+import { Emoji } from 'emoji-mart'
 
 import {
   TextMention,
@@ -27,16 +28,12 @@ export default class TextPost extends PureComponent {
 
   render() {
     const { text, showUserInfo, currentPostType } = this.props
-    let parsedText
-
-    parsedText = text.replace(/&lt;/g, (match, i) => { return '<' })
-    parsedText = parsedText.replace(/&gt;/g, (match, i) => { return '>' })
-
-    parsedText = ReactEmoji.emojify(parsedText)
-
-    parsedText = reactStringReplace(parsedText, /&gt;/, (match, i) => {
-      return <span>s</span>
-    })
+    let parsedText = text.replace(/&lt;/g, (match, i) => '<')
+    parsedText = parsedText.replace(/&gt;/g, (match, i) => '>')
+    /*
+      regex to match :D, :santa::skin-tone-3:
+    */
+    parsedText = reactStringReplace(parsedText, /(^:[a-zA-Z0-9_)(\-:]+)(?:)/g, (match, i) => <Emoji emoji={match} size='16px'/>)
 
     parsedText = reactStringReplace(parsedText, /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g, (tag, i) => {
       let type
@@ -67,7 +64,7 @@ export default class TextPost extends PureComponent {
     })
 
     return (
-      <span className={element}>{parsedText}</span>
+      <span className={element}>{parsedText}<Emoji emoji={':D'} size='16px'/></span>
     )
   }
 }
