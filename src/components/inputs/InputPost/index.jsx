@@ -299,6 +299,7 @@ export default class InputPost extends Component {
         const { questionId } = this.props
         submit({
           text,
+          embeds,
           questionId,
         })
         break
