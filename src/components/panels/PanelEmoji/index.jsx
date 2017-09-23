@@ -11,40 +11,55 @@ import {
   element,
 } from './style'
 
+const findParentNode = (parentName, childObj) => {
+  let testObj = childObj.parentNode
+  while(testObj != parentName) {
+    if(!testObj) {
+      return false
+    }
+    testObj = testObj.parentNode
+  }
+  return true
+}
+
+const isElementOnPanel = findParentNode
+
 
 class PanelEmoji extends Component {
 
   constructor() {
     super()
-    // this.onClickWindow = this.onClickWindow.bind(this)
+    this.onClickWindow = this.onClickWindow.bind(this)
+    this.onPressEscKey = this.onPressEscKey.bind(this)
   }
 
-  // componentDidMount() {
-  //   const self = this
-  //   document.getElementById("content").addEventListener('click', self.onClickWindow, false)
-  // }
-  //
-  // componentWillUnmount() {
-  //   const self = this
-  //   document.getElementById("content").removeEventListener('click', self.onClickWindow, false)
-  // }
-  //
-  // onClickWindow(event) {
-  //   event.stopPropagation()
-  //   if (
-  //     event.target.parentNode === this._panel ||
-  //     event.target.parentNode.parentNode === this._panel ||
-  //     event.target.parentNode.parentNode.parentNode === this._panel ||
-  //     event.target.parentNode.parentNode.parentNode.parentNode === this._panel
-  //   ) {
-  //     return
-  //   }
-  //   // this.props.closePanel()
-  // }
+  componentDidMount() {
+    const self = this
+    document.getElementById("content").addEventListener('click', self.onClickWindow, false)
+    document.addEventListener('keydown', self.onPressEscKey)
+  }
+
+  onPressEscKey(event) {
+    if (event.keyCode == 27) {
+      this.props.closePanel()
+    }
+  }
+
+  componentWillUnmount() {
+    const self = this
+    document.getElementById("content").removeEventListener('click', self.onClickWindow, false)
+    document.removeEventListener('keydown', self.onPressEscKey, false)
+  }
+
+  onClickWindow(event) {
+    if (!isElementOnPanel(this._panel, event.target)) {
+      this.props.closePanel()
+    }
+  }
 
   render() {
     return (
-      <div className={element}>
+      <div className={element} ref={(ref) => this._panel = ref}>
         <Picker
           onClick={this.props.onClickEmoji}
           style={{ position: 'absolute', right: '0px' }}

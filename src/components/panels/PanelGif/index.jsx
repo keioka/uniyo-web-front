@@ -35,6 +35,7 @@ class PanelGif extends Component {
   constructor() {
     super()
     this.onClickWindow = this.onClickWindow.bind(this)
+    this.onPressEscKey = this.onPressEscKey.bind(this)
   }
 
   componentDidMount() {
@@ -42,11 +43,19 @@ class PanelGif extends Component {
     fetchGifImages()
     const self = this
     document.getElementById("content").addEventListener('click', self.onClickWindow, false)
+    document.addEventListener('keydown', self.onPressEscKey)
+  }
+
+  onPressEscKey(event) {
+    if (event.keyCode == 27) {
+      this.props.closePanel()
+    }
   }
 
   componentWillUnmount() {
     const self = this
     document.getElementById("content").removeEventListener('click', self.onClickWindow, false)
+    document.removeEventListener('keydown', self.onPressEscKey, false)
   }
 
   onClickWindow(event) {

@@ -23,20 +23,29 @@ class PanelPicturePost extends Component {
   constructor() {
     super()
     this.onClickWindow = this.onClickWindow.bind(this)
+    this.onPressEscKey = this.onPressEscKey.bind(this)
   }
 
   componentDidMount() {
     const self = this
     document.getElementById("content").addEventListener('click', self.onClickWindow, false)
+    document.addEventListener('keydown', self.onPressEscKey)
   }
 
   componentWillUnmount() {
     const self = this
     document.getElementById("content").removeEventListener('click', self.onClickWindow, false)
+    document.removeEventListener('keydown', self.onPressEscKey, false)
   }
 
   onDrop(file) {
     this.props.onUploadedPicture(file[0])
+  }
+
+  onPressEscKey(event) {
+    if (event.keyCode == 27) {
+      this.props.closePanel()
+    }
   }
 
   onClickWindow(event) {
@@ -49,12 +58,12 @@ class PanelPicturePost extends Component {
     ) {
       return
     }
-    // this.props.closePanel()
+    this.props.closePanel()
   }
 
   render() {
     return (
-      <div className={wrapper}>
+      <div className={wrapper} ref={(ref) => this._panel = ref }>
         <Dropzone
           className={dropZone}
           onDrop={::this.onDrop}

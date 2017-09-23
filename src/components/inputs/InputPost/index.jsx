@@ -437,7 +437,8 @@ export default class InputPost extends Component {
     })
   }
 
-  onClickEmoji(emoji) {
+  onClickEmoji(emoji, event) {
+    event.stopPropagation()
     this._input.innerHTML = this._input.innerHTML + emoji.native
     this._input.focus()
   }
