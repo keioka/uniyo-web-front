@@ -71,7 +71,7 @@ export default class TextPost extends PureComponent {
     })
 
     return (
-      <span className={element}>{parsedText}<Emoji emoji={':D'} size='16px'/></span>
+      <span className={element}>{parsedText}</span>
     )
   }
 }
