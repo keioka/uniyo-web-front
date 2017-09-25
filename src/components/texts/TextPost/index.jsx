@@ -24,7 +24,8 @@ const colon = {
   ':D': ':smile:',
   ':)': ':slightly_smiling_face:'
 }
-const replaceEmojiColon = text => text.replace(/(^:[a-zA-Z0-9_)(\-]+)/g, (match, i) => colon[match] ? colon[match] : match)
+
+const replaceEmojiColon = text => text.replace(/(:[a-zA-Z0-9_)(\-]+)/g, (match, i) => colon[match] ? colon[match] : match)
 
 export default class TextPost extends PureComponent {
 
@@ -40,7 +41,7 @@ export default class TextPost extends PureComponent {
       regex to match :D, :santa::skin-tone-3:
     */
     parsedText = replaceEmojiColon(parsedText)
-    parsedText = reactStringReplace(parsedText, /(^:[a-zA-Z0-9_)(\-:]+)(?:)/g, (match, i) => <Emoji emoji={match} size='16px'/>)
+    parsedText = reactStringReplace(parsedText, /(:[a-zA-Z0-9_)(\-:]+)(?:)/g, (match, i) => <Emoji emoji={match} size='16px'/>)
 
     parsedText = reactStringReplace(parsedText, /#([ÂÃÄÀÁÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿa-zA-Z0-9-]+)/g, (tag, i) => {
       let type
