@@ -12,7 +12,7 @@ import {
   receiveDonutsActive,
   spentDonutsActive,
   fontEmptyDonutsCount,
-} from './style'
+} from './style.scss'
 
 export default class NavDonuts extends Component {
 

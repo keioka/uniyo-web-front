@@ -18,7 +18,7 @@ import {
   textFirstLine,
   textSecondLine,
   icon,
-} from './style'
+} from './style.scss'
 
 import { inputHandler } from '../../../utils'
 const { copyToClipboard } = inputHandler

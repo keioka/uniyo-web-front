@@ -26,7 +26,7 @@ import {
   boxInfo,
   boxInfoLeft,
   boxInfoRight,
-} from './style'
+} from './style.scss'
 
 
 const ItemUserDonutGive = ({

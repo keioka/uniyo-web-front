@@ -10,7 +10,7 @@ import {
 import {
   hashtag,
   element,
-} from './style'
+} from './style.scss'
 
 const TYPES = {
   'CLASS_NOTE': 'docs',

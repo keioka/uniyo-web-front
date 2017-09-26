@@ -9,7 +9,7 @@ import { Picker } from 'emoji-mart'
 
 import {
   element,
-} from './style'
+} from './style.scss'
 
 
 class PanelEmoji extends Component {

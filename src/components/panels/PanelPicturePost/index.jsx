@@ -13,7 +13,7 @@ import {
   dropZone,
   dropZoneTitle,
   dropZoneIcon,
-} from './style'
+} from './style.scss'
 
 const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
 const MIME_TYPE = 'image/*'

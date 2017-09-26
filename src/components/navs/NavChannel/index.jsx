@@ -12,7 +12,7 @@ import {
   iconSetting,
   iconOnline,
   iconOffline,
-} from './style'
+} from './style.scss'
 
 import Setting from './setting'
 

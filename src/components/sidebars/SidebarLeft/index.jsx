@@ -50,7 +50,7 @@ import {
   sectionTextAdd,
   sectionTagHotActive,
   inner,
-} from './style'
+} from './style.scss'
 
 import Plus from './plus-active'
 

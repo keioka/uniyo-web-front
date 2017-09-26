@@ -25,7 +25,7 @@ import {
   listUserInviteLeftText,
   listUserInviteLeftTitle,
   listUserInviteLeftSubtitle,
-} from './style'
+} from './style.scss'
 
 import {
   ItemDonutsReceive,

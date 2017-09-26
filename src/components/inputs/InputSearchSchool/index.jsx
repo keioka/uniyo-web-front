@@ -16,7 +16,7 @@ import {
   inputSearch,
   textSchoolName,
   textCityName,
-} from './style'
+} from './style.scss'
 
 const DOWN = "ArrowDown"
 const UP = "ArrowUp"

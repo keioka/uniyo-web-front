@@ -17,7 +17,7 @@ import {
   ulPastNotification,
   ulTitle,
   hr,
-} from './style'
+} from './style.scss'
 
 class SidebarRightNotification extends Component {
 

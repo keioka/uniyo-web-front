@@ -24,7 +24,7 @@ import {
   iconOnline,
   iconOffline,
   iconUsersCount,
-} from './style'
+} from './style.scss'
 
 export default class ItemRecentConversation extends Component {
   render () {

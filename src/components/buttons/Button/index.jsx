@@ -6,7 +6,7 @@ import {
   primary,
   danger,
   option,
-} from './style'
+} from './style.scss'
 
 const Button = ({ className, type, children, onClick }) => {
   let classNames = [element, className]

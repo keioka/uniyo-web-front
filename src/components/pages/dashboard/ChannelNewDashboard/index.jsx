@@ -32,7 +32,7 @@ import {
   sectionUl,
   headerTitle,
   headerSectionSelectedUser,
-} from './style'
+} from './style.scss'
 
 import Cross from './cross'
 

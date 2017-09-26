@@ -6,7 +6,7 @@ import {
   wrapper,
   inputText,
   inputTextLeft,
-} from './style'
+} from './style.scss'
 
 const InputTextTransparent = (props) => {
   const classNames = `${wrapper} ${props.className}`

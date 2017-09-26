@@ -17,7 +17,7 @@ import {
   imageAnimationOne,
   imageAnimationTwo,
   imageAnimationThree,
-} from './style'
+} from './style.scss'
 
 import {
   SidebarRightHistoryDonuts,

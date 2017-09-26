@@ -26,7 +26,7 @@ import {
   sectionContentFotter,
   textUserName,
   sectionCardsTitle,
-} from './style'
+} from './style.scss'
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.api.auth.currentUser,

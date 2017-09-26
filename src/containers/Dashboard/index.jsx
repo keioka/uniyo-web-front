@@ -59,7 +59,7 @@ import {
   overlayerProfilePictureUpdate,
   wrapperIcon,
   barPushNotificationItem,
-} from './style'
+} from './style.scss'
 
 const mapStateToProps = state => ({
   auth: state.api.auth,

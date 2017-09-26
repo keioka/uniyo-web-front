@@ -13,7 +13,7 @@ import {
   read,
   textUserName,
   textHashtag,
-} from './style'
+} from './style.scss'
 
 import { postValue, decorator } from '../../../utils'
 const { extractHashtagFromText } = postValue

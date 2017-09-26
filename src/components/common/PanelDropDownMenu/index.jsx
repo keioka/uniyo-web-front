@@ -9,7 +9,7 @@ import {
   element,
   elementActive,
   elementItem,
-} from './style'
+} from './style.scss'
 
 // import Plus from './plus'
 

@@ -30,7 +30,7 @@ import {
   listUserLeftText,
   listUserLeftTitle,
   listUserLeftSubtitle,
-} from './style'
+} from './style.scss'
 
 
 class SidebarRightChannelUsers extends Component {

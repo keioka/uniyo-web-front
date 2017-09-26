@@ -4,7 +4,7 @@ import {
   page,
   container,
   emoji,
-} from './style'
+} from './style.scss'
 
 export default class Privacy extends Component {
   render() {

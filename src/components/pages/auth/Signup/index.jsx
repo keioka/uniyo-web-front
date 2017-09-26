@@ -27,7 +27,7 @@ import {
   layoutSelectSchoolFotterRight,
   input,
   inputName,
-} from './style'
+} from './style.scss'
 
 export default class Signup extends Component {
 

@@ -17,7 +17,7 @@ import {
   tagRegular,
   btnClose,
   iconNumberMention,
-} from './style'
+} from './style.scss'
 
 function hashCode(str) {
   return str.split('').reduce((prevHash, currVal) =>

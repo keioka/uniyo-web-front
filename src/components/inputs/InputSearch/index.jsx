@@ -5,7 +5,7 @@ import IconSearch from './search-icon'
 import {
   wrapper,
   element,
-} from './style'
+} from './style.scss'
 
 const InputSearch = (props) => {
   const classNames = `${wrapper} ${props.className}`

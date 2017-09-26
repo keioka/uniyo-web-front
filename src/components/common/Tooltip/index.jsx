@@ -7,7 +7,7 @@ import {
   bottom,
   left,
   right,
-} from './style'
+} from './style.scss'
 
 
 export default class Tooltip extends Component {

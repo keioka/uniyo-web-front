@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 import {
   element,
-} from './style'
+} from './style.scss'
 
 import Cross from './cross'
 // import Plus from './plus'

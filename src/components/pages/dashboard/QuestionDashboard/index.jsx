@@ -33,7 +33,7 @@ import {
   sectionCardsTitle,
   sectionNoAnswer,
   sectionNoAnswerTitle,
-} from './style'
+} from './style.scss'
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.api.auth.currentUser,

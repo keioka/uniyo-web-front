@@ -9,7 +9,7 @@ import {
 import {
   element,
   elementInner,
-} from './style'
+} from './style.scss'
 
 type Props = {
   className: String,

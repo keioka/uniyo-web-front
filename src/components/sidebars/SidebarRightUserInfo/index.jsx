@@ -32,7 +32,7 @@ import {
   iconOnlineStatus,
   iconOnline,
   iconOffline,
-} from './style'
+} from './style.scss'
 
 const uniq = (array, param) => {
   return array.filter((item, pos, array) => {

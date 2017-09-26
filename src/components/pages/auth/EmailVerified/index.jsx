@@ -24,7 +24,7 @@ import {
   nav,
   ul,
   active,
-} from './style'
+} from './style.scss'
 
 export default class EmailVerified extends Component {
 

@@ -7,15 +7,15 @@ import {
   info,
   fontFileName,
   fontFileSize,
-} from './style'
+} from './style.scss'
 
-import Zip from './svg/zip'
-import Word from './svg/word'
-import Excel from './svg/excel'
-import Pdf from './svg/pdf'
-import Powerpoint from './svg/powerpoint'
-import Img from './svg/img'
-import Other from './svg/other'
+import Zip from './svg/zip.svg'
+import Word from './svg/word.svg'
+import Excel from './svg/excel.svg'
+import Pdf from './svg/pdf.svg'
+import Powerpoint from './svg/powerpoint.svg'
+import Img from './svg/img.svg'
+import Other from './svg/other.svg'
 import storage from '../../../utils/localStorageHandler'
 
 const getClassNoteDownloadUrl = (classNoteId:number) => {

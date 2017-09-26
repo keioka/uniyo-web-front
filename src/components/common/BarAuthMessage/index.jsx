@@ -10,7 +10,7 @@ import {
   error,
   success,
   btn,
-} from './style'
+} from './style.scss'
 
 import Cross from './cross'
 // import Plus from './plus'

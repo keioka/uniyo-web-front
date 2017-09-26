@@ -28,7 +28,7 @@ import {
   enter,
   leave,
   appear,
-} from './style'
+} from './style.scss'
 
 const TYPES = {
   docs: 'CLASS_NOTE',

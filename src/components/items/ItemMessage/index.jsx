@@ -13,7 +13,7 @@ import {
   wrapper,
   sectionContent,
   paragaph,
-} from './style'
+} from './style.scss'
 
 class ItemMessage extends Component {
 

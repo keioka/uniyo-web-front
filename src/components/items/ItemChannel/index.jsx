@@ -11,7 +11,7 @@ import {
   fontUserNames,
   sectionTagMain,
   sectionTagActive,
-} from './style'
+} from './style.scss'
 
 import {
   decorator,
