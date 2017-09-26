@@ -254,7 +254,7 @@ export default class InputPost extends Component {
       'embeds[0][file_data]': this.state.uploadedPicture,
       'embeds[0][file_name]': this.state.uploadedPicture.name,
       'embeds[0][content_type]': this.state.uploadedPicture.type,
-    } : {}
+    } : embeds
 
     switch (currentPostType) {
       case 'ALL': {
