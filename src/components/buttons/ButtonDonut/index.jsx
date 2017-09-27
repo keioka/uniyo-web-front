@@ -26,10 +26,11 @@ export default class ButtonDonuts extends PureComponent {
   }
 
   static defaultProps = {
+    className: '',
     donutsCount: 0,
   }
 
-  shouldComponentUpdate(nextProps: Props) {
+  shouldComponentUpdate(nextProps:Props) {
     return !(nextProps.donutsCount === this.props.donutsCount)
   }
 
@@ -41,7 +42,7 @@ export default class ButtonDonuts extends PureComponent {
 
   render() {
     const { className, donutsCount } = this.props
-    const classNames:string = `${element} ${className}`
+    const classNames:String = `${element} ${className}`
     return (
       <button
         className={classNames}

@@ -34,7 +34,7 @@ import {
   headerSectionSelectedUser,
 } from './style.scss'
 
-import Cross from './cross'
+import Cross from './cross.svg'
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.api.auth.currentUser,

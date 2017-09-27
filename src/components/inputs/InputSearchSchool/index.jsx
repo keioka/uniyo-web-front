@@ -5,7 +5,7 @@ import {
   InputTextTransparent,
 } from '../../'
 
-import IconSearch from './search-icon'
+import IconSearch from './search-icon.svg'
 
 import {
   containerSearchSchool,

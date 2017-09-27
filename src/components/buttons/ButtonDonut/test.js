@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 
 import ButtonDonuts from './'
-import Donut from '../../index.js'
+import Donut from '../../'
 
 describe('<ButtonDonuts />', () => {
   xit('renders <Donut /> components', () => {

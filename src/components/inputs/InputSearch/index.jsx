@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component, PropTypes } from 'react'
-import IconSearch from './search-icon'
+import IconSearch from './search-icon.svg'
 
 import {
   wrapper,
