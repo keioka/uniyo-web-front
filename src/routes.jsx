@@ -30,6 +30,7 @@ import {
   ChannelNewDashboard,
   PostShowDashboard,
   PostTopDashboard,
+  NeedEmailVerified,
 } from './components'
 
 browserHistory.listen(function (location) {
@@ -55,6 +56,7 @@ export default () => (
         <Route path="/signup" component={SelectSchool} />
         <Route path="/signout" component={SelectSchool} />
         <Route path="/profile_settings" component={Profile} />
+        <Route path="/need_email_verified" component={NeedEmailVerified} />
       </Route>
 
       <Route path="/schools/:schoolSlug" component={Auth}>

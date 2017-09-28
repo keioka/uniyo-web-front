@@ -8,9 +8,9 @@ export const initializeApp = store => next => action => {
 
   // fetch current user info to auth reducer
   if (
-    action.type === actionTypes.tokenRefresh.success ||
-    action.type === actionTypes.logIn.success ||
-    action.type === actionTypes.userCreate.success
+    // action.type === actionTypes.tokenRefresh.success ||
+    action.type === actionTypes.logIn.success
+    // action.type === actionTypes.userCreate.success
   ) {
     const userId = JSON.parse(storage.user).id
     const { accessToken } = storage

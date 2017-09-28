@@ -29,6 +29,18 @@ import {
   inputName,
 } from './style'
 
+const isAllowedDomain = (domains, email) => {
+  for (let domain of domains) {
+    const regexSchoolDomain = new RegExp(`@${domain}`)
+    const isAllowed = regexSchoolDomain.test(email)
+    if (isAllowed) {
+      return true
+    }
+  }
+
+  return false
+}
+
 export default class Signup extends Component {
 
   static propTypes = {
@@ -73,7 +85,21 @@ export default class Signup extends Component {
     const isDemo = this.props.params.schoolSlug === 'demo' ? true : false
     const schools = this.props.schools.data.filter(school => school.slug === this.props.params.schoolSlug)
     const selectedSchool = schools.length > 0 && schools[0]
-
+    const onChangeFirstName = event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })
+    const onChangeLastName = event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })
+    const onChangeEmail = event => {
+      const email = event.target.value
+      if (selectedSchool.signupStrategy === 'SCHOOL_EMAIL_ONLY') {
+        if (isAllowedDomain(selectedSchool.allowedDomains, email)) {
+          this.setState({ form: { ...this.state.form, email } })
+        } else {
+          console.warn('not allowed', email)
+        }
+      } else {
+        this.setState({ form: { ...this.state.form, email } })
+      }
+    }
+    const onChangePassword = event => this.setState({ form: { ...this.state.form, password: event.target.value } })
     return (
       <div className={layoutUserInfo}>
         <div className={header}>
@@ -95,13 +121,13 @@ export default class Signup extends Component {
             <div className={boxNames}>
               <InputTextTransparent
                 className={inputName}
-                onChange={event => this.setState({ form: { ...this.state.form, firstName: event.target.value } })}
+                onChange={onChangeFirstName}
                 placeholder="First Name"
               />
 
               <InputTextTransparent
                 className={inputName}
-                onChange={event => this.setState({ form: { ...this.state.form, lastName: event.target.value } })}
+                onChange={onChangeLastName}
                 placeholder="Last Name"
               />
 
@@ -109,14 +135,14 @@ export default class Signup extends Component {
 
             <InputTextTransparent
               className={input}
-              onChange={event => this.setState({ form: { ...this.state.form, email: event.target.value } })}
+              onChange={onChangeEmail}
               placeholder="name@email.com"
             />
 
             <InputTextTransparent
               type="password"
               className={input}
-              onChange={event => this.setState({ form: { ...this.state.form, password: event.target.value } })}
+              onChange={onChangePassword}
               placeholder="Password"
             />
           </div>
