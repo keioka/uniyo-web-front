@@ -25,6 +25,7 @@ export SelectSchool from './pages/auth/SelectSchool'
 export EmailVerified from './pages/auth/EmailVerified'
 export ResetPassword from './pages/auth/ResetPassword'
 export NewPassword from './pages/auth/NewPassword'
+export NeedEmailVerified from './pages/static/NeedEmailVerification'
 
 /*
   dashboard
