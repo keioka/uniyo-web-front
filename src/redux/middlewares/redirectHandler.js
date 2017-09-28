@@ -9,6 +9,11 @@ export const redirectHandler = store => next => action => {
     console.error('token refresh error')
   }
 
+  if (action.error && action.error.response.data.error.code === 'UniyoError.MustVerifyEmail') {
+    console.error('UniyoError.MustVerifyEmail')
+    browserHistory.push('/need_email_verified')
+  }
+
   if (action.type === actionTypes.userCreate.success) {
     const { query } = browserHistory.getCurrentLocation()
     if(query.class) {

@@ -57,6 +57,7 @@ const {
   signoutProcessSaga,
   sharePostFetchSaga,
   watchFetchGifImagesSaga,
+  resendVerificationEmailSaga,
 } = sagas
 
 export default function* rootSaga() {
@@ -105,6 +106,7 @@ export default function* rootSaga() {
     fork(userPictureUpdateRefreshSaga),
     fork(commentDeleteSaga),
     fork(sharePostFetchSaga),
+    fork(resendVerificationEmailSaga),
     /*
       saga form UI
     */
