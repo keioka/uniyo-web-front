@@ -37,6 +37,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   hashtagAdd: actions.hashtagAdd,
   userPictureUpdate: actions.userPictureUpdate,
   authClearError: actions.authClearError,
+  resendVerificationEmail: actions.resendVerificationEmail,
   setUploadedImageTooLarge: uiActions.setUploadedImageTooLarge,
   clearUploadedImageTooLarge: uiActions.clearUploadedImageTooLarge,
 }, dispatch)
@@ -190,6 +191,7 @@ export default class Auth extends Component {
       hashtags,
       hashtagSearch,
       newPasswordUpdate,
+      resendVerificationEmail,
       setUploadedImageTooLarge,
     } = this.props
 
@@ -207,6 +209,7 @@ export default class Auth extends Component {
       hashtags,
       hashtagSearch,
       newPasswordUpdate,
+      resendVerificationEmail,
       setUploadedImageTooLarge,
     }))
 
