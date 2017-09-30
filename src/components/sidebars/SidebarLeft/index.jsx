@@ -149,11 +149,13 @@ export default class SidebarLeft extends Component {
 
   filteredHashtag() {
     const { keywordForSort } = this.state
+    console.log(keywordForSort)
     return this.uniqueHashtagsCurrentUser && this.uniqueHashtagsCurrentUser
-    .filter(hashtag =>
+    .filter(hashtag => (
       hashtag.hashtag !== '' &&
+      hashtag.hashtag &&
       hashtag.hashtag.toLowerCase().includes(keywordForSort.toLowerCase())
-    )
+    ))
   }
 
   get isSearchResultForHashtagExist() {
