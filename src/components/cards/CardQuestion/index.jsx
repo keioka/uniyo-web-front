@@ -39,7 +39,7 @@ import {
   iconOpenMenu,
   panelMenu,
   imgGif,
-} from '../style'
+} from '../style.scss'
 
 export default class CardQuestion extends PureComponent {
 

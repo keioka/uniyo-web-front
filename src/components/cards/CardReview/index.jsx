@@ -39,7 +39,7 @@ import {
   panelMenu,
   iconOpenMenu,
   imgGif,
-} from '../style'
+} from '../style.scss'
 
 import Star from './star.svg'
 
