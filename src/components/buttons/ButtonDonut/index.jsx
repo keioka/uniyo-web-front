@@ -26,6 +26,7 @@ export default class ButtonDonuts extends PureComponent {
   }
 
   static defaultProps = {
+    onClick: () => {},
     className: '',
     donutsCount: 0,
   }
@@ -48,6 +49,7 @@ export default class ButtonDonuts extends PureComponent {
         className={classNames}
         onClick={::this.onClick}
       >
+        {/* In order to use css 'flex' on Safari properly, need span tag */}
         <span
           className={elementInner}
           data-role="give-donuts"
