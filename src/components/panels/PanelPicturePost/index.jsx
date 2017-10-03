@@ -6,7 +6,7 @@ import uiActions from '../../../redux/actions'
 import Dropzone from 'react-dropzone'
 import 'style-loader!css-loader!emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
-import IconPicture from './icon-picture'
+import IconPicture from './icon-picture.svg'
 import {
   wrapper,
   element,

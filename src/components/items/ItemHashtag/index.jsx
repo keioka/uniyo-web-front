@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import moment from 'moment'
-import Close from './close'
+import Close from './close.svg'
 
 import {
   TextPost,

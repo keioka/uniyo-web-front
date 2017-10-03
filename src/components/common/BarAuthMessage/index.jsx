@@ -12,7 +12,7 @@ import {
   btn,
 } from './style.scss'
 
-import Cross from './cross'
+import Cross from './cross.svg'
 // import Plus from './plus'
 
 const BarAuthMessage = ({

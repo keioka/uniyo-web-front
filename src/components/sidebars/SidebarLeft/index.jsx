@@ -52,7 +52,7 @@ import {
   inner,
 } from './style.scss'
 
-import Plus from './plus-active'
+import Plus from './plus-active.svg'
 
 const uniq = (array, param) => {
   return array.filter((item, pos, array) => {
