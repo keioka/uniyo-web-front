@@ -41,7 +41,7 @@ import {
   panelMenu,
   footerSectionBtns,
   imgGif,
-} from '../style'
+} from '../style.scss'
 
 export default class CardDocument extends PureComponent {
 

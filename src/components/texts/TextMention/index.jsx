@@ -4,7 +4,7 @@ import reactStringReplace from 'react-string-replace'
 
 import {
   mention,
-} from './style'
+} from './style.scss'
 
 export default ({ userId, display, showUserInfo }) => {
   return (

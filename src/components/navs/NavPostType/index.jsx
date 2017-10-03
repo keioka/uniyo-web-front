@@ -13,7 +13,7 @@ import {
   itemReview,
   itemQuestion,
   itemDoc,
-} from './style'
+} from './style.scss'
 
 const types = [
   { id: 1, name: 'ALL', title: 'All posts', path: null, className: itemAll },

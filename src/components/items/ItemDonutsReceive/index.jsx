@@ -14,7 +14,7 @@ import {
   wrapper,
   boxInfoLeft,
   boxInfoRight,
-} from './style'
+} from './style.scss'
 
 const ItemDonutsReceive = ({ id, fromUser, time }) => {
   const { firstName, lastName, name, image } = fromUser

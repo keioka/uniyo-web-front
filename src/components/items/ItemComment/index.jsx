@@ -18,7 +18,7 @@ import {
   panelMenu,
   iconDelete,
   btnDount,
-} from './style'
+} from './style.scss'
 
 class ItemComment extends Component {
 

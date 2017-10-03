@@ -9,7 +9,7 @@ import { Picker } from 'emoji-mart'
 
 import {
   element,
-} from './style'
+} from './style.scss'
 
 const findParentNode = (parentName, childObj) => {
   let testObj = childObj.parentNode

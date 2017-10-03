@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import {
   layout,
   h2,
-} from './style'
+} from './style.scss'
 
 import {
   Donut,

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import {
   layout
-} from './style'
+} from './style.scss'
 
 const LayoutStatic = ({ children }) => (
   <div className={layout} >

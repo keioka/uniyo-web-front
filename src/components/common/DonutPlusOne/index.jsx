@@ -5,7 +5,7 @@ import {
   med,
   sm,
   xs,
-} from './style'
+} from './style.scss'
 
 import PinkDonut from './plus-one-pink.svg'
 import GreenDonut from './plus-one-green.svg'

@@ -18,13 +18,13 @@ import {
   textFirstLine,
   textSecondLine,
   icon,
-} from './style'
+} from './style.scss'
 
 import { inputHandler } from '../../../utils'
 const { copyToClipboard } = inputHandler
 
-import Cross from './cross'
-import Plus from './plus'
+import Cross from './cross.svg'
+import Plus from './plus.svg'
 
 const BASE_URL = __PROD__ ? 'uniyo.io' : 'staging.uniyo.io'
 const BarTagInner = ({ firstLine, secondLine }) => {

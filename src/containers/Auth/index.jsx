@@ -17,7 +17,7 @@ import {
   success,
   link,
   message,
-} from './style'
+} from './style.scss'
 
 const mapStateToProps = state => ({
   schools: state.api.schools,

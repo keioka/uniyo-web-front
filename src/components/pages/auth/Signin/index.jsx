@@ -24,7 +24,7 @@ import {
   ul,
   box,
   active,
-} from './style'
+} from './style.scss'
 
 export default class Signin extends Component {
 

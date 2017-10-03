@@ -1,12 +1,12 @@
 /* @flow */
 import React, { PropTypes } from 'react'
-import IconSearch from './search-icon'
+import IconSearch from './search-icon.svg'
 
 import {
   wrapper,
   inputText,
   inputTextLeft,
-} from './style'
+} from './style.scss'
 
 const InputTextTransparent = (props) => {
   const classNames = `${wrapper} ${props.className}`

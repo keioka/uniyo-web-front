@@ -12,9 +12,9 @@ import {
   iconSetting,
   iconOnline,
   iconOffline,
-} from './style'
+} from './style.scss'
 
-import Setting from './setting'
+import Setting from './setting.svg'
 
 class NavChannel extends Component {
   render() {

@@ -3,9 +3,9 @@ import { Link } from 'react-router'
 
 import {
   element,
-} from './style'
+} from './style.scss'
 
-import Cross from './cross'
+import Cross from './cross.svg'
 // import Plus from './plus'
 
 const ButtonClose = ({
@@ -14,7 +14,7 @@ const ButtonClose = ({
 }) => {
 
   return (
-    <span className={`${element} ${className}`} onClick={onClick}><Cross /></span>
+    <span className={`${element} ${className}`} role="button" onClick={onClick}><Cross /></span>
   )
 }
 

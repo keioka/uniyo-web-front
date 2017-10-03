@@ -17,7 +17,7 @@ import {
   layoutSelectSchoolFotterLeft,
   layoutSelectSchoolFotterRight,
   input,
-} from './style'
+} from './style.scss'
 
 export default class SelectSchool extends Component {
 

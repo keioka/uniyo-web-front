@@ -27,7 +27,7 @@ import {
   layoutSelectSchoolFotterRight,
   input,
   inputName,
-} from './style'
+} from './style.scss'
 
 const isAllowedDomain = (domains, email) => {
   for (let domain of domains) {

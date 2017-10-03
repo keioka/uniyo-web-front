@@ -33,7 +33,7 @@ import {
   show,
   imageFake,
   textUserNameFake,
-} from '../style'
+} from '../style.scss'
 
 export default class CardFake extends PureComponent  {
 

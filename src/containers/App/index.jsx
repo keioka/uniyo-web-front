@@ -11,7 +11,7 @@ import whyDidYouUpdate from 'why-did-you-update'
 
 import {
   app,
-} from './style'
+} from './style.scss'
 
 import {
   LayoutInit,

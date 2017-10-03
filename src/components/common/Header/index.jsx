@@ -25,7 +25,7 @@ import {
   wrapperIcon,
   icon,
   notification,
-} from './style'
+} from './style.scss'
 
 const TYPES = {
   docs: 'CLASS_NOTE',

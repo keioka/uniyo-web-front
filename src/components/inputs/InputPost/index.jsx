@@ -11,13 +11,13 @@ import 'jquery.caret'
 import 'style-loader!css-loader!at.js/dist/css/jquery.atwho.css'
 import 'at.js'
 
-import IconGif from './icon-gif'
-import IconEmoji from './icon-emoji'
-import IconPicture from './icon-picture'
+import IconGif from './icon-gif.svg'
+import IconEmoji from './icon-emoji.svg'
+import IconPicture from './icon-picture.svg'
 
-import IconGifActive from './icon-gif-active'
-import IconEmojiActive from './icon-emoji-active'
-import IconPictureActive from './icon-picture-active'
+import IconGifActive from './icon-gif-active.svg'
+import IconEmojiActive from './icon-emoji-active.svg'
+import IconPictureActive from './icon-picture-active.svg'
 
 import {
   TextPost,
@@ -50,7 +50,7 @@ import {
   sectionMultiContent,
   sectionPreview,
   imgPreviewGif,
-} from './style'
+} from './style.scss'
 
 import { inputHandler } from '../../../utils'
 const { placeCaretAtEnd } = inputHandler

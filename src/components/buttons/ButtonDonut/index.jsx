@@ -9,7 +9,7 @@ import {
 import {
   element,
   elementInner,
-} from './style'
+} from './style.scss'
 
 type Props = {
   className: String,
@@ -26,10 +26,12 @@ export default class ButtonDonuts extends PureComponent {
   }
 
   static defaultProps = {
+    onClick: () => {},
+    className: '',
     donutsCount: 0,
   }
 
-  shouldComponentUpdate(nextProps: Props) {
+  shouldComponentUpdate(nextProps:Props) {
     return !(nextProps.donutsCount === this.props.donutsCount)
   }
 
@@ -41,12 +43,13 @@ export default class ButtonDonuts extends PureComponent {
 
   render() {
     const { className, donutsCount } = this.props
-    const classNames:string = `${element} ${className}`
+    const classNames:String = `${element} ${className}`
     return (
       <button
         className={classNames}
         onClick={::this.onClick}
       >
+        {/* In order to use css 'flex' on Safari properly, need span tag */}
         <span
           className={elementInner}
           data-role="give-donuts"

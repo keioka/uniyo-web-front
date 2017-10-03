@@ -20,7 +20,7 @@ import {
   textCityName,
   iconPlusActive,
   iconPlus,
-} from './style'
+} from './style.scss'
 
 const DOWN = "ArrowDown"
 const UP = "ArrowUp"

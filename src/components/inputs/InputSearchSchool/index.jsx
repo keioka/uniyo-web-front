@@ -5,7 +5,7 @@ import {
   InputTextTransparent,
 } from '../../'
 
-import IconSearch from './search-icon'
+import IconSearch from './search-icon.svg'
 
 import {
   containerSearchSchool,
@@ -16,7 +16,7 @@ import {
   inputSearch,
   textSchoolName,
   textCityName,
-} from './style'
+} from './style.scss'
 
 const DOWN = "ArrowDown"
 const UP = "ArrowUp"

@@ -7,7 +7,7 @@ import {
   instruction,
   instructionCommand,
   instructionItem,
-} from './style'
+} from './style.scss'
 
 import localStorage from '../../../utils/localStorageHandler'
 import postTranspiler from '../../../utils/postTranspiler'

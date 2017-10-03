@@ -35,7 +35,7 @@ import {
   sectionMessagesChunkContent,
   fontGroupName,
   fontDescription,
-} from './style'
+} from './style.scss'
 
 
 const mapStateToProps = (state, ownProps) => {

@@ -60,7 +60,7 @@ import {
   tagBoxIcon,
   rangeSlider,
   boxInputRange,
-} from './style'
+} from './style.scss'
 
 const calcRect = (imageSize, cropSize) => ({
   x: cropSize.x * imageSize.width,

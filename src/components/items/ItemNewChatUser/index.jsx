@@ -16,7 +16,7 @@ import {
   boxUserInfo,
   iconOnline,
   iconOffline,
-} from './style'
+} from './style.scss'
 
 
 const ItemNewChatUser = ({ user, onClick }) => {

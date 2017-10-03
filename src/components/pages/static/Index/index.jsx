@@ -21,13 +21,13 @@ import {
   footer,
   footerColumn,
   footerLabel,
-} from './style'
+} from './style.scss'
 
 import {
   Button,
 } from '../../../'
 
-import Logo from './logo'
+import Logo from './logo.svg'
 import imgProductPath from './product.png'
 
 export default class Index extends Component {
