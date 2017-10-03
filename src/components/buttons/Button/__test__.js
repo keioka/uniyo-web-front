@@ -13,6 +13,13 @@ describe('<Button />', () => {
     })
   })
 
+  describe('[props] className', () => {
+    it('should have className', () => {
+      const wrapper = shallow(<Button>Hello</Button>)
+      expect(wrapper.contains()).to.equal(true)
+    })
+  })
+
   describe('[func] onClick()', () => {
     it('has onClick event', () => {
       const wrapper = shallow(<Button>Hello</Button>)
