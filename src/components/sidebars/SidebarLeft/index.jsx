@@ -86,6 +86,7 @@ export default class SidebarLeft extends Component {
 
   state = {
     keywordForSort: '',
+    isValidSearch: true,
     isShowInputAddTag: false,
     isShowMoreTags: false,
     isShowMoreChannels: false,
@@ -149,12 +150,11 @@ export default class SidebarLeft extends Component {
 
   filteredHashtag() {
     const { keywordForSort } = this.state
-    console.log(keywordForSort)
     return this.uniqueHashtagsCurrentUser && this.uniqueHashtagsCurrentUser
     .filter(hashtag => (
       hashtag.hashtag !== '' &&
       hashtag.hashtag &&
-      hashtag.hashtag.toLowerCase().includes(keywordForSort.toLowerCase())
+      hashtag.hashtag.toLowerCase().includes(keywordForSort && keywordForSort.toLowerCase())
     ))
   }
 
@@ -244,7 +244,9 @@ export default class SidebarLeft extends Component {
       self.clearInputSearch()
     }
     const { keywordForSort } = this.state
-
+    if (!keywordForSort) {
+      return false
+    }
     return allUsers.filter(user => user.name.toLowerCase().includes(keywordForSort.toLowerCase())).map(user =>
       <li className={sectionTag} onClick={() => onClickBtnMessage(user.id)}><span data-user-online className={iconChannelOnlineStatus}>{user.isOnline ? <span className={iconOnline} /> : <span className={iconOffline} />}</span> {user.name}</li>
     )
@@ -362,9 +364,6 @@ export default class SidebarLeft extends Component {
 
         const ComponentsTrendingHashtag = this.filteredTrendingHashtag.map((hashtag, index) => {
           const classNames = []
-          // if (!this.state.isShowMoreTags && index > MAX_NUMBER_SHOW_ITEM) {
-          //   classNames.push(hide)
-          // }
           const isSelected = this.props.selectedHashtag === hashtag
 
           return (
@@ -491,13 +490,13 @@ render() {
   const onChangeInputSearchTag = (event) => {
     const { value } = event.target
     const regexEmpty = /^\s+$/
-    const inValidSearch = value && value.match(/\$|\^|\&|\*|\(|\)|\-|\+|\=/) && value.match(/\w+/)[0]
+    const isValidSearch = value && !value.match(/\$|\^|&|\*|\(|\)|-|\+|=/) && value.match(/\w+/)[0] || value === ''
     const keyword = value && value.match(/\w+/) && value.match(/\w+/)[0]
-    if (!regexEmpty.test(value)) {
+    if (value && !regexEmpty.test(value)) {
       userSearch({ query: keyword })
       hashtagSearch({ query: keyword })
     }
-    this.setState({ keywordForSort: keyword, inValidSearch: inValidSearch })
+    this.setState({ keywordForSort: keyword, isValidSearch })
   }
 
   return (
@@ -519,7 +518,7 @@ render() {
               </h3>
             </Link>
           </ul>
-         {this.state.inValidSearch ?
+         {!this.state.isValidSearch ?
          <h4 className={sectionLabel}>
            No search result 😫
          </h4>
