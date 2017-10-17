@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "better-npm-run test",
+    "test": "better-npm-run test --maxWorkers=2",
     "test-watch": "better-npm-run test --notify --watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "better-npm-run dev",
@@ -163,6 +163,7 @@
     "postcss-simple-vars": "^3.1.0",
     "react-addons-test-utils": "^15.5.1",
     "react-hot-loader": "^3.0.0-beta.5",
+    "react-test-renderer": "^16.0.0",
     "redux-devtools-extension": "^2.13.0",
     "redux-saga-devtools": "^0.1.1",
     "regenerator-runtime": "^0.11.0",
