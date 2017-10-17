@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "better-npm-run test --notify --watch",
-    "test-watch": "karma start --auto-watch",
+    "test": "better-npm-run test",
+    "test-watch": "better-npm-run test --notify --watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "better-npm-run dev",
     "build": "better-npm-run build",
