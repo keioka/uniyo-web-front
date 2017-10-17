@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "better-npm-run test",
+    "test": "better-npm-run test --harmony_proxies",
     "test-watch": "better-npm-run test --notify --watch",
     "lint": "./node_modules/.bin/eslint",
     "dev": "better-npm-run dev",
