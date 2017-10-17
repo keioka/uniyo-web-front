@@ -82,6 +82,10 @@ export default class Donut extends Component {
       <EmptyDonut className={styleEmpty} /> :
       <ComponentDonut className={classNames.join(' ')} />
 
-    return renderDonut
+    return (
+      <div>
+        {renderDonut}
+      </div>
+    )
   }
 }
