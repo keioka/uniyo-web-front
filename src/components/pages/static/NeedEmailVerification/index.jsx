@@ -24,7 +24,7 @@ import {
   nav,
   ul,
   active,
-} from './style'
+} from './style.scss'
 
 const NeedEmailVerified = ({ resendVerificationEmail, auth }) => (
   <div className={layoutUserInfo}>
