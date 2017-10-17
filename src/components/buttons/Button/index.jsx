@@ -14,19 +14,6 @@ type Props = {
   onClick: Function,
 }
 
-Button.propTypes = {
-  className: PropTypes.string,
-  type: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
-
-Button.defaultProps = {
-  className: '',
-  type: 'primary',
-  onClick: () => {},
-}
-
 const Button = ({ className, type, children, onClick }) => {
   let classNames = [element, className]
   switch (type) {
@@ -52,5 +39,18 @@ const Button = ({ className, type, children, onClick }) => {
   )
 }
 
+
+Button.propTypes = {
+  className: PropTypes.string,
+  type: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
+
+Button.defaultProps = {
+  className: '',
+  type: 'primary',
+  onClick: () => {},
+}
 
 export default Button
