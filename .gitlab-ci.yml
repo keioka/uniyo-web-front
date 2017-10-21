@@ -1,0 +1,34 @@
+image: node:8
+
+stages:
+  - test
+  - deploy
+
+before_script:
+  # Install ssh-agent
+  - 'which ssh-agent || (sudo apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+  - npm install
+
+test:
+  stage: test
+  script:
+    - npm test
+
+deploy_staging:
+  stage: deploy
+  script:
+    - ./deploy-staging.sh
+  only:
+    - staging
+
+deploy_production:
+  stage: deploy
+  script:
+    - ./deploy.sh
+  only:
+    - master
